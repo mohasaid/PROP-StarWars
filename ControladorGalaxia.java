@@ -223,7 +223,7 @@ public class ControladorGalaxia
     
     /** HACER ESTO **/
     
-    // Pre: Cierto
+    /*// Pre: Cierto
     // Post:
     public String carregarConjuntGalaxia(String directori) throws Exception
     {
@@ -272,5 +272,6 @@ public class ControladorGalaxia
     public void guardarConjuntGalaxia()
     {
     	
-    }
+    }*/
 }
+
