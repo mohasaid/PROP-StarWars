@@ -5,12 +5,20 @@ public class Grafo {
     private ArrayList<Nodo> nodos;
     private ArrayList<Arco> arcos;
     
-    public Grafo(ArrayList<Nodo> n, ArrayList<Arco> a) {
-    	nodos = n;
-    	arcos = a;
+    
+    public Grafo()
+    {
+    	nodos = new ArrayList<Nodo>();
+    	arcos = new ArrayList<Arco>();
+    }
+    
+    public Grafo(ArrayList<Nodo> n, ArrayList<Arco> a) 
+    {
+    	nodos = new ArrayList<Nodo>(n);
+    	arcos = new ArrayList<Arco>(a);
     }
 
-    public Arco acroEntreNodos(Nodo origin, Nodo destination)
+    public Arco getArcoEntreNodos(Nodo origin, Nodo destination)
     {
     	Iterator<Arco> it = arcos.iterator();
     	while(it.hasNext()) {
@@ -18,6 +26,12 @@ public class Grafo {
     		if(actual.ConsultarOrigen().consultar_id() == origin.consultar_id() && actual.ConsultarDestino().consultar_id() == destination.consultar_id()) return actual;
     	}
     	return null;
+    }
+    
+    public void setArcoEntreNodos(Nodo origin, Nodo destination, Arco a)
+    {
+    	a.ModificarOrigen(origin);
+    	a.ModificarDestino(destination);
     }
     
     public ArrayList<Nodo> getNodes() {
@@ -34,6 +48,16 @@ public class Grafo {
 
     public void setEdges(ArrayList<Arco> edges) {
         this.arcos = edges;
+    }
+    
+    public void addNodo(Nodo n)
+    {
+    	nodos.add(n);
+    }
+    
+    public void addArco(Arco a)
+    {
+    	arcos.add(a);
     }
 
 }
