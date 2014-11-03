@@ -1,10 +1,10 @@
 import java.util.*;
 
-//Falta función que de el treeSet de los planetas!
+//Falta funciÃ³n que de el treeSet de los planetas!
 public class ControladorPlaneta{
     private static TreeSet<Planeta> listaPlanetas;
-    private static int idP = 0;
-     
+    private static boolean Fuente;
+    private static boolean Sumidero;
     //Pre: Cierto.
     //Post: Crea un ControladorPlaneta.
     public ControladorPlaneta()
@@ -43,32 +43,40 @@ public class ControladorPlaneta{
     //Post: Crea un planeta automaticamente con atributos aleatorios.
     public void PlanetaAuto() throws Exception 
     {
-        // FALTA DEFINIR MINIMO Y MAXIMO VALORES DE pAuto
-        Random pAuto = new Random();
-        int idAuto = pAuto.nextInt();
+    	Random rn = new Random();
+    	int range = 9999;
+    	int randomNum =  rn.nextInt(range);
+        int idAuto = randomNum.nextInt();
         while(existeixPlaneta(idAuto)) {
-            idAuto = pAuto.nextInt();
+            idAuto = randomNum.nextInt();
         }
-        int coste = pAuto.nextInt();
+        int coste = randomNum.nextInt();
         Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
-        Coo.setFirst(pAuto.nextInt());
-        Coo.setSecond(pAuto.nextInt());
-        Planeta p = new Planeta(idAuto, coste, Coo);
+        Coo.setFirst(randomNum.nextInt());
+        Coo.setSecond(randomNum.nextInt());
+        Random rb = new Random();
+        boolean F;
+        boolean S;
+        if (!Fuente) F = rb.nextBoolean();
+        else if(!Sumidero) S = rb.nextBoolean();
+        Planeta p = new Planeta(idAuto, coste, Coo, F, S);
         listaPlanetas.add(p);
     }
     //Pre: Cierto.
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k y Coordenadas = Coo.
-    public void Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception {
+    public void Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception {
         if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
+        if(F && Fuente) throw new Exception ("Error: Ya existe un planeta Fuente");
+        if(S && Sumidero) throw new Exception ("Error: Ya existe un planeta Sumidero");
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(p);
     }
-    //Pre: Cierto.
+    /*//Pre: Cierto.
     //Post: Retorna la id del planeta.
     public int Consultar_id(int id) throws Exception
     {
         return BuscarPlaneta(id).Consultar_id();
-    }
+    }*/
     //Pre: Cierto.
     //Post: Retorna la Capacidad del planeta.
     public int Consultar_Capacidad(int id) throws Exception 
@@ -124,7 +132,7 @@ public class ControladorPlaneta{
         return BuscarPlaneta(id).ConsultarLNaves();
     }
     //Pre: Cierto.
-    //Post: Retorna el tamaño de listaPlanetas.
+    //Post: Retorna el tamaÃ±o de listaPlanetas.
     public int Consultar_Size() 
     {
         return listaPlanetas.size();
