@@ -5,8 +5,10 @@ import java.util.TreeSet;
 public class Planeta
 {
     private int idPlaneta; //Identificador del planeta
-    private int Capacidad; //Nº de naves que pueden repostar
+    private int Capacidad; //No. de naves que pueden repostar
     private int Coste; //Precio del combustible del planeta.
+    //private boolean Fuente; //Los booleanos se inicializan a false. 
+    //private boolean Sumidero; //Los booleanos se inicializan a false. 
     private Pair<Integer,Integer> Coordenadas; //Coordenadas del planeta en la galaxia
     private TreeSet<Integer> LRS; //Lista de rutas que salen del planeta.
     private TreeSet<Integer> LRE; //Lista de rutas que entran en el planeta.
@@ -42,13 +44,15 @@ public class Planeta
     
     // Pre: Cierto.
     // Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k y Coordenadas = Coo.
-    public Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception
+    public Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception
     {
         if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
         idPlaneta = id;
         Capacidad = 0; // Viene definida por las rutas por lo tanto no puede haber error
         Coste = k;
-        Coordenadas.setFirst(Coo.getFirst()); // ¿¿Exception de fura de la galaxia?? - YA LO HACE GALAXIA
+        Fuente = F;
+        Sumidero = S;
+        Coordenadas.setFirst(Coo.getFirst());
         Coordenadas.setSecond(Coo.getSecond());
         LRS = new TreeSet<Integer>();
         LRE = new TreeSet<Integer>();
@@ -77,7 +81,18 @@ public class Planeta
         if(Coste == -1) throw new Exception ("Error: Al Planeta no se le ha asignado ningun Coste");
         return Coste;
     }
-     
+    
+    //Pre: Cierto.
+    //Post: Retorna true si el planeta es Fuente.
+    public boolean Consultar_Fuente(){
+    	return Fuente;
+    }
+    
+    //Pre: Cierto.
+    //Post: Retorna true si el planeta es Sumidero.
+    public boolean Consultar_Sumidero(){
+    	return Sumidero;
+    }
     //Pre: Cierto.
     //Post: Retorna las Coordenadas del planeta.
     public Pair<Integer,Integer> consultar_coordenades() //No se como funciona en pairs
@@ -146,14 +161,14 @@ public class Planeta
         Coordenadas.setSecond(rndY);
     }
     //Pre: Cierto
-    //Post: Añade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
+    //Post: AÃ±ade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
     public void Anadir_Salida(int id)
     {
         LRS.add(id);
     }
      
     //Pre: Cierto
-    //Post: Añade la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
+    //Post: AÃ±ade la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
     public void Anadir_Entrada(int id)
     {
         LRE.add(id);
@@ -172,7 +187,12 @@ public class Planeta
     {
         LRE.remove(id);
     }
- 
+    
+    //Pre: Cierto.
+    //Post: Borra la id de la nave "id" que estaba en el planeta de la lista de naves que estan en el planeta.
+    public void Borrar_Nave(int id) {
+    	LNaves.remove(id);
+    }
     //Pre: Cierto.
     //Post: Se elimina el planeta.
     public void Borrar()
