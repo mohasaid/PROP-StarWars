@@ -1,0 +1,15 @@
+import java.util.LinkedList;
+
+public class FordFulkerson {
+	private Grafo g;
+	private Grafo g_residual;
+	
+	
+	private boolean bfs(int origen1, int destino1)
+	{
+		Nodo origen = this.g_residual.getNodes().get(origen1);
+		Nodo destino = this.g_residual.getNodes().get(origen1);
+		LinkedList<Nodo> q = new LinkedList<Nodo>();
+		boolean[] visitados = new boolean[this.g.getNodes().size()];
+	}
+}
