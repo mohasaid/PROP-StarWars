@@ -7,8 +7,8 @@ public class Planeta
     private int idPlaneta; //Identificador del planeta
     private int Capacidad; //No. de naves que pueden repostar
     private int Coste; //Precio del combustible del planeta.
-    //private boolean Fuente; //Los booleanos se inicializan a false. 
-    //private boolean Sumidero; //Los booleanos se inicializan a false. 
+    private boolean Fuente; //Los booleanos se inicializan a false. 
+    private boolean Sumidero; //Los booleanos se inicializan a false. 
     private Pair<Integer,Integer> Coordenadas; //Coordenadas del planeta en la galaxia
     private TreeSet<Integer> LRS; //Lista de rutas que salen del planeta.
     private TreeSet<Integer> LRE; //Lista de rutas que entran en el planeta.
@@ -42,6 +42,17 @@ public class Planeta
         LRE = new TreeSet<Integer>(); //No hay rutas que entren al planeta
     }
     
+    public Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception
+    {
+    	 if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
+         idPlaneta = id;
+         Capacidad = 0; // Viene definida por las rutas por lo tanto no puede haber error
+         Coste = k;
+         Coordenadas.setFirst(Coo.getFirst());
+         Coordenadas.setSecond(Coo.getSecond());
+         LRS = new TreeSet<Integer>();
+         LRE = new TreeSet<Integer>();
+    }
     // Pre: Cierto.
     // Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k y Coordenadas = Coo.
     public Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception
@@ -161,14 +172,14 @@ public class Planeta
         Coordenadas.setSecond(rndY);
     }
     //Pre: Cierto
-    //Post: AÃ±ade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
+    //Post: AÃƒÂ±ade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
     public void Anadir_Salida(int id)
     {
         LRS.add(id);
     }
      
     //Pre: Cierto
-    //Post: AÃ±ade la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
+    //Post: AÃƒÂ±ade la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
     public void Anadir_Entrada(int id)
     {
         LRE.add(id);
