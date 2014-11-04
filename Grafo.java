@@ -18,14 +18,15 @@ public class Grafo {
     	arcos = new ArrayList<Arco>(a);
     }
 
-    public Arco getArcoEntreNodos(Nodo origin, Nodo destination)
+    public ArrayList<Arco> getArcosEntreNodos(Nodo origin, Nodo destination)
     {
     	Iterator<Arco> it = arcos.iterator();
+    	ArrayList<Arco> ar = new ArrayList<Arco>();
     	while(it.hasNext()) {
     		Arco actual = it.next();
-    		if(actual.ConsultarOrigen().consultar_id() == origin.consultar_id() && actual.ConsultarDestino().consultar_id() == destination.consultar_id()) return actual;
+    		if(actual.ConsultarOrigen().consultar_id() == origin.consultar_id() && actual.ConsultarDestino().consultar_id() == destination.consultar_id()) ar.add(actual);
     	}
-    	return null;
+    	return ar;
     }
     
     public void setArcoEntreNodos(Nodo origin, Nodo destination, Arco a)
@@ -59,5 +60,4 @@ public class Grafo {
     {
     	arcos.add(a);
     }
-
 }
