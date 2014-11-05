@@ -1,15 +1,42 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class FordFulkerson {
 	private Grafo g;
 	private Grafo g_residual;
 	
 	
-	private boolean bfs(int origen1, int destino1)
+	private boolean bfs(int origen1, int destino1, int path[])
 	{
-		Nodo origen = this.g_residual.getNodes().get(origen1);
-		Nodo destino = this.g_residual.getNodes().get(origen1);
-		LinkedList<Nodo> q = new LinkedList<Nodo>();
-		boolean[] visitados = new boolean[this.g.getNodes().size()];
+		int V = g_residual.getNodes().size();
+		Queue<Integer> q = new LinkedList<Integer>();
+		boolean[] visitados = new boolean[V];
+		path = new int[V];
+		q.add(Integer.valueOf(origen1));
+		path[origen1] = -1;
+		visitados[origen1] = true;
+		while(!q.isEmpty()) {
+			Integer actual = q.poll();
+			Nodo ac = g_residual.getNodo(actual.intValue());
+			for(int v = 0; v < V; ++v) {
+				Nodo n1 = g_residual.getNodo(v);
+				ArrayList<Arco> ara =  g_residual.getArcosEntreNodos(ac,n1);
+				for(int i = 0; i < ara.size(); ++i) {
+					if(visitados[v] == false && ara.get(i).ConsultarOrigen().equals(ac) && ara.get(i).ConsultarDestino().equals(n1) && ara.get(i).ConsultarCapacidad() > 0)  {
+						q.add(Integer.valueOf(v));
+						path[v] = actual.intValue();
+						visitados[v] = true;
+					}	
+				}
+			}
+		}
+		return (visitados[destino1] == true);
 	}
+	
+	
+	
+	
+	
+	
 }
