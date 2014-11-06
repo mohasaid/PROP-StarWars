@@ -6,7 +6,7 @@ public class Arco {
     private Nodo destino;
     private int capacidad;
     private int coste; //Contiene la distancia/precio del arco según la función de coste escogida
- 
+    private int idRuta;
      
 //CREADORAS
      
@@ -18,15 +18,17 @@ public class Arco {
         destino = new Nodo();
         capacidad = 0;
         coste = -1;
+        idRuta=-1;
     }
     //Pre:cierto
     //Post: Crea un Arco inicializado
-    public void Arco(int ident, Nodo o, Nodo d, int c){
+    public void Arco(int ident, Nodo o, Nodo d, int c,int idr){
         id = ident;
         origen = o;
         destino = d;
         capacidad = c;
         coste = -1;
+        idRuta= idr;
     }
  
 //CONSULTORAS
@@ -56,7 +58,11 @@ public class Arco {
     public int ConsultarCoste(){
         return coste;
     }
-     
+    //pre:cierto
+    //post: Devuelve el identificador de la ruta original
+    public int CinsultarIdRuta(){
+    	return idRuta;
+    }
 //MODIFICADORAS
      
     //Pre: Cierto
@@ -83,5 +89,8 @@ public class Arco {
     //Post el coste del arco pasa valer cn
     public void ModificarCoste(int cn){
         coste = cn;
+    }
+    public void ModificarIdRuta(int idrn){
+    	idRuta = idrn;
     }
 }
