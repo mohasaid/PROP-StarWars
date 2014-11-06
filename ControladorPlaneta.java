@@ -1,6 +1,6 @@
 import java.util.*;
 
-//Falta funciÃ³n que de el treeSet de los planetas!
+//Falta funciÃƒÂ³n que de el treeSet de los planetas!
 public class ControladorPlaneta{
     private static TreeSet<Planeta> listaPlanetas;
     private static boolean Fuente;
@@ -90,6 +90,18 @@ public class ControladorPlaneta{
         return BuscarPlaneta(id).Consultar_Coste();
     }
     //Pre: Cierto.
+    //Post: Retorna true si el planeta es fuente.
+    public boolean Consultar_Fuente(int id) throws Exception
+    {
+    	return BuscarPlaneta(id).Consultar_Fuente();
+    }
+    //Pre: Cierto.
+    //Post: Retorna true si el planeta es sumidero.
+    public boolean Consultar_Sumidero(int id) throws Exception
+    {
+    	return BuscarPlaneta(id).Consultar_Sumidero();
+    }
+    //Pre: Cierto.
     //Post: Retorna las Coordenadas del planeta.
     public Pair<Integer,Integer> Consultar_Coordenadas(int id) throws Exception
     {
@@ -132,7 +144,7 @@ public class ControladorPlaneta{
         return BuscarPlaneta(id).ConsultarLNaves();
     }
     //Pre: Cierto.
-    //Post: Retorna el tamaÃ±o de listaPlanetas.
+    //Post: Retorna el tamaÃƒÂ±o de listaPlanetas.
     public int Consultar_Size() 
     {
         return listaPlanetas.size();
