@@ -41,7 +41,8 @@ public class Planeta
         LRS = new TreeSet<Integer>(); //No hay rutas que salgan del planeta
         LRE = new TreeSet<Integer>(); //No hay rutas que entren al planeta
     }
-    
+    //Pre: Cierto.
+    // Post: Crea un planeta con idPlaneta = id, Coste = k y Coordenadas = Coo.
     public Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception
     {
     	 if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
@@ -54,7 +55,7 @@ public class Planeta
          LRE = new TreeSet<Integer>();
     }
     // Pre: Cierto.
-    // Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k y Coordenadas = Coo.
+    // Post: Crea un planeta con idPlaneta = id, Coste = k y Coordenadas = Coo, .
     public Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception
     {
         if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
@@ -158,7 +159,8 @@ public class Planeta
         if (k < 0) throw new Exception("Error: El Coste del Planeta no puede ser negativo");
         Coste = k;
     }
-    
+    //Pre: Cierto.
+    //Post: Modifica la Capacidad, Capacidad = c.
     public void modificarCapacidad(int c) throws Exception
     {
     	if(c < 0) throw new Exception("Error: La capacidad no puede ser negativa");
