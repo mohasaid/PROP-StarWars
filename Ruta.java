@@ -32,7 +32,7 @@ public class Ruta {
     }
        
     
-  //Pre: Cierto
+    //Pre: Cierto
     //Post: Crea una ruta con id = "i", capacidad = "c", distancia = "d", planetaA = "pA", planetaB = "pB", bidireccional = "b"
     public Ruta(int i, int c, int d, int pA, int pB, boolean b) throws Exception
     {
