@@ -1,4 +1,4 @@
-import java.util.Comparator;
+import java.util.*;
 
 
 public class TipoNave4 extends Nave{
