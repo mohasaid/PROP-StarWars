@@ -54,28 +54,28 @@ public class Galaxia {
             }
             int tmp;
             for(int i = 0; i < Size; ++i) {
-                Integer a = pai.get(i).getFirst();
-                Integer b = pai.get(i).getSecond();
+                Integer a = pai.get(i).consultarPrimero();
+                Integer b = pai.get(i).consultarSegundo();
                 Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a, b);
-                if(pa.getFirst() > N || pa.getSecond() > N ) throw new Exception("Error: las coordenadas que forman el limite no pueden ser mayores que el limite de la galaxia");
-                if(pa.getFirst() < 0 || pa.getSecond() < 0) throw new Exception("Error: las coordenades que forman el limite no pueden ser menores que 0");
+                if(pa.consultarPrimero() > N || pa.consultarSegundo() > N ) throw new Exception("Error: las coordenadas que forman el limite no pueden ser mayores que el limite de la galaxia");
+                if(pa.consultarPrimero() < 0 || pa.consultarSegundo() < 0) throw new Exception("Error: las coordenades que forman el limite no pueden ser menores que 0");
                 tmp = i;
-                for(int j = 0; (j < Size && (!tr.get(i).getFirst() || !tr.get(i).getSecond())); ++j) {
+                for(int j = 0; (j < Size && (!tr.get(i).consultarPrimero() || !tr.get(i).consultarSegundo())); ++j) {
                 	if(i != j && j != tmp) {
-                        if((((pa.getFirst().intValue() + 1) == pai.get(j).getFirst().intValue()) || ((pa.getFirst().intValue() - 1) == pai.get(j).getFirst().intValue()) || (pa.getFirst().intValue() == pai.get(j).getFirst().intValue())) && ((pa.getSecond().intValue() + 1 == pai.get(j).getSecond().intValue()) || (pa.getSecond().intValue() - 1 == pai.get(j).getSecond().intValue()) || (pa.getSecond().intValue() == pai.get(j).getSecond().intValue()))) {
+                        if((((pa.consultarPrimero().intValue() + 1) == pai.get(j).consultarPrimero().intValue()) || ((pa.consultarPrimero().intValue() - 1) == pai.get(j).consultarPrimero().intValue()) || (pa.consultarPrimero().intValue() == pai.get(j).consultarPrimero().intValue())) && ((pa.consultarSegundo().intValue() + 1 == pai.get(j).consultarSegundo().intValue()) || (pa.consultarSegundo().intValue() - 1 == pai.get(j).consultarSegundo().intValue()) || (pa.consultarSegundo().intValue() == pai.get(j).consultarSegundo().intValue()))) {
                         	tmp = j;
-    	                    if(tr.get(i).getFirst().booleanValue() == true) {
-    	                    	tr.get(i).setSecond(true);
+    	                    if(tr.get(i).consultarPrimero().booleanValue() == true) {
+    	                    	tr.get(i).ponSegundo(true);
     	                    }
     	                    else {
-    	                    	tr.get(i).setFirst(true);
+    	                    	tr.get(i).ponPrimero(true);
     	                    }
                     }
                 }
             }
          }
          for(int i = 0; i < tr.size(); ++i) { 
-        	if(tr.get(i).getFirst().booleanValue() == false || tr.get(i).getSecond().booleanValue() == false) {
+        	if(tr.get(i).consultarPrimero().booleanValue() == false || tr.get(i).consultarSegundo().booleanValue() == false) {
                 res = false;
                 break;
             }
@@ -143,8 +143,8 @@ public class Galaxia {
     private void inicialitzaMatriu()
     {
     	for(int i = 0; i < limits.size(); ++i) {
-    		int a = limits.get(i).getFirst().intValue();
-    		int b = limits.get(i).getSecond().intValue();
+    		int a = limits.get(i).consultarPrimero().intValue();
+    		int b = limits.get(i).consultarSegundo().intValue();
     		gal[a][b] = -1;
     	}
     }
@@ -160,7 +160,7 @@ public class Galaxia {
     {
     	for(int i = 0; i < l.size(); ++i) {
     		for(int j = i+1; j < l.size(); ++j) {
-    			if((l.get(j).getFirst().equals(l.get(i).getFirst())) && (l.get(j).getSecond().equals(l.get(i).getSecond()))) return true;
+    			if((l.get(j).consultarPrimero().equals(l.get(i).consultarPrimero())) && (l.get(j).consultarSegundo().equals(l.get(i).consultarSegundo()))) return true;
     		}
     	}
     	return false;
@@ -174,11 +174,11 @@ public class Galaxia {
      */
     private Pair<Integer, Integer> menorXY()
     {
-    	Integer first = limits.get(0).getFirst();
-    	Integer second = limits.get(0).getSecond();
+    	Integer first = limits.get(0).consultarPrimero();
+    	Integer second = limits.get(0).consultarSegundo();
     	for(int i = 1; i < limits.size(); ++i) {
-    		if(limits.get(i).getFirst() < first) first = limits.get(i).getFirst();
-    		if(limits.get(i).getSecond() < second) second = limits.get(i).getSecond();
+    		if(limits.get(i).consultarPrimero() < first) first = limits.get(i).consultarPrimero();
+    		if(limits.get(i).consultarSegundo() < second) second = limits.get(i).consultarSegundo();
     	}
     	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(first,second);
     	return pa;
@@ -192,11 +192,11 @@ public class Galaxia {
      */
     private Pair<Integer, Integer> majorXY()
     {
-    	Integer first = limits.get(0).getFirst();
-    	Integer second = limits.get(0).getSecond();
+    	Integer first = limits.get(0).consultarPrimero();
+    	Integer second = limits.get(0).consultarSegundo();
     	for(int i = 1; i < limits.size(); ++i) {
-    		if(limits.get(i).getFirst() > first) first = limits.get(i).getFirst();
-    		if(limits.get(i).getSecond() > second) second = limits.get(i).getSecond();
+    		if(limits.get(i).consultarPrimero() > first) first = limits.get(i).consultarPrimero();
+    		if(limits.get(i).consultarSegundo() > second) second = limits.get(i).consultarSegundo();
     	}
     	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(first,second);
     	return pa;
@@ -568,12 +568,12 @@ public class Galaxia {
     {
     	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
     	Pair<Integer, Integer> pa = p.consultar_coordenades();
-    	boolean b = existeixPlanetaCoordenades(pa.getFirst().intValue(),pa.getSecond().intValue()); // true si hay uno
-    	boolean c = dintreLimitUsuari(pa.getFirst().intValue(),pa.getSecond().intValue()); // true si esta
+    	boolean b = existeixPlanetaCoordenades(pa.consultarPrimero().intValue(),pa.consultarSegundo().intValue()); // true si hay uno
+    	boolean c = dintreLimitUsuari(pa.consultarPrimero().intValue(),pa.consultarSegundo().intValue()); // true si esta
     	if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto");
     	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
     	planetes.add(p.Consultar_id());
-    	gal[pa.getFirst()][pa.getSecond()] = p.Consultar_id();
+    	gal[pa.consultarPrimero()][pa.consultarSegundo()] = p.Consultar_id();
     }
    
     // Pre: Cierto
@@ -591,8 +591,8 @@ public class Galaxia {
     	if(limits.size() > 0) { // Galaxia con limites impuestos
 		    Pair<Integer, Integer> pa = menorXY();
 		    Pair<Integer, Integer> pa1 = majorXY();
-		    int rndX = randInt(pa.getFirst().intValue(), pa1.getFirst().intValue());
-		    int rndY = randInt(pa.getSecond().intValue(), pa1.getSecond().intValue());
+		    int rndX = randInt(pa.consultarPrimero().intValue(), pa1.consultarPrimero().intValue());
+		    int rndY = randInt(pa.consultarSegundo().intValue(), pa1.consultarSegundo().intValue());
 		    boolean b = existeixPlanetaCoordenades(rndX, rndY);
 		    boolean c = dintreLimitUsuari(rndX, rndY);
 		    if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto");
@@ -637,7 +637,7 @@ public class Galaxia {
         	eliminarNau(it.next());
         }
         Pair<Integer, Integer> co = p.consultar_coordenades();
-        gal[co.getFirst()][co.getSecond()] = 0;
+        gal[co.consultarPrimero()][co.consultarSegundo()] = 0;
         planetes.remove(p.Consultar_id());
     }
     
