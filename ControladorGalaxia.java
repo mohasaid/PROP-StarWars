@@ -327,44 +327,7 @@ public class ControladorGalaxia
     // Post:
     public String carregarConjuntGalaxia(String directori) throws Exception
     {
-    	// Per evitar conflictes, esborrem el que tenim actualment
-    	g.eliminarContingutGalaxia();
-    	String res;
-    	CDades.OpenRead(directori);
-    	while(!(res = CDades.carregar()).isEmpty()) {
-    		Scanner in = new Scanner(res);
-    	       in.useDelimiter("\\@");
-    	       String s;
-    	       while (in.hasNext()) {
-    	            s = in.next(); 
-    	            if (!s.contentEquals("#")) {
-    	                String nomG = s;
-    	                s = in.next();                
-    	                Integer lim = Integer.parseInt(s);
-    	                Galaxia g = new Galaxia(nomG,lim);
-    	                if (s.contentEquals("null")) break;
-    	                while (in.hasNext()) { //recollim els planetes de la galaxia
-    	                    s = in.next();
-    	                    if (s.contentEquals("#")) break; 
-    	                    if (cPlaneta.existeixPlaneta(s)) {
-    	                        Planeta p = cPlaneta.consultarUnPlaneta(s);
-    	                        String x = in.next();
-    	                        String y = in.next();
-    	                        String z = in.next();
-    	                        double dx, dy, dz;
-    	                        dx = Double.parseDouble(x);
-    	                        dy = Double.parseDouble(y);
-    	                        dz = Double.parseDouble(z);
-    	                        g.agregarPlanetaMan(s, p, dx, dy, dz); 
-    	                        p.assignarGalaxia(g);                        
-    	                    }                     
-    	                    
-    	                }
-    	                conjuntGalaxia.posar(nomG, g);
-    	            }
-    	        }   
-    	       in.close();
-    	}
+    	
     }
 
     // Pre: Cierto
@@ -374,4 +337,3 @@ public class ControladorGalaxia
     	
     }*/
 }
-
