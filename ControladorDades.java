@@ -2,39 +2,36 @@ import java.io.*;
 import java.util.Scanner; 
 import java.io.File;
 
-/** HACER**/
-
 public class ControladorDades {
-     
-    //CAMPS
+
     FileReader fr;
-    PrintWriter out;
+    PrintWriter pw;
    
-    //CONSTRUCTORA  
+    // CONSTRUCTOR  
     public ControladorDades() {} 
    
-    //METODES 
-    public void OpenRead(String path) throws FileNotFoundException
+    // FUNCIONES 
+    public void AbrirLectura(String path) throws FileNotFoundException
     {
         fr = new FileReader(new File(path));
     }
      
-    public void OpenWrite(String path) throws FileNotFoundException
+    public void AbrirEscritura(String path) throws FileNotFoundException
     {
-        out = new PrintWriter(new File(path));
+        pw = new PrintWriter(new File(path));
     }
      
-    public void CloseWrite()throws IOException 
+    public void CerrarEscritura() throws IOException 
     {
-        out.close();
+        pw.close();
     }
      
-    public void CloseRead() throws IOException 
+    public void CerrarLectura() throws IOException 
     {
         fr.close();
     }
      
-    public String carregar() 
+    public String cargar() 
     {      
         Scanner in = new Scanner(fr); 
         in.useDelimiter("\\$"); 
@@ -52,7 +49,7 @@ public class ControladorDades {
     {   
         if (!res.isEmpty()) {
             String r = res + "$";
-            out.println(r); 
+            pw.println(r); 
         }
     }
 }
