@@ -74,8 +74,8 @@ public class Galaxia {
 
 	 // Pre: Cierto
 	 // Post: Devuelve cierto si las coordenadas "x" y "y" se encuentran dentro del limite impuesto por el usuario, falso en caso contrario
-	 private boolean dintreLimitUsuari(int x, int y) throws Exception
-	 {
+	private boolean dintreLimitUsuari(int x, int y) throws Exception
+	{
 	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
 	         int max_first, max_second, max_x, max_y;
 	         max_first = max_second = max_x = max_y = 0;
@@ -104,8 +104,8 @@ public class Galaxia {
 	 
 	 // Pre: Cierto
 	 // Post: En las posiciones en las que habia un planeta, desaparecen (se pone a 0)
-	 private void reiniciaMatriu()
-	 {
+	private void reiniciaMatriu()
+	{
 		 for(int i = 0; i < N; ++i) {
 			 for(int j = 0; j < N; ++j) {
 				 if(gal[i][j] > 0) gal[i][j] = 0;
