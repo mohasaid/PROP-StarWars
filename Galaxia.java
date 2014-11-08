@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
 
+/** EN CASO DE QUE QUIERA QUE QUITE LO DE REPETIDOS:  HashSet hs = new HashSet(); hs.addAll(array); array.clear(); array.addAll(hs); */
  
 public class Galaxia {
 	
@@ -18,6 +19,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve cierto si "nom" contiene caracteres alfanumericos y un tamaño menor a 20 caracteres, falso en caso contrario
+    /**
+     * Metodo que dice si el nombre es alfanumerico
+     * @param nom
+     * @return Cierto si "nom" contiene caracteres alfanumericos y un tamaño menor a 20 caracteres, falso en caso contrario
+     */
     private boolean alfa_numeric(String nom) // NOM ALFANUMERIC I < 20 CARACTERS
     {
         if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
@@ -28,10 +34,14 @@ public class Galaxia {
         return true;
     }
     
-    /** EN CASO DE QUE QUIERA QUE QUITE LO DE REPETIDOS:  HashSet hs = new HashSet(); hs.addAll(array); array.clear(); array.addAll(hs); */
-    
     // Pre: No hay coordenades repetidas
     // Post: Devuelve cierto si todas las coordenadas son colindantes entre ellas, falso en caso contrario
+    /**
+     * Metodo que indica si las coordenadas que forman el limite de la galaxia son colindantes o no
+     * @param pai
+     * @return Cierto si "pai" no contiene coordenadas colindantes, falso en caso contrario 
+     * @throws Exception
+     */
     private boolean consultarConfrontantsTotes(List<Pair<Integer, Integer> > pai) throws Exception
     {
 		int Size = pai.size();
@@ -76,6 +86,13 @@ public class Galaxia {
 
     // Pre: Cierto
 	// Post: Devuelve cierto si las coordenadas "x" y "y" se encuentran dentro del limite impuesto por el usuario, falso en caso contrario
+    /**
+     * Metodo que indica si unas ciertas coordenadas estan dentro del limite formado en la galaxia
+     * @param x
+     * @param y
+     * @return Cierto si "x" y "y" estan dentro del limite formado en la galaxia, falso en caso contrario
+     * @throws Exception
+     */
 	private boolean dintreLimitUsuari(int x, int y) throws Exception
 	{
 	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
@@ -106,6 +123,9 @@ public class Galaxia {
 	 
 	// Pre: Cierto
 	// Post: En las posiciones en las que habia un planeta, desaparecen (se pone a 0)
+	/**
+	 * Metodo para reiniciar los valores de la matriz, en aquellas posiciones en las que habia un planeta, este desaparece
+	 */
 	private void reiniciaMatriu()
 	{
 		 for(int i = 0; i < N; ++i) {
@@ -117,6 +137,9 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Inicia las posiciones indicadas por el usuario con -1
+	/**
+	 * Metodo para marcar el limite que forma la galaxia
+	 */
     private void inicialitzaMatriu()
     {
     	for(int i = 0; i < limits.size(); ++i) {
@@ -128,6 +151,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve cierto si "l" no tiene elementos repetidos, falso en caso contrario
+    /**
+     * Metodo que comprueba que no haya coordenadas repetidas
+     * @param l
+     * @return Cierto si no hay coordenadas repetidas, falso en caso contrario
+     */
     private static boolean comprovaRepetits(List<Pair<Integer, Integer> > l)
     {
     	for(int i = 0; i < l.size(); ++i) {
@@ -140,6 +168,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el valor minimo de la coordenada x y tambien de la coordenada y, del limite impuesto por el usuario
+    /**
+     * Metodo para consultar las coordenadas menores del limite que forma la galaxia
+     * @return La minima "x" y la minima "y" de las coordenadas que forman el limite de la galaxia
+     */
     private Pair<Integer, Integer> menorXY()
     {
     	Integer first = limits.get(0).getFirst();
@@ -154,6 +186,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el valor maximo de la coordenada x y tambien de la coordenada y, del limite impuesto por el usuario
+    /**
+     * Metodo para consultar las coordenadas maximas del limite que forma la galaxia
+     * @return La maxima "x" y la maxima "y" de las coordenadas que forman el limite de la galaxia
+     */
     private Pair<Integer, Integer> majorXY()
     {
     	Integer first = limits.get(0).getFirst();
@@ -168,6 +204,12 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve un numero aleatorio entre "min" y "max"
+    /**
+     * Metodo para devolver un numero aleatorio en un rango delimitado por [min..max]
+     * @param min
+     * @param max
+     * @return Un valor aleatorio entre "min" y "max"
+     */
     private int randInt(int min, int max)
     {
     	Random rand = new Random();
@@ -193,6 +235,12 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Se crea una galaxia con nomGalaxia "nom" i N "n"
+    /**
+     * Metodo para construir una galaxia sin ningun tipo de limite/forma con un determinado nombre y limite maximo
+     * @param nom
+     * @param n
+     * @throws Exception
+     */
     public Galaxia(String nom, int n) throws Exception // no tendra limites por el usuario
     {
         if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
@@ -209,6 +257,13 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Se crea una galaxia con nomGalaxia "nom", N "n" y limits "l"
+    /**
+     * Metodo para construir una galaxia con una forma, un nombre y un limite determinado
+     * @param nom
+     * @param n
+     * @param l
+     * @throws Exception
+     */
     public Galaxia(String nom, int n, List<Pair<Integer, Integer> > l) throws Exception // tendra limites por el usuario
     {
         if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
@@ -231,6 +286,10 @@ public class Galaxia {
   
     // Pre: Cierto
     // Post: Devuelve el nombre de la galaxia
+    /**
+     * Metodo para consultar el nombre de la galaxia
+     * @return El nombre de la galaxia
+     */
     public String consultarNomGalaxia()
     {
         return nomGalaxia;
@@ -238,6 +297,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el presupuesto de la galaxia
+    /**
+     * Metodo para consultar el presupuesto de la galaxia
+     * @return El presupuesto de la galaxia
+     * @throws Exception
+     */
     public Integer consultarPresupost() throws Exception
     {
     	if(presupost == -1) throw new Exception("Error: la galaxia no tiene un presupuesto asignado");
@@ -246,6 +310,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el conjunto de identificadores de los planetas existentes en la galaxia
+    /**
+     * Metodo para consultar el conjunto de planetas existentes en la galaxia
+     * @return Conjunto de identificadores de planetas en la galaxia
+     * @throws Exception
+     */
     public ArrayList<Integer> consultarPlanetes() throws Exception
     {
         ArrayList<Integer> res = new ArrayList<Integer>();
@@ -258,6 +327,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el numero de planetas que hay en la galaxia
+    /**
+     * Metodo para consultar el numero de planetas que hay en la galaxia
+     * @return El numero de planetas en la galaxia
+     */
     public int consulta_nombrePlanetes()
     {
         return planetes.size();
@@ -265,6 +338,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el numero de coordenadas que forman el limite de la galaxia
+    /**
+     * Metodo para consultar el numero de coordenadas que dan forma a la galaxia
+     * @return Numero de coordenadas que dan forma a la galaxia
+     */
     public int consulta_nombreLimits()
     {
         return limits.size();
@@ -272,6 +349,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve las coordenadas que forman el limite de la galaxia
+    /**
+     * Metodo para consultar las coordenadas que dan forma a la galaxia
+     * @return Coordenadas que dan forma a la galaxia
+     */
     public List<Pair<Integer, Integer> > consultarValorLimits()
     {
     	return limits;
@@ -279,6 +360,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el conjunto de identificadores de rutas de la galaxia
+    /**
+     * Metodo para consultar el conjunto de rutas existentes en la galaxia
+     * @return Conjunto de identificadores de rutas en la galaxia
+     * @throws Exception
+     */
     public ArrayList<Integer> consultarRutes() throws Exception
     {
     	ArrayList<Integer> res = new ArrayList<Integer>();
@@ -292,6 +378,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el numero de rutas que hay en la galaxia
+    /**
+     * Metodo para consultar el numero de rutas existentes en la galaxia
+     * @return Numero de rutas que hay en la galaxia
+     */
     public int consulta_nombreRutes()
     {
         return rutes.size();
@@ -299,6 +389,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el conjunto de identificadores de naves de la galaxia
+    /**
+     * Metodo para consultar el conjunto de naves existentes en la galaxia
+     * @return Conjunto de identificadores de naves en la galaxia
+     * @throws Exception
+     */
     public ArrayList<Integer> consultarNaus() throws Exception
     {
     	ArrayList<Integer> res = new ArrayList<Integer>();
@@ -311,6 +406,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el numero de naves que hay en la galaxia
+    /**
+     * Metodo para consultar el numero de naves existentes en la galaxia
+     * @return Numero de naves en la galaxia
+     */
     public int consulta_nombreNaus()
     {
         return naus.size();
@@ -318,6 +417,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve el valor del limite de la galaxia
+    /**
+     * Metodo para consultar el limite maximo de la galaxia
+     * @return Limite maximo de la galaxia
+     */
     public Integer consultarLimitGalaxia()
     {
         return N;
@@ -325,6 +428,13 @@ public class Galaxia {
      
     // Pre: Cierto
     // Post: Devuelve cierto si existe un planeta en las coordenadas "x" y "y", falso en caso contrario
+    /**
+     * Metodo para consultar si existe un planeta en unas determinadas coordenadas
+     * @param x
+     * @param y
+     * @return Cierto si hay un planeta en las coordenadas "x" y "y", falso en caso contrario
+     * @throws Exception
+     */
     public boolean existeixPlanetaCoordenades(int x, int y) throws Exception
     {
         if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
@@ -337,6 +447,12 @@ public class Galaxia {
         
     // Pre: Cierto
     // Post: Devuelve cierto si existe un planeta con identificador "idplaneta" en la galaxia
+    /**
+     * Metodo para consultar si existe un planeta en la galaxia
+     * @param idplaneta
+     * @return Cierto si existe el planeta con identificador "idplaneta" en la galaxia, falso en caso contrario
+     * @throws Exception
+     */
     public boolean existeixPlaneta(int idplaneta) throws Exception
     {
     	Iterator<Integer> it = planetes.iterator();
@@ -348,6 +464,12 @@ public class Galaxia {
         
     // Pre: Cierto
     // Post: Devuelve cierto si existe una ruta con identificador "idruta" en la galaxia
+    /**
+     * Metodo para consultar si existe una ruta en la galaxia
+     * @param idruta
+     * @return Cierto si existe la ruta con identificador "idruta" en la galaxia, falso en caso contrario
+     * @throws Exception
+     */
     public boolean existeixRuta(int idruta) throws Exception
     {
         Iterator<Integer> it = rutes.iterator();
@@ -359,6 +481,12 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Devuelve cierto si existe una nave con identificador "idnau" en la galaxia
+    /**
+     * Metodo para consultar si existe una nave en la galaxia
+     * @param idnau
+     * @return Cierto si existe la nave con identificador "idnau" en la galaxia, falso en caso contrario
+     * @throws Exception
+     */
     public boolean existeixNau(int idnau) throws Exception
     {
     	Iterator<Integer> it = naus.iterator();
@@ -372,6 +500,11 @@ public class Galaxia {
   
     // Pre: Cierto
     // Post: La galaxia tiene de nombre "nom"
+    /**
+     * Metodo para modificar el nombre de la galaxia
+     * @param nom
+     * @throws Exception
+     */
     public void modificar_nomGalaxia(String nom) throws Exception
     {
         if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
@@ -380,6 +513,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: La galaxia tiene de presupuesto "p"
+    /**
+     * Metodo para modificar el presupuesto de la galaxia
+     * @param p
+     * @throws Exception
+     */
     public void modificarPresupost(int p) throws Exception
     {
         if(p < 0) throw new Exception("Error: el presupuesto no puede ser negativo");
@@ -388,6 +526,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: La galaxia tiene de limite N "n", sin ningun tipo de limite impuesto por el usuario
+    /**
+     * Metodo para modificar el limite maximo de la galaxia
+     * @param n
+     * @throws Exception
+     */
     public void modificarN(int n) throws Exception
     {
         if(!planetes.isEmpty()) throw new Exception("Error: no se puede modificar el limite de una galaxia que contiene planetas");
@@ -399,6 +542,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: La galaxia te uns nous limits indicats per p
+    /**
+     * Metodo para modificar el limite que da forma a la galaxia
+     * @param p
+     * @throws Exception
+     */
     public void modificarLimitsUsuari(List<Pair<Integer, Integer> > p) throws Exception
     {
     	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para delimitar un limite en la galaxia");
@@ -411,6 +559,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Se añade en lista de identificadores de planetas de la galaxia el identificador del planeta "p"
+    /**
+     * Metodo para añadir un planeta en la galaxia
+     * @param p
+     * @throws Exception
+     */
     public void afegirPlaneta(Planeta p) throws Exception
     {
     	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
@@ -425,6 +578,12 @@ public class Galaxia {
    
     // Pre: Cierto
     // Post: Se añade en lista de identificadores de planetas de la galaxia el identificador del planeta "p" y devuelve las coordenadas del planeta
+    /**
+     * Metodo para añadir un planeta en la galaxia
+     * @param p
+     * @return Las coordenadas del planeta 
+     * @throws Exception
+     */
     public Pair<Integer, Integer> afegirPlanetaAutomatic(Planeta p) throws Exception // Viene con unos valores random, aqui compruebo su validez
     {
     	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
@@ -457,6 +616,11 @@ public class Galaxia {
      
     // Pre: Cierto
     // Post: La galaxia contiene los identificadores de los planetas iniciales menos el identificador del planeta "p", los identificadores de las rutas que conecta y de las naves que contiene este
+    /**
+     * Metodo para eliminar un planeta de la galaxia
+     * @param p
+     * @throws Exception
+     */
     public void eliminarPLaneta(Planeta p) throws Exception
     {
     	if(!existeixPlaneta(p.Consultar_id())) throw new Exception("El planeta introducido no existe en la galaxia");
@@ -479,6 +643,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Se borran todos los planetas de la galaxia
+    /**
+     * Metodo para eliminar todos los planetas de la galaxia
+     * @throws Exception
+     */
     public void eliminarTotsPlanetes() throws Exception
     {
     	if(planetes.isEmpty()) throw new Exception("No hay planetas en la galaxia");
@@ -488,6 +656,11 @@ public class Galaxia {
   
     // Pre: Cierto
     // Post: Se añade el identificador de la nave "idnave" en la lista de naves
+    /**
+     * Metodo para añadir una nave en la galaxia
+     * @param idNave
+     * @throws Exception
+     */
     public void afegirNau(int idNave) throws Exception
     {
         if(existeixNau(idNave)) throw new Exception("Error: ya existe una nave con este identificador");
@@ -496,6 +669,11 @@ public class Galaxia {
   
     // Pre: Cierto
     // Post: La galaxia contiene las anves iniciales menos la que tiene como identificador "idnau"
+    /**
+     * Metodo para eliminar una nave de la galaxia
+     * @param idnau
+     * @throws Exception
+     */
     public void eliminarNau(int idnau) throws Exception
     {
     	if(!existeixNau(idnau)) throw new Exception("La nave introducida no existe");
@@ -504,6 +682,10 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Se borran todas las naves de la galaxia
+    /**
+     * Metodo para eliminar todas las naves de la galaxia
+     * @throws Exception
+     */
     public void eliminarTotesNaus() throws Exception
     {
     	if(naus.isEmpty()) throw new Exception("No hay naves en la galaxia");
@@ -512,6 +694,11 @@ public class Galaxia {
   
     // Pre: Cierto
     // Post: Se añade el identificador de la la ruta con identificador "idRuta" en la lista de rutas
+    /**
+     * Metodo para añadir una ruta en la galaxia
+     * @param idRuta
+     * @throws Exception
+     */
     public void afegirRuta(int idRuta) throws Exception
     {
         if(existeixRuta(idRuta)) throw new Exception("Error: ya existe una ruta con este identificador");
@@ -520,6 +707,11 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: La galaxia contiene todas las rutas iniciales menos la ruta con identificador "idruta"
+    /**
+     * Metodo para eliminar una ruta de la galaxia
+     * @param idruta
+     * @throws Exception
+     */
     public void eliminarRuta(int idruta) throws Exception
     {
     	if(!existeixRuta(idruta)) throw new Exception("Error: no existe ninguna ruta con este identificador");
@@ -528,13 +720,22 @@ public class Galaxia {
     
     // Pre: Cierto
     // Post: Se borran todas las rutas de la galaxia
+    /**
+     * Metodo para eliminar todas las rutas de la galaxia
+     * @throws Exception
+     */
     public void eliminarTotesRutes() throws Exception
     {
     	if(rutes.isEmpty()) throw new Exception("No hay rutas en la galaxia");
         rutes.clear();
     }
+    
     // Pre: Cierto
     // Post: Se borra el contenido de la galaxia: los planetas, las naves, los planetas y el presupuesto
+    /**
+     * Metodo para eliminar todo el contenido de la galaxia
+     * @throws Exception
+     */
 	public void eliminarContingutGalaxia() throws Exception
     {
         eliminarTotsPlanetes();
