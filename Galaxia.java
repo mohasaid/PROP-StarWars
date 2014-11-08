@@ -3,20 +3,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.TreeSet;
- 
+
  
 public class Galaxia {
 	
     private String nomGalaxia;
-    private static int[][] gal; // N*N
+    private int[][] gal; // N*N
     private Integer presupost;
-    private TreeSet<Planeta> planetes; 
-    private TreeSet<Ruta> rutes; 
-    private TreeSet<Nave> naus; 
-    private static Integer N; // valor del limit de la galaxia, posem algun limit com 15 (matriu 15x15)
-    private static List<Pair<Integer,Integer> > limits; // private list<pairs> con coordenadas de la galaxia impuestas por el usuario
-  
-    private static boolean alfa_numeric(String nom) // NOM ALFANUMERIC I < 20 CARACTERS
+    private TreeSet<Integer> planetes; 
+    private TreeSet<Integer> rutes;
+    private TreeSet<Integer> naus;
+    private Integer N; // valor del limit de la galaxia, posem algun limit com 10 (matriu 10x10)
+    private List<Pair<Integer,Integer> > limits; // private list<pairs> con coordenadas de la galaxia impuestas por el usuario
+    
+    // Pre: Cierto
+    // Post: Devuelve cierto si "nom" contiene caracteres alfanumericos y un tamaño menor a 20 caracteres, falso en caso contrario
+    private boolean alfa_numeric(String nom) // NOM ALFANUMERIC I < 20 CARACTERS
     {
         if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
         for(int i = 0; i < nom.length(); ++i) {
@@ -26,70 +28,30 @@ public class Galaxia {
         return true;
     }
      
-    // Pre: No hi han coordenades repetides
-    // Post: Retorna cert si totes les coordenades son confrontants entre elles, fals altrament
-    /*private boolean consultarConfrontantsTotes(List<Pair<Integer, Integer> > pai) throws Exception
-    {
-    	System.out.println("Empeiza el programa");
-        boolean res = true;
-        if(!pai.isEmpty()) {
-        	System.out.println("estoy dentro");
-            boolean trobat;
-            boolean[] trobats = new boolean[pai.size()];
-            Pair<Integer, Integer> pa = new Pair<Integer, Integer>(null, null);
-            for(int i = 0; i < pai.size(); ++i) {
-            	System.out.println("Estoy dentro del bucle");
-                trobat = false;
-                Integer a = pai.get(i).getFirst();
-                Integer b = pai.get(i).getSecond();
-                System.out.println("He asignado valores al pair");
-                pa.setFirst(a); pa.setSecond(b);
-                System.out.println("He asignado valores al pair segundo");
-                if(pa.getFirst() > N || pa.getSecond() > N ) throw new Exception("Error: les coordenades del planeta no poden ser majors que el limit de la galaxia");
-                if(pa.getFirst() < 0 || pa.getSecond() < 0) throw new Exception("Error: les coordenades del planeta no poden ser menors que 0");
-                System.out.println("Voy a comprobar las primeras coordenadas");
-                System.out.println("Primera coordenada: " + pa.getFirst());
-                System.out.println("Segunda coordenada: " + pa.getSecond());
-                for(int j = 0; j < pai.size() && !trobat; ++j) {
-                    if(i != j) {
-                        if((((pa.getFirst().intValue() + 1) == pai.get(j).getFirst().intValue()) || ((pa.getFirst().intValue() - 1) == pai.get(j).getFirst().intValue()) || (pa.getFirst().intValue() == pai.get(j).getFirst().intValue())) && ((pa.getSecond().intValue() + 1 == pai.get(j).getSecond().intValue()) || (pa.getSecond().intValue() - 1 == pai.get(j).getSecond().intValue()) || (pa.getSecond().intValue() == pai.get(j).getSecond().intValue()))) {
-                        trobat = true;
-                        trobats[i] = true;
-                    }
-                }
-            }
-         }
-         for(int i = 0; i < trobats.length; ++i) {
-            if(trobats[i] == false) {
-                res = false;
-                break;
-            }
-         }
-        }
-        return res;
-    }*/
-    
-    // Pre: No hi han coordenades repetides
-    // Post: Retorna cert si totes les coordenades son confrontants entre elles, fals altrament
+    // Pre: No hay coordenades repetidas
+    // Post: Devuelve cierto si todas las coordenadas son colindantes entre ellas, falso en caso contrario
     private boolean consultarConfrontantsTotes(List<Pair<Integer, Integer> > pai) throws Exception
     {
+		int Size = pai.size();
         boolean res = true;
         if(!pai.isEmpty()) {
-            List<Pair<Boolean, Boolean>> tr = new ArrayList<Pair<Boolean, Boolean> >();
-            //Pair<Integer, Integer> pa = new Pair<Integer, Integer>(null, null);
+            List<Pair<Boolean, Boolean> > tr = new ArrayList<Pair<Boolean, Boolean> >();
+            for(int i = 0; i < Size; ++i) {
+            	Pair<Boolean, Boolean> b = new Pair<Boolean, Boolean>(false, false);
+            	tr.add(b);     	
+            }
             int tmp;
-            for(int i = 0; i < pai.size(); ++i) {
+            for(int i = 0; i < Size; ++i) {
                 Integer a = pai.get(i).getFirst();
                 Integer b = pai.get(i).getSecond();
                 Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a, b);
-                //pa.setFirst(a); pa.setSecond(b);
-                if(pa.getFirst() > N || pa.getSecond() > N ) throw new Exception("Error: les coordenades del planeta no poden ser majors que el limit de la galaxia");
-                if(pa.getFirst() < 0 || pa.getSecond() < 0) throw new Exception("Error: les coordenades del planeta no poden ser menors que 0");
+                if(pa.getFirst() > N || pa.getSecond() > N ) throw new Exception("Error: las coordenadas que forman el limite no pueden ser mayores que el limite de la galaxia");
+                if(pa.getFirst() < 0 || pa.getSecond() < 0) throw new Exception("Error: las coordenades que forman el limite no pueden ser menores que 0");
                 tmp = i;
-                for(int j = 0; (j < pai.size() && !tr.get(i).getFirst().booleanValue() && !tr.get(i).getSecond().booleanValue()) || (j < pai.size() && tr.get(i).getFirst().booleanValue() && !tr.get(i).getSecond().booleanValue()) || (j < pai.size() && !tr.get(i).getFirst().booleanValue() && tr.get(i).getSecond().booleanValue()); ++j) {
-                    if(i != j && j != tmp) {
+                for(int j = 0; (j < Size && (!tr.get(i).getFirst() || !tr.get(i).getSecond())); ++j) {
+                	if(i != j && j != tmp) {
                         if((((pa.getFirst().intValue() + 1) == pai.get(j).getFirst().intValue()) || ((pa.getFirst().intValue() - 1) == pai.get(j).getFirst().intValue()) || (pa.getFirst().intValue() == pai.get(j).getFirst().intValue())) && ((pa.getSecond().intValue() + 1 == pai.get(j).getSecond().intValue()) || (pa.getSecond().intValue() - 1 == pai.get(j).getSecond().intValue()) || (pa.getSecond().intValue() == pai.get(j).getSecond().intValue()))) {
-    	                    tmp = j;
+                        	tmp = j;
     	                    if(tr.get(i).getFirst().booleanValue() == true) {
     	                    	tr.get(i).setSecond(true);
     	                    }
@@ -100,7 +62,7 @@ public class Galaxia {
                 }
             }
          }
-         for(int i = 0; i < tr.size(); ++i) {
+         for(int i = 0; i < tr.size(); ++i) { 
         	if(tr.get(i).getFirst().booleanValue() == false || tr.get(i).getSecond().booleanValue() == false) {
                 res = false;
                 break;
@@ -110,22 +72,21 @@ public class Galaxia {
         return res;
     }
 
-    
-	 // Pre: Cert
-	 // Post: Retorna cert si les coordenades es troben dins del limit imposat per l'usuari, fals altrament
+	 // Pre: Cierto
+	 // Post: Devuelve cierto si las coordenadas "x" y "y" se encuentran dentro del limite impuesto por el usuario, falso en caso contrario
 	 private boolean dintreLimitUsuari(int x, int y) throws Exception
 	 {
-	     if(x > N || y > N) throw new Exception("Error: les coordenades del planeta no poden ser majors que el limit de la galaxia");
+	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
 	         int max_first, max_second, max_x, max_y;
 	         max_first = max_second = max_x = max_y = 0;
 	         for(int i = 0; i < N; ++i) {
-	         	if(gal[x][i] == -1 && i != x) {
+	         	if(gal[x][i] == -1 && i != x) { // Primero que encuentre paro
 	         		max_first = i;
 	         		break;
 	         	}
 	         }
 	         for(int i = max_first + 1; i < N; ++i) {
-	         	if(gal[x][i] == -1 && i != x) max_second = i;
+	         	if(gal[x][i] == -1 && i != x) max_second = i; // Tengo que consultar hasta el ultimo, no break
 	         }
 	         for(int i = 0; i < N; ++i) {
 	         	if(gal[i][y] == -1 && i != y) {
@@ -140,10 +101,21 @@ public class Galaxia {
 	         if((max_first < x && x < max_second) && (max_x < y && y < max_y)) return true;
 	         else return false;
 	 }
+	 
+	 // Pre: Cierto
+	 // Post: En las posiciones en las que habia un planeta, desaparecen (se pone a 0)
+	 private void reiniciaMatriu()
+	 {
+		 for(int i = 0; i < N; ++i) {
+			 for(int j = 0; j < N; ++j) {
+				 if(gal[i][j] > 0) gal[i][j] = 0;
+			 }
+		 }
+	 }
     
-    // Pre: No hi ha coordenades repetides a limits
-    // Post: A les posicions indicades per l'usuari s'hi fica un -1
-    private static void inicialitzaMatriu()
+    // Pre: Cierto
+    // Post: Inicia las posiciones indicadas por el usuario con -1
+    private void inicialitzaMatriu()
     {
     	for(int i = 0; i < limits.size(); ++i) {
     		int a = limits.get(i).getFirst().intValue();
@@ -152,6 +124,8 @@ public class Galaxia {
     	}
     }
     
+    // Pre: Cierto
+    // Post: Devuelve cierto si "l" no tiene elementos repetidos, falso en caso contrario
     private static boolean comprovaRepetits(List<Pair<Integer, Integer> > l)
     {
     	for(int i = 0; i < l.size(); ++i) {
@@ -162,7 +136,9 @@ public class Galaxia {
     	return false;
     }
     
-    private static Pair<Integer, Integer> menorXY()
+    // Pre: Cierto
+    // Post: Devuelve el valor minimo de la coordenada x y tambien de la coordenada y, del limite impuesto por el usuario
+    private Pair<Integer, Integer> menorXY()
     {
     	Integer first = limits.get(0).getFirst();
     	Integer second = limits.get(0).getSecond();
@@ -174,7 +150,9 @@ public class Galaxia {
     	return pa;
     }
     
-    private static Pair<Integer, Integer> majorXY()
+    // Pre: Cierto
+    // Post: Devuelve el valor maximo de la coordenada x y tambien de la coordenada y, del limite impuesto por el usuario
+    private Pair<Integer, Integer> majorXY()
     {
     	Integer first = limits.get(0).getFirst();
     	Integer second = limits.get(0).getSecond();
@@ -186,6 +164,8 @@ public class Galaxia {
     	return pa;
     }
     
+    // Pre: Cierto
+    // Post: Devuelve un numero aleatorio entre "min" y "max"
     private int randInt(int min, int max)
     {
     	Random rand = new Random();
@@ -193,11 +173,11 @@ public class Galaxia {
     	return randomNum;
     }
     
-    // CONSTRUCTORES
+    // CONSTRUCTORAS
   
-    // Pre: Cert
-    // Post: Es crea una galaxia buida
-    public Galaxia()
+    // Pre: Cierto
+    // Post: Se crea una galaxia vacia
+    /*public Galaxia()
     {
         nomGalaxia = "";
         //gal = new int[N][]; 
@@ -207,316 +187,278 @@ public class Galaxia {
         naus = new TreeSet<Nave>(new OrdenNave());
         //N = 0;
         limits = new ArrayList<Pair<Integer,Integer> >();
-    }
-    // Pre: Cert
-    // Post: Es crea una galaxia amb nomGalaxia "nom" i N "n"
-    public Galaxia(String nom, int n) throws Exception
+    }*/
+    
+    // Pre: Cierto
+    // Post: Se crea una galaxia con nomGalaxia "nom" i N "n"
+    public Galaxia(String nom, int n) throws Exception // no tendra limites por el usuario
     {
-        if(!alfa_numeric(nom)) throw new Exception("Error: el nom ha d'estar format per lletres o numeros i amb menys de 20 caracters.");
-        if(n < 15) throw new Exception("Error: el limit d'una galaxia ha de ser major o igual que 15");
+        if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
+        if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
         nomGalaxia = nom;
         presupost = new Integer(-1);
-        planetes = new TreeSet<Planeta>(new OrdenPlaneta());
-        rutes = new TreeSet<Ruta>(new OrdenRuta());
-        naus = new TreeSet<Nave>(new OrdenNave());
+        planetes = new TreeSet<Integer>();
+        rutes = new TreeSet<Integer>();
+        naus = new TreeSet<Integer>();
         N = new Integer(n);
         limits = new ArrayList<Pair<Integer,Integer> >();
-        gal = new int[n][n];
+        gal = new int[n][n]; // inicializo a 0
     }
-    // Pre: Cert
-    // Post: Es crea una galaxia amb nomGalaxia "nom" i N "n" i limits "l" i pressupost "p"
-    public Galaxia(String nom, int n, List<Pair<Integer, Integer> > l, int p) throws Exception
+    
+    // Pre: Cierto
+    // Post: Se crea una galaxia con nomGalaxia "nom", N "n" y limits "l"
+    public Galaxia(String nom, int n, List<Pair<Integer, Integer> > l) throws Exception // tendra limites por el usuario
     {
-        if(!alfa_numeric(nom)) throw new Exception("Error: el nom ha d'estar format per lletres o numeros i amb menys de 20 caracters.");
-        if(n < 15) throw new Exception("Error: el limit d'una galaxia ha de ser major o igual que 15");
-        if(p < 0) throw new Exception("Error: el presupost no pot ser negatiu");
-        if(l.size() < 6) throw new Exception("Error: com a minim s'ha de tenir 6 coordenades per delimitar un limit en la galaxia");
+        if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
+        if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
+        if(l.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para delimitar un limite en la galaxia");
         nomGalaxia = nom;
         N = new Integer(n);
-        if(comprovaRepetits(l)) throw new Exception("Error: les coordenades que formen el limit no poden tenir coordenades repetides");
-        if(!consultarConfrontantsTotes(l)) throw new Exception("Error: les coordenades no son confrontants");
+        if(comprovaRepetits(l)) throw new Exception("Error: las coordenadas que forman el limite no pueden tener coordenadas repetidas");
+        if(!consultarConfrontantsTotes(l)) throw new Exception("Error: las coordenadas que forman el limite no son colindantes");
         limits = l;
-        presupost = new Integer(p);
-        gal = new int[n][n];
-        planetes = new TreeSet<Planeta>(new OrdenPlaneta());
-        rutes = new TreeSet<Ruta>(new OrdenRuta());
-        naus = new TreeSet<Nave>(new OrdenNave());
-        inicialitzaMatriu();
+        presupost = new Integer(-1);
+        planetes = new TreeSet<Integer>();
+        rutes = new TreeSet<Integer>();
+        naus = new TreeSet<Integer>();
+        gal = new int[n][n]; // inicializo a 0
+        inicialitzaMatriu(); // inicializo los limites del usuario en la matriz
     }
   
     // CONSULTORAS
   
-    // Pre: Cert
-    // Post: Retorna el nom de la galaxia
+    // Pre: Cierto
+    // Post: Devuelve el nombre de la galaxia
     public String consultarNomGalaxia()
     {
         return nomGalaxia;
     }
-    // Pre: Cert
-    // Post: Retorna el presupost de la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve el presupuesto de la galaxia
     public Integer consultarPresupost() throws Exception
     {
-    	if(presupost == -1) throw new Exception("Error: La galaxia no tiene un presupuesto asignado");
+    	if(presupost == -1) throw new Exception("Error: la galaxia no tiene un presupuesto asignado");
         return presupost;
     }
-    // Pre: Cert
-    // Post: Retorna el conjunt de noms dels planetes de la galaxia
-    public ArrayList<Integer> consultarPlanetes() throws Exception  // Devuelva nombres o planetas
+    
+    // Pre: Cierto
+    // Post: Devuelve el conjunto de identificadores de los planetas existentes en la galaxia
+    public ArrayList<Integer> consultarPlanetes() throws Exception
     {
         ArrayList<Integer> res = new ArrayList<Integer>();
-        Iterator<Planeta> it = planetes.iterator();
+        Iterator<Integer> it = planetes.iterator();
         while(it.hasNext()) {
-        	res.add(it.next().Consultar_id());
+        	res.add(it.next());
         }
         return res;
     }
-    // Pre: Cert
-    // Post: Retorna el numero de planetes que hi ha en la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve el numero de planetas que hay en la galaxia
     public int consulta_nombrePlanetes()
     {
         return planetes.size();
     }
-    // Pre: Cert
-    // Post: Retorna el numero de coordenades que formen els limits de la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve el numero de coordenadas que forman el limite de la galaxia
     public int consulta_nombreLimits()
     {
         return limits.size();
     }
     
+    // Pre: Cierto
+    // Post: Devuelve las coordenadas que forman el limite de la galaxia
     public List<Pair<Integer, Integer> > consultarValorLimits()
     {
     	return limits;
     }
     
-    // Pre: Cert
-    // Post: Retorna el conjunt de noms de les rutes de la galaxia
+    // Pre: Cierto
+    // Post: Devuelve el conjunto de identificadores de rutas de la galaxia
     public ArrayList<Integer> consultarRutes() throws Exception
     {
     	ArrayList<Integer> res = new ArrayList<Integer>();
-    	Iterator<Ruta> it = rutes.iterator();
+    	Iterator<Integer> it = rutes.iterator();
         while(it.hasNext()) {
-        	res.add(it.next().consultar_id());
+        	res.add(it.next());
         }
         return res;
   
     }
-    // Pre: Cert
-    // Post: Retorna el numero de rutes que hi ha en la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve el numero de rutas que hay en la galaxia
     public int consulta_nombreRutes()
     {
         return rutes.size();
     }
-    // Pre: Cert
-    // Post: Retorna el conjunt de noms de les naus de la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve el conjunto de identificadores de naves de la galaxia
     public ArrayList<Integer> consultarNaus() throws Exception
     {
     	ArrayList<Integer> res = new ArrayList<Integer>();
-    	Iterator<Nave> it = naus.iterator();
+    	Iterator<Integer> it = naus.iterator();
         while(it.hasNext()) {
-        	res.add(it.next().consultar_id());
+        	res.add(it.next());
         }
         return res;
     }
-    // Pre: Cert
-    // Post: Retorna el numero de naus que hi ha en la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve el numero de naves que hay en la galaxia
     public int consulta_nombreNaus()
     {
         return naus.size();
     }
-    // Pre: Cert
-    // Post: Retorna el valor del limit de la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve el valor del limite de la galaxia
     public Integer consultarLimitGalaxia()
     {
         return N;
     }
      
-    // Pre: Cert
-    // Post: Retorna cert si existeix un planeta en les coordenades indicades, fals altrament
+    // Pre: Cierto
+    // Post: Devuelve cierto si existe un planeta en las coordenadas "x" y "y", falso en caso contrario
     public boolean existeixPlanetaCoordenades(int x, int y) throws Exception
     {
-        if(x > N || y > N) throw new Exception("Error: les coordenades del planeta no poden ser majors que el limit de la galaxia");
-        if(x < 0 || y < 0) throw new Exception("Error: les coordenades del planeta no poden ser menors que 0");
-        if(!dintreLimitUsuari(x,y)) throw new Exception("Error: les coordenades no poden estar fora del limit imposat");
-        Pair<Integer, Integer> pa;
-        Iterator<Planeta> it = planetes.iterator();
-        while(it.hasNext()) {
-        	pa = it.next().consultar_coordenades();
-        	if(pa.getFirst().intValue() == x && pa.getSecond().intValue() == y) return true;
-        }
-         return false;
+        if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
+        if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
+        if(!dintreLimitUsuari(x,y)) throw new Exception("Error: las coordenadas no pueden estar fuera del limite impuesto en la galaxia");
+        
+        if(gal[x][y] > 0) return true;
+        else return false;
     }
-    // Pre: Existeix un planeta amb nom "nomplaneta"
-    // Post: Retorna el planeta que te de nom "nomplaneta"
-    public Planeta consultarPlaneta(int idplaneta) throws Exception
-    {
-        Planeta a = null;
-        Iterator<Planeta> it = planetes.iterator();
-        boolean trobat = false;
-        while(it.hasNext() && !trobat) {
-        	a = it.next();
-        	if(a.Consultar_id() == idplaneta) trobat = true;
-        }
-        return a;
-    }
-    // Pre: Cert
-    // Post: Retorna cert si existeix un planeta amb nom "nomplaneta" en la galaxia
+        
+    // Pre: Cierto
+    // Post: Devuelve cierto si existe un planeta con identificador "idplaneta" en la galaxia
     public boolean existeixPlaneta(int idplaneta) throws Exception
     {
-    	Iterator<Planeta> it = planetes.iterator();
+    	Iterator<Integer> it = planetes.iterator();
     	while(it.hasNext()) {
-    		if(it.next().Consultar_id() == idplaneta) return true;
+    		if(it.next() == idplaneta) return true;
     	}
         return false;
     }
-    // Pre: Existeix una ruta amb nom "nomruta"
-    // Post: Retorna la ruta que te de nom "nomplaneta"
-    public Ruta consultarRuta(int idruta) throws Exception
-    {
-        Ruta r = null;
-        Iterator<Ruta> it = rutes.iterator();
-        boolean trobat = false;
-        while(it.hasNext() && !trobat) {
-        	r = it.next();
-        	if(r.consultar_id() == idruta) trobat = true;
-        }
-        return r;
-    }
-    // Pre: Cert
-    // Post: Retorna cert si existeix una ruta amb nom "nomruta" en la galaxia
+        
+    // Pre: Cierto
+    // Post: Devuelve cierto si existe una ruta con identificador "idruta" en la galaxia
     public boolean existeixRuta(int idruta) throws Exception
     {
-        Iterator<Ruta> it = rutes.iterator();
+        Iterator<Integer> it = rutes.iterator();
         while(it.hasNext()) {
-        	if(it.next().consultar_id() == idruta) return true;
+        	if(it.next() == idruta) return true;
         }
         return false;
     }
-  
-    // Pre: Existeix una nau amb nom "nomnau"
-    // Post: Retorna la nau que te de nom "nomnau"
-    public Nave consultarNau(int idnau) throws Exception
-    {
-        Nave n = null;
-        Iterator<Nave> it = naus.iterator();
-        boolean trobat = false;
-        while(it.hasNext() && !trobat) {
-        	n = it.next();
-        	if(n.consultar_id() == idnau) trobat = true;
-        }
-        return n;
-    }
-    // Pre: Cert
-    // Post: Retorna cert si existeix una ruta amb nom "nomruta" en la galaxia
+    
+    // Pre: Cierto
+    // Post: Devuelve cierto si existe una nave con identificador "idnau" en la galaxia
     public boolean existeixNau(int idnau) throws Exception
     {
-    	Iterator<Nave> it = naus.iterator();
+    	Iterator<Integer> it = naus.iterator();
         while(it.hasNext()) {
-        	if(it.next().consultar_id() == idnau) return true;
+        	if(it.next() == idnau) return true;
         }
         return false;
     }
   
     // MODIFICADORAS
   
-    // Pre: Cert
-    // Post: La galaxia a modificar te de nomGalaxia "nom"
+    // Pre: Cierto
+    // Post: La galaxia tiene de nombre "nom"
     public void modificar_nomGalaxia(String nom) throws Exception
     {
-        if(!alfa_numeric(nom)) throw new Exception("Error: el nom ha d'estar format per lletres o numeros i amb menys de 20 caracters.");
+        if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
         nomGalaxia = nom;
     }
-    // Pre: Cert
-    // Post: La galaxia a modificar te de presupost "p"
+    
+    // Pre: Cierto
+    // Post: La galaxia tiene de presupuesto "p"
     public void modificarPresupost(int p) throws Exception
     {
-        if(p < 0) throw new Exception("Error: el presupost no pot ser negatiu");
+        if(p < 0) throw new Exception("Error: el presupuesto no puede ser negativo");
         presupost = Integer.valueOf(p);
     }
-    // Pre: Cert
-    // Post: La galaxia a modificar te de limit nou N "n"
+    
+    // Pre: Cierto
+    // Post: La galaxia tiene de limite N "n", sin ningun tipo de limite impuesto por el usuario
     public void modificarN(int n) throws Exception
     {
-        if(!planetes.isEmpty()) throw new Exception("Error: no es pot modificar el limit d'una galaxia que conte planetes");
-        if(n < 15) throw new Exception("Error: el limit d'una galaxia ha de ser major que 15");
+        if(!planetes.isEmpty()) throw new Exception("Error: no se puede modificar el limite de una galaxia que contiene planetas");
+        if(n < 10) throw new Exception("Error: el limite de una galaxia tiene que ser mayor que 10");
         N = Integer.valueOf(n);
+        gal = new int[N][N];
+        limits = new ArrayList<Pair<Integer,Integer> >(); // Pierde los limites que tenia
     }
-    // Pre: Cert
+    
+    // Pre: Cierto
     // Post: La galaxia te uns nous limits indicats per p
     public void modificarLimitsUsuari(List<Pair<Integer, Integer> > p) throws Exception
     {
-    	if(p.size() < 6) throw new Exception("Error: com a minim s'ha de tenir 6 coordenades per delimitar un limit en la galaxia");
-    	if(comprovaRepetits(p)) throw new Exception("Error: les coordenades que formen el limit no poden tenir coordenades repetides");
+    	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para delimitar un limite en la galaxia");
+    	if(comprovaRepetits(p)) throw new Exception("Error: las coordenadas que forman el limite no pueden tener coordenadas repetidas");
+    	if(!consultarConfrontantsTotes(p)) throw new Exception("Error: las coordenadas que forman el limite no son colindantes");
     	limits = p;
+    	gal = new int[N][N]; // Para reiniciar los valores que tenia, lo pongo a 0
     	inicialitzaMatriu();
     }
-    /** COMPROBAR TODOS LOS AFEGIR PLANETES**/
-    // Pre: Cert
-    // Post: S'afegeix a la llista de planetes el planeta p
-    public void afegirPlaneta(Planeta p) throws Exception // MANUAL
-    {
-        if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ja existeix un planeta amb aquest nom");
-        // if(contains(p)) throw new Exception("Error: ja existeix un planeta amb aquest nom");
-        Pair<Integer, Integer> pa = p.consultar_coordenades();
-        boolean b = existeixPlanetaCoordenades(pa.getFirst().intValue(),pa.getSecond().intValue());
-        boolean c = dintreLimitUsuari(pa.getFirst().intValue(),pa.getSecond().intValue());
-        if(!c) throw new Exception("Error: les coordenades del planeta no estan dintre del limit imposat");
-        if(!b) planetes.add(p);
-        else throw new Exception("Error: les coordenades del planeta estan ocupades per un altre planeta");
-    }
-    /** MODIFICAR ESTA ENTRA CON IDPLANETA**/
-
-    // Pre: Cert
-    // Post: S'afegeix a la llista de planetes un nou planeta amb id "idPlaneta" y uns atributs random
-    public void afegirPlanetaAutomaticID(int idPlaneta) throws Exception // Viene con unos valores random, aqui compruebo su validez
-    {
-        if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ja existeix un planeta amb aquest nom");
-	    Pair<Integer, Integer> pa = menorXY();
-	    Pair<Integer, Integer> pa1 = majorXY();
-	    int rndX = randInt(pa.getFirst().intValue(), pa1.getFirst().intValue());
-	    int rndY = randInt(pa.getSecond().intValue(), pa1.getSecond().intValue());
-	    int coste = randInt(1,Integer.MAX_VALUE);
-	    boolean b = existeixPlanetaCoordenades(rndX, rndY);
-	    boolean c = dintreLimitUsuari(rndX, rndY);
-	    if(!c) throw new Exception("Error: les coordenades del planeta no estan dintre del limit imposat");
-	    if(!b && c) {
-	    	Pair<Integer, Integer> par = new Pair<Integer, Integer>(rndX, rndY);
-	    	Planeta p = new Planeta(idPlaneta,coste,par);
-	        planetes.add(p);
-	    }
-        else throw new Exception("Error: les coordenades estan ocupades per un altre planeta");
-    }
     
-    // Pre: Cert
-    // Post: S'afegeix a la llista de planetes el planeta p - MAL
-    public void afegirPlanetaAutomatic(Planeta p) throws Exception
+    // Pre: Cierto
+    // Post: Se añade en lista de identificadores de planetas de la galaxia el identificador del planeta "p"
+    public void afegirPlaneta(Planeta p) throws Exception
     {
-       if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ja existeix un planeta amb aquest nom");
-       if(!existeixPlanetaCoordenades(p.consultar_X(), p.consultar_Y()) && dintreLimitUsuari(p.consultar_X(), p.consultar_Y())) { // No hay ningun planeta en las coordenadas que hemos puesto y estan dentro del limite
-            planetes.add(p);
-       }
-       else {
-            Random rnd = new Random();
-            int rndX = rnd.nextInt(N);
-            int rndY = rnd.nextInt(N);
-            boolean b = existeixPlanetaCoordenades(rndX, rndY);
-            boolean c = dintreLimitUsuari(rndX, rndY);
-            if(!c) throw new Exception("Error: les coordenades del planeta no estan dintre del limit imposat");
-            if(!b && c) {
-                p.modificarCoordenades(rndX, rndY); // modifico coordenadas del planeta
-                planetes.add(p);
-            }
-            else throw new Exception("Error: les coordenades estan ocupades per un altre planeta");
-       }
+    	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
+    	Pair<Integer, Integer> pa = p.consultar_coordenades();
+    	boolean b = existeixPlanetaCoordenades(pa.getFirst().intValue(),pa.getSecond().intValue()); // true si hay uno
+    	boolean c = dintreLimitUsuari(pa.getFirst().intValue(),pa.getSecond().intValue()); // true si esta
+    	if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto");
+    	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
+    	planetes.add(p.Consultar_id());
+    	gal[pa.getFirst()][pa.getSecond()] = p.Consultar_id();
     }
- 
-  
-    // Pre: Cert
-    // Post: La galaxia conte tots els planetes incials menys el planeta amb nom "nomplaneta" i les rutes que el conectaven juntament amb les naus que hi estaven albergades
-    public void eliminarPLaneta(int idplaneta) throws Exception
+   
+    // Pre: Cierto
+    // Post: Se añade en lista de identificadores de planetas de la galaxia el identificador del planeta "p" y devuelve las coordenadas del planeta
+    public Pair<Integer, Integer> afegirPlanetaAutomatic(Planeta p) throws Exception // Viene con unos valores random, aqui compruebo su validez
     {
-    	if(!existeixPlaneta(idplaneta)) throw new Exception("El planeta introduit no existeix");
-        Planeta p = consultarPlaneta(idplaneta);
-
+    	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
+    	
+    	if(limits.size() > 0) { // Galaxia con limites impuestos
+		    Pair<Integer, Integer> pa = menorXY();
+		    Pair<Integer, Integer> pa1 = majorXY();
+		    int rndX = randInt(pa.getFirst().intValue(), pa1.getFirst().intValue());
+		    int rndY = randInt(pa.getSecond().intValue(), pa1.getSecond().intValue());
+		    boolean b = existeixPlanetaCoordenades(rndX, rndY);
+		    boolean c = dintreLimitUsuari(rndX, rndY);
+		    if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto");
+		    if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
+		    Pair<Integer, Integer> par = new Pair<Integer, Integer>(rndX, rndY);
+    		planetes.add(p.Consultar_id());
+    		gal[rndX][rndY] = p.Consultar_id();
+    		return par;
+    	}
+    	else { // Galaxia sin limites
+    		int rndX = randInt(0,N);
+    		int rndY = randInt(0,N);
+    		boolean b = existeixPlanetaCoordenades(rndX, rndY);
+    		if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
+    		Pair<Integer, Integer> par = new Pair<Integer, Integer>(rndX, rndY);
+    		planetes.add(p.Consultar_id());
+    		gal[rndX][rndY] = p.Consultar_id();
+    		return par;
+    	}
+    }
+     
+    // Pre: Cierto
+    // Post: La galaxia contiene los identificadores de los planetas iniciales menos el identificador del planeta "p", los identificadores de las rutas que conecta y de las naves que contiene este
+    public void eliminarPLaneta(Planeta p) throws Exception
+    {
+    	if(!existeixPlaneta(p.Consultar_id())) throw new Exception("El planeta introducido no existe en la galaxia");
+    	
         Iterator<Integer> it;
         TreeSet<Integer> rutas_a_borrar = p.consultarRutasConecta();
         it = rutas_a_borrar.iterator();
@@ -528,84 +470,75 @@ public class Galaxia {
         while(it.hasNext()) {
         	eliminarNau(it.next());
         }
-        
-        Iterator<Planeta> it1 = planetes.iterator();
-        Planeta a;
-        while(it1.hasNext()) {
-        	a = it1.next();
-        	if(a.Consultar_id() == idplaneta) planetes.remove(a);
-        }
-
+        Pair<Integer, Integer> co = p.consultar_coordenades();
+        gal[co.getFirst()][co.getSecond()] = 0;
+        planetes.remove(p.Consultar_id());
     }
-    // Pre: Cert
-    // Post: S'eborren tots els planetes del parametre implicit/galaxia
+    
+    // Pre: Cierto
+    // Post: Se borran todos los planetas de la galaxia
     public void eliminarTotsPlanetes() throws Exception
     {
-    	if(planetes.isEmpty()) throw new Exception("No hi ha planetes en la galaxia");
+    	if(planetes.isEmpty()) throw new Exception("No hay planetas en la galaxia");
         planetes.clear();
+        reiniciaMatriu();
     }
   
-    // Pre: Cert
-    // Post: S'afegeix a la llista de naus la nau n
-    public void afegirNau(Nave n) throws Exception
+    // Pre: Cierto
+    // Post: Se añade el identificador de la nave "idnave" en la lista de naves
+    public void afegirNau(int idNave) throws Exception
     {
-        if(existeixNau(n.consultar_id())) throw new Exception("Error: ja existeix una nau amb aquest nom");
-        naus.add(n);
+        if(existeixNau(idNave)) throw new Exception("Error: ya existe una nave con este identificador");
+        naus.add(idNave);
     }
   
-    // Pre: Cert
-    // Post: La galaxia conte totes les naus inicials menys la nau amb nom "nomnau"
+    // Pre: Cierto
+    // Post: La galaxia contiene las anves iniciales menos la que tiene como identificador "idnau"
     public void eliminarNau(int idnau) throws Exception
     {
-    	if(!existeixNau(idnau)) throw new Exception("La nau introduida no existeix");
-    	Iterator<Nave> it = naus.iterator();
-    	Nave n;
-    	while(it.hasNext()) {
-    		n = it.next();
-    		if(n.consultar_id() == idnau) naus.remove(n);
-    	}
+    	if(!existeixNau(idnau)) throw new Exception("La nave introducida no existe");
+    	naus.remove(idnau);
     }
-    // Pre: Cert
-    // Post: S'eborren totes les naus del parametre implicit/galaxia
+    
+    // Pre: Cierto
+    // Post: Se borran todas las naves de la galaxia
     public void eliminarTotesNaus() throws Exception
     {
-    	if(naus.isEmpty()) throw new Exception("No hi ha naus en la galaxia");
+    	if(naus.isEmpty()) throw new Exception("No hay naves en la galaxia");
         naus.clear();
     }
   
-    // Pre: Cert
-    // Post: S'afegeix a la llista de rutes la ruta r
-    public void afegirRuta(Ruta r) throws Exception
+    // Pre: Cierto
+    // Post: Se añade el identificador de la la ruta con identificador "idRuta" en la lista de rutas
+    public void afegirRuta(int idRuta) throws Exception
     {
-        if(existeixRuta(r.consultar_id())) throw new Exception("Error: ja existeix una ruta amb aquest nom");
-        rutes.add(r);
+        if(existeixRuta(idRuta)) throw new Exception("Error: ya existe una ruta con este identificador");
+        rutes.add(idRuta);
     }
-    // Pre: Cert
-    // Post: La galaxia conte totes les rutes inicials menys la ruta amb nom "nomruta"
+    
+    // Pre: Cierto
+    // Post: La galaxia contiene todas las rutas iniciales menos la ruta con identificador "idruta"
     public void eliminarRuta(int idruta) throws Exception
     {
-    	if(!existeixRuta(idruta)) throw new Exception("La ruta introduida no existeix");
-    	Iterator<Ruta> it = rutes.iterator();
-    	Ruta r;
-    	while(it.hasNext()) {
-    		r = it.next();
-    		if(r.consultar_id() == idruta) rutes.remove(r);
-    	}
+    	if(!existeixRuta(idruta)) throw new Exception("Error: no existe ninguna ruta con este identificador");
+    	rutes.remove(idruta);
     }
-    // Pre: Cert
-    // Post: S'eborren totes les rutes del parametre implicit/galaxia
+    
+    // Pre: Cierto
+    // Post: Se borran todas las rutas de la galaxia
     public void eliminarTotesRutes() throws Exception
     {
-    	if(rutes.isEmpty()) throw new Exception("No hi ha rutes en la galaxia");
+    	if(rutes.isEmpty()) throw new Exception("No hay rutas en la galaxia");
         rutes.clear();
     }
-    // Pre: Cert
-    // Post: S'eborren totes les rutes, les naus, els planetes i el presupost del parametre implicit/galaxia
+    // Pre: Cierto
+    // Post: Se borra el contenido de la galaxia: los planetas, las naves, los planetas y el presupuesto
 	public void eliminarContingutGalaxia() throws Exception
     {
         eliminarTotsPlanetes();
         eliminarTotesNaus();
         eliminarTotesRutes();
         presupost = Integer.valueOf(-1);
+        reiniciaMatriu(); // desaparecen los planetas, pero se mantienen los limites
     }
 }
