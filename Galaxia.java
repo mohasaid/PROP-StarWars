@@ -27,7 +27,9 @@ public class Galaxia {
         }
         return true;
     }
-     
+    
+    /** EN CASO DE QUE QUIERA QUE QUITE LO DE REPETIDOS:  HashSet hs = new HashSet(); hs.addAll(array); array.clear(); array.addAll(hs); */
+    
     // Pre: No hay coordenades repetidas
     // Post: Devuelve cierto si todas las coordenadas son colindantes entre ellas, falso en caso contrario
     private boolean consultarConfrontantsTotes(List<Pair<Integer, Integer> > pai) throws Exception
@@ -72,8 +74,8 @@ public class Galaxia {
         return res;
     }
 
-	 // Pre: Cierto
-	 // Post: Devuelve cierto si las coordenadas "x" y "y" se encuentran dentro del limite impuesto por el usuario, falso en caso contrario
+    // Pre: Cierto
+	// Post: Devuelve cierto si las coordenadas "x" y "y" se encuentran dentro del limite impuesto por el usuario, falso en caso contrario
 	private boolean dintreLimitUsuari(int x, int y) throws Exception
 	{
 	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
@@ -102,8 +104,8 @@ public class Galaxia {
 	         else return false;
 	 }
 	 
-	 // Pre: Cierto
-	 // Post: En las posiciones en las que habia un planeta, desaparecen (se pone a 0)
+	// Pre: Cierto
+	// Post: En las posiciones en las que habia un planeta, desaparecen (se pone a 0)
 	private void reiniciaMatriu()
 	{
 		 for(int i = 0; i < N; ++i) {
