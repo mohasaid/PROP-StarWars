@@ -3,68 +3,62 @@ import java.util.*;
  
  
 public class DriverControladorNave{
-    public void Executa(ControladorNave cn) {
-        Scanner sc = new Scanner(System.in);
+    public void Executa(Scanner sc, ControladorNave cn) {
         int n;
-                System.out.print("Opciones \n"
-                +"--------------------------------------------------------------------------------------------\n"
-                +"-                                        OPCIONES                                          -\n"
-                +"-                            [opción   Descripción(Atributos)]                             -\n"
-                +"--------------------------------------------------------------------------------------------\n"
-                +"-                                                                                          -\n"
-                +"-   2   Crear una Nave (int idNave, int idTipo, int idDestino)                             -\n"
-                +"-   3   Crear una nave de forma automática()                                               -\n"
-                +"-   4   Crear un tipo de nave (int idtipo, int consumo)                                    -\n"
-                +"-   5   Crear un tipo de nave de forma automática()                                        -\n"
-                +"-   6   Mostrar listado de las naves existentes()                                          -\n"
-                +"-   7   Consultar los atributos de una nave (int idNave)                                   -\n"
-                +"-   8   Consultar el tipo asociado a una nave (int idNave)                                 -\n"
-                +"-   9   Consultar el planeta destino de una nave (int idNave)                              -\n"
-                +"-   10  Consultar el consumo asociado a una nave (int idNave)                              -\n"
-                +"-   11  Mostrar listado de los tipos de nave existentes()                                  -\n"
-                +"-   12  Consultar los atributos de un tipo de nave (int idNave)                            -\n"
-                +"-   13  Consultar el consumo asociado a un tipo de nave (int idNave)                       -\n"
-                +"-   14  Modificar el identificador de una nave (int idNave, int Nuevoid)                   -\n"
-                +"-   15  Modificar el tipo asociado a una nave (int idNave, int NuevoidTipo)                -\n"
-                +"-   16  Modificar el planeta destino asociado a una nave (int idNave,int NuevoDestino)     -\n"
-                +"-   17  Modificar el identificador de un tipo de nave (int idTipoNave, int Nuevoid)        -\n"
-                +"-   18  Modificar el consumo asociado a un tipo de nave (int idTipoNave, int NuevoConsumo) -\n"
-                +"-   19  Eliminar una nave (int idNave)                                                     -\n"
-                +"-   20  Eliminar un tipo de nave (int idTipoNave)                                          -\n"
-                +"-------------------------------------------------------------------------------------------\n");
-                 
+                System.out.print(
+                +"-----------------------------------------------------------------------------------\n"
+                +"-                                  OPCIONES                                       -\n"
+                +"-                       [opcion   Operacion(Atributos)]                           -\n"
+                +"-----------------------------------------------------------------------------------\n"
+                +"-                                                                                 -\n"
+                +"-   1   TestCrearNave(int idNave, int idTipo, int idDestino)                      -\n"
+                +"-   2   TestCrearNaveAuto()                                                       -\n"
+                +"-   3   TestCrearTipo(int idtipo, int consumo)                                    -\n"
+                +"-   4   TestCrearTipoAuto()                                                       -\n"
+                +"-   5   TestConsultarNaves()                                                      -\n"
+                +"-   6   TestConsutarNave(int idNave)                                              -\n"
+                +"-   7   TestConsultarTipo(int idNave)                                             -\n"
+                +"-   8   TestConsultarPlanetaDestino(int idNave)                                   -\n"
+                +"-   9   TestConsultarConsumo(int idNave)                                          -\n"
+                +"-   10  TestConsultarTipos()                                                      -\n"
+                +"-   11  TestConsultarTipoNave(int idTipo)                                         -\n"
+                +"-   12  TestConsultarConsumoTipo(int idTipo)                                      -\n"
+                +"-   13  TestModificaID(int idNave, int Nuevoid)                                   -\n"
+                +"-   14  TestModificaTipo(int idNave, int NuevoidTipo)                             -\n"
+                +"-   15  TestModificaDestino(int idNave,int NuevoDestino)                          -\n"
+                +"-   16  TestModificaConsumo(int idTipoNave, int NuevoConsumo) 					-\n"
+                +"-   17  TestEliminarNave(int idNave)                                              -\n"
+                +"-----------------------------------------------------------------------------------\n");
+
         n = sc.nextInt();
                  
         while(n != 0){
             switch (n) {
             case 1: TestCrearNave(sc,cn);break;
-            case 2: TestCrearNave2(sc,cn);break;
-            case 3: TestCrearNaveAuto(sc,cn);break;
-            case 4: TestCrearTipo(sc,cn);break;
-            case 5: TestCrearTipoAuto(cn);break;
-            case 6: TestConsultarNaves(cn);break;
-            case 7: TestConsultarNave(sc,cn);break;
-            case 8: TestConsultarTipo(sc,cn);break;
-            case 9: TestConsultarPlanetaDestino(sc,cn);break;
-            case 10: TestConsultarConsumo(sc,cn);break;
-            case 11: TestConsultarTipos(cn);break;
-            case 12: TestConsultarTipoNave(sc,cn);break;
-            case 13: TestConsultarConsumoTipo(sc,cn);break;
-            case 14: TestModificaID(sc,cn);break;
-            case 15: TestModificaTipo(sc,cn);break;
-            case 16: TestModificaDestino(sc,cn);break;
-            case 17: TestModificaIDTipo(sc,cn);break;
-            case 18: TestModificaConsumo(sc,cn);break;
-            case 19: TestEliminarNave(sc,cn);break;
-            case 20: TestEliminarTipoNave(sc,cn);break;
+            case 2: TestCrearNaveAuto(sc,cn);break;
+            case 3: TestCrearTipo(sc,cn);break;
+            case 4: TestCrearTipoAuto(cn);break;
+            //case 5: TestConsultarNaves(cn);break;
+            case 6: TestConsultarNave(sc,cn);break;
+            case 7: TestConsultarTipo(sc,cn);break;
+            case 8: TestConsultarPlanetaDestino(sc,cn);break;
+            case 9: TestConsultarConsumo(sc,cn);break;
+            //case 10: TestConsultarTipos(cn);break;
+            case 11: TestConsultarTipoNave(sc,cn);break;
+            case 12: TestConsultarConsumoTipo(sc,cn);break;
+            case 13: TestModificaID(sc,cn);break;
+            case 14: TestModificaTipo(sc,cn);break;
+            case 15: TestModificaDestino(sc,cn);break;
+            case 16: TestModificaConsumo(sc,cn);break;
+            case 17: TestEliminarNave(sc,cn);break;
             default: System.out.println("Opción incorrecta");
             }
     n = sc.nextInt();
     }
    }
- 
             public static void TestCrearNave(Scanner sc, ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -86,25 +80,7 @@ public class DriverControladorNave{
                         System.out.print(e);
                 }
             }
-            public static void TestCrearNave2(Scanner sc,ControladorNave cn){
-                try{
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El identificador debe ser un entero\n");
-                    }
-                    int id = sc.nextInt();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El identificador del tipo de nave debe ser un entero\n");
-                    }
-                    int destID = sc.nextInt();
-                    cn.CrearNave(id, destID);
-                     
-                }
-                catch (Exception e){
-                    System.out.print(e);
-                }
-            }
+
             public static void TestCrearNaveAuto(Scanner sc, ControladorNave cn){
                 try{
                     while(!sc.hasNextInt()){
@@ -121,6 +97,7 @@ public class DriverControladorNave{
              
             public static void TestCrearTipo(Scanner sc, ControladorNave cn){
                 try{
+                	TestConsultarTipos(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -145,20 +122,19 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
+            
             public static void TestConsultarNave(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    Nave n = cn.ConsultarNave(id);
-                    int idd = n.consultar_id();
-                    int dest = n.consultar_destino();
-                    TipoNave tn = n.consultar_tipo();
-                    int tipo = tn.consultar_tipo();
-                    int cons = tn.consultar_consumo();
-                    System.out.print("id: " + idd + ", tipo: " + tipo + ", consumo:  "+ cons +", destino: " + dest + "\n");
+                    int dest = cn.ConsultarPlanetaDestino(id);
+                    int tipo = cn.ConsultarTipo(id);
+                    int cons = cn.ConsultarConsumo(id);
+                    System.out.print("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", destino: " + dest + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -166,15 +142,14 @@ public class DriverControladorNave{
             }
             public static void TestConsultarTipoNave(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarTipos(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idtipo = sc.nextInt();
-                    TipoNave tn = cn.ConsultarTipo(idtipo);
-                    int id = tn.consultar_tipo();
-                    int consumo = tn.consultar_consumo();
-                    System.out.print("id: " + id + ", consumo: " + consumo + "\n");
+                    int consumo = cn.ConsultarConsumo(idtipo);
+                    System.out.print("id: " + idtipo + ", consumo: " + consumo + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -182,6 +157,7 @@ public class DriverControladorNave{
             }
             public static void TestConsultarPlanetaDestino(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -193,22 +169,25 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
+            
             public static void TestConsultarTipo(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idnave = sc.nextInt();
-                    TipoNave tn = cn.ConsultarTipo(idnave);
-                    System.out.print(tn.consultar_tipo() + "\n");
+                    System.out.print(cn.ConsultarTipo(idnave));
                 }
                 catch (Exception e){
                     System.out.print(e);
                 }
             }
+            
             public static void TestConsultarConsumo(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -235,6 +214,7 @@ public class DriverControladorNave{
             }
             public static void TestModificaID(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -253,6 +233,8 @@ public class DriverControladorNave{
             }
             public static void TestModificaTipo(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
+                	TestConsultarTipos(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador de la nave debe ser un entero\n");
@@ -271,6 +253,7 @@ public class DriverControladorNave{
             }
             public static void TestModificaDestino(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -287,26 +270,10 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
-            public static void TestModificaIDTipo(Scanner sc,ControladorNave cn){
-                try{
-                    while(!sc.hasNextInt()){
-                    String s = sc.nextLine();
-                    throw new Exception("Error: El identificador debe ser un entero\n");
-                }
-                    int id = sc.nextInt();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El nuevo identificador debe ser un entero\n");
-                    }
-                    int id2 = sc.nextInt();
-                    cn.ModificaIDTipo(id, id2);
-                }
-                catch (Exception e){
-                    System.out.print(e);
-                }
-            }
+            
             public static void TestModificaConsumo(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarTipos(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -325,6 +292,7 @@ public class DriverControladorNave{
             }
             public static void TestEliminarNave(Scanner sc,ControladorNave cn){
                 try{
+                	TestConsultarNaves(cn)
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador de la navedebe ser un entero\n");
@@ -336,6 +304,7 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
+            /*
             public static void TestEliminarTipoNave(Scanner sc,ControladorNave cn){
                 try{
                     while(!sc.hasNextInt()){
@@ -349,6 +318,8 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
+            */
+            /*
             public static void TestConsultarNaves(ControladorNave cn){
                 try{
                     ArrayList<Nave> ln = cn.ConsultarNaves();
@@ -371,7 +342,6 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
-             
+            */
     }
              
-            
