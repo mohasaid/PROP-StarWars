@@ -12,7 +12,6 @@ public class DriverControladorNave{
                 +"-                            [opción   Descripción(Atributos)]                             -\n"
                 +"--------------------------------------------------------------------------------------------\n"
                 +"-                                                                                          -\n"
-                +"-   1    Crear una Nave sin tipo (int idNave, int idDestino)                               -\n"
                 +"-   2   Crear una Nave (int idNave, int idTipo, int idDestino)                             -\n"
                 +"-   3   Crear una nave de forma automática()                                               -\n"
                 +"-   4   Crear un tipo de nave (int idtipo, int consumo)                                    -\n"
