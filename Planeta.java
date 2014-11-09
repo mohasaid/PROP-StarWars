@@ -28,8 +28,6 @@ public class Planeta
         }
         return Final;
     }
-     
-     
     // Pre: Cierto.
     // Post: Crea un planeta vacio.
     public Planeta() 
@@ -41,21 +39,8 @@ public class Planeta
         LRS = new TreeSet<Integer>(); //No hay rutas que salgan del planeta
         LRE = new TreeSet<Integer>(); //No hay rutas que entren al planeta
     }
-    //Pre: Cierto.
-    // Post: Crea un planeta con idPlaneta = id, Coste = k y Coordenadas = Coo.
-    public Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception
-    {
-    	 if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
-         idPlaneta = id;
-         Capacidad = 0; // Viene definida por las rutas por lo tanto no puede haber error
-         Coste = k;
-         Coordenadas.setFirst(Coo.getFirst());
-         Coordenadas.setSecond(Coo.getSecond());
-         LRS = new TreeSet<Integer>();
-         LRE = new TreeSet<Integer>();
-    }
     // Pre: Cierto.
-    // Post: Crea un planeta con idPlaneta = id, Coste = k y Coordenadas = Coo, .
+    // Post: Crea un planeta con idPlaneta = id, Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
     public Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception
     {
         if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
@@ -69,7 +54,6 @@ public class Planeta
         LRS = new TreeSet<Integer>();
         LRE = new TreeSet<Integer>();
     }
-     
     //Pre: Cierto.
     //Post: Retorna la id del planeta
     public int Consultar_id() throws Exception
@@ -77,7 +61,6 @@ public class Planeta
         if(idPlaneta == -1) throw new Exception ("Error: El planeta no tiene una id asignada");
         return idPlaneta;
     }
-     
     //Pre: Cierto.
     //Post: Retorna la Capacidad del planeta.
     public int Consultar_Capacidad() throws Exception
@@ -85,7 +68,6 @@ public class Planeta
         if(Capacidad == -1) throw new Exception ("Error: El Planeta no tiene una Capacidad asignada"); 
         return Capacidad;
     }
- 
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
     public int Consultar_Coste() throws Exception
@@ -93,13 +75,11 @@ public class Planeta
         if(Coste == -1) throw new Exception ("Error: Al Planeta no se le ha asignado ningun Coste");
         return Coste;
     }
-    
     //Pre: Cierto.
     //Post: Retorna true si el planeta es Fuente.
     public boolean Consultar_Fuente(){
     	return Fuente;
     }
-    
     //Pre: Cierto.
     //Post: Retorna true si el planeta es Sumidero.
     public boolean Consultar_Sumidero(){
@@ -111,14 +91,13 @@ public class Planeta
     {
         return Coordenadas;
     }
-     
     //Pre: Cierto.
     //Post: Retorna la primera coordenada del planeta.
     public int consultar_X() 
     {
         return Coordenadas.getFirst();
     }
-     
+    
     //Pre: Cierto.
     //Post: Retorna la segunda coordenada del planeta.
     public int consultar_Y() 
@@ -132,7 +111,7 @@ public class Planeta
     }
     //Pre: Cierto.
     //Post: Retorna las rutas que salen del planeta.
-    public TreeSet<Integer> Consultar_RutasE() {
+    public TreeSet<Integer> Consultar_RutasEntrada() {
         return LRE;
     }
     //Pre: Cierto.
@@ -174,33 +153,29 @@ public class Planeta
         Coordenadas.setSecond(rndY);
     }
     //Pre: Cierto
-    //Post: AÃƒÂ±ade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
+    //Post: Anade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
     public void Anadir_Salida(int id)
     {
         LRS.add(id);
-    }
-     
+    }  
     //Pre: Cierto
-    //Post: AÃƒÂ±ade la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
+    //Post: Anade la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
     public void Anadir_Entrada(int id)
     {
         LRE.add(id);
-    }
- 
+    }    
     //Pre: Cierto
     //Post: Borra la id de la ruta "id" que sale del planeta de la lista de rutas que salen del planeta.
     public void Borrar_Salida(int id)
     {
         LRS.remove(id);
     }
- 
     //Pre: Cierto.
     //Post: Borra la id de la ruta "id" que entra en el planeta de la lista de rutas que entran del planeta.
     public void Borrar_Entrada(int id)
     {
         LRE.remove(id);
-    }
-    
+    }  
     //Pre: Cierto.
     //Post: Borra la id de la nave "id" que estaba en el planeta de la lista de naves que estan en el planeta.
     public void Borrar_Nave(int id) {
