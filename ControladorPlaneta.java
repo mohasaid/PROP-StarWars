@@ -21,14 +21,9 @@ public class ControladorPlaneta{
         }
         return false;
     }
-    
-    public boolean ExisteixPlaneta(Planeta p) throws Exception 
-    {
-        return listaPlanetas.contains(p);
-    }
     //Pre: Cierto.
     //Post: Retorna un Planeta con idedentificador "id".
-    public static Planeta BuscarPlaneta(int id) throws Exception
+    public Planeta BuscarPlaneta(int id) throws Exception
     {
     	if(!ExistePlaneta(id)) throw new Exception ("Error: No existe ningun Planeta con esta id");
         Iterator<Planeta> it = listaPlanetas.iterator();
@@ -47,7 +42,7 @@ public class ControladorPlaneta{
     	int range = 9999;
     	int randomNum =  rn.nextInt(range);
         int idAuto = randomNum.nextInt();
-        while(existeixPlaneta(idAuto)) {
+        while(ExistePlaneta(idAuto)) {
             idAuto = randomNum.nextInt();
         }
         int coste = randomNum.nextInt();
