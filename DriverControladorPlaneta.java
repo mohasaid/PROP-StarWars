@@ -66,6 +66,7 @@ public class DriverControladorPlaneta {
                 case 26: TestBorrar(sc, contp);break;
             }
             n = sc.nextInt();
+        }
     }
     public static void TestCrearPlaneta(Scanner sc, ControladorPlaneta contp) {
         try {
@@ -93,7 +94,17 @@ public class DriverControladorPlaneta {
             Pair<Integer,Integer> Coo;
             Coo.setFirst(x);
             Coo.setSecond(y);
-            contp.Planeta(id,k,Coo);
+            while(!sc.hasNextBoolean()) {
+                s = sc.nextLine();
+                throw new Exception("Error: Fuente tiene que ser un booleano\n")
+            }
+            boolean F = sc.nextBoolean();
+            while(!sc.hasNextBoolean()) {
+                s = sc.nextLine();
+                throw new Exception("Error: Sumidero tiene que ser un booleano\n")
+            }
+            boolean S = sc.nextBoolean();
+            contp.Planeta(id,k,Coo,F,S);
         }
         catch (Exception e){
             System.out.print(e);
@@ -120,7 +131,7 @@ public class DriverControladorPlaneta {
                 throw new Exception("Error: El identificador de un Planeta es un entero\n");
             }
             int id = sc.nextInt();
-            System.out.print(contp.Consultar_Capacidad(id) + "\n");    
+            System.out.print("La Capacidad del Planeta es: " + contp.Consultar_Capacidad(id) + "\n");    
         }
         catch (Exception e) {
             System.out.print(e);
@@ -134,7 +145,7 @@ public class DriverControladorPlaneta {
                 throw new Exception("Error: El identificador de un Planeta es un entero\n");
             }
             int id = sc.nextInt();
-            System.out.print(contp.Consultar_Coste(id) + "\n");    
+            System.out.print("El Coste del Planeta es: " + contp.Consultar_Coste(id) + "\n");    
         }
         catch (Exception e) {
             System.out.print(e);
@@ -149,7 +160,7 @@ public class DriverControladorPlaneta {
             }
             int id = sc.nextInt();
             Pair<Integer,Integer> Coor = contp.Consultar_Coordenadas(id);
-            System.out.print(Coo.getFirst() + "   " + Coo.getSecond() + "\n");     
+            System.out.print("X: " + Coo.getFirst() + "Y: " + Coo.getSecond() + "\n");     
         }
         catch (Exception e) {
             System.out.print(e);
@@ -163,7 +174,7 @@ public class DriverControladorPlaneta {
                 throw new Exception("Error: El identificador de un Planeta es un entero\n");
             }
             int id = sc.nextInt();
-            System.out.print(contp.consultar_X(id) + "\n");    
+            System.out.print("La Coordenada X del Planeta es: " + contp.consultar_X(id) + "\n");    
         }
         catch (Exception e) {
             System.out.print(e);
@@ -177,7 +188,7 @@ public class DriverControladorPlaneta {
                 throw new Exception("Error: El identificador de un Planeta es un entero\n");
             }
             int id = sc.nextInt();
-            System.out.print(contp.consultar_Y(id) + "\n");    
+            System.out.print("La Coordenada Y del Planeta es: " + contp.consultar_Y(id) + "\n");    
         }
         catch (Exception e) {
             System.out.print(e);
@@ -193,9 +204,11 @@ public class DriverControladorPlaneta {
             int id = sc.nextInt();
             TreeSet<Integer> rutas = contp.consultarRutasConecta(id);
             Iterator<Integer> it = rutas.iterator();
+            System.out.print("Las Rutas que conectan con el Planeta son: ");
             while (it.hasNext()) {
-                System.out.print(it.next());           
+                System.out.print(it.next()+ "  ");           
             }
+            System.out.print("\n");
         }
         catch (Exception e) {
             System.out.print(e);
@@ -211,9 +224,11 @@ public class DriverControladorPlaneta {
             int id = sc.nextInt();
             TreeSet<Integer> rutas = contp.Consultar_RutasSalida(id);
             Iterator<Integer> it = rutas.iterator();
+            System.out.print("Las Rutas que salen del Planeta son: ");
             while (it.hasNext()) {
-                System.out.print(it.next());           
+                System.out.print(it.next() + "  ");           
             }
+            System.out.print("\n");
         }
         catch (Exception e) {
             System.out.print(e);
@@ -229,9 +244,11 @@ public class DriverControladorPlaneta {
             int id = sc.nextInt();
             TreeSet<Integer> rutas = contp.Consultar_RutasEntrada(id);
             Iterator<Integer> it = rutas.iterator();
+            System.out.print("Las Rutas que entran del Planeta son: ");
             while (it.hasNext()) {
-                System.out.print(it.next());           
+                System.out.print(it.next() + "  ");           
             }
+            System.out.print("\n");
         }
         catch (Exception e) {
             System.out.print(e);
@@ -247,9 +264,11 @@ public class DriverControladorPlaneta {
             int id = sc.nextInt();
             TreeSet<Integer> naves = contp.Consultar_LNaves(id);
             Iterator<Integer> it = naves.iterator();
+            System.out.print("Las Naves que hay en el Planeta son: ")
             while (it.hasNext()) {
-                System.out.print(it.next());           
+                System.out.print(it.next() + "  ");           
             }
+            System.out.print("\n");
         }
         catch (Exception e) {
             System.out.print(e);
@@ -260,7 +279,7 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc,hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: El identificador de un Planeta es un entero\n")
+    			throw new Exception("Error: El identificador de un Planeta es un entero\n");
     		}
     		int id = sc.nextInt();
     		Planeta p = contp.BuscarPlaneta(id);
@@ -275,9 +294,11 @@ public class DriverControladorPlaneta {
         try {
         	TreeSet<Planeta> lp = contp.Consultar_listaPlanetas();
         	Iterator<Planeta> it = lp.iterator();
+        	System.out.print("Los Planetas existentes hasta ahora son: ")
             while (it.hasNext()) {
-                System.out.print(it.next().Consultar_id();           
+                System.out.print(it.next().Consultar_id() + "  ");           
             }
+        	System.out.print("\n");
         }
         catch (Exception e) {
             System.out.print(e);
@@ -285,7 +306,7 @@ public class DriverControladorPlaneta {
     }
     public static void TestConsultarSize(ControladorPlaneta contp){
     	try {
-    		System.out.print(contp.Consultar_Size());
+    		System.out.print("El el numero de Planetas es: " + contp.Consultar_Size() + "\n");
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -315,12 +336,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int id = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: la Capacidad de un Planeta tiene que ser un entero");
+    			throw new Exception("Error: la Capacidad de un Planeta tiene que ser un entero\n");
     		}
     		int c = sc.nextInt();
     		contp.Modificar_Capacidad(id,c);
@@ -334,12 +355,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int id = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el Coste de un Planeta tiene es un entero");
+    			throw new Exception("Error: el Coste de un Planeta tiene es un entero\n");
     		}
     		int k = sc.nextInt();
     		contp.Modificar_Coste(id,k);
@@ -353,17 +374,17 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int id = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: la coordenada X de un Planeta tiene que ser un entero");
+    			throw new Exception("Error: la coordenada X de un Planeta tiene que ser un entero\n");
     		}
     		int x = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: la coordenada Y de un Planeta tiene que ser un entero");
+    			throw new Exception("Error: la coordenada Y de un Planeta tiene que ser un entero\n");
     		}
     		int y = sc.nextInt();
     		contp.modificarCoordenadas(id,x,y);
@@ -377,12 +398,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int idp = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero");
+    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero\n");
     		}
     		int id = sc.nextInt();
     		contp.Anadir_Salida(idp, id);
@@ -396,12 +417,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int idp = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero");
+    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero\n");
     		}
     		int id = sc.nextInt();
     		contp.Anadir_Entrada(idp, id);
@@ -415,12 +436,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int idp = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de una Nave tiene que ser un entero");
+    			throw new Exception("Error: el identificador de una Nave tiene que ser un entero\n");
     		}
     		int id = sc.nextInt();
     		contp.Anadir_Nave(idp, id);
@@ -434,12 +455,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int idp = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero");
+    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero\n");
     		}
     		int id = sc.nextInt();
     		contp.Borrar_Salida(idp, id);
@@ -453,12 +474,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int idp = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero");
+    			throw new Exception("Error: el identificador de una Ruta tiene que ser un entero\n");
     		}
     		int id = sc.nextInt();
     		contp.Borrar_Entrada(idp, id);
@@ -472,12 +493,12 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int idp = sc.nextInt();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de una Nave tiene que ser un entero");
+    			throw new Exception("Error: el identificador de una Nave tiene que ser un entero\n");
     		}
     		int id = sc.nextInt();
     		contp.Borrar_Nave(idp, id);
@@ -491,7 +512,7 @@ public class DriverControladorPlaneta {
     		String s;
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero");
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int id = sc.nextInt();
     		contp.Borrar(id);
