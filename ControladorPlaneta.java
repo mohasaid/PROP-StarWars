@@ -1,10 +1,18 @@
 import java.util.*;
 
 public class ControladorPlaneta{
-    private static TreeSet<Planeta> listaPlanetas;
-    private static boolean Fuente;
-    private static boolean Sumidero;
+    private TreeSet<Planeta> listaPlanetas;
+    private boolean Fuente;
+    private boolean Sumidero;
     private ControladorRuta cr; 
+    
+    private int randInt(int min, int max)
+    {
+    	Random rand = new Random();
+    	int randomNum = rand.nextInt((max - min) + 1) + min;
+    	return randomNum;
+    }
+    
     //Pre: Cierto.
     //Post: Crea un ControladorPlaneta.
     public ControladorPlaneta()
@@ -14,7 +22,7 @@ public class ControladorPlaneta{
     }
     //Pre: Cierto.
     //Post: Retorna true si el planeta existe y false si no.
-    public static boolean ExistePlaneta(int idP) throws Exception 
+    public boolean ExistePlaneta(int idP) throws Exception 
     {
         Iterator<Planeta> it = listaPlanetas.iterator();
         while(it.hasNext()) {
@@ -31,7 +39,7 @@ public class ControladorPlaneta{
         Planeta p = new Planeta();
         while(it.hasNext()) {
         	p = it.next();
-            if (p.Consultar_id() == idP) return p;
+            if (p.Consultar_id() == id) return p;
         }
 		return null;   
     }
@@ -39,23 +47,23 @@ public class ControladorPlaneta{
     //Post: Crea un planeta automaticamente con atributos aleatorios.
     public void PlanetaAuto() throws Exception 
     {
-    	Random rn = new Random();
-    	int range = 9999;
-    	int randomNum =  rn.nextInt(range);
-        int idAuto = randomNum.nextInt();
-        while(ExistePlaneta(idAuto)) {
-            idAuto = randomNum.nextInt();
-        }
-        int coste = randomNum.nextInt();
+    	
+    	int r1 = randInt(0,Integer.MAX_VALUE);
+    	int c1 = randInt(0,Integer.MAX_VALUE);
+    	int c2 = randInt(0,Integer.MAX_VALUE);
+    
+        int idP = 0;
+        while(ExistePlaneta(idP)) ++idP;
+        
         Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
-        Coo.ponPrimero(randomNum.nextInt());
-        Coo.ponSegundo(randomNum.nextInt());
+        Coo.ponPrimero(c1);
+        Coo.ponSegundo(c2);
         Random rb = new Random();
         boolean F;
         boolean S;
         if (!Fuente) F = rb.nextBoolean();
         else if(!Sumidero) S = rb.nextBoolean();
-        Planeta p = new Planeta(idAuto, coste, Coo, F, S);
+        Planeta p = new Planeta(idP, r1, Coo, F, S);
         listaPlanetas.add(p);
     }
     //Pre: Cierto.
@@ -131,7 +139,7 @@ public class ControladorPlaneta{
         //Post: Retorna la lista de rutas que entran en planeta.
     public TreeSet<Integer> Consultar_RutasEntrada(int id) throws Exception 
     {
-        return BuscarPlaneta(id).Consultar_RutasE();
+        return BuscarPlaneta(id).Consultar_RutasEntrada();
     }
     //Pre: Cierto.
     //Post: Retorna todas la naves que estan en el planeta.
@@ -152,15 +160,16 @@ public class ControladorPlaneta{
         return listaPlanetas;
     }
     //Pre: 0 <= X < listaPlanetas.size().
-    //Post: Consulta el elemento X de la listaPlanetas.
-    public int Consultar_PlanetaX(int x) {
+    //Post: Consulta el elemento X de la listaPlanetas en caso de que exista
+    public Planeta Consultar_PlanetaX(int x) {
     	Iterator<Planeta> it = listaPlanetas.iterator();
         int n = 0;
+        Planeta a = null;
     	while(n != x) {
-    		it.next();
+    		a = it.next();
     		++n;
     	}
-    	return it.next();
+    	return a;
     }
     //Pre: Cierto.
     //Post: Modifica la id del planeta.
