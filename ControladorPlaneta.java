@@ -1,15 +1,16 @@
 import java.util.*;
 
-//Falta funciÃƒÂ³n que de el treeSet de los planetas!
 public class ControladorPlaneta{
     private static TreeSet<Planeta> listaPlanetas;
     private static boolean Fuente;
     private static boolean Sumidero;
+    private ControladorRuta cr; 
     //Pre: Cierto.
     //Post: Crea un ControladorPlaneta.
     public ControladorPlaneta()
     {
         listaPlanetas = new TreeSet<Planeta>(new OrdenPlaneta());
+        cr = new ControladorRuta();
     }
     //Pre: Cierto.
     //Post: Retorna true si el planeta existe y false si no.
@@ -150,6 +151,17 @@ public class ControladorPlaneta{
     {
         return listaPlanetas;
     }
+    //Pre: 0 <= X < listaPlanetas.size().
+    //Post: Consulta el elemento X de la listaPlanetas.
+    public int Consultar_PlanetaX(int x) {
+    	Iterator<Planeta> it = listaPlanetas.iterator();
+        int n = 0;
+    	while(n != x) {
+    		it.next();
+    		++n;
+    	}
+    	return it.next();
+    }
     //Pre: Cierto.
     //Post: Modifica la id del planeta.
     public void Modificar_id (int idold, int idnew) throws Exception 
@@ -188,6 +200,9 @@ public class ControladorPlaneta{
     public void Anadir_Entrada(int idp, int id) throws Exception 
     {
         BuscarPlaneta(idp).Anadir_Entrada(id);
+        int c = Consultar_Capacidad(idp);
+        c = c + cr.ConsultarCapacidadRuta(id);
+        Modificar_Capacidad(idp, c);
     }
     //Pre: Cierto.
     //Post: Anade la id de una nave que esta en el planeta a la lista de naves que estan en el planeta.
@@ -207,6 +222,9 @@ public class ControladorPlaneta{
     public void Borrar_Entrada(int idp, int id) throws Exception 
     {
         BuscarPlaneta(idp).Borrar_Entrada(id);
+        int c = Consultar_Capacidad(idp);
+        c = c - cr.ConsultarCapacidadRuta(id);
+        Modificar_Capacidad(idp, c);
     }
     //Pre: Cierto.
     //Post: Borra un id de nave que esta en el planeta de la lista de naves que estan en el planeta.
