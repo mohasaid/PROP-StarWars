@@ -24,17 +24,18 @@ public class DriverControladorPlaneta {
             + " 13: Consultar si una id pertenece a un Planeta -> public Planeta BuscarPlaneta(int id)\n"
             + " 14: Consultar la list de Planetas -> public TreeSet<Planeta> Consultar_listaPlanetas()\n"
             + " 15: Consultar el size de la listaPlanetas -> public int Consultar_Size()"
-            + " 16: Modificar id -> public void Modificar_id(int idold, int idnew)\n"
-            + " 17: Modificar Capacidad -> public void Modificar_Capacidad(int id, int c)\n"
-            + " 18: Modificar Coste -> public void Modificar_Coste(int id, int k)\n"
-            + " 19: Modificar Coordenadas -> public void modificarCoordenades(int id, int x, int y)\n"
-            + " 20: Anadir una Ruta que sale del Planeta -> public void Anadir_Salida(int idp, int id)\n"
-            + " 21: Anadir una Ruta que entra al Planeta -> public void Anadir_Salida(int idp, int id)\n"
-            + " 22: Anadir una Nave que esta en el Planeta -> public void Anadir_Nave(int idp, int id)\n"
-            + " 23: Borrar una Ruta que sale del Planeta -> public void Borrar_Salida(int idp, int id)\n"
-            + " 24: Borrar una Ruta que entra al Planeta -> public void Borrar_Entrada(int idp, int id)\n"
-            + " 25: Borrar una Nave que estaba en el Planeta -> public void Borrar_Nave(int idp, int id)\n"
-            + " 26: Borrar el Planeta -> public void Borrar(Planeta p)");
+            + " 16: Consultar el elemento X de la listaPlanetas -> public int Consultar_PlanetaX(int x)\n"
+            + " 17: Modificar id -> public void Modificar_id(int idold, int idnew)\n"
+            + " 18: Modificar Capacidad -> public void Modificar_Capacidad(int id, int c)\n"
+            + " 19: Modificar Coste -> public void Modificar_Coste(int id, int k)\n"
+            + " 20: Modificar Coordenadas -> public void modificarCoordenades(int id, int x, int y)\n"
+            + " 21: Anadir una Ruta que sale del Planeta -> public void Anadir_Salida(int idp, int id)\n"
+            + " 22: Anadir una Ruta que entra al Planeta -> public void Anadir_Salida(int idp, int id)\n"
+            + " 23: Anadir una Nave que esta en el Planeta -> public void Anadir_Nave(int idp, int id)\n"
+            + " 24: Borrar una Ruta que sale del Planeta -> public void Borrar_Salida(int idp, int id)\n"
+            + " 25: Borrar una Ruta que entra al Planeta -> public void Borrar_Entrada(int idp, int id)\n"
+            + " 26: Borrar una Nave que estaba en el Planeta -> public void Borrar_Nave(int idp, int id)\n"
+            + " 27: Borrar el Planeta -> public void Borrar(Planeta p)");
         n = cin.nextInt();
         while(n != 0) {
             switch(n) {
@@ -53,17 +54,18 @@ public class DriverControladorPlaneta {
                 case 13: TestBuscarPlaneta(sc, contp);break;
                 case 14: TestConsultarlistaPlanetas(contp);break;
                 case 15: TestConsultarSize(contp);break;
-                case 16: TestModificarId(sc, contp);break;
-                case 17: TestModificarCapacidad(sc, contp);break;
-                case 18: TestModificarCoste(sc, contp);break;
-                case 19: TestModificarCoordenadas(sc, contp);break;
-                case 20: TestAnadirSalida(sc, contp);break;
-                case 21: TestAnadirEntrada(sc, contp);break;
-                case 22: TestAnadirNave(sc, contp);break;
-                case 23: TestBorrarSalida(sc, contp);break;
-                case 24: TestBorrarEntrada(sc, contp);break;
-                case 25: TestBorrarNave(sc, contp);break;
-                case 26: TestBorrar(sc, contp);break;
+                case 16: TestConsultarPlanetaX(sc, contp);break;
+                case 17: TestModificarId(sc, contp);break;
+                case 18: TestModificarCapacidad(sc, contp);break;
+                case 19: TestModificarCoste(sc, contp);break;
+                case 20: TestModificarCoordenadas(sc, contp);break;
+                case 21: TestAnadirSalida(sc, contp);break;
+                case 22: TestAnadirEntrada(sc, contp);break;
+                case 23: TestAnadirNave(sc, contp);break;
+                case 24: TestBorrarSalida(sc, contp);break;
+                case 25: TestBorrarEntrada(sc, contp);break;
+                case 26: TestBorrarNave(sc, contp);break;
+                case 27: TestBorrar(sc, contp);break;
             }
             n = sc.nextInt();
         }
@@ -307,6 +309,20 @@ public class DriverControladorPlaneta {
     public static void TestConsultarSize(ControladorPlaneta contp){
     	try {
     		System.out.print("El el numero de Planetas es: " + contp.Consultar_Size() + "\n");
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestConsultarPlanetaX(Scanner sc, ControladorPlaneta contp) {
+    	try {	
+    		String s;
+    		while (!sc.hasNextInt()) {
+    			s = sc.nextLine();
+    			throw new Exception("Error: El identificador de un Planeta es un entero\n");
+    		}
+    		int x = sc.nextInt();
+    		System.out.print("El Planeta" + " X es: " + contp.Consultar_PlanetaX(x) + "\n");
     	}
     	catch (Exception e) {
     		System.out.print(e);
