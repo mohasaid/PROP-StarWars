@@ -90,7 +90,6 @@ public class DriverGalaxia {
             System.out.println("Introduce limite");
             int n1 = cin.nextInt();
             g = new Galaxia(n,n1);
-            // System.out.println("Galaxia creada correctamente");
         }
         catch(Exception e) {
             System.out.println(e);
@@ -149,7 +148,7 @@ public class DriverGalaxia {
     {
         try{
             ArrayList<Integer> ar = g.consultarPlanetes();
-            System.out.println("Planetas existentes: ");
+            System.out.print("Planetas existentes: ");
             /*for(Integer pl : ar) {
                 System.out.print(pl + ",");
             }*/
@@ -293,7 +292,7 @@ public class DriverGalaxia {
 	    	int idRuta = cin.nextInt();
 	    	boolean b = g.existeixRuta(idRuta);
 	    	if(b) System.out.print("La ruta con id: " + idRuta + " existe en la galaxia");
-	    	else System.out.print("La ruta con id: " + idRuta + " existe en la galaxia");
+	    	else System.out.print("La ruta con id: " + idRuta + " no existe en la galaxia");
     	}
     	catch(Exception e) {
             System.out.println(e);
@@ -324,7 +323,7 @@ public class DriverGalaxia {
 	    	int idNave = cin.nextInt();
 	    	boolean b = g.existeixNau(idNave);
 	    	if(b) System.out.print("La nave con id: " + idNave + " existe en la galaxia");
-	    	else System.out.print("La nave con id: " + idNave + " existe en la galaxia");
+	    	else System.out.print("La nave con id: " + idNave + " no existe en la galaxia");
     	}
     	catch(Exception e) {
             System.out.println(e);
@@ -511,12 +510,14 @@ public class DriverGalaxia {
     	try {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	System.out.println("Coordenadas que dan forma a la galaxia:");
-			for(int i = 0; i < lp.size(); ++i) {
-				System.out.println("(" + lp.get(i).consultarPrimero() + ", " + lp.get(i).consultarSegundo() + ")");
+	    	for(int i = 0; i < lp.size()-1; ++i) {
+				System.out.print("(" + lp.get(i).consultarPrimero() + ", " + lp.get(i).consultarSegundo() + "), ");
 			}
+			System.out.print("(" + lp.get(lp.size()-1).consultarPrimero() + ", " + lp.get(lp.size()-1).consultarSegundo() + ")");
     	}
     	catch(Exception e) {
             System.out.println(e);
         }
 	}
 }
+
