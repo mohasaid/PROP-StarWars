@@ -115,13 +115,11 @@ public class ControladorGalaxia
      */
     public String llista_planetes() throws Exception
     {
-    	String res = null;
+    	String res = "";
     	if(g.consulta_nombrePlanetes() > 0) { // listar planetas
     		ArrayList<Integer> np = g.consultarPlanetes();
     		for(Integer a : np) {
-    			res += a + ",";
-    			/*p = g.consultarPlaneta(a);
-    			res += p.Consultar_id() + "(" + p.consultar_X() + "," + p.consultar_Y() + ")";*/
+    			res += a.toString() + ",";
     		}
     	}
     	return res;
@@ -134,11 +132,11 @@ public class ControladorGalaxia
      */
     public String llista_rutes() throws Exception
     {
-    	String res = null;
+    	String res = "";
     	if(g.consulta_nombreRutes() > 0) { // listar planetas
     		ArrayList<Integer> nr = g.consultarRutes();
     		for(Integer a : nr) {
-    			res += a + ",";
+    			res += a.toString() + ",";
     		}
     	}
     	return res;
@@ -151,11 +149,11 @@ public class ControladorGalaxia
      */
     public String llista_naus() throws Exception
     {
-    	String res = null;
+    	String res = "";
     	if(g.consulta_nombreNaus() > 0) { // listar planetas
     		ArrayList<Integer> nn = g.consultarNaus();
     		for(Integer a : nn) {
-    			res += a + ",";
+    			res += a.toString() + ",";
     		}
     	}
     	return res;
@@ -262,8 +260,13 @@ public class ControladorGalaxia
     {
     	// AÑADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
     	//if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
-    	Planeta p = cp.BuscarPlaneta(idPlaneta);
-    	g.afegirPlaneta(p,x,y);
+    	try {
+	    	Planeta p = cp.BuscarPlaneta(idPlaneta);
+	    	g.afegirPlaneta(p,x,y);
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
     }
     
     // Pre: Cierto
@@ -278,8 +281,17 @@ public class ControladorGalaxia
     {
     	// AÑADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
     	//if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
-    	Planeta p = cp.BuscarPlaneta(idPlaneta);
-    	return g.afegirPlanetaAutomatic(p).toString();
+	    try {  	
+    		Planeta p = cp.BuscarPlaneta(idPlaneta);
+	      	Pair<Integer, Integer> pa = g.afegirPlanetaAutomatic(p);
+	      	String res = "";
+	      	res = pa.consultarPrimero() + "," + pa.consultarSegundo();
+	    	return res;
+	    }
+	    catch(Exception e){
+    		System.out.println(e);
+    	}
+		return null;
     }
     
     // Pre: Cierto
@@ -291,9 +303,14 @@ public class ControladorGalaxia
      */
     public void eliminarPlaneta(int idPlaneta, ControladorPlaneta cp) throws Exception
     {
-    	if(g.consulta_nombrePlanetes() > 0) {
-    		Planeta p = cp.BuscarPlaneta(idPlaneta);
-    		g.eliminarPLaneta(p);
+    	try {
+	    	if(g.consulta_nombrePlanetes() > 0) {
+	    		Planeta p = cp.BuscarPlaneta(idPlaneta);
+	    		g.eliminarPLaneta(p);
+	    	}
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
     	}
     }
 
@@ -306,7 +323,12 @@ public class ControladorGalaxia
      */
     public void afegirRuta(int idRuta) throws Exception
     {
-    	g.afegirRuta(idRuta);
+    	try{
+    		g.afegirRuta(idRuta);
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
     }
     
     // Pre: Cierto
@@ -318,7 +340,12 @@ public class ControladorGalaxia
      */
     public void eliminarRuta(int idRuta) throws Exception
     {
-    	g.eliminarRuta(idRuta);
+    	try {
+    		g.eliminarRuta(idRuta);
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
     }
     
     // Pre: Cierto
@@ -330,7 +357,12 @@ public class ControladorGalaxia
      */
     public void afegirNau(int idn) throws Exception
     {
-    	g.afegirNau(idn);
+    	try {
+    		g.afegirNau(idn);
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
     }
         
     // Pre: Cierto
@@ -342,7 +374,12 @@ public class ControladorGalaxia
      */
     public void eliminarNau(int idNau) throws Exception
     {
-    	g.eliminarNau(idNau);
+    	try {
+    		g.eliminarNau(idNau);
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
     }
     
     // Pre: Cierto
@@ -353,7 +390,12 @@ public class ControladorGalaxia
      */
     public void eliminarContingutGalaxia() throws Exception
     {
-    	g.eliminarContingutGalaxia();
+    	try {
+    		g.eliminarContingutGalaxia();
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
     }
     
     /** HACER ESTO **/
