@@ -67,41 +67,9 @@ public class ControladorGalaxia
     	res = g.consultarNomGalaxia() + ":" + g.consultarPresupost() + ":" + g.consultarLimitGalaxia();
     	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
     	Iterator<Pair<Integer, Integer> > it = lp.iterator();
-    	res = res + "@"; // para separar lo de arriba de los limites
+    	res = res + ":"; // para separar lo de arriba de los limites
     	while(it.hasNext()) {
     		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
-    	}
-    	return res;
-    }
-    // Pre: Cierto
-    // Post: Lista el contenido de la galaxia: los planetas, las rutas y las naves, en caso de que existan
-    /**
-     * Metodo para consultar la lista de planetas, rutas y naves de la galaxia
-     * @return Los planetas, las rutas y las naves de la galaxia
-     * @throws Exception
-     */
-    public String llista_galaxia() throws Exception
-    {
-    	String res = "";
-    	if(g.consulta_nombrePlanetes() > 0) { // listar planetas
-    		ArrayList<Integer> np = g.consultarPlanetes();
-    		for(Integer a : np) {
-    			res += a + ",";
-    		}
-    	}
-    	res += "@";
-    	if(g.consulta_nombreRutes() > 0) { // listar rutas
-    		ArrayList<Integer> nr = g.consultarRutes();
-    		for(Integer b : nr) {
-    			res += b + ",";
-    		}
-    	}
-    	res += "@";
-    	if(g.consulta_nombreNaus() > 0 ) { // listar naves
-    		ArrayList<Integer> nn = g.consultarNaus();
-    		for(Integer c : nn) {
-    			res += c + ",";
-    		}
     	}
     	return res;
     }
@@ -119,7 +87,7 @@ public class ControladorGalaxia
     	if(g.consulta_nombrePlanetes() > 0) { // listar planetas
     		ArrayList<Integer> np = g.consultarPlanetes();
     		for(Integer a : np) {
-    			res += a.toString() + ",";
+    			res += a.toString() + ":";
     		}
     	}
     	return res;
@@ -136,7 +104,7 @@ public class ControladorGalaxia
     	if(g.consulta_nombreRutes() > 0) { // listar planetas
     		ArrayList<Integer> nr = g.consultarRutes();
     		for(Integer a : nr) {
-    			res += a.toString() + ",";
+    			res += a.toString() + ":";
     		}
     	}
     	return res;
@@ -153,7 +121,7 @@ public class ControladorGalaxia
     	if(g.consulta_nombreNaus() > 0) { // listar planetas
     		ArrayList<Integer> nn = g.consultarNaus();
     		for(Integer a : nn) {
-    			res += a.toString() + ",";
+    			res += a.toString() + ":";
     		}
     	}
     	return res;
@@ -400,18 +368,19 @@ public class ControladorGalaxia
     
     /** HACER ESTO **/
     
-    /*// Pre: Cierto
+    // Pre: Cierto
     // Post:
-    public String carregarConjuntGalaxia(String directori) throws Exception
+    public String carregarConjuntGalaxia(String directori)
     {
+		return null;
     	
     }
 
     // Pre: Cierto
     // Post:
-    public void guardarConjuntGalaxia()
+    public void guardarConjuntGalaxia(String directori)
     {
-    	
-    }*/
+   	
+   	}
 }
 
