@@ -455,11 +455,7 @@ public class Galaxia {
      */
     public boolean existeixPlaneta(int idplaneta) throws Exception
     {
-    	Iterator<Integer> it = planetes.iterator();
-    	while(it.hasNext()) {
-    		if(it.next() == idplaneta) return true;
-    	}
-        return false;
+    	return planetes.contains(idplaneta);
     }
         
     // Pre: Cierto
@@ -472,11 +468,7 @@ public class Galaxia {
      */
     public boolean existeixRuta(int idruta) throws Exception
     {
-        Iterator<Integer> it = rutes.iterator();
-        while(it.hasNext()) {
-        	if(it.next() == idruta) return true;
-        }
-        return false;
+    	return rutes.contains(idruta);
     }
     
     // Pre: Cierto
@@ -489,11 +481,7 @@ public class Galaxia {
      */
     public boolean existeixNau(int idnau) throws Exception
     {
-    	Iterator<Integer> it = naus.iterator();
-        while(it.hasNext()) {
-        	if(it.next() == idnau) return true;
-        }
-        return false;
+    	return naus.contains(idnau);
     }
   
     // MODIFICADORAS
@@ -527,7 +515,7 @@ public class Galaxia {
     // Pre: Cierto
     // Post: La galaxia tiene de limite N "n", sin ningun tipo de limite impuesto por el usuario
     /**
-     * Metodo para modificar el limite maximo de la galaxia
+     * Metodo para modificar el limite maximo de la galaxia borrando la antigua forma que tenia esta
      * @param n
      * @throws Exception
      */
@@ -535,6 +523,7 @@ public class Galaxia {
     {
         if(!planetes.isEmpty()) throw new Exception("Error: no se puede modificar el limite de una galaxia que contiene planetas");
         if(n < 10) throw new Exception("Error: el limite de una galaxia tiene que ser mayor que 10");
+        
         N = Integer.valueOf(n);
         gal = new int[N][N];
         limits = new ArrayList<Pair<Integer,Integer> >(); // Pierde los limites que tenia
@@ -743,5 +732,9 @@ public class Galaxia {
         eliminarTotesRutes();
         presupost = Integer.valueOf(-1);
         reiniciaMatriu(); // desaparecen los planetas, pero se mantienen los limites
+        // Deberia perder tambien la forma?
+        /*  limits = new ArrayList<Pair<Integer,Integer> >();
+        	gal = new int[n][n];
+         */
     }
 }
