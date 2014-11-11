@@ -509,11 +509,12 @@ public class DriverGalaxia {
     {
     	try {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
-	    	System.out.println("Coordenadas que dan forma a la galaxia:");
-	    	for(int i = 0; i < lp.size()-1; ++i) {
+	    	System.out.print("Coordenadas que dan forma a la galaxia:");
+	    	/*for(int i = 0; i < lp.size()-1; ++i) {
 				System.out.print("(" + lp.get(i).consultarPrimero() + ", " + lp.get(i).consultarSegundo() + "), ");
 			}
-			System.out.print("(" + lp.get(lp.size()-1).consultarPrimero() + ", " + lp.get(lp.size()-1).consultarSegundo() + ")");
+			System.out.print("(" + lp.get(lp.size()-1).consultarPrimero() + ", " + lp.get(lp.size()-1).consultarSegundo() + ")");*/
+	    	System.out.print(lp);
     	}
     	catch(Exception e) {
             System.out.println(e);
