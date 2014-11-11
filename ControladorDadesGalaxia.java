@@ -17,7 +17,7 @@ public class ControladorDadesGalaxia {
     //METODES
     public String carregar(String path) throws FileNotFoundException 
     {     
-        String sep = File.separator; 
+        String sep = File.separator; // separador de paths = \
         String filename = "Galaxia.txt";
         String res = "";
         FileReader fr = new FileReader(path + sep + filename);
