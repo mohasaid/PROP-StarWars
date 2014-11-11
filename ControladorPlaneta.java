@@ -44,7 +44,7 @@ public class ControladorPlaneta{
 		return null;   
     }
     //Pre: Cierto.
-    //Post: Crea un planeta automaticamente con atributos aleatorios.
+    //Post: Crea un planeta automaticamente con atributos aleatorios incluida la id
     public void PlanetaAuto() throws Exception 
     {
     	
@@ -66,6 +66,28 @@ public class ControladorPlaneta{
         Planeta p = new Planeta(idP, r1, Coo, F, S);
         listaPlanetas.add(p);
     }
+    
+    // Necesito una con un id por defecto y que solo cree sus atributos random
+    public void PlanetaAuto(int id) throws Exception 
+    {
+    	
+    	int r1 = randInt(0,Integer.MAX_VALUE);
+    	int c1 = randInt(0,Integer.MAX_VALUE);
+    	int c2 = randInt(0,Integer.MAX_VALUE);
+            
+        Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
+        Coo.ponPrimero(c1);
+        Coo.ponSegundo(c2);
+        Random rb = new Random();
+        boolean F;
+        boolean S;
+        if (!Fuente) F = rb.nextBoolean();
+        else if(!Sumidero) S = rb.nextBoolean();
+        Planeta p = new Planeta(id, r1, Coo, F, S);
+        listaPlanetas.add(p);
+    }
+    
+    
     //Pre: Cierto.
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k y Coordenadas = Coo.
     public void Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception {
