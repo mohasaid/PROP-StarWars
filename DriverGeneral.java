@@ -7,11 +7,11 @@ public class DriverGeneral
         // menu telescopic
         System.out.println(
          "OPCIONES \n"
-        + " Opcion 0: Salir gestión drivers                                 \n"
+        + " Opcion 0: Salir gestion drivers                                 \n"
         + " Opcion 1: Driver Controlador nave                               \n"
         + " Opcion 2: Driver Nave                                           \n"
         + " Opcion 3: Driver Controlador Galaxia                            \n"
-        + " Opcion 4: Driver Galaxia 										\n");
+        + " Opcion 4: Driver Galaxia 										                    \n");
     }
       
     public static void main(String[] args) {
