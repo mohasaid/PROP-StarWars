@@ -94,8 +94,8 @@ public class DriverControladorPlaneta {
             }
             int y = sc.nextInt();
             Pair<Integer,Integer> Coo;
-            Coo.setFirst(x);
-            Coo.setSecond(y);
+            Coo.ponPrimero(x);
+            Coo.ponSegundo(y);
             while(!sc.hasNextBoolean()) {
                 s = sc.nextLine();
                 throw new Exception("Error: Fuente tiene que ser un booleano\n")
@@ -162,7 +162,7 @@ public class DriverControladorPlaneta {
             }
             int id = sc.nextInt();
             Pair<Integer,Integer> Coor = contp.Consultar_Coordenadas(id);
-            System.out.print("X: " + Coo.getFirst() + "Y: " + Coo.getSecond() + "\n");     
+            System.out.print("X: " + Coo.consultarPrimero() + "Y: " + Coo.consultarSegundo() + "\n");     
         }
         catch (Exception e) {
             System.out.print(e);
