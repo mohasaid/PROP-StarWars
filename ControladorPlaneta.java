@@ -48,8 +48,8 @@ public class ControladorPlaneta{
         }
         int coste = randomNum.nextInt();
         Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
-        Coo.setFirst(randomNum.nextInt());
-        Coo.setSecond(randomNum.nextInt());
+        Coo.ponPrimero(randomNum.nextInt());
+        Coo.ponSegundo(randomNum.nextInt());
         Random rb = new Random();
         boolean F;
         boolean S;
