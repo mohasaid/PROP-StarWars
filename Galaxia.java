@@ -57,8 +57,8 @@ public class Galaxia {
                 Integer a = pai.get(i).consultarPrimero();
                 Integer b = pai.get(i).consultarSegundo();
                 Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a, b);
-                if(pa.consultarPrimero() > N || pa.consultarSegundo() > N ) throw new Exception("Error: las coordenadas que forman el limite no pueden ser mayores que el limite de la galaxia");
-                if(pa.consultarPrimero() < 0 || pa.consultarSegundo() < 0) throw new Exception("Error: las coordenades que forman el limite no pueden ser menores que 0");
+                if(pa.consultarPrimero() > N || pa.consultarSegundo() > N ) throw new Exception("Error: las coordenadas que dan forma a la galaxia no pueden ser mayores que el limite de la galaxia");
+                if(pa.consultarPrimero() < 0 || pa.consultarSegundo() < 0) throw new Exception("Error: las coordenades que dan forma a la galaxia no pueden ser menores que 0");
                 tmp = i;
                 for(int j = 0; (j < Size && (!tr.get(i).consultarPrimero() || !tr.get(i).consultarSegundo())); ++j) {
                 	if(i != j && j != tmp) {
@@ -268,11 +268,11 @@ public class Galaxia {
     {
         if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
         if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
-        if(l.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para delimitar un limite en la galaxia");
+        if(l.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
         nomGalaxia = nom;
         N = new Integer(n);
-        if(comprovaRepetits(l)) throw new Exception("Error: las coordenadas que forman el limite no pueden tener coordenadas repetidas");
-        if(!consultarConfrontantsTotes(l)) throw new Exception("Error: las coordenadas que forman el limite no son colindantes");
+        if(comprovaRepetits(l)) throw new Exception("Error: las coordenadas que dan forma a la galaxia no pueden tener coordenadas repetidas");
+        if(!consultarConfrontantsTotes(l)) throw new Exception("Error: las coordenadas dan forma a la galaxia no son colindantes");
         limits = l;
         presupost = new Integer(-1);
         planetes = new TreeSet<Integer>();
@@ -439,7 +439,7 @@ public class Galaxia {
     {
         if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
         if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
-        if(!dintreLimitUsuari(x,y)) throw new Exception("Error: las coordenadas no pueden estar fuera del limite impuesto en la galaxia");
+        if(!dintreLimitUsuari(x,y)) throw new Exception("Error: las coordenadas no pueden estar fuera del limite que da forma a la galaxia");
         
         if(gal[x][y] > 0) return true;
         else return false;
@@ -538,9 +538,9 @@ public class Galaxia {
      */
     public void modificarLimitsUsuari(List<Pair<Integer, Integer> > p) throws Exception
     {
-    	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para delimitar un limite en la galaxia");
-    	if(comprovaRepetits(p)) throw new Exception("Error: las coordenadas que forman el limite no pueden tener coordenadas repetidas");
-    	if(!consultarConfrontantsTotes(p)) throw new Exception("Error: las coordenadas que forman el limite no son colindantes");
+    	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
+    	if(comprovaRepetits(p)) throw new Exception("Error: las coordenadas que forman dan forma a la galaxia no pueden tener coordenadas repetidas");
+    	if(!consultarConfrontantsTotes(p)) throw new Exception("Error: las coordenadas que dan forma a la galaxia no son colindantes");
     	limits = p;
     	gal = new int[N][N]; // Para reiniciar los valores que tenia, lo pongo a 0
     	inicialitzaMatriu();
@@ -558,7 +558,7 @@ public class Galaxia {
     	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
     	boolean b = existeixPlanetaCoordenades(x,y); // true si hay uno
     	boolean c = dintreLimitUsuari(x,y); // true si esta
-    	if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto");
+    	if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
     	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
     	p.modificarCoordenades(x, y);
     	planetes.add(p.Consultar_id());
@@ -584,7 +584,7 @@ public class Galaxia {
 		    int rndY = randInt(pa.consultarSegundo().intValue(), pa1.consultarSegundo().intValue());
 		    boolean b = existeixPlanetaCoordenades(rndX, rndY);
 		    boolean c = dintreLimitUsuari(rndX, rndY);
-		    if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto");
+		    if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
 		    if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
 		    Pair<Integer, Integer> par = new Pair<Integer, Integer>(rndX, rndY);
     		planetes.add(p.Consultar_id());
