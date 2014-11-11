@@ -118,7 +118,7 @@ public class DriverControladorGalaxia {
 		try {
 			String res = cGalaxia.consultarElementsGalaxia();
 			Scanner scan = new Scanner(res);
-			scan.useDelimiter("\\:");
+			scan.useDelimiter(":");
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
@@ -133,7 +133,7 @@ public class DriverControladorGalaxia {
 		try {
 			String res = cGalaxia.llista_planetes();
 			Scanner scan = new Scanner(res);
-			scan.useDelimiter("\\:");
+			scan.useDelimiter(":");
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
@@ -148,7 +148,7 @@ public class DriverControladorGalaxia {
 		try {
 			String res = cGalaxia.llista_rutes();
 			Scanner scan = new Scanner(res);
-			scan.useDelimiter("\\:");
+			scan.useDelimiter(":");
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
@@ -163,7 +163,7 @@ public class DriverControladorGalaxia {
 		try {
 			String res = cGalaxia.llista_naus();
 			Scanner scan = new Scanner(res);
-			scan.useDelimiter("\\:");
+			scan.useDelimiter(":");
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
