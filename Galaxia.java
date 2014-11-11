@@ -352,9 +352,11 @@ public class Galaxia {
     /**
      * Metodo para consultar las coordenadas que dan forma a la galaxia
      * @return Coordenadas que dan forma a la galaxia
+     * @throws Exception 
      */
-    public List<Pair<Integer, Integer> > consultarValorLimits()
+    public List<Pair<Integer, Integer> > consultarValorLimits() throws Exception
     {
+    	if(limits.size() < 1) throw new Exception("La galaxia no tiene coordenadas que le den forma");
     	return limits;
     }
     
