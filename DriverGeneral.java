@@ -7,21 +7,26 @@ public class DriverGeneral
         // menu telescopic
         System.out.println(
          "OPCIONES \n"
-        + " Opcio 0: Sortir                                                \n"
-        + " Opcio 1: Driver Controlador nave                               \n"
-        + " Opcio 2: Driver Nave                                           \n"
-        + " Opcio 3: Driver Galaxia                                        \n");
+        + " Opcion 0: Salir gestión drivers                                 \n"
+        + " Opcion 1: Driver Controlador nave                               \n"
+        + " Opcion 2: Driver Nave                                           \n"
+        + " Opcion 3: Driver Controlador Galaxia                            \n"
+        + " Opcion 4: Driver Galaxia 										\n");
     }
       
     public static void main(String[] args) {
         opciones();
         Scanner sc = new Scanner(System.in);
+        
         DriverControladorNave DCNave = new DriverControladorNave();
         DriverNave Dnave = new DriverNave();
+        // Galaxia
+        DriverControladorGalaxia DCGalaxia = new DriverControladorGalaxia();
         DriverGalaxia DGalaxia = new DriverGalaxia();
-       ControladorNave cn = new ControladorNave();
-       ControladorPlaneta cp = new ControladorPlaneta();
-       ControladorRuta cr = new ControladorRuta();
+        
+        ControladorNave cn = new ControladorNave();
+        ControladorPlaneta cp = new ControladorPlaneta();
+        ControladorRuta cr = new ControladorRuta();
           
           
           
@@ -31,8 +36,11 @@ public class DriverGeneral
             {
                 case 1: DCNave.Executa(cn,cp); break;  
                 case 2: Dnave.Executa(); break;
-                case 3: DGalaxia.Executa(cp,cr,cn); break;
-                default: System.out.println("Opción incorrecta");                
+                
+                case 3: DGalaxia.Executa(cn,cp,cr); break;
+                case 4: DCGalaxia.Executa(cp, cr, cn); break;
+                
+                default: System.out.println("Opcion incorrecta");                
             }
             opciones();
             op = sc.nextInt();
