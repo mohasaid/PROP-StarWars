@@ -119,13 +119,48 @@ public class ControladorGalaxia
     	if(g.consulta_nombrePlanetes() > 0) { // listar planetas
     		ArrayList<Integer> np = g.consultarPlanetes();
     		for(Integer a : np) {
-    			res += a;
+    			res += a + ",";
     			/*p = g.consultarPlaneta(a);
     			res += p.Consultar_id() + "(" + p.consultar_X() + "," + p.consultar_Y() + ")";*/
     		}
     	}
     	return res;
     }
+    
+    /**
+     * Metodo para consultar el listado de rutas de la galaxia
+     * @return Los identificadores de las rutas
+     * @throws Exception
+     */
+    public String llista_rutes() throws Exception
+    {
+    	String res = null;
+    	if(g.consulta_nombreRutes() > 0) { // listar planetas
+    		ArrayList<Integer> nr = g.consultarRutes();
+    		for(Integer a : nr) {
+    			res += a + ",";
+    		}
+    	}
+    	return res;
+    }
+    
+    /**
+     * Metodo para consultar el listado de naves en la galaxia
+     * @return Los identificadores de las naves
+     * @throws Exception
+     */
+    public String llista_naus() throws Exception
+    {
+    	String res = null;
+    	if(g.consulta_nombreNaus() > 0) { // listar planetas
+    		ArrayList<Integer> nn = g.consultarNaus();
+    		for(Integer a : nn) {
+    			res += a + ",";
+    		}
+    	}
+    	return res;
+    }
+    
     
     // Pre: Cierto
     // Post: Devuelve el numero de planetas que hay en la galaxia
@@ -146,7 +181,7 @@ public class ControladorGalaxia
      * @return Limite maximo de la galaxia
      * @throws Exception
      */
-    public Integer consultarLimit() throws Exception
+    public int consultarLimit() throws Exception
     {
         return g.consultarLimitGalaxia();
     }
@@ -239,12 +274,12 @@ public class ControladorGalaxia
      * @return Devuelve las coordenadas con las que se ha introducido en la galaxia
      * @throws Exception 
      */
-    public Pair<Integer, Integer> afegirPlanetaAutomatic(ControladorPlaneta cp, int idPlaneta) throws Exception
+    public String afegirPlanetaAutomatic(ControladorPlaneta cp, int idPlaneta) throws Exception
     {
     	// AÑADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
     	//if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
     	Planeta p = cp.BuscarPlaneta(idPlaneta);
-    	return g.afegirPlanetaAutomatic(p);
+    	return g.afegirPlanetaAutomatic(p).toString();
     }
     
     // Pre: Cierto
