@@ -76,7 +76,7 @@ public class DriverGalaxia {
 	            case 28: TesteliminarRuta(cin,cr);break;
 	            case 29: TesteliminarTotesRutes();break;
 	            case 30: TesteliminarContingutGalaxia();break;
-	            default: System.out.println("Opcio incorrecte");
+	            default: System.out.println("Opcion incorrecta");
             }
             n = cin.nextInt();
         }
@@ -520,4 +520,3 @@ public class DriverGalaxia {
         }
 	}
 }
-
