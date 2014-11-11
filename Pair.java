@@ -11,4 +11,8 @@ public class Pair<L,R> {
     public R consultarSegundo() { return second;}
     public void ponPrimero(L first1) { first = first1;}
     public void ponSegundo(R second1) { second = second1;}
+    
+    public String toString() {
+        return "(" + consultarPrimero() + ", " + consultarSegundo() + ")";
+    }
 }
