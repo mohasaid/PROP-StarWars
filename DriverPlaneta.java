@@ -89,8 +89,8 @@ public class DriverPlaneta {
     		}
     		int y = sc.nextInt();
     		Pair<Integer,Integer> Coo;
-    		Coo.setFirst(x);
-    		Coo.setSecond(y);
+    		Coo.ponPrimero(x);
+    		Coo.ponSegundo(y);
     		while(!sc.hasNextBoolean()) {
     			s = sc.nextLine();
     			throw new Exception("Error: Fuente tiene que ser un booleano\n");
@@ -157,7 +157,7 @@ public class DriverPlaneta {
     public static void TestCCoordenadas(Planeta p) {
     	try {
     		Pair<Integer,Integer> Coo= p.Consultar_Coordenadas();
-    		System.out.print("X: " + Coo.getFirst() + " Y: " + Coo.getSecond() + "\n");
+    		System.out.print("X: " + Coo.consultarPrimero() + " Y: " + Coo.consultarSegundo() + "\n");
     	}
     	catch (Excetpion e) {
     		System.out.print(e);
@@ -293,6 +293,98 @@ public class DriverPlaneta {
     		}
     		int ynew = s.nextInt();
     		p.modificarCoordenadas(xnew,ynew);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestAEntrada (Scanner sc, Planeta p) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = s.nextLine();
+    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		p.Anadir_Entrada(id);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestASalida (Scanner sc, Planeta p) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = s.nextLine();
+    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		p.Anadir_Salida(id);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestANave (Scanner sc, Planeta p) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = s.nextLine();
+    			throw new Exception ("Error: El identificador de una Nave tiene que ser un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		p.Anadir_Nave(id);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestBEntrada (Scanner sc, Planeta p) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = s.nextLine();
+    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		p.Borrar_Entrada(id);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestBSalida (Scanner sc, Planeta p) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = s.nextLine();
+    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		p.Borrar_Salida(id);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestBNave (Scanner sc, Planeta p) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = s.nextLine();
+    			throw new Exception ("Error: El identificador de una Nave tiene que ser un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		p.Borrar_Nave(id);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public static void TestB(Planeta p) {
+    	try {
+    		p.Borrar();
     	}
     	catch (Exception e) {
     		System.out.print(e);
