@@ -67,7 +67,7 @@ public class ControladorGalaxia
     	res = g.consultarNomGalaxia() + ":" + g.consultarPresupost() + ":" + g.consultarLimitGalaxia();
     	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
     	Iterator<Pair<Integer, Integer> > it = lp.iterator();
-    	res = res + ":"; // para separar lo de arriba de los limites
+    	res = res + ":";
     	while(it.hasNext()) {
     		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
     	}
@@ -365,9 +365,7 @@ public class ControladorGalaxia
     		System.out.println(e);
     	}
     }
-    
-    /** HACER ESTO **/
-    
+        
     // Pre: Cierto
     // Post:
     public String carregarConjuntGalaxia(String directori)
@@ -383,4 +381,3 @@ public class ControladorGalaxia
    	
    	}
 }
-
