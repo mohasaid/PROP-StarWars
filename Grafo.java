@@ -5,7 +5,6 @@ public class Grafo {
     private ArrayList<Nodo> nodos;
     private ArrayList<Arco> arcos;
     
-    
     public Grafo()
     {
     	nodos = new ArrayList<Nodo>();
@@ -17,16 +16,19 @@ public class Grafo {
     	nodos = new ArrayList<Nodo>(n);
     	arcos = new ArrayList<Arco>(a);
     }
-
-    public ArrayList<Arco> getArcosEntreNodos(Nodo origin, Nodo destination)
+    
+    public ArrayList<Arco> getArcoEntreNodos(Nodo origin, Nodo destination)
     {
     	Iterator<Arco> it = arcos.iterator();
-    	ArrayList<Arco> ar = new ArrayList<Arco>();
+    	ArrayList<Arco> arcs = new ArrayList<Arco>();
+    	Arco actual;
     	while(it.hasNext()) {
-    		Arco actual = it.next();
-    		if(actual.ConsultarOrigen().consultar_id() == origin.consultar_id() && actual.ConsultarDestino().consultar_id() == destination.consultar_id()) ar.add(actual);
+    		actual = it.next();
+    		if(actual.ConsultarOrigen().consultar_id() == origin.consultar_id() && actual.ConsultarDestino().consultar_id() == destination.consultar_id()) {
+    			arcs.add(actual);
+    		}
     	}
-    	return ar;
+    	return arcs;
     }
     
     public void setArcoEntreNodos(Nodo origin, Nodo destination, Arco a)
@@ -38,15 +40,15 @@ public class Grafo {
     public ArrayList<Nodo> getNodes() {
         return nodos;
     }
-
+    
     public void setNodes(ArrayList<Nodo> nodes) {
         this.nodos = nodes;
     }
-
+    
     public ArrayList<Arco> getEdges() {
         return arcos;
     }
-
+    
     public void setEdges(ArrayList<Arco> edges) {
         this.arcos = edges;
     }
