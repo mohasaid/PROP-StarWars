@@ -47,7 +47,7 @@ public class DriverControladorGalaxia {
     	  	case 3: TestCrearGalaxia2(); break;
     	  	case 4: TestCrearGalaxia2(); break;
     	  	case 5: TestConsultarNom(); break;
-    	  	// case 6: TestLListaGalaxia(); break;
+    	  	case 6: TestConsultarElementsGalaxia(); break;
     	  	case 7: TestLListaPlanetes(); break;
     	  	case 8: TestLListaRutes(); break;
     	  	case 9: TestLListaNaus(); break;
@@ -113,25 +113,30 @@ public class DriverControladorGalaxia {
 	}
 	
 	// ESTA NO CREO QUE VALGA LA PENA
-	/*public void TestLListaGalaxia()
+	public void TestConsultarElementsGalaxia()
 	{
 		try {
+			String res = cGalaxia.consultarElementsGalaxia();
+			Scanner scan = new Scanner(res);
+			scan.useDelimiter("\\:");
+			while(scan.hasNext()) {
+				System.out.println(scan.next());
+			}
 		}
 		catch(Exception e) {
             System.out.println(e);
         }
-	}*/
+	}
 	
 	public void TestLListaPlanetes()
 	{
 		try {
 			String res = cGalaxia.llista_planetes();
 			Scanner scan = new Scanner(res);
-			scan.useDelimiter("ALGO");
+			scan.useDelimiter("\\:");
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
-			
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -143,7 +148,7 @@ public class DriverControladorGalaxia {
 		try {
 			String res = cGalaxia.llista_rutes();
 			Scanner scan = new Scanner(res);
-			scan.useDelimiter("ALGO");
+			scan.useDelimiter("\\:");
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
@@ -158,7 +163,7 @@ public class DriverControladorGalaxia {
 		try {
 			String res = cGalaxia.llista_naus();
 			Scanner scan = new Scanner(res);
-			scan.useDelimiter("ALGO");
+			scan.useDelimiter("\\:");
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
