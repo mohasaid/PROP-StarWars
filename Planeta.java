@@ -49,8 +49,8 @@ public class Planeta
         Coste = k;
         Fuente = F;
         Sumidero = S;
-        Coordenadas.setFirst(Coo.getFirst());
-        Coordenadas.setSecond(Coo.getSecond());
+        Coordenadas.ponPrimero(Coo.consultarPrimero());
+        Coordenadas.ponSegundo(Coo.consultarSegundo());
         LRS = new TreeSet<Integer>();
         LRE = new TreeSet<Integer>();
     }
@@ -95,14 +95,14 @@ public class Planeta
     //Post: Retorna la primera coordenada del planeta.
     public int consultar_X() 
     {
-        return Coordenadas.getFirst();
+        return Coordenadas.consultarPrimero();
     }
     
     //Pre: Cierto.
     //Post: Retorna la segunda coordenada del planeta.
     public int consultar_Y() 
     {
-        return Coordenadas.getSecond();
+        return Coordenadas.consultarSegundo();
     }
     //Pre: Cierto.
     //Post: Retorna las rutas que salen del planeta.
@@ -149,8 +149,8 @@ public class Planeta
     //Post: Modifica las Coordenadas. 
     public void modificarCoordenades(int rndX, int rndY)
     {
-        Coordenadas.setFirst(rndX);
-        Coordenadas.setSecond(rndY);
+        Coordenadas.ponPrimero(rndX);
+        Coordenadas.ponSegundo(rndY);
     }
     //Pre: Cierto
     //Post: Anade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
