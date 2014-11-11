@@ -66,7 +66,7 @@ public class DriverControladorGalaxia {
     	  	case 22: TesteliminarContingutGalaxia(); break;
     	  	case 23: TestcarregarConjuntGalaxia(); break;
     	  	case 24: TestguardarConjuntGalaxia(); break;
-    	  	default: System.out.println("Opcio incorrecte");
+    	  	default: System.out.println("Opcion incorrecta");
     	  }
     	  n = cin.nextInt();
       }
