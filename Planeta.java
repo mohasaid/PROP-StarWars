@@ -176,9 +176,21 @@ public class Planeta
     {
         LRE.remove(id);
     }  
+    
+    public boolean Existe_Nave(int id)
+    {
+    	return LNaves.contains(id);
+    }
+    public void Anadir_Nave(int id) throws Exception
+    {
+    	if(Existe_Nave(id)) throw new Exception("Error: ya existe una nave con ese identificador");
+    	LNaves.add(id);
+    }
     //Pre: Cierto.
     //Post: Borra la id de la nave "id" que estaba en el planeta de la lista de naves que estan en el planeta.
-    public void Borrar_Nave(int id) {
+    public void Borrar_Nave(int id) throws Exception 
+    {
+    	if(!Existe_Nave(id)) throw new Exception("Error: no existe una nave con ese identificador");
     	LNaves.remove(id);
     }
     //Pre: Cierto.
