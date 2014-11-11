@@ -549,20 +549,20 @@ public class Galaxia {
     // Pre: Cierto
     // Post: Se añade en lista de identificadores de planetas de la galaxia el identificador del planeta "p"
     /**
-     * Metodo para añadir un planeta en la galaxia
+     * Metodo para añadir un planeta en la galaxia en unas determinadas coordenadas
      * @param p
      * @throws Exception
      */
-    public void afegirPlaneta(Planeta p) throws Exception
+    public void afegirPlaneta(Planeta p, int x, int y) throws Exception
     {
     	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
-    	Pair<Integer, Integer> pa = p.consultar_coordenades();
-    	boolean b = existeixPlanetaCoordenades(pa.consultarPrimero().intValue(),pa.consultarSegundo().intValue()); // true si hay uno
-    	boolean c = dintreLimitUsuari(pa.consultarPrimero().intValue(),pa.consultarSegundo().intValue()); // true si esta
+    	boolean b = existeixPlanetaCoordenades(x,y); // true si hay uno
+    	boolean c = dintreLimitUsuari(x,y); // true si esta
     	if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto");
     	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
+    	p.modificarCoordenades(x, y);
     	planetes.add(p.Consultar_id());
-    	gal[pa.consultarPrimero()][pa.consultarSegundo()] = p.Consultar_id();
+    	gal[x][y] = p.Consultar_id();
     }
    
     // Pre: Cierto
