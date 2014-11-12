@@ -12,7 +12,7 @@ public class Arco {
      
     //Pre: cierto
     //Post: crea un arco vacío
-    public void Arco(){
+    public Arco(){
         id = -1;
         origen = new Nodo();
         destino = new Nodo();
@@ -22,7 +22,7 @@ public class Arco {
     }
     //Pre:cierto
     //Post: Crea un Arco inicializado
-    public void Arco(int ident, Nodo o, Nodo d, int c,int idr){
+    public Arco(int ident, Nodo o, Nodo d, int c,int idr){
         id = ident;
         origen = o;
         destino = d;
