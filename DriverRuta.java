@@ -36,9 +36,9 @@ public class DriverRuta {
     			);
     }
     
-    public void Executa(Ruta r) throws Exception {
+    public void Executa(Ruta r1) throws Exception {
         int n;
-        this.r = r;
+        r = r1;
         opciones();
         n = cin.nextInt();
         while(n != 0) {
