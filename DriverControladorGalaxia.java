@@ -193,6 +193,17 @@ public class DriverControladorGalaxia {
         }
 	}
 	
+	public void TestConsultarLimitsGalaxia()
+	{
+		try {
+			String res = cGalaxia.consultarLimitsGalaxia();
+			System.out.println(res);
+		}
+		catch(Exception e) {
+            System.out.println(e);
+        }
+	}
+	
 	public void TestexisteixPlaneta()
 	{
 		try {
