@@ -669,11 +669,11 @@ public class ControladorNave{
 	     */
 	    //Pre:
 	    //Post:
-	    public void GuardarNaves(String path) throws Exception {
-	         
-	        if(!listaNaves1.isEmpty() || !listaNaves2.isEmpty() || !listaNaves3.isEmpty() || !listaNaves4.isEmpty() || !listaNaves5.isEmpty()){
+	     public void GuardarNaves(String path) throws Exception {
+	    	String res = "";
+	        if(!listaNaves1.isEmpty()){
 	            Cdn.AbrirEscritura(path);        
-	            String res = "";
+	            res = "";
 	            int iteracions = 0;
 	            for (TipoNave1 r : listaNaves1){  
 	                res += r.consultar_id() + ":";
@@ -689,8 +689,80 @@ public class ControladorNave{
 	                    res = "";
 	                }
 	            }
-	            Cdn.guardar(path,res);
-	            Cdn.CerrarEscritura();
+	        }
+	        
+	        if(!listaNaves2.isEmpty()){
+	            int iteracions = 0;
+	            for (TipoNave2 r : listaNaves2){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                System.out.println(res);
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    Cdn.guardar(path,res);
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        if(!listaNaves3.isEmpty()){
+	            int iteracions = 0;
+	            for (TipoNave3 r : listaNaves3){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                System.out.println(res);
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    Cdn.guardar(path,res);
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        if(!listaNaves4.isEmpty()){
+	            int iteracions = 0;
+	            for (TipoNave4 r : listaNaves4){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                System.out.println(res);
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    Cdn.guardar(path,res);
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        if(!listaNaves5.isEmpty()){       
+	            int iteracions = 0;
+	            for (TipoNave5 r : listaNaves5){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                System.out.println(res);
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    Cdn.guardar(path,res);
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        
+	        if(res != ""){
+	        	Cdn.guardar(path,res);
+	        	Cdn.CerrarEscritura();
 	        }
 	    }
 	    
