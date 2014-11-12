@@ -43,7 +43,7 @@ public class Grafo {
     }
     
     public void setNodes(ArrayList<Nodo> nodes) {
-        this.nodos = nodes;
+        nodos = nodes;
     }
     
     public ArrayList<Arco> getEdges() {
@@ -51,7 +51,7 @@ public class Grafo {
     }
     
     public void setEdges(ArrayList<Arco> edges) {
-        this.arcos = edges;
+        arcos = edges;
     }
     
     public void addNodo(Nodo n)
