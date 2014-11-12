@@ -363,7 +363,6 @@ public class DriverGalaxia {
     		System.out.println("Introduce el nuevo limite");
 	    	int n1 = cin.nextInt();
 	    	g.modificarN(n1);
-	    	System.out.println("El nuevo limite de la galaxia es: " + g.consultarLimitGalaxia());
     	}
     	catch(Exception e) {
             System.out.println(e);
@@ -490,7 +489,6 @@ public class DriverGalaxia {
     {
     	try{
 	    	g.eliminarTotesRutes();
-	    	System.out.println("Se borraron todas las rutas de la galaxia");
     	}
     	catch(Exception e) {
             System.out.println(e);
@@ -501,7 +499,6 @@ public class DriverGalaxia {
     {
     	try{
 	    	g.eliminarContingutGalaxia();
-	    	System.out.println("Se borro todo el contenido de la galaxia (planetas, rutas y naves)");
     	}
     	catch(Exception e) {
             System.out.println(e);
