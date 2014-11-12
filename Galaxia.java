@@ -18,11 +18,11 @@ public class Galaxia {
     private List<Pair<Integer,Integer> > limits; // private list<pairs> con coordenadas de la galaxia impuestas por el usuario
     
     // Pre: Cierto
-    // Post: Devuelve cierto si "nom" contiene caracteres alfanumericos y un tamaño menor a 20 caracteres, falso en caso contrario
+    // Post: Devuelve cierto si "nom" contiene caracteres alfanumericos y un tamaÃ±o menor a 20 caracteres, falso en caso contrario
     /**
      * Metodo que dice si el nombre es alfanumerico
      * @param nom
-     * @return Cierto si "nom" contiene caracteres alfanumericos y un tamaño menor a 20 caracteres, falso en caso contrario
+     * @return Cierto si "nom" contiene caracteres alfanumericos y un tamaÃ±o menor a 20 caracteres, falso en caso contrario
      */
     private boolean alfa_numeric(String nom) // NOM ALFANUMERIC I < 20 CARACTERS
     {
@@ -549,9 +549,9 @@ public class Galaxia {
     }
     
     // Pre: Cierto
-    // Post: Se añade en lista de identificadores de planetas de la galaxia el identificador del planeta "p"
+    // Post: Se aÃ±ade en lista de identificadores de planetas de la galaxia el identificador del planeta "p"
     /**
-     * Metodo para añadir un planeta en la galaxia en unas determinadas coordenadas
+     * Metodo para aÃ±adir un planeta en la galaxia en unas determinadas coordenadas
      * @param p
      * @throws Exception
      */
@@ -568,9 +568,9 @@ public class Galaxia {
     }
    
     // Pre: Cierto
-    // Post: Se añade en lista de identificadores de planetas de la galaxia el identificador del planeta "p" y devuelve las coordenadas del planeta
+    // Post: Se aÃ±ade en lista de identificadores de planetas de la galaxia el identificador del planeta "p" y devuelve las coordenadas del planeta
     /**
-     * Metodo para añadir un planeta en la galaxia
+     * Metodo para aÃ±adir un planeta en la galaxia
      * @param p
      * @return Las coordenadas del planeta 
      * @throws Exception
@@ -646,9 +646,9 @@ public class Galaxia {
     }
   
     // Pre: Cierto
-    // Post: Se añade el identificador de la nave "idnave" en la lista de naves
+    // Post: Se aÃ±ade el identificador de la nave "idnave" en la lista de naves
     /**
-     * Metodo para añadir una nave en la galaxia
+     * Metodo para aÃ±adir una nave en la galaxia
      * @param idNave
      * @throws Exception
      */
@@ -684,9 +684,9 @@ public class Galaxia {
     }
   
     // Pre: Cierto
-    // Post: Se añade el identificador de la la ruta con identificador "idRuta" en la lista de rutas
+    // Post: Se aÃ±ade el identificador de la la ruta con identificador "idRuta" en la lista de rutas
     /**
-     * Metodo para añadir una ruta en la galaxia
+     * Metodo para aÃ±adir una ruta en la galaxia
      * @param idRuta
      * @throws Exception
      */
@@ -724,7 +724,7 @@ public class Galaxia {
     // Pre: Cierto
     // Post: Se borra el contenido de la galaxia: los planetas, las naves, los planetas y el presupuesto
     /**
-     * Metodo para eliminar todo el contenido de la galaxia
+     * Metodo para eliminar todo el contenido de la galaxia menos el limite maximo
      * @throws Exception
      */
 	public void eliminarContingutGalaxia() throws Exception
@@ -733,10 +733,8 @@ public class Galaxia {
         eliminarTotesNaus();
         eliminarTotesRutes();
         presupost = Integer.valueOf(-1);
-        reiniciaMatriu(); // desaparecen los planetas, pero se mantienen los limites
-        // Deberia perder tambien la forma?
-        /*  limits = new ArrayList<Pair<Integer,Integer> >();
-        	gal = new int[n][n];
-         */
+        // Pierde los planetas y los limites
+        limits = new ArrayList<Pair<Integer,Integer> >();
+        gal = new int[N][N];
     }
 }
