@@ -12,6 +12,7 @@ public class ControladorNave{
 	private Iterator<TipoNave3> itc3;
 	private Iterator<TipoNave4> itc4;
 	private Iterator<TipoNave5> itc5;
+	ControladorDadesNave Cdn;
 	
 		//Pre: cierto
 		//Post: Crea un ControladorNave
@@ -21,8 +22,14 @@ public class ControladorNave{
 			listaNaves3 = new TreeSet<TipoNave3>(new OrdenTipoNave3());
 			listaNaves4 = new TreeSet<TipoNave4>(new OrdenTipoNave4());
 			listaNaves5 = new TreeSet<TipoNave5>(new OrdenTipoNave5());
+			Cdn = new ControladorDadesNave();
 		}
-		
+		public void pinta(){
+			Object[] lista1 = listaNaves1.toArray();
+			for(int i =0;i<lista1.length;++i){
+			System.out.println(lista1[i]);
+			}
+		}
 		//Pre: cierto
 				//Post: devuelve la nave con identificador "id"
 				public Nave BuscarNave(int id) throws Exception{
@@ -618,6 +625,73 @@ public class ControladorNave{
 				++j;
 				if(!itc1.hasNext()) res += "\n";
 			}
-			return res;
+			return res; 
 		}
+		/*
+		public void CargarNaves (String path) throws Exception {
+	        String res; 
+	        Cdn.AbrirLectura(path);
+	        while(!(res = Cdn.cargar()).isEmpty()) {
+	            Scanner in = new Scanner(res);
+	            in.useDelimiter("#");
+	            String s;
+	            while (in.hasNext()) {
+	                s = in.next();
+	                if (!s.contentEquals("@")) {
+	                    String nom = s;
+	                    s = in.next();
+	                    Recurs rec = new Recurs(nom, s); 
+	                    boolean tePlanetes = false;
+	                    while (in.hasNext()) {
+	                        s = in.next();
+	                        if (!s.contentEquals("@") && !s.contentEquals("$") && !tePlanetes) {                        
+	                            if(ctrlPaq.existeixPaquet(s)) {
+	                                Paquet paq = ctrlPaq.buscarPaquet(s);
+	                                rec.assignarAPaquet(paq);
+	                                paq.afegirRecurs(nom, rec);
+	                            }
+	                        }
+	                        else if (s.contentEquals("$")) tePlanetes = true;
+	                        else if (!s.contentEquals("@") && tePlanetes) {
+	                            if(ctrlPl.existeixPlaneta(s)) {
+	                                Planeta pl = ctrlPl.consultarUnPlaneta(s);
+	                                rec.assignarAPlaneta(pl);
+	                                pl.afegirRecurs(rec);
+	                            }
+	                        }                   
+	                    }
+	                    cjtRecursos.posar(nom, rec);
+	                }
+	            }
+	        }
+	        ctrlDadesRec.CloseRead();
+	    }    
+	     */
+	    //Pre:
+	    //Post:
+	    public void GuardarNaves(String path) throws Exception {
+	         
+	        if(!listaNaves1.isEmpty() || !listaNaves2.isEmpty() || !listaNaves3.isEmpty() || !listaNaves4.isEmpty() || !listaNaves5.isEmpty()){
+	            Cdn.AbrirEscritura(path);        
+	            String res = "";
+	            int iteracions = 0;
+	            for (TipoNave1 r : listaNaves1){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                System.out.println(res);
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    Cdn.guardar(path,res);
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	            Cdn.guardar(path,res);
+	            Cdn.CerrarEscritura();
+	        }
+	    }
+	    
 }
