@@ -144,7 +144,7 @@ public class ControladorPlaneta{
         return BuscarPlaneta(id).Consultar_RutasEntrada();
     }
     //Pre: Cierto.
-    //Post: Retorna el tamaÃƒÆ’Ã‚Â±o de listaPlanetas.
+    //Post: Retorna el tamaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±o de listaPlanetas.
     public int Consultar_Size() 
     {
         return listaPlanetas.size();
@@ -242,6 +242,7 @@ public class ControladorPlaneta{
         	Iterator<Integer> it1 = p.Consultar_RutasEntrada().iterator();
         	int idr;
         	while(it1.hasNext()) {
+        		idr = it1.next();
         		cr.BorrarRuta_desdePlaneta(it1.next());
         		p.Borrar_Entrada(idr);
         	}
