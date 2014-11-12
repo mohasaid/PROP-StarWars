@@ -7,6 +7,11 @@ public class ControladorNave{
 	private TreeSet<TipoNave4> listaNaves4;
 	private TreeSet<TipoNave5> listaNaves5;
 	private static int idn=0;
+	private Iterator<TipoNave1> itc1;
+	private Iterator<TipoNave2> itc2;
+	private Iterator<TipoNave3> itc3;
+	private Iterator<TipoNave4> itc4;
+	private Iterator<TipoNave5> itc5;
 	
 		//Pre: cierto
 		//Post: Crea un ControladorNave
@@ -31,7 +36,6 @@ public class ControladorNave{
 							}
 						}
 						Iterator<TipoNave2> it2 = listaNaves2.iterator();
-						found = false;
 						while(it2.hasNext() && !found){
 							Nave aux = it2.next();
 							if(aux.consultar_id() == id){
@@ -40,7 +44,6 @@ public class ControladorNave{
 							}
 						}
 						Iterator<TipoNave3> it3 = listaNaves3.iterator();
-						found = false;
 						while(it3.hasNext() && !found){
 							Nave aux = it3.next();
 							if(aux.consultar_id() == id){
@@ -49,7 +52,6 @@ public class ControladorNave{
 							}
 						}
 						Iterator<TipoNave4> it4 = listaNaves4.iterator();
-						found = false;
 						while(it4.hasNext() && !found){
 							Nave aux = it4.next();
 							if(aux.consultar_id() == id){
@@ -58,7 +60,6 @@ public class ControladorNave{
 							}
 						}
 						Iterator<TipoNave5> it5 = listaNaves5.iterator();
-						found = false;
 						while(it5.hasNext() && !found){
 							Nave aux = it5.next();
 							if(aux.consultar_id() == id){
@@ -131,7 +132,7 @@ public class ControladorNave{
 					return -1;
 		}
 		//Pre:cierto
-		//Post: devuelve un boleean indicando si hay algún tipo definido
+		//Post: devuelve un boleean indicando si hay algÃºn tipo definido
 		public boolean NingunTipo(){
 			if(TipoNave1.definido) return false;
 			if(TipoNave2.definido) return false;
@@ -140,8 +141,8 @@ public class ControladorNave{
 			if(TipoNave5.definido) return false;
 			return true;
 		}
-		//Pre: existe algún tipo definido
-		//Post: devuelve un tipo aleatorio que esté definido
+		//Pre: existe algÃºn tipo definido
+		//Post: devuelve un tipo aleatorio que estÃ© definido
 		public int TipoRandom(){
 			ArrayList<Integer> def = new ArrayList<Integer>();
 			if(TipoNave1.definido) def.add(1);
@@ -157,13 +158,13 @@ public class ControladorNave{
 		//CREADORAS NAVE
 		
 		//Pre: cierto
-		//Post: Crea una Nave manualmente y la añade a la lista
+		//Post: Crea una Nave manualmente y la aÃ±ade a la lista
 		public void CrearNave(int id, int t, int d /*ControladorGalaxia cg*/) throws Exception{
 			if(ExisteNave(id)){
 				throw new Exception("Error: Ya existe una nave con el mismo identificador\n");		
 			}
 			if(!ExisteTipo(t)){
-				throw new Exception("Error: No existe ningún tipo de nave con el identificador introducido\n");
+				throw new Exception("Error: No existe ningÃºn tipo de nave con el identificador introducido\n");
 			}
 				if(t<1 || t>5) throw new Exception("Error: El identificador del tipo debe estar entre 1 y 5\n");
 				if(t==1){
@@ -198,7 +199,7 @@ public class ControladorNave{
 		public void CrearNaveAuto(int dest/*ArrayList<int> lp ControladorGalaxia cg*/) throws Exception{
 			while(ExisteNave(idn)) ++idn;
 			if(NingunTipo()){
-				throw new Exception("Error: No existe ningún tipo de nave\n");
+				throw new Exception("Error: No existe ningÃºn tipo de nave\n");
 			}
 			int t = TipoRandom();
 			//int d = (int)(Math.random()*lp.size())+0;
@@ -234,7 +235,7 @@ public class ControladorNave{
 		//CREADORAS TIPO DE NAVE
 
 		//Pre: cierto
-		//Post: Crea un tipo de nave y lo añade a la lista
+		//Post: Crea un tipo de nave y lo aÃ±ade a la lista
 		public void CrearTipoNave(int id, int c) throws Exception{
 			if((id<1) || (id>5)){
 				throw new Exception("Error: El identificador de un tipo debe estar entre 1 y 5\n");
@@ -265,7 +266,7 @@ public class ControladorNave{
 			
 		}
 		//Pre: cierto
-		//Post: crea un tipo de nave de forma automatica y lo añade a la lista
+		//Post: crea un tipo de nave de forma automatica y lo aÃ±ade a la lista
 		public void CrearTipoNaveAuto() throws Exception{
 			int t = TipoNoDefinido();
 			int c = (int)Math.random()*Integer.MAX_VALUE+1;
@@ -311,7 +312,6 @@ public class ControladorNave{
 					}
 			}
 			Iterator<TipoNave2> it2 = listaNaves2.iterator();
-			found = false;
 			while(it2.hasNext() && !found){
 				Nave aux = it2.next();
 				if(aux.consultar_id() == id){
@@ -320,7 +320,6 @@ public class ControladorNave{
 				}
 			}
 			Iterator<TipoNave3> it3 = listaNaves3.iterator();
-			found = false;
 			while(it3.hasNext() && !found){
 				Nave aux = it3.next();
 				if(aux.consultar_id() == id){
@@ -329,7 +328,6 @@ public class ControladorNave{
 				}
 			}
 			Iterator<TipoNave4> it4 = listaNaves4.iterator();
-			found = false;
 			while(it4.hasNext() && !found){
 				Nave aux = it4.next();
 				if(aux.consultar_id() == id){
@@ -338,7 +336,6 @@ public class ControladorNave{
 				}
 			}
 			Iterator<TipoNave5> it5 = listaNaves5.iterator();
-			found = false;
 			while(it5.hasNext() && !found){
 				Nave aux = it5.next();
 				if(aux.consultar_id() == id){
@@ -518,7 +515,7 @@ public class ControladorNave{
 				}
 			}
 				if(!found){
-					throw new Exception("Error: No existe ningún tipo de nave con el identificador introducido\n");
+					throw new Exception("Error: No existe ningÃºn tipo de nave con el identificador introducido\n");
 				}
 			}
 		//Pre:cierto
@@ -529,5 +526,98 @@ public class ControladorNave{
 			listaNaves3.clear();
 			listaNaves4.clear();
 			listaNaves5.clear();
+		}
+		public String ConsultarTipos(){
+			String s = "";
+			if(TipoNave1.definido) s+= "1, ";
+			if(TipoNave2.definido) s+= "2, ";
+			if(TipoNave3.definido) s+= "3, ";
+			if(TipoNave4.definido) s+= "4,";
+			if(TipoNave5.definido) s+= "5";
+			return s;
+		}
+		public int size(){
+			int s1 =listaNaves1.size();
+			int s2 = listaNaves2.size();
+			int s3 = listaNaves3.size();
+			int s4 = listaNaves4.size();
+			int s5 = listaNaves5.size();
+			int s = s1+s2+s3+s4+s5;
+			System.out.println(s);
+			return s;
+		}
+		public void Inicializar(){
+			itc1 = listaNaves1.iterator();
+			itc2 = listaNaves2.iterator();
+			itc3 = listaNaves3.iterator();
+			itc4 = listaNaves4.iterator();
+			itc5 = listaNaves5.iterator();
+		}
+		public String ConsultarNaves(int i) throws Exception{
+			if(i==0){
+				Inicializar();
+			}
+			int j=0;
+			String res="";
+			if(i==0 && itc1.hasNext()){
+				++i;
+				res += "Naves tipo 1: \n";
+			}
+			while(itc1.hasNext() && j<100){
+				res += itc1.next().consultar_id() +",";
+				++j;
+				if(!itc1.hasNext()){
+					if(itc2.hasNext()) res += "\n Naves tipo 2: \n";
+					else if(itc3.hasNext()) res += "\n Naves tipo 3: \n";
+					else if(itc4.hasNext()) res += "\n Naves tipo 4: \n";
+					else if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+				}
+			}
+			if(i==0 && itc2.hasNext()){
+				++i;
+				res += "Naves tipo 2: \n";
+			}
+			while(itc2.hasNext() && j<100){
+				res += itc2.next().consultar_id() + ",";
+				++j;
+				if(!itc2.hasNext()){
+					if(itc3.hasNext()) res += "\n Naves tipo 3: \n";
+					else if(itc4.hasNext()) res += "\n Naves tipo 4: \n";
+					else if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+				}
+			}
+			if(i==0 && itc3.hasNext()){
+				++i;
+				res += "Naves tipo 3: \n";
+			}
+			while(itc3.hasNext() && j<100){
+				res += itc3.next().consultar_id() + ",";
+				++j;
+				if(!itc3.hasNext()){
+					if(itc4.hasNext()) res += "\n Naves tipo 4: \n";
+					else if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+				}
+			}
+			if(i==0 && itc4.hasNext()){
+				++i;
+				res += "Naves tipo 4: \n";
+			}
+			while(itc4.hasNext() && j<100){
+				res += itc4.next().consultar_id() + ",";
+				++j;
+				if(!itc3.hasNext()){
+					if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+				}
+			}
+			if(i==0 && itc5.hasNext()){
+				++i;
+				res += "Naves tipo 5: \n";
+			}
+			while(itc5.hasNext() && j<100){
+				res += itc5.next().consultar_id() + ",";
+				++j;
+				if(!itc1.hasNext()) res += "\n";
+			}
+			return res;
 		}
 }
