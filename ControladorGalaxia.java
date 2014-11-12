@@ -29,7 +29,7 @@ public class ControladorGalaxia
      */
     public void creaGalaxia(String nom,int n) throws Exception
     {
-        g = new Galaxia(nom,n);
+        g = new Galaxia(nom,n); 
     }
     
     /**
@@ -72,6 +72,23 @@ public class ControladorGalaxia
     		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
     	}
     	return res;
+    }
+    
+    /**
+     * Metodo para consultar las coordenadas que dan forma a la galaxia
+     * @return
+     * @throws Exception
+     */
+    public String consultarLimitsGalaxia() throws Exception
+    {
+    	//String res = "";
+    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
+    	/*Iterator<Pair<Integer, Integer> > it = lp.iterator();
+    	while(it.hasNext()) {
+    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo() + ":";
+    	}*/
+    	return lp.toString();
+    	//return res;
     }
     
     // Pre: Cierto
@@ -219,14 +236,18 @@ public class ControladorGalaxia
     
     // Pre: Cierto
     // Post: 
+
     /**
      * Metodo para añadir un planeta en la galaxia
-     * @param p
+     * @param cp
+     * @param idPlaneta
+     * @param x
+     * @param y
      * @throws Exception
      */
     public void afegirPlaneta(ControladorPlaneta cp, int idPlaneta, int x, int y) throws Exception
     {
-    	// AÑADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
+    	// AÃ‘ADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
     	//if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
     	try {
 	    	Planeta p = cp.BuscarPlaneta(idPlaneta);
@@ -241,13 +262,14 @@ public class ControladorGalaxia
     // Post: // COORDENADAS ALEATORIAS
     /**
      * Metodo para añadir un planeta creado automaticamente
-     * @param p
-     * @return Devuelve las coordenadas con las que se ha introducido en la galaxia
-     * @throws Exception 
+     * @param cp
+     * @param idPlaneta
+     * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
+     * @throws Exception
      */
     public String afegirPlanetaAutomatic(ControladorPlaneta cp, int idPlaneta) throws Exception
     {
-    	// AÑADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
+    	// AÃ‘ADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
     	//if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
 	    try {  	
     		Planeta p = cp.BuscarPlaneta(idPlaneta);
@@ -266,7 +288,8 @@ public class ControladorGalaxia
     // Post:
     /**
      * Metodo para eliminar un planeta de la galaxia
-     * @param p
+     * @param idPlaneta
+     * @param cp
      * @throws Exception
      */
     public void eliminarPlaneta(int idPlaneta, ControladorPlaneta cp) throws Exception
@@ -286,7 +309,7 @@ public class ControladorGalaxia
     // Post:
     /**
      * Metodo para añadir una ruta en la galaxia
-     * @param r
+     * @param idRuta
      * @throws Exception
      */
     public void afegirRuta(int idRuta) throws Exception
@@ -320,7 +343,7 @@ public class ControladorGalaxia
     // Post:
     /**
      * Metodo para añadir una nave en la galaxia
-     * @param n
+     * @param idn
      * @throws Exception
      */
     public void afegirNau(int idn) throws Exception
@@ -348,6 +371,62 @@ public class ControladorGalaxia
     	catch(Exception e){
     		System.out.println(e);
     	}
+    }
+    
+    /**
+     * Metodo para transformar los planetas a nodos y las rutas a vertices
+     * @throws Exception
+     */
+    public Pair<List<Arco>, List<Nodo> > convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp) throws Exception 
+    {
+    	List<Arco> laa = new ArrayList<Arco>();
+    	List<Nodo> lnn = new ArrayList<Nodo>();
+		ArrayList<Integer> ai = g.consultarRutes();
+		int idRuta, origen, destino, capac, idGeneral;
+		boolean bi;
+		Nodo o, d;
+		idGeneral = 0;
+		Ruta r = null;
+		Arco a = null;
+		Arco b = null;
+		Planeta p1, p2;
+		for(int i = 0; i < ai.size(); ++i) {
+			r = cr.BuscarRuta(ai.get(i));
+			idRuta = r.consultar_id();
+			origen = r.consultar_planetaA();
+			destino = r.consultar_planetaB();
+			capac = r.consultar_capacidad();
+			bi = r.consultar_bidireccional();
+			p1 = cp.BuscarPlaneta(origen);
+			p2 = cp.BuscarPlaneta(destino);
+			o = transformar_PlanetaANodo(p1);
+			d = transformar_PlanetaANodo(p2);
+			if(!lnn.contains(o)) lnn.add(o);
+			if(!lnn.contains(d)) lnn.add(d);
+			if(!bi) {
+				a = new Arco(idGeneral,o,d,capac,idRuta);
+				++idGeneral;
+				laa.add(a);
+			}
+			else {
+				a = new Arco(idGeneral,o,d,capac,idRuta);
+				++idGeneral;
+				b = new Arco(idGeneral,d,o,capac,idRuta);
+				++idGeneral;
+				laa.add(a);
+				laa.add(b);
+			}
+		}
+		return new Pair<List<Arco>, List<Nodo> >(laa,lnn);
+    }
+    
+    /**
+     * Metodo para transformar de planeta a nodo
+     * @throws Exception
+     */
+    public Nodo transformar_PlanetaANodo(Planeta p) throws Exception
+    {
+    	return new Nodo(p.Consultar_id(),p.Consultar_Fuente(),p.Consultar_Sumidero());
     }
     
     // Pre: Cierto
