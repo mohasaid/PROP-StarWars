@@ -137,15 +137,21 @@ public class Planeta
     public void Modificar_Coste(int k) throws Exception
     {
         if (k < 0) throw new Exception("Error: El Coste del Planeta no puede ser negativo");
+        else {
+        System.out.println("Funciono?");
         Coste = k;
-    }
+        System.out.println("SI que funciono");
+        }
+   }
     //Pre: Cierto.
     //Post: Modifica la Capacidad, Capacidad = c.
     public void modificarCapacidad(int c) throws Exception 
     {
     	if(Fuente) throw new Exception ("Error: La Capacidad de un Planeta Fuente no se puede modificar");
-    	if(c < 0) throw new Exception("Error: La capacidad no puede ser negativa");
-    	Capacidad = c;
+    	else if(c < 0) throw new Exception("Error: La capacidad no puede ser negativa");
+    	else {
+    		Capacidad = c;
+    	}
     }
     //Pre: Cierto.
     //Post: Modifica las Coordenadas. 
