@@ -55,24 +55,30 @@ public class ControladorRuta {
     }
       
     //Pre: Cierto
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃ±ade al arbol de rutas
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÂ±ade al arbol de rutas
     public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
         if(ExisteRuta(id)){
             throw new Exception("Error: Ya existe una ruta con el mismo identificador");       
         }
         if (!cp.ExistePlaneta(planetaA) ) { 
-            throw new Exception("Error: El Planeta con id= " + planetaA + "no existe");
+            throw new Exception("Error: El Planeta con id = " + planetaA + " no existe");
         }
         if (!cp.ExistePlaneta(planetaB) ) { 
-            throw new Exception("Error: El Planeta con id= " + planetaB + "no existe");
+            throw new Exception("Error: El Planeta con id = " + planetaB + " no existe");
+        }
+        if(cp.Consultar_Sumidero(planetaA)){
+            throw new Exception("Error: El Planeta con id = " + planetaA + " es el planeta sumidero, por lo que no puede salirle ninguna ruta a otro planeta");
+        }
+        if(cp.Consultar_Fuente(planetaB)){
+            throw new Exception("Error: El Planeta con id = " + planetaB + " es el planeta fuente, por lo que no puede entrarle ninguna ruta de otro planeta");
         }
         Ruta r = new Ruta(id,capacidad,distancia,planetaA,planetaB,bidireccional);
         ArbolRutas.add(r); 
     }
       
     //Pre: Cierto
-    //Post: Crea una ruta de forma automatica y la aÃ±ade al arbol de rutas
+    //Post: Crea una ruta de forma automatica y la aÃƒÂ±ade al arbol de rutas
     public void CrearRuta_automatica(ControladorPlaneta cp) throws Exception
     {
         Random aleatorio = new Random();
@@ -85,25 +91,28 @@ public class ControladorRuta {
         while (distancia == 0) {
             distancia = aleatorio.nextInt(2147483647);
         }
-      //MODIFICAR LA PART AUTOMATICA I FER-LA MÃ‰S EFICIENT!!
-        int aux = aleatorio.nextInt(2147483647);
-        //cp.numero_planetas retorna el numero de planetas total
-        aux = aux%cp.Consultar_Size();
-        //planeta posicio retorna la id del planeta que en l'arbre te la posicio aux
-        planetaA = cp.Consultar_PlanetaX(aux);
+      //MODIFICAR LA PART AUTOMATICA I FER-LA MÃƒâ€°S EFICIENT!!
+        int aux;
+        do {
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+        } while (cp.Consultar_Sumidero( cp.Consultar_PlanetaX(aux).Consultar_id() ));
+        Planeta planetaA = cp.Consultar_PlanetaX(aux);
         
-        aux = aleatorio.nextInt(2147483647);
-        //cp.numero_planetas retorna el numero de planetas total
-        aux = aux%cp.Consultar_Size();
-        //planeta posicio retorna la id del planeta que en l'arbre te la posicio aux
-        planetaB = cp.Consultar_PlanetaX(aux);
+        do {
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+        } while (cp.Consultar_Fuente( cp.Consultar_PlanetaX(aux).Consultar_id() ));
+        Planeta planetaB = cp.Consultar_PlanetaX(aux);
         
-        boolean bidireccional = aleatorio.nextBoolean();
-	    Ruta r = new Ruta(id, capacidad, distancia, planetaA, planetaB, bidireccional);
+        boolean bidireccional;
+        if (cp.Consultar_Fuente( planetaA.Consultar_id() ) || cp.Consultar_Sumidero( planetaB.Consultar_id() ) ) bidireccional = false;
+        else bidireccional = aleatorio.nextBoolean();
+	    Ruta r = new Ruta(id, capacidad, distancia, planetaA.Consultar_id(), planetaB.Consultar_id(), bidireccional);
 	    ArbolRutas.add(r);
     }
     //Pre: Cierto
-    //Post: Crea una ruta de forma automatica y la aÃ±ade al arbol de rutas
+    //Post: Crea una ruta de forma automatica y la aÃƒÂ±ade al arbol de rutas
     public void CrearRuta_automatica(ControladorPlaneta cp, int id) throws Exception
     {
     	if (ExisteRuta(id)) throw new Exception("Error: Ya existe una ruta con el mismo identificador");
@@ -113,21 +122,24 @@ public class ControladorRuta {
         while (distancia == 0) {
             distancia = aleatorio.nextInt(2147483647);
         }
-        //MODIFICAR LA PART AUTOMATICA I FER-LA MÃ‰S EFICIENT!!
-        int aux = aleatorio.nextInt(2147483647);
-        //cp.numero_planetas retorna el numero de planetas total
-        aux = aux%cp.Consultar_Size();
-        //planeta posicio retorna la id del planeta que en l'arbre te la posicio aux
-        planetaA = cp.Consultar_PlanetaX(aux);
+        //MODIFICAR LA PART AUTOMATICA I FER-LA MÃƒâ€°S EFICIENT!!
+        int aux;
+        do {
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+        } while (cp.Consultar_Sumidero( cp.Consultar_PlanetaX(aux).Consultar_id() ));
+        Planeta planetaA = cp.Consultar_PlanetaX(aux);
         
-        aux = aleatorio.nextInt(2147483647);
-        //cp.numero_planetas retorna el numero de planetas total
-        aux = aux%cp.Consultar_Size();
-        //planeta posicio retorna la id del planeta que en l'arbre te la posicio aux
-        planetaB = cp.Consultar_PlanetaX(aux);
+        do {
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+        } while (cp.Consultar_Fuente( cp.Consultar_PlanetaX(aux).Consultar_id() ));
+        Planeta planetaB = cp.Consultar_PlanetaX(aux);
         
-        boolean bidireccional = aleatorio.nextBoolean();
-	    Ruta r = new Ruta(id, capacidad, distancia, planetaA, planetaB, bidireccional);
+        boolean bidireccional;
+        if (cp.Consultar_Fuente( planetaA.Consultar_id() ) || cp.Consultar_Sumidero( planetaB.Consultar_id() ) ) bidireccional = false;
+        else bidireccional = aleatorio.nextBoolean();
+	    Ruta r = new Ruta(id, capacidad, distancia, planetaA.Consultar_id(), planetaB.Consultar_id(), bidireccional);
 	    ArbolRutas.add(r);
     }
       
@@ -232,6 +244,9 @@ public class ControladorRuta {
         if(ErrorTipografico(id_planetaA_nuevo)){
             throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0");
         }
+        if (cp.Consultar_Sumidero(id_planetaA_nuevo)){
+            throw new Exception("Error: El Planeta con id = " + id_planetaA_nuevo + " es el planeta sumidero, por lo que no puede salirle ninguna ruta a otro planeta");
+        }
         Ruta solicitada = BuscarRuta(id);
         int idA = ConsultarPlanetaARuta(id);
         if(ConsultarBidireccionalidadRuta(id)) cp.Borrar_Entrada(idA, id);
@@ -248,6 +263,9 @@ public class ControladorRuta {
         if(ErrorTipografico(id_planetaB_nuevo)){
             throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0");
         }
+        if (cp.Consultar_Fuente(id_planetaB_nuevo)){
+            throw new Exception("Error: El Planeta con id = " + id_planetaB_nuevo + "  es el planeta fuente, por lo que no puede entrarle ninguna ruta de otro planeta");
+        }
         Ruta solicitada = BuscarRuta(id);
         int idB = ConsultarPlanetaBRuta(id);
         if(ConsultarBidireccionalidadRuta(id)) cp.Borrar_Salida(idB, id); 
@@ -260,6 +278,12 @@ public class ControladorRuta {
     public void invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
     {
     	Ruta r = BuscarRuta(id);
+    	if (cp.Consultar_Fuente( r.consultar_planetaA() )) {
+    		throw new Exception("No se puede invertir la ruta, ya que el planetaA es el planeta fuente, y no puede entrarle ninguna ruta");
+    	}
+    	if (cp.Consultar_Sumidero( r.consultar_planetaB() )) {
+    		throw new Exception("No se puede invertir la ruta, ya que el planetaB es el planeta sumidero, y no puede salirle ninguna ruta");
+    	}
     	r.invertir_planetas();
     	BorrarRuta(id, cp);
     	CrearRuta(id, r.consultar_capacidad(), r.consultar_distancia(), r.consultar_planetaA(), r.consultar_planetaB(), r.consultar_bidireccional(), cp );
@@ -272,6 +296,18 @@ public class ControladorRuta {
         Ruta solicitada = BuscarRuta(id);
         int idA = ConsultarPlanetaARuta(id);
     	int idB = ConsultarPlanetaBRuta(id);
+    	if (bidireccional_nuevo && !solicitada.consultar_bidireccional()) { //en el caso que pase a ser bidireccinal se tiene que mirar que el planetaA no sea el planeta fuente ni que el planetaB sea el planeta sumidero
+        	if (cp.Consultar_Fuente( solicitada.consultar_planetaA() ) && cp.Consultar_Sumidero( solicitada.consultar_planetaB() )) {
+        		throw new Exception("La ruta no puede ser bidireccional, ya que el planetaA es el planeta fuente, y no puede entrarle ninguna ruta, y el planetaB es el planeta sumidero, y no puede salirle ninguna ruta");
+        	}
+    		
+    		if (cp.Consultar_Fuente( solicitada.consultar_planetaA() )) {
+        		throw new Exception("La ruta no puede ser bidireccional, ya que el planetaA es el planeta fuente, y no puede entrarle ninguna ruta");
+        	}
+        	if (cp.Consultar_Sumidero( solicitada.consultar_planetaB() )) {
+        		throw new Exception("La ruta no puede ser bidireccional, ya que el planetaB es el planeta sumidero, y no puede salirle ninguna ruta");
+        	}
+    	}
         if(!bidireccional_nuevo && ConsultarBidireccionalidadRuta(id)) {
         	cp.Borrar_Entrada(idA, id);
         	cp.Borrar_Salida(idB, id);
