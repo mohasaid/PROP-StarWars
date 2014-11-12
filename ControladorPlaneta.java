@@ -2,17 +2,13 @@ import java.util.*;
 
 public class ControladorPlaneta{
     private TreeSet<Planeta> listaPlanetas;
-    private boolean Fuente;
-    private boolean Sumidero;
-    private ControladorRuta cr; 
-    
+    private ControladorRuta cr;
     private int randInt(int min, int max)
     {
     	Random rand = new Random();
     	int randomNum = rand.nextInt((max - min) + 1) + min;
     	return randomNum;
     }
-    
     //Pre: Cierto.
     //Post: Crea un ControladorPlaneta.
     public ControladorPlaneta()
@@ -47,62 +43,46 @@ public class ControladorPlaneta{
     //Post: Crea un planeta automaticamente con atributos aleatorios incluida la id
     public void PlanetaAuto() throws Exception 
     {
-    	
     	int r1 = randInt(0,Integer.MAX_VALUE);
     	int c1 = randInt(0,Integer.MAX_VALUE);
     	int c2 = randInt(0,Integer.MAX_VALUE);
-    
         int idP = 0;
         while(ExistePlaneta(idP)) ++idP;
-        
         Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
         Coo.ponPrimero(c1);
         Coo.ponSegundo(c2);
         Random rb = new Random();
         boolean F;
         boolean S;
-        if (!Fuente) F = rb.nextBoolean();
-        else if(!Sumidero) S = rb.nextBoolean();
+        F = rb.nextBoolean();
+        S = rb.nextBoolean();
         Planeta p = new Planeta(idP, r1, Coo, F, S);
         listaPlanetas.add(p);
     }
-    
     // Necesito una con un id por defecto y que solo cree sus atributos random
     public void PlanetaAuto(int id) throws Exception 
     {
-    	
     	int r1 = randInt(0,Integer.MAX_VALUE);
     	int c1 = randInt(0,Integer.MAX_VALUE);
     	int c2 = randInt(0,Integer.MAX_VALUE);
-            
         Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
         Coo.ponPrimero(c1);
         Coo.ponSegundo(c2);
         Random rb = new Random();
         boolean F;
         boolean S;
-        if (!Fuente) F = rb.nextBoolean();
-        else if(!Sumidero) S = rb.nextBoolean();
+        F = rb.nextBoolean();
+        S = rb.nextBoolean();
         Planeta p = new Planeta(id, r1, Coo, F, S);
         listaPlanetas.add(p);
     }
-    
-    
     //Pre: Cierto.
-    //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k y Coordenadas = Coo.
+    //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Fuente = F y Sumidero = S.
     public void Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception {
         if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
-        if(F && Fuente) throw new Exception ("Error: Ya existe un planeta Fuente");
-        if(S && Sumidero) throw new Exception ("Error: Ya existe un planeta Sumidero");
-        Planeta p = new Planeta (id, k, Coo);
+        Planeta p = new Planeta (id, k, Coo, F, S);
         listaPlanetas.add(p);
     }
-    /*//Pre: Cierto.
-    //Post: Retorna la id del planeta.
-    public int Consultar_id(int id) throws Exception
-    {
-        return BuscarPlaneta(id).Consultar_id();
-    }*/
     //Pre: Cierto.
     //Post: Retorna la Capacidad del planeta.
     public int Consultar_Capacidad(int id) throws Exception 
@@ -164,13 +144,7 @@ public class ControladorPlaneta{
         return BuscarPlaneta(id).Consultar_RutasEntrada();
     }
     //Pre: Cierto.
-    //Post: Retorna todas la naves que estan en el planeta.
-    public TreeSet<Integer> ConsultarLNaves(int id) throws Exception 
-    {
-        return BuscarPlaneta(id).ConsultarLNaves();
-    }
-    //Pre: Cierto.
-    //Post: Retorna el tamaÃƒÂ±o de listaPlanetas.
+    //Post: Retorna el tamaÃƒÆ’Ã‚Â±o de listaPlanetas.
     public int Consultar_Size() 
     {
         return listaPlanetas.size();
@@ -228,19 +202,12 @@ public class ControladorPlaneta{
     }
     //Pre: Cierto.
     //Post: Anande la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
-    public void Anadir_Entrada(int idp, int id) throws Exception 
+    public void Anadir_Entrada(int idp, int id, ControladorRuta cr) throws Exception 
     {
         BuscarPlaneta(idp).Anadir_Entrada(id);
         int c = Consultar_Capacidad(idp);
         c = c + cr.ConsultarCapacidadRuta(id);
         Modificar_Capacidad(idp, c);
-    }
-    //Pre: Cierto.
-    //Post: Anade la id de una nave que esta en el planeta a la lista de naves que estan en el planeta.
-    // PASAR EL CONTROLADOR DE NAVES QUE CONTIENE LAS NAVES
-    public void Anadir_Nave(int idp, int id) throws Exception 
-    {
-        BuscarPlaneta(idp).Anadir_Nave(id);
     }
     //Pre: Cierto.
     //Post: Borra una id de una ruta que sale del planeta  de la lista de rutas que salen del planeta.
@@ -250,7 +217,7 @@ public class ControladorPlaneta{
     }
     //Pre: Cierto.
     //Post: Borra una id de una ruta que entra en el planeta de la lista de rutas que entran en el planeta.
-    public void Borrar_Entrada(int idp, int id) throws Exception 
+    public void Borrar_Entrada(int idp, int id, ControladorRuta cr) throws Exception 
     {
         BuscarPlaneta(idp).Borrar_Entrada(id);
         int c = Consultar_Capacidad(idp);
@@ -258,16 +225,27 @@ public class ControladorPlaneta{
         Modificar_Capacidad(idp, c);
     }
     //Pre: Cierto.
-    //Post: Borra un id de nave que esta en el planeta de la lista de naves que estan en el planeta.
-    // PASAR EL CONTROLADOR DE NAVES QUE CONTIENE LAS NAVES
-    public void Borrar_Nave(int idp, int id) throws Exception 
-    {
-        BuscarPlaneta(idp).Borrar_Nave(id);
-    }
-    //Pre: Cierto.
     //Post: Borra el planeta.
-    public void Borrar(int id) throws Exception {
+    public void Borrar(int id, ControladorRuta cr) throws Exception {
         Planeta p = BuscarPlaneta(id);
+        if(!p.Consultar_Sumidero()) {
+        	Iterator<Integer> it = p.Consultar_RutasSalida().iterator();
+        	int idr;
+        	while(it.hasNext()) {
+        		idr = it.next();
+        		if(cr.ConsultarBidireccionalidadRuta(idr)) p.Borrar_Entrada(idr);
+        		cr.BorrarRuta_desdePlaneta(it.next());
+        		p.Borrar_Salida(idr);
+        	}
+        }
+        if(!p.Consultar_Sumidero()) {
+        	Iterator<Integer> it1 = p.Consultar_RutasEntrada().iterator();
+        	int idr;
+        	while(it1.hasNext()) {
+        		cr.BorrarRuta_desdePlaneta(it1.next());
+        		p.Borrar_Entrada(idr);
+        	}
+        }
         p.Borrar();
         listaPlanetas.remove(p);
     }
