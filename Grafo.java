@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 public class Grafo {
     private ArrayList<Nodo> nodos;
@@ -11,10 +12,10 @@ public class Grafo {
     	arcos = new ArrayList<Arco>();
     }
     
-    public Grafo(ArrayList<Nodo> n, ArrayList<Arco> a) 
+    public Grafo(List<Nodo> list, List<Arco> list2) 
     {
-    	nodos = new ArrayList<Nodo>(n);
-    	arcos = new ArrayList<Arco>(a);
+    	nodos = new ArrayList<Nodo>(list);
+    	arcos = new ArrayList<Arco>(list2);
     }
     
     public ArrayList<Arco> getArcoEntreNodos(Nodo origin, Nodo destination)
