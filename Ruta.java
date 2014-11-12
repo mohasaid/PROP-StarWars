@@ -108,6 +108,15 @@ public class Ruta {
        
     //MODIFICDORAS
        
+    //Pre: La ruta esta inicializada
+    //Post: se hace un swap entre planeta A i planeta B tal que planetaA = planetaB y planetaB = planetaA
+    public void invertir_planetas() throws Exception
+    {
+    	int aux = planetaA;
+    	planetaA = planetaB;
+    	planetaB = aux;
+    }
+    
     //Pre: Cierto
     //Post: El id de la ruta se ha modificado por id = "id_nuevo"
     public void modificar_id(int id_nuevo) throws Exception
