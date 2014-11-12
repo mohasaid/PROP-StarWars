@@ -622,11 +622,11 @@ public class Galaxia {
         while(it.hasNext()) {
         	eliminarRuta(it.next());
         }
-        TreeSet<Integer> naus_a_borrar = p.ConsultarLNaves();
+        /*TreeSet<Integer> naus_a_borrar = p.ConsultarLNaves();
         it = naus_a_borrar.iterator();
         while(it.hasNext()) {
         	eliminarNau(it.next());
-        }
+        }*/
         Pair<Integer, Integer> co = p.consultar_coordenades();
         gal[co.consultarPrimero()][co.consultarSegundo()] = 0;
         planetes.remove(p.Consultar_id());
