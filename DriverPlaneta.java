@@ -257,7 +257,9 @@ public class DriverPlaneta {
     			throw new Exception ("Error: El Coste de un Planeta tiene que ser un entero\n");
     		}
     		int knew = sc.nextInt();
+    		System.out.println("K: " + knew);
     		p.Modificar_id(knew);
+    		System.out.println("LOOOOOOOOOOOOOOL");
     	}
     	catch (Exception e) {
     		System.out.print(e);
