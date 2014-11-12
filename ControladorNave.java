@@ -24,12 +24,6 @@ public class ControladorNave{
 			listaNaves5 = new TreeSet<TipoNave5>(new OrdenTipoNave5());
 			Cdn = new ControladorDadesNave();
 		}
-		public void pinta(){
-			Object[] lista1 = listaNaves1.toArray();
-			for(int i =0;i<lista1.length;++i){
-			System.out.println(lista1[i]);
-			}
-		}
 		//Pre: cierto
 				//Post: devuelve la nave con identificador "id"
 				public Nave BuscarNave(int id) throws Exception{
