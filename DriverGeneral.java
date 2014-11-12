@@ -41,7 +41,7 @@ public class DriverGeneral
         while (op != 0){
             switch(op)
             {
-                //case 1: DCNave.Executa(cn,cp); break;  
+                case 1: DCNave.Executa(cn,cp); break;  
                 case 2: Dnave.Executa(); break;
                 
                 case 3: DGalaxia.Executa(cn,cp,cr); break;
