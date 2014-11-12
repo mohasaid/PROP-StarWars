@@ -51,6 +51,7 @@ public class DriverControladorNave{
             case 15: TestModificaDestino(sc,cn);break;
             case 16: TestModificaConsumo(sc,cn);break;
             case 17: TestEliminarNave(sc,cn);break;
+            case 18: TestGuardarNaves(sc,cn);break;
             default: System.out.println("Opcion incorrecta");
             }
     n = sc.nextInt();
@@ -336,7 +337,17 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
-            public static void TestGuardarNaves(){
+            public static void Testpinta(ControladorNave cn){
+            	cn.pinta();
+            }
+            public static void TestGuardarNaves(Scanner sc, ControladorNave cn){
+            	try{
+            	String s = sc.next();
+            	cn.GuardarNaves(s);
+            	}
+            	   catch (Exception e){
+                       System.out.print(e);
+                   }
             }
             public static void TestCargarNaves(){
             }
