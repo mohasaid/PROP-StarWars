@@ -37,16 +37,19 @@ public class Ruta {
     public Ruta(int i, int c, int d, int pA, int pB, boolean b) throws Exception
     {
         if(ErrorTipografico(i)){
-            throw new Exception("Error : El identificador de una ruta debe ser mayor o igual que 0");
+            throw new Exception("Error: El identificador de una ruta debe ser mayor o igual que 0\n");
         }
         if(ErrorTipografico(c)){
-            throw new Exception("Error : La capacidad debe ser mayor o igual que 0");
+            throw new Exception("Error: La capacidad debe ser mayor o igual que 0\n");
         }
         if(ErrorTipografico(d) || d == 0){
-            throw new Exception("Error : La distancia entre planeas debe ser mayor que 0");
+            throw new Exception("Error: La distancia entre planeas debe ser mayor que 0\n");
         }
         if(ErrorTipografico(pA) || ErrorTipografico(pB)){
-            throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0");
+            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
+        }
+        if (pA == pB) {
+            throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
         }
         id = i;
         capacidad = c;
@@ -121,6 +124,9 @@ public class Ruta {
     //Post: El id de la ruta se ha modificado por id = "id_nuevo"
     public void modificar_id(int id_nuevo) throws Exception
     {
+        if(ErrorTipografico(id_nuevo)){
+            throw new Exception("Error: El identificador de una ruta debe ser mayor o igual que 0\n");
+        }
         id = id_nuevo;
     }
        
@@ -128,6 +134,9 @@ public class Ruta {
     //Post: La capacidad de la ruta se ha modificado por capacidad = "c"
     public void modificar_capacidad(int c) throws Exception
     {
+        if(ErrorTipografico(c)){
+            throw new Exception("Error: La capacidad debe ser mayor o igual que 0\n");
+        }
         capacidad = c;
     }
        
@@ -135,6 +144,9 @@ public class Ruta {
     //Post: La distancia de la ruta se ha modificado por distancia = "d"
     public void modificar_distancia(int d) throws Exception
     {
+        if(ErrorTipografico(d) || d == 0){
+            throw new Exception("Error: La distancia entre planeas debe ser mayor que 0\n");
+        }
         distancia = d;
     }
        
@@ -142,6 +154,12 @@ public class Ruta {
     //Post: El id del planetaA de la ruta se ha modificado por planetaA = "idA"
     public void modificar_planetaA(int idA) throws Exception
     {
+        if( ErrorTipografico(idA) ){
+            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
+        }
+        if (idA == planetaB) {
+            throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
+        }
         planetaA = idA;
     }
        
@@ -149,6 +167,12 @@ public class Ruta {
     //Post: El id del planetaB de la ruta se ha modificado por planetaB = "idB"
     public void modificar_planetaB(int idB) throws Exception
     {
+        if( ErrorTipografico(idB) ){
+            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
+        }
+        if (idB == planetaA) {
+            throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
+        }
         planetaB = idB;
     }
        
