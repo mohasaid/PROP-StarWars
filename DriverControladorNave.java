@@ -337,9 +337,6 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
-            public static void Testpinta(ControladorNave cn){
-            	cn.pinta();
-            }
             public static void TestGuardarNaves(Scanner sc, ControladorNave cn){
             	try{
             	String s = sc.next();
