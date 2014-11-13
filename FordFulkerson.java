@@ -7,6 +7,54 @@ import java.util.Queue;
 public class FordFulkerson {
 	private Grafo g;
 	private Grafo g_residual;
+	private double[] d; //eso es solo para el algoritmo dijkstra
+	private double infinit = Double.POSITIVE_INFINITY;
+	 
+	private void posar_vector_doubles_infinit( double[] v )
+	{
+		for (int i=0; i < v.length; ++i) d[i]=infinit;
+	}
+	
+	private void posar_vetor_bools_false( boolean[] v )
+	{
+		for (int i=0; i < v.length; ++i) v[i]=false;
+	}
+	
+	/*private void dijkstra(int s)
+	{
+		int n = g.getNodes().size();
+		
+		d = new double[n];
+		posar_vector_doubles_infinit(d); //inicializamos todo a infinito
+		d[s] = 0;// la distancia al nodo fuente es 0 (ya que partimo de aqui)
+		
+		boolean S[] = new boolean[n];
+		posar_vetor_bools_false(S); //inicializamos el vector de visitados a false
+		
+		PriorityQueue() Q = new PriorityQueue(); //se tiene qe crear bien!
+		
+		//a partir de aqui es codigo c++
+		priority_queue<ArcP, vector<ArcP>, greater<ArcP> > Q; //perque aquesta cua de prioritat ????
+		Q.push( ArcP(0, s) );
+		
+		while (not Q.empty()) {
+			int u = Q.top().second; 
+			Q.pop();
+
+			if (not S[u]) {
+				S[u] = true;
+				int siz = G[u].size();
+				for (int i = 0; i < siz ; ++i) {
+					int v = G[u][i].second;
+					int c = G[u][i].first;
+					if (d[v] > d[u] + c) {
+						d[v] = d[u] + c;
+						Q.push(ArcP(d[v], v));
+					}
+				}
+			}
+		}
+	}*/
 	
 	
 	private boolean bfs(int origen1, int destino1, int path[])
