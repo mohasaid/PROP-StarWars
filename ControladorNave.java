@@ -24,6 +24,7 @@ public class ControladorNave{
 			listaNaves5 = new TreeSet<TipoNave5>(new OrdenTipoNave5());
 			Cdn = new ControladorDadesNave();
 		}
+
 		//Pre: cierto
 				//Post: devuelve la nave con identificador "id"
 				public Nave BuscarNave(int id) throws Exception{
@@ -521,7 +522,7 @@ public class ControladorNave{
 				
 			
 			}
-		//Pre: cierto
+		//Pre:cierto
 		//Post: elimina todas las naves
 		public void EliminarNaves(){
 			listaNaves1.clear();
@@ -546,7 +547,6 @@ public class ControladorNave{
 			int s4 = listaNaves4.size();
 			int s5 = listaNaves5.size();
 			int s = s1+s2+s3+s4+s5;
-			System.out.println(s);
 			return s;
 		}
 		public void Inicializar(){
@@ -570,10 +570,10 @@ public class ControladorNave{
 				res += itc1.next().consultar_id() +",";
 				++j;
 				if(!itc1.hasNext()){
-					if(itc2.hasNext()) res += "\n Naves tipo 2: \n";
-					else if(itc3.hasNext()) res += "\n Naves tipo 3: \n";
-					else if(itc4.hasNext()) res += "\n Naves tipo 4: \n";
-					else if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+					if(itc2.hasNext()) res += "\nNaves tipo 2: \n";
+					else if(itc3.hasNext()) res += "\nNaves tipo 3: \n";
+					else if(itc4.hasNext()) res += "\nNaves tipo 4: \n";
+					else if(itc5.hasNext()) res += "\nNaves tipo 5: \n";
 				}
 			}
 			if(i==0 && itc2.hasNext()){
@@ -584,9 +584,9 @@ public class ControladorNave{
 				res += itc2.next().consultar_id() + ",";
 				++j;
 				if(!itc2.hasNext()){
-					if(itc3.hasNext()) res += "\n Naves tipo 3: \n";
-					else if(itc4.hasNext()) res += "\n Naves tipo 4: \n";
-					else if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+					if(itc3.hasNext()) res += "\nNaves tipo 3: \n";
+					else if(itc4.hasNext()) res += "\nNaves tipo 4: \n";
+					else if(itc5.hasNext()) res += "\nNaves tipo 5: \n";
 				}
 			}
 			if(i==0 && itc3.hasNext()){
@@ -597,8 +597,8 @@ public class ControladorNave{
 				res += itc3.next().consultar_id() + ",";
 				++j;
 				if(!itc3.hasNext()){
-					if(itc4.hasNext()) res += "\n Naves tipo 4: \n";
-					else if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+					if(itc4.hasNext()) res += "\nNaves tipo 4: \n";
+					else if(itc5.hasNext()) res += "\nNaves tipo 5: \n";
 				}
 			}
 			if(i==0 && itc4.hasNext()){
@@ -609,7 +609,7 @@ public class ControladorNave{
 				res += itc4.next().consultar_id() + ",";
 				++j;
 				if(!itc3.hasNext()){
-					if(itc5.hasNext()) res += "\n Naves tipo 5: \n";
+					if(itc5.hasNext()) res += "\nNaves tipo 5: \n";
 				}
 			}
 			if(i==0 && itc5.hasNext()){
@@ -623,49 +623,73 @@ public class ControladorNave{
 			}
 			return res; 
 		}
-		/*
+		
 		public void CargarNaves (String path) throws Exception {
 	        String res; 
 	        Cdn.AbrirLectura(path);
-	        while(!(res = Cdn.cargar()).isEmpty()) {
-	            Scanner in = new Scanner(res);
-	            in.useDelimiter("#");
-	            String s;
-	            while (in.hasNext()) {
-	                s = in.next();
-	                if (!s.contentEquals("@")) {
-	                    String nom = s;
-	                    s = in.next();
-	                    Recurs rec = new Recurs(nom, s); 
-	                    boolean tePlanetes = false;
-	                    while (in.hasNext()) {
-	                        s = in.next();
-	                        if (!s.contentEquals("@") && !s.contentEquals("$") && !tePlanetes) {                        
-	                            if(ctrlPaq.existeixPaquet(s)) {
-	                                Paquet paq = ctrlPaq.buscarPaquet(s);
-	                                rec.assignarAPaquet(paq);
-	                                paq.afegirRecurs(nom, rec);
-	                            }
-	                        }
-	                        else if (s.contentEquals("$")) tePlanetes = true;
-	                        else if (!s.contentEquals("@") && tePlanetes) {
-	                            if(ctrlPl.existeixPlaneta(s)) {
-	                                Planeta pl = ctrlPl.consultarUnPlaneta(s);
-	                                rec.assignarAPlaneta(pl);
-	                                pl.afegirRecurs(rec);
-	                            }
-	                        }                   
+	        	res = Cdn.cargar(path);
+	            Scanner sc = new Scanner(res);
+	            sc.useDelimiter("#|:");
+	            String s="";
+	            if(sc.hasNext()) s = sc.next();
+	            while (sc.hasNext()) {
+	                    int id = Integer.parseInt(s);
+	                    s = sc.next();
+	                    int destino = Integer.parseInt(s);
+	                    s = sc.next();
+	                    int tipo = Integer.parseInt(s);
+	                    s = sc.next();
+	                    int consumo = Integer.parseInt(s);
+	                    if(ExisteNave(id)){
+	                    	throw new Exception("Error: Una nave con identificador: " + id + " ya existe en el sistema\n");
 	                    }
-	                    cjtRecursos.posar(nom, rec);
-	                }
+	                    else{
+	                    if(tipo == 1){
+	                    	if(!TipoNave1.definido){
+	                    		TipoNave1.DefinirTipo(consumo);
+	                    	}
+	                    	TipoNave1 aux = new TipoNave1(id,destino);
+	                    	listaNaves1.add(aux);
+	                    }
+	                    
+	                    if(tipo == 2){
+	                    	if(!TipoNave2.definido){
+	                    		TipoNave2.DefinirTipo(consumo);
+	                    	}
+	                    	TipoNave2 aux = new TipoNave2(id,destino);
+	                    	listaNaves2.add(aux);
+	                    }
+	                    if(tipo == 3){
+	                    	if(!TipoNave3.definido){
+	                    		TipoNave3.DefinirTipo(consumo);
+	                    	}
+	                    	TipoNave3 aux = new TipoNave3(id,destino);
+	                    	listaNaves3.add(aux);
+	                    }
+	                    if(tipo == 4){
+	                    	if(!TipoNave4.definido){
+	                    		TipoNave4.DefinirTipo(consumo);
+	                    	}
+	                    	TipoNave4 aux = new TipoNave4(id,destino);
+	                    	listaNaves4.add(aux);
+	                    }
+	                    if(tipo == 5){
+	                    	if(!TipoNave5.definido){
+	                    		TipoNave5.DefinirTipo(consumo);
+	                    	}
+	                    	TipoNave5 aux = new TipoNave5(id,destino);
+	                    	listaNaves5.add(aux);
+	                    }
+	                    }
+	            	
+	            s = sc.next();
 	            }
-	        }
-	        ctrlDadesRec.CloseRead();
+	        Cdn.CerrarLectura();
 	    }    
-	     */
+	     
 	    //Pre:
 	    //Post:
-	     public void GuardarNaves(String path) throws Exception {
+	    public void GuardarNaves(String path) throws Exception {
 	    	String res = "";
 	        if(!listaNaves1.isEmpty()){
 	            Cdn.AbrirEscritura(path);        
