@@ -38,11 +38,27 @@ public class Grafo {
     	a.ModificarDestino(destination);
     }
     
+    public Nodo consultarNodo(int id)
+    {
+    	for(int i = 0; i < nodos.size(); ++i) {
+    		if(nodos.get(i).consultar_id() == id) return nodos.get(i);
+    	}
+    	return null;
+    }
+    
+    public Arco consultarArco(int id)
+    {
+    	for(int i = 0; i < arcos.size(); ++i) {
+    		if(arcos.get(i).ConsultarId() == id) return arcos.get(i);
+    	}
+    	return null;
+    }
+    
     public ArrayList<Nodo> getNodes() {
         return nodos;
     }
     
-    public void setNodes(ArrayList<Nodo> nodes) {
+    public void ponNodes(ArrayList<Nodo> nodes) {
         nodos = nodes;
     }
     
@@ -50,7 +66,7 @@ public class Grafo {
         return arcos;
     }
     
-    public void setEdges(ArrayList<Arco> edges) {
+    public void ponEdges(ArrayList<Arco> edges) {
         arcos = edges;
     }
     
@@ -62,5 +78,15 @@ public class Grafo {
     public void addArco(Arco a)
     {
     	arcos.add(a);
+    }
+    
+    public ArrayList<Nodo> consultarNodos()
+    {
+    	return nodos;
+    }
+    
+    public ArrayList<Arco> consultarArcos()
+    {
+    	return arcos;
     }
 }
