@@ -161,15 +161,29 @@ public class Planeta
     //Pre: fu = 1 o 0.
     //Post: Modifica Fuente, si fu = 1 Fuente = true, si fu = 0 Fuetne = false.
     public void Modificar_Fuente(int fu) throws Exception {
-    	if(fu == 0) Fuente = false;
-    	else if (fu == 1) Fuente = true;
+    	if(fu == 0 && Fuente) {
+    		Fuente = false;
+    		LRE = new TreeSet<Integer>();
+    	}
+    	else if (fu == 1 && !Fuente) {
+    		Fuente = true;
+    		LRE.clear();
+    		LRE = null;
+    	}
     	else throw new Exception("Error: Si es Fuente se indica con un 1 y si no lo es con un 0\n");
     }
     //Pre: su = 1 o 0.
     //Post: Modifica Sumidero, si su = 1 Sumidero = true, si su = 0 Sumidero = false. 
     public void Modificar_Sumidero(int su) throws Exception {
-    	if(su == 0) Sumidero = false;
-    	else if (su == 1) Sumidero = true;
+    	if(su == 0 && Sumidero) {
+    		Sumidero = false;
+    		LRS = new TreeSet<Integer>();
+    	}
+    	else if (su == 1 && !Sumidero) {
+    		Sumidero = true;
+    		LRS.clear();
+    		LRS = null;
+    	}
     	else throw new Exception("Error: Si es Sumidero se indica con un 1 y si no lo es con un 0\n");
     }
     //Pre: Cierto
