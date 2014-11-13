@@ -60,7 +60,7 @@ public class Arco {
     }
     //pre:cierto
     //post: Devuelve el identificador de la ruta original
-    public int CinsultarIdRuta(){
+    public int ConsultarIdRuta(){
     	return idRuta;
     }
 //MODIFICADORAS
