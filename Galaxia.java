@@ -443,8 +443,7 @@ public class Galaxia {
         if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
         if(!dintreLimitUsuari(x,y)) throw new Exception("Error: las coordenadas no pueden estar fuera del limite que da forma a la galaxia");
         
-        if(gal[x][y] > 0) return true;
-        else return false;
+        return (gal[x][y] > 0);
     }
         
     // Pre: Cierto
@@ -549,7 +548,7 @@ public class Galaxia {
     }
     
     // Pre: Cierto
-    // Post: Se aÃ±ade en lista de identificadores de planetas de la galaxia el identificador del planeta "p"
+    // Post: Se anade en lista de identificadores de planetas de la galaxia el identificador del planeta "p"
     /**
      * Metodo para aÃ±adir un planeta en la galaxia en unas determinadas coordenadas
      * @param p
@@ -559,13 +558,15 @@ public class Galaxia {
     {
     	if(existeixPlaneta(p.Consultar_id())) throw new Exception("Error: ya existe un planeta con este identificador");
     	boolean b = existeixPlanetaCoordenades(x,y); // true si hay uno
-    	boolean c = dintreLimitUsuari(x,y); // true si esta
-    	if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
     	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
+    	if(limits.size() > 0) { 	// tiene forma
+    		boolean c = dintreLimitUsuari(x,y); // true si esta
+    		if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
+    	}
     	p.modificarCoordenades(x, y);
     	planetes.add(p.Consultar_id());
     	gal[x][y] = p.Consultar_id();
-    }
+    }	
    
     // Pre: Cierto
     // Post: Se aÃ±ade en lista de identificadores de planetas de la galaxia el identificador del planeta "p" y devuelve las coordenadas del planeta
@@ -616,9 +617,8 @@ public class Galaxia {
     {
     	if(!existeixPlaneta(p.Consultar_id())) throw new Exception("El planeta introducido no existe en la galaxia");
     	
-        Iterator<Integer> it;
         TreeSet<Integer> rutas_a_borrar = p.consultarRutasConecta();
-        it = rutas_a_borrar.iterator();
+        Iterator<Integer> it = rutas_a_borrar.iterator();
         while(it.hasNext()) {
         	eliminarRuta(it.next());
         }
@@ -642,13 +642,13 @@ public class Galaxia {
     {
     	if(planetes.isEmpty()) throw new Exception("No hay planetas en la galaxia");
         planetes.clear();
-        reiniciaMatriu();
+        reiniciaMatriu(); // borra planetas pero no la forma
     }
   
     // Pre: Cierto
-    // Post: Se aÃ±ade el identificador de la nave "idnave" en la lista de naves
+    // Post: Se anade el identificador de la nave "idnave" en la lista de naves
     /**
-     * Metodo para aÃ±adir una nave en la galaxia
+     * Metodo para anadir una nave en la galaxia
      * @param idNave
      * @throws Exception
      */
@@ -684,9 +684,9 @@ public class Galaxia {
     }
   
     // Pre: Cierto
-    // Post: Se aÃ±ade el identificador de la la ruta con identificador "idRuta" en la lista de rutas
+    // Post: Se anade el identificador de la la ruta con identificador "idRuta" en la lista de rutas
     /**
-     * Metodo para aÃ±adir una ruta en la galaxia
+     * Metodo para anadir una ruta en la galaxia
      * @param idRuta
      * @throws Exception
      */
@@ -735,6 +735,7 @@ public class Galaxia {
         presupost = Integer.valueOf(-1);
         // Pierde los planetas y los limites
         limits = new ArrayList<Pair<Integer,Integer> >();
+        N = 0;
         gal = new int[N][N];
     }
 }
