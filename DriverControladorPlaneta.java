@@ -1,63 +1,71 @@
 import java.util.*;
  
 public class DriverControladorPlaneta {
-    public void Ejecuta(ControladorPlaneta contp, ControladorRuta contr) {
+	private ControladorPlaneta contp;
+    public void Ejecuta(ControladorRuta contr) {
         Scanner sc = new Scanner(System.in);
+        contp = new ControladorPlaneta();
         int n;
             System.out.print(
             "-----------------------------------------------------------------------------------"
             +   "                    DRIVER CONTROLADOR PLANETA                                     "
             +   "-----------------------------------------------------------------------------------"
             + "Opciones \n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)\n"
-            + " 2: PlanetaAuto()\n"         
-            + " 3: Consultar_Capacidad(int id)\n"
-            + " 4: Consultar_Coste(int id)\n"
-            + " 5: Consultar_Coordenadas(int id)\n"
-            + " 6: consultar_X(int id)\n"
-            + " 7: consultar_Y(int id)\n"
-            + " 8: consultarRutasConecta(int id)\n"
-            + " 9: Consultar_RutasSalida(int id)\n"
-            + " 10: Consultar_RutasEntrada(int id)\n"
-            + " 11: BuscarPlaneta(int id)\n"
-            + " 12: Consultar_listaPlanetas()\n"
-            + " 13: Consultar_Size()"
-            + " 14: Consultar_PlanetaX(int x)\n"
-            + " 15: Modificar_id(int idold, int idnew)\n"
-            + " 16: Modificar_Capacidad(int id, int c)\n"
-            + " 17: Modificar_Coste(int id, int k)\n"
-            + " 18: modificarCoordenades(int id, int x, int y)\n"
-            + " 19: Anadir_Salida(int idp, int id)\n"
-            + " 20: Anadir_Salida(int idp, int id)\n"
-            + " 21: Borrar_Salida(int idp, int id)\n"
-            + " 22: Borrar_Entrada(int idp, int id)\n"
-            + " 23: Borrar(Planeta p)");
+            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S)\n"
+            + " 2: PlanetaAuto()\n"
+            + " 3: PlanetaAuto2(int id)\n"
+            + " 4: Consultar_Capacidad(int id)\n"
+            + " 5: Consultar_Coste(int id)\n"
+            + " 6: Consultar_Coordenadas(int id)\n"
+            + " 7: consultar_X(int id)\n"
+            + " 8: consultar_Y(int id)\n"
+            + " 9: consultarRutasConecta(int id)\n"
+            + " 10: Consultar_RutasSalida(int id)\n"
+            + " 11: Consultar_RutasEntrada(int id)\n"
+            + " 12: BuscarPlaneta(int id)\n"
+            + " 13: Consultar_listaPlanetas()\n"
+            + " 14: Consultar_Size()"
+            + " 15: Consultar_PlanetaX(int x)\n"
+            + " 16: Modificar_id(int idold, int idnew)\n"
+            + " 17: Modificar_Capacidad(int id, int c)\n"
+            + " 18: Modificar_Coste(int id, int k)\n"
+            + " 19: modificarCoordenades(int id, int x, int y)\n"
+            + " 20: Modificar_Fuente(int fu)\n"
+            + " 21: Modificar_Sumidero(int su)\n"
+            + " 22: Anadir_Salida(int idp, int id)\n"
+            + " 23: Anadir_Salida(int idp, int id)\n"
+            + " 24: Borrar_Salida(int idp, int id)\n"
+            + " 25: Borrar_Entrada(int idp, int id)\n"
+            + " 26: Borrar(Planeta p)");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
                 case 1: TestCrearPlaneta(sc, contp);break;
-                case 2: TestCrearPlanetaAuto(sc, contp);break;            
-                case 3: TestConsultarCapacidad(sc, contp);break;
-                case 4: TestConsultarCoste(sc, contp);break;
-                case 5: TestConsultarCoordenadas(sc, contp);break;
-                case 6: TestConsultarCoordenadaX(sc, contp);break;
-                case 7: TestConsultarCoordenadaY(sc, contp);break;
-                case 8: TestConsultarRutasConecta(sc, contp);break;
-                case 9: TestConsultarRutasSalida(sc, contp);break;
-                case 10: TestConsultarRutasEntrada(sc, contp);break;
-                case 11: TestBuscarPlaneta(sc, contp);break;
-                case 12: TestConsultarlistaPlaneta(contp);break;
-                case 13: TestConsultarSize(contp);break;
-                case 14: TestConsultarPlanetaX(sc, contp);break;
-                case 15: TestModificarId(sc, contp);break;
-                case 16: TestModificarCapacidad(sc, contp);break;
-                case 17: TestModificarCoste(sc, contp);break;
-                case 18: TestModificarCoordenadas(sc, contp);break;
-                case 19: TestAnadirSalida(sc, contp);break;
-                case 20: TestAnadirEntrada(sc, contp, contr);break;
-                case 21: TestBorrarSalida(sc, contp);break;
-                case 22: TestBorrarEntrada(sc, contp, contr);break;
-                case 23: TestBorrar(sc, contp, contr);break;
+                case 2: TestCrearPlanetaAuto(sc, contp);break;
+                case 3: TestCrearPlanetaAuto2(sc, contp);break; 
+                case 4: TestConsultarCapacidad(sc, contp);break;
+                case 5: TestConsultarCoste(sc, contp);break;
+                case 6: TestConsultarCoordenadas(sc, contp);break;
+                case 7: TestConsultarCoordenadaX(sc, contp);break;
+                case 8: TestConsultarCoordenadaY(sc, contp);break;
+                case 9: TestConsultarRutasConecta(sc, contp);break;
+                case 10: TestConsultarRutasSalida(sc, contp);break;
+                case 11: TestConsultarRutasEntrada(sc, contp);break;
+                case 12: TestBuscarPlaneta(sc, contp);break;
+                case 13: TestConsultarlistaPlaneta(contp);break;
+                case 14: TestConsultarSize(contp);break;
+                case 15: TestConsultarPlanetaX(sc, contp);break;
+                case 16: TestModificarId(sc, contp);break;
+                case 17: TestModificarCapacidad(sc, contp);break;
+                case 18: TestModificarCoste(sc, contp);break;
+                case 19: TestModificarCoordenadas(sc, contp);break;
+                case 20: TestModificarFuente(sc, contp);break;
+                case 21: TestModificarSumidero(sc, contp);break;
+                case 22: TestAnadirSalida(sc, contp);break;
+                case 23: TestAnadirEntrada(sc, contp, contr);break;
+                case 24: TestBorrarSalida(sc, contp);break;
+                case 25: TestBorrarEntrada(sc, contp, contr);break;
+                case 26: TestBorrar(sc, contp, contr);break;
             }
             n = sc.nextInt();
         }
@@ -109,7 +117,21 @@ public class DriverControladorPlaneta {
         catch (Exception e) {
             System.out.print(e);       
         }
-    }  
+    }
+    public static void TestCrearPlanetaAuto2(Scanner sc, ControladorPlaneta contp) {
+        try{
+        	String s;
+            while(!sc.hasNextInt()) {
+                s = sc.nextLine();
+                throw new Exception("Error: El identifcador del Planeta debe ser un entero\n");
+            }
+            int id = sc.nextInt();
+            contp.PlanetaAuto(id);       
+        }  
+        catch (Exception e) {
+            System.out.print(e);       
+        }
+    } 
     public static void TestConsultarCapacidad(Scanner sc, ControladorPlaneta contp) {
         try {
             String s;
@@ -287,7 +309,7 @@ public class DriverControladorPlaneta {
     			throw new Exception("Error: El identificador de un Planeta es un entero\n");
     		}
     		int x = sc.nextInt();
-    		System.out.print("El Planeta" + " X es: " + contp.Consultar_PlanetaX(x) + "\n");
+    		System.out.print("El Planeta" + " X es: " + contp.Consultar_PlanetaX(x).Consultar_id() + "\n");
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -369,6 +391,44 @@ public class DriverControladorPlaneta {
     		}
     		int y = sc.nextInt();
     		contp.modificarCoordenades(id,x,y);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public void TestModificarFuente(Scanner sc, ControladorPlaneta contp) {
+    	try {
+    		String s;
+    		while (!sc.hasNextInt()) {
+    			s = sc.nextLine();
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		while (!sc.hasNextInt()) {
+    			s = sc.nextLine();
+    			throw new Exception("Error: Para que el planeta sea Fuente 1, para que no lo sea 0\n");
+    		}
+    		int fu = sc.nextInt();
+    		contp.Modificar_Fuente(id,fu);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public void TestModificarSumidero(Scanner sc, ControladorPlaneta contp) {
+    	try {
+    		String s;
+    		while (!sc.hasNextInt()) {
+    			s = sc.nextLine();
+    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
+    		}
+    		int id = sc.nextInt();
+    		while (!sc.hasNextInt()) {
+    			s = sc.nextLine();
+    			throw new Exception("Error: Para que el planeta sea Sumidero 1, para que no lo sea 0\n");
+    		}
+    		int su = sc.nextInt();
+    		contp.Modificar_Sumidero(id,su);
     	}
     	catch (Exception e) {
     		System.out.print(e);
