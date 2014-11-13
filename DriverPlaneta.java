@@ -27,11 +27,13 @@ public class DriverPlaneta {
             + " 14: Modificar_Capacidad(int c)\n"
             + " 15: Modificar_Coste(int k)\n"
             + " 16: modificarCoordenades(int x, int y)\n"
-            + " 17: Anadir_Salida(int id)\n"
-            + " 18: Anadir_Salida(int id)\n"
-            + " 19: Borrar_Salida(int id)\n"
-            + " 20: Borrar_Entrada(int id)\n"
-            + " 21: Borrar()\n");
+            + " 17: Modificar_Fuente(int fu)\n"
+            + " 18: Modificar_Sumidero(int su)\n"
+            + " 19: Anadir_Salida(int id)\n"
+            + " 20: Anadir_Salida(int id)\n"
+            + " 21: Borrar_Salida(int id)\n"
+            + " 22: Borrar_Entrada(int id)\n"
+            + " 23: Borrar()\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
@@ -51,11 +53,13 @@ public class DriverPlaneta {
                 case 14: TestMCapacidad(sc);break;
                 case 15: TestMCoste(sc);break;
                 case 16: TestMCoordenadas(sc);break;
-                case 17: TestASalida(sc);break;
-                case 18: TestAEntrada(sc);break;
-                case 19: TestBSalida(sc);break;
-                case 20: TestBEntrada(sc);break;
-                case 21: TestB();break;
+                case 17: TestMFuente(sc);break;
+                case 18: TestMSumidero(sc);break;
+                case 19: TestASalida(sc);break;
+                case 20: TestAEntrada(sc);break;
+                case 21: TestBSalida(sc);break;
+                case 22: TestBEntrada(sc);break;
+                case 23: TestB();break;
             }
             n = sc.nextInt();
         }
@@ -172,8 +176,8 @@ public class DriverPlaneta {
     }
     public void TestCCoordenadaY( ) {
     	try {
-    		int x = p.consultar_X();
-    		System.out.print("La Coordenada X del Planeta es: " + x + "\n");
+    		int y = p.consultar_Y();
+    		System.out.print("La Coordenada Y del Planeta es: " + y + "\n");
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -243,7 +247,7 @@ public class DriverPlaneta {
     			throw new Exception ("Error: La Capacidad de un Planeta tiene que ser un entero\n");
     		}
     		int cnew = sc.nextInt();
-    		p.Modificar_id(cnew);
+    		p.modificarCapacidad(cnew);
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -257,9 +261,7 @@ public class DriverPlaneta {
     			throw new Exception ("Error: El Coste de un Planeta tiene que ser un entero\n");
     		}
     		int knew = sc.nextInt();
-    		System.out.println("K: " + knew);
-    		p.Modificar_id(knew);
-    		System.out.println("LOOOOOOOOOOOOOOL");
+    		p.Modificar_Coste(knew);
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -279,6 +281,34 @@ public class DriverPlaneta {
     		}
     		int ynew = sc.nextInt();
     		p.modificarCoordenades(xnew,ynew);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public void TestMFuente (Scanner sc  ) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = sc.nextLine();
+    			throw new Exception ("Error: Si es Fuente se indica con un 1 y si no lo es con un 0\n");
+    		}
+    		int funew = sc.nextInt();
+    		p.Modificar_Fuente(funew);
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public void TestMSumidero (Scanner sc  ) {
+    	try {
+    		String s;
+    		while(!sc.hasNextInt()) {
+    			s = sc.nextLine();
+    			throw new Exception ("Error: Si es Sumidero se indica con un 1 y si no lo es con un 0\n");
+    		}
+    		int funew = sc.nextInt();
+    		p.Modificar_Fuente(funew);
     	}
     	catch (Exception e) {
     		System.out.print(e);
