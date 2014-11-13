@@ -42,7 +42,7 @@ public class Planeta
     // Post: Crea un planeta con idPlaneta = id, Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
     public Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S) throws Exception
     {
-        if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
+        if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo\n");
         idPlaneta = id;
         Capacidad = 0; // Viene definida por las rutas por lo tanto no puede haber error
         Coste = k;
@@ -57,21 +57,21 @@ public class Planeta
     //Post: Retorna la id del planeta
     public int Consultar_id() throws Exception
     {
-        if(idPlaneta == -1) throw new Exception ("Error: El planeta no tiene una id asignada");
-        return idPlaneta;
+        if(idPlaneta == -1) throw new Exception ("Error: El planeta no tiene una id asignada\n");
+        else return idPlaneta;
     }
     //Pre: Cierto.
     //Post: Retorna la Capacidad del planeta.
     public int Consultar_Capacidad() throws Exception
     {
-        if(Capacidad == -1) throw new Exception ("Error: El Planeta no tiene una Capacidad asignada"); 
+        if(Capacidad == -1) throw new Exception ("Error: El Planeta no tiene una Capacidad asignada\n"); 
         return Capacidad;
     }
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
     public int Consultar_Coste() throws Exception
     {
-        if(Coste == -1) throw new Exception ("Error: Al Planeta no se le ha asignado ningun Coste");
+        if(Coste == -1) throw new Exception ("Error: Al Planeta no se le ha asignado ningun Coste\n");
         return Coste;
     }
     //Pre: Cierto.
@@ -106,87 +106,101 @@ public class Planeta
     //Pre: Cierto.
     //Post: Retorna las rutas que salen del planeta.
     public TreeSet<Integer> Consultar_RutasSalida() throws Exception {
-    	if(Sumidero) throw new Exception ("Error: El Planeta es Sumidero y no tiene Rutas de Salida");
-        return LRS;
+    	if(Sumidero) throw new Exception ("Error: El Planeta es Sumidero y no tiene Rutas de Salida\n");
+    	else return LRS;
     }
     //Pre: Cierto.
     //Post: Retorna las rutas que salen del planeta.
     public TreeSet<Integer> Consultar_RutasEntrada() throws Exception {
-        if(Fuente) throw new Exception ("Error: El Planeta es Fuente y no tiene Rutas de Entrada");
-    	return LRE;
+        if(Fuente) throw new Exception ("Error: El Planeta es Fuente y no tiene Rutas de Entrada\n");
+        else return LRE;
     }
     //Pre: Cierto.
     //Post: Retorna las rutas que conecta este planeta
     public TreeSet<Integer> consultarRutasConecta() throws Exception {
-    	if(Fuente) return LRS;
-    	else if(Sumidero) return LRE;
+    	if(Fuente && !Sumidero) return LRS;
+    	else if(Sumidero && !Fuente) return LRE;
     	else if(!Fuente && !Sumidero){
     		TreeSet<Integer> rutes_conecto = new TreeSet<Integer>();
     		rutes_conecto = TreeSetFusion(LRE, LRS);
     		return rutes_conecto;
     	}
-    	throw new Exception ("El Planeta no tiene Rutas porque es Fuente y Sumidero");
+    	else throw new Exception ("El Planeta no tiene Rutas porque es Fuente y Sumidero\n");
     }
     //Pre: Cierto.
     //Post: Modifica la id del planeta, idPlaneta = id.
-    public void Modificar_id(int id) {
-        idPlaneta = id;
+    public void Modificar_id(int id) throws Exception {
+    	if(id < 0) throw new Exception ("Error: Un identificador de un Planeta debe ser un entero positivo\n");
+    	else idPlaneta = id;
     }
     //Pre: Cierto.
     //Post: Modifica el coste Coste, Coste = k.
     public void Modificar_Coste(int k) throws Exception
     {
-        if (k < 0) throw new Exception("Error: El Coste del Planeta no puede ser negativo");
-        else {
-        System.out.println("Funciono?");
-        Coste = k;
-        System.out.println("SI que funciono");
-        }
-   }
+        if (k < 0) throw new Exception("Error: El Coste del Planeta no puede ser negativo\n");
+        else Coste = k;
+    }
     //Pre: Cierto.
     //Post: Modifica la Capacidad, Capacidad = c.
     public void modificarCapacidad(int c) throws Exception 
     {
-    	if(Fuente) throw new Exception ("Error: La Capacidad de un Planeta Fuente no se puede modificar");
-    	else if(c < 0) throw new Exception("Error: La capacidad no puede ser negativa");
-    	else {
-    		Capacidad = c;
-    	}
+    	if(c < 0) throw new Exception("Error: La capacidad no puede ser negativa\n");
+    	else if(Fuente) throw new Exception ("Error: La Capacidad de un Planeta Fuente no se puede modificar\n");
+    	else Capacidad = c;
     }
     //Pre: Cierto.
     //Post: Modifica las Coordenadas. 
-    public void modificarCoordenades(int rndX, int rndY)
+    public void modificarCoordenades(int rndX, int rndY) throws Exception
     {
-        Coordenadas.ponPrimero(rndX);
-        Coordenadas.ponSegundo(rndY);
+    	if(rndX < -1 || rndY < -1) throw new Exception ("Error: Las Coordenadas no pueden ser negativas\n");
+    	else {
+    		Coordenadas.ponPrimero(rndX);
+    		Coordenadas.ponSegundo(rndY);
+    	}
+    }
+    //Pre: fu = 1 o 0.
+    //Post: Modifica Fuente, si fu = 1 Fuente = true, si fu = 0 Fuetne = false.
+    public void Modificar_Fuente(int fu) throws Exception {
+    	if(fu == 0) Fuente = false;
+    	else if (fu == 1) Fuente = true;
+    	else throw new Exception("Error: Si es Fuente se indica con un 1 y si no lo es con un 0\n");
+    }
+    //Pre: su = 1 o 0.
+    //Post: Modifica Sumidero, si su = 1 Sumidero = true, si su = 0 Sumidero = false. 
+    public void Modificar_Sumidero(int su) throws Exception {
+    	if(su == 0) Sumidero = false;
+    	else if (su == 1) Sumidero = true;
+    	else throw new Exception("Error: Si es Sumidero se indica con un 1 y si no lo es con un 0\n");
     }
     //Pre: Cierto
     //Post: Anade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
     public void Anadir_Salida(int id) throws Exception
     {
-    	if(Sumidero) throw new Exception("Error: El Planeta es Sumidero y no puede tener Rutas que salgan de el");
-        LRS.add(id);
+    	if(Sumidero) throw new Exception("Error: El Planeta es Sumidero y no puede tener Rutas que salgan de el\n");
+    	else LRS.add(id);
     }  
     //Pre: Cierto
     //Post: Anade la id de una ruta que entra en el planeta a la lista de rutas que entran en el planeta.
     public void Anadir_Entrada(int id) throws Exception
     {
-    	if(Fuente) throw new Exception("Error: El Planeta es Fuente y no puede tener Rutas que entren a el");
-        LRE.add(id);
+    	if(Fuente) throw new Exception("Error: El Planeta es Fuente y no puede tener Rutas que entren a el\n");
+    	else LRE.add(id);
     }    
     //Pre: Cierto
     //Post: Borra la id de la ruta "id" que sale del planeta de la lista de rutas que salen del planeta.
     public void Borrar_Salida(int id) throws Exception
     {
-    	if(Sumidero) throw new Exception("Error: El Planeta es Sumiedro y no tiene Rutas que salgan de el");
-        LRS.remove(id);
+    	if(Sumidero) throw new Exception("Error: El Planeta es Sumiedro y no tiene Rutas que salgan de el\n");
+    	if(LRS.isEmpty()) throw new Exception("Error: El Planeta no tiene Rutas que salen de el\n");
+    	else LRS.remove(id);
     }
     //Pre: Cierto.
     //Post: Borra la id de la ruta "id" que entra en el planeta de la lista de rutas que entran del planeta.
     public void Borrar_Entrada(int id) throws Exception
     {
-    	if(Fuente) throw new Exception("Error: El Planeta es Fuente y no tiene Rutas qeu entren a el");
-        LRE.remove(id);
+    	if(Fuente) throw new Exception("Error: El Planeta es Fuente y no tiene Rutas que entren a el\n");
+    	if(LRE.isEmpty()) throw new Exception("Error: El Planeta no tiene Rutas que entren a el\n");
+    	else LRE.remove(id);
     }  
     //Pre: Cierto.
     //Post: Se elimina el planeta.
