@@ -1,7 +1,6 @@
 import java.io.*;
 import java.util.Scanner;
- 
-/** HACER**/
+
 
 public class ControladorDadesNave extends ControladorDades{
  
@@ -15,12 +14,10 @@ public class ControladorDadesNave extends ControladorDades{
         inicial = b;
     }
     //METODES
-    public String carregar(String path) throws FileNotFoundException 
+   public String cargar(String path) throws FileNotFoundException 
     {     
-        String sep = File.separator; // separador de paths = \
-        String filename = "Naves.txt";
         String res = "";
-        FileReader fr = new FileReader(path + sep + filename);
+        FileReader fr = new FileReader(path);
         Scanner in = new Scanner(fr);
         while (in.hasNextLine()) {
             res += in.nextLine();
@@ -32,20 +29,16 @@ public class ControladorDadesNave extends ControladorDades{
      
     public void guardar(String path, String res)throws IOException  
     {        
-        String sep = File.separator; 
-        String filename = "Naves.txt";
+        String sep = File.separator;
          
         PrintWriter out;
          
         if (inicial) {
-            // si comencem a guardar matxaquem el que hi havia
-            out = new PrintWriter(path + sep + filename);
+            out = new PrintWriter(path);
         }
         else {
-            // si hi ha mes blocs per guardar afegim el contingut
-            out = new PrintWriter(new BufferedWriter(new FileWriter(path + sep + filename, true)));
+            out = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
         }
-         
         Scanner scan = new Scanner(res);
         scan.useDelimiter("#");
         String s;
