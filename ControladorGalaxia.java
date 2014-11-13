@@ -6,7 +6,7 @@ import java.util.Scanner;
 public class ControladorGalaxia
 {
     private Galaxia g;
-    private ControladorDades CDades;
+    private ControladorDadesGalaxia cdg;
  
     //CONSTRUCTORAS
  
@@ -16,7 +16,7 @@ public class ControladorGalaxia
      * Metodo para crear el controlador de la galaxia
      */
     public ControladorGalaxia() {
-    	CDades = new ControladorDades();
+    	cdg = new ControladorDadesGalaxia();
     }
  
     // Pre: Cierto
@@ -238,7 +238,7 @@ public class ControladorGalaxia
     // Post: 
 
     /**
-     * Metodo para añadir un planeta en la galaxia
+     * Metodo para añadir un planeta en la galaxia en las coordenadas "x" y "y"
      * @param cp
      * @param idPlaneta
      * @param x
@@ -308,14 +308,22 @@ public class ControladorGalaxia
     // Pre: Cierto
     // Post:
     /**
-     * Metodo para añadir una ruta en la galaxia
+     * Metodo para añadir una ruta en la galaxia con id "idRuta", capacidad "c", distancia "d", une los planetas "a" y "b", y bidireccional "bid"
      * @param idRuta
      * @throws Exception
      */
-    public void afegirRuta(int idRuta) throws Exception
+    public void afegirRuta(int idRuta, ControladorRuta cr) throws Exception
     {
     	try{
-    		g.afegirRuta(idRuta);
+    		if(cr.ExisteRuta(idRuta)) {
+    			Ruta r = cr.BuscarRuta(idRuta);
+    			ArrayList<Integer> la = g.consultarPlanetes();
+    			if(la.contains(r.consultar_planetaA()) && la.contains(r.consultar_planetaB())) { // Existen los planetas en la galaxia
+    	    		g.afegirRuta(idRuta);
+    			}
+    			else throw new Exception("No se puede añadir una ruta cuyos planetas no existan en la galaxia");
+    		}
+    		else throw new Exception("No existe la ruta con identificador: " + idRuta);
     	}
     	catch(Exception e){
     		System.out.println(e);
@@ -346,10 +354,11 @@ public class ControladorGalaxia
      * @param idn
      * @throws Exception
      */
-    public void afegirNau(int idn) throws Exception
+    public void afegirNau(int idn, ControladorNave cn) throws Exception
     {
     	try {
-    		g.afegirNau(idn);
+    		if(cn.ExisteNave(idn)) g.afegirNau(idn);
+    		else throw new Exception("No existe la nave con id: " + idn);
     	}
     	catch(Exception e){
     		System.out.println(e);
@@ -447,16 +456,101 @@ public class ControladorGalaxia
         
     // Pre: Cierto
     // Post:
-    public String carregarConjuntGalaxia(String directori)
+    public void carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn, ControladorRuta cr) throws Exception
     {
-		return null;
-    	
+		g.eliminarContingutGalaxia(); // Empiezo borrando el contenido de la galaxia
+		
+		String result = "";
+		cdg.AbrirLectura(directori);
+		
+		while(!(result = cdg.cargar()).isEmpty()) {
+			
+			Scanner cin = new Scanner(result);
+			cin.useDelimiter("#"); // esto no esta bien
+			String info;
+			while(cin.hasNext()) {
+				info = cin.next();
+				if(!(info.contentEquals("@"))) {
+					String nomG = info; // nombre
+					info = cin.next(); // limite siempre tendra
+					Integer N = Integer.parseInt(info);
+					info = cin.next();
+					// Integer pres = Integer.parseInt(info); debo de crear una constructora con presupuesto
+					if(info.contentEquals("null")) {
+						g = new Galaxia(nomG,N);
+						break; // no tiene limites
+					}
+					// String lim = cin.next();
+					// CONVERTIR LIM EN LIMITES
+					if(info.contentEquals("null")) {
+						g = new Galaxia(nomG,N/*, falta LIMITES*/);
+						break; // no tiene limites
+					}
+					while(cin.hasNext() && info != "X") { // LEER PLANETAS
+						info = cin.next();
+						if (info.contentEquals("@")) break; 
+						if(cp.ExistePlaneta(Integer.parseInt(info))) { // existe ese planeta
+							Planeta p = cp.BuscarPlaneta(Integer.parseInt(info));
+							String x = cin.next();
+							String y = cin.next();
+							int x1 = Integer.parseInt(x);
+							int y1 = Integer.parseInt(y);
+							g.afegirPlaneta(p, x1, y1);
+						}
+					}
+					while(cin.hasNext() && info != "Y") { 	// LEER RUTAS
+						info = cin.next();
+						if (info.contentEquals("@")) break; 
+						if(cr.ExisteRuta(Integer.parseInt(info))) { // existe la ruta
+							g.afegirRuta(Integer.parseInt(info));
+						}
+					}
+					while(cin.hasNext()) { 	// LEER NAVES
+						info = cin.next();
+						if (info.contentEquals("@")) break; 
+						if(cn.ExisteNave(Integer.parseInt(info))) { // existe la ruta
+							g.afegirNau(Integer.parseInt(info));
+						}
+					}
+				}	
+			}
+			cin.close();
+		}
+    	cdg.CerrarEscritura();
     }
 
     // Pre: Cierto
     // Post:
-    public void guardarConjuntGalaxia(String directori)
+    public void guardarConjuntGalaxia(String directori, ControladorPlaneta cp) throws Exception
     {
-   	
+    	cdg.AbrirEscritura(directori);
+    	// int iteracions = 0;
+    	String result = "";
+    	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia();
+    	if(g.consulta_nombreLimits() > 0 ) result += ":" + g.consultarValorLimits();
+    	result += "#@";
+    	if(g.consulta_nombrePlanetes() > 0) { // PLANETAS
+    		ArrayList<Integer> pla = g.consultarPlanetes();
+    		for(int i = 0; i < pla.size(); ++i) {
+    			Planeta p = cp.BuscarPlaneta(pla.get(i));
+    			result += p.Consultar_id() + ":" + p.consultar_X() + ":" + p.consultar_Y(); // ID:X:Y
+    		}
+    	}
+    	result += "#@";
+    	if(g.consulta_nombreRutes() > 0) { // RUTAS
+    		ArrayList<Integer> rut = g.consultarRutes();
+    		for(int i = 0; i < rut.size(); ++i) {
+    			result += ":" + rut.get(i);  // ID:ID
+    		}
+    	}
+    	result += "#@";
+    	if(g.consulta_nombreNaus() > 0) { // NAVES
+    		ArrayList<Integer> nau = g.consultarNaus();
+    		for(int i = 0; i < nau.size(); ++i) {
+    			result += ":" + nau.get(i);  // ID:ID
+    		}
+    	}
+    	cdg.guardar(result);
+    	cdg.CerrarEscritura();
    	}
 }
