@@ -305,7 +305,7 @@ public class DriverGalaxia {
 	    try{
 	    	System.out.println("Introduce el identificador de la nave");
     		int idNave = cin.nextInt();
-    		if(g.existeixNau(idNave)) System.out.println("No existe ninguna nave con ese identificador");
+    		if(g.existeixNau(idNave)) throw new Exception("No existe ninguna nave con ese identificador");
 	    	Nave n = cn.BuscarNave(idNave);
 	    	int tipo = cn.ConsultarTipo(idNave);
 	    	int consumo = cn.ConsultarConsumo(idNave);
