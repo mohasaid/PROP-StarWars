@@ -14,7 +14,8 @@ public class DriverGeneral
         + " Opcion 4: Driver Galaxia 										\n"
         + " Opcion 5: Driver Controlador Ruta 								\n"
         + " Opcion 6: Driver Ruta			 								\n"
-
+        + " Opcion 7: Driver Controlador Planeta							\n"
+        + " Opcion 8: Driver Planeta 										\n"
 		);
     }
       
@@ -36,12 +37,13 @@ public class DriverGeneral
         DriverRuta DRuta = new DriverRuta();
         DriverControladorRuta DCRuta = new DriverControladorRuta(); 
         Ruta r = new Ruta();
-          
+        DriverPlaneta Dp = new DriverPlaneta();
+        DriverControladorPlaneta DCP = new DriverControladorPlaneta();
         int op= sc.nextInt();
         while (op != 0){
             switch(op)
             {
-                case 1: DCNave.Executa(cn,cp); break;  
+                //case 1: DCNave.Executa(cn,cp); break;  
                 case 2: Dnave.Executa(); break;
                 
                 case 3: DGalaxia.Executa(cn,cp,cr); break;
@@ -49,7 +51,8 @@ public class DriverGeneral
                 
                 case 5: DCRuta.Executa(cr, cp); break;
                 case 6: DRuta.Executa(r); break;
-                
+                case 7:	DCP.Ejecuta(cr);break;
+                case 8: Dp.Ejecuta();
                 default: System.out.println("Opcion incorrecta");                
             }
             opciones();
