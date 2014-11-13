@@ -10,14 +10,9 @@ public class FordFulkerson {
 	private double[] d; //eso es solo para el algoritmo dijkstra
 	private double infinit = Double.POSITIVE_INFINITY;
 	 
-	private void posar_vector_doubles_infinit( double[] v )
+	private void posar_vector_doubles_infinit(int tam)
 	{
-		for (int i=0; i < v.length; ++i) d[i]=infinit;
-	}
-	
-	private void posar_vetor_bools_false( boolean[] v )
-	{
-		for (int i=0; i < v.length; ++i) v[i]=false;
+		for (int i=0; i < tam; ++i) d[i]= infinit;
 	}
 	
 	/*private void dijkstra(int s)
@@ -40,7 +35,6 @@ public class FordFulkerson {
 		while (not Q.empty()) {
 			int u = Q.top().second; 
 			Q.pop();
-
 			if (not S[u]) {
 				S[u] = true;
 				int siz = G[u].size();
@@ -96,6 +90,7 @@ public class FordFulkerson {
 		boolean visitados[] = new boolean[V];
 		dist[origen] = 0;
 		// FALTA POR HACER
+		return false;
 				
 	}		
 }
