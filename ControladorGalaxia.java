@@ -520,7 +520,7 @@ public class ControladorGalaxia
     }
 
     // Pre: Cierto
-    // Post
+    // Post:
     public void guardarConjuntGalaxia(String directori, ControladorPlaneta cp) throws Exception
     {
     	cdg.AbrirEscritura(directori);
