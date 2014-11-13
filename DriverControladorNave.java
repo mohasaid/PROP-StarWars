@@ -28,6 +28,8 @@ public class DriverControladorNave{
                 +"-   15  TestModificaDestino(int idNave,int NuevoDestino)                          -\n"
                 +"-   16  TestModificaConsumo(int idTipoNave, int NuevoConsumo) 					-\n"
                 +"-   17  TestEliminarNave(int idNave)                                              -\n"
+                +"-   18  TestGuardarNaves(String path)                                             -\n"
+                +"-   19  TestCargarNaves(String path)                                              -\n"
                 +"-----------------------------------------------------------------------------------\n");
 
         n = sc.nextInt();
@@ -52,6 +54,7 @@ public class DriverControladorNave{
             case 16: TestModificaConsumo(sc,cn);break;
             case 17: TestEliminarNave(sc,cn);break;
             case 18: TestGuardarNaves(sc,cn);break;
+            case 19: TestCargarNaves(sc,cn);break;
             default: System.out.println("Opcion incorrecta");
             }
     n = sc.nextInt();
@@ -59,7 +62,6 @@ public class DriverControladorNave{
    }
             public static void TestCrearNave(Scanner sc, ControladorNave cn){
                 try{
-                	//TestConsultarNaves(cn);
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -346,8 +348,14 @@ public class DriverControladorNave{
                        System.out.print(e);
                    }
             }
-            public static void TestCargarNaves(){
+            public static void TestCargarNaves(Scanner sc, ControladorNave cn){
+            	try{
+            		String s = sc.next();
+            		cn.CargarNaves(s);
+            	}
+            	catch(Exception e){
+            		System.out.print(e);
+            	}
             }
-            
     }
              
