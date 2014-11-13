@@ -470,7 +470,7 @@ public class ControladorNave{
 			while(!found && it.hasNext()){
 				aux = it.next();
 				if(aux.consultar_id()==id){
-					listaNaves1.remove(aux);
+					it.remove();
 					found = true;
 					//cg.eliminarNau(aux);
 				}
@@ -480,7 +480,7 @@ public class ControladorNave{
 			while(!found && it2.hasNext()){
 				aux2 = it2.next();
 				if(aux2.consultar_id()==id){
-					listaNaves2.remove(aux2);
+					it2.remove();
 					found = true;
 					//cg.eliminarNau(aux);
 				}
@@ -490,7 +490,7 @@ public class ControladorNave{
 			while(!found && it3.hasNext()){
 				aux3 = it3.next();
 				if(aux3.consultar_id()==id){
-					listaNaves3.remove(aux3);
+					it3.remove();
 					found = true;
 					//cg.eliminarNau(aux);
 				}
@@ -500,7 +500,7 @@ public class ControladorNave{
 			while(!found && it4.hasNext()){
 				aux4 = it4.next();
 				if(aux4.consultar_id()==id){
-					listaNaves4.remove(aux4);
+					it4.remove();
 					found = true;
 					//cg.eliminarNau(aux);
 				}
@@ -510,16 +510,18 @@ public class ControladorNave{
 			while(!found && it5.hasNext()){
 				aux5 = it5.next();
 				if(aux5.consultar_id()==id){
-					listaNaves5.remove(aux5);
+					it5.remove();
 					found = true;
 					//cg.eliminarNau(aux);
 				}
 			}
-				if(!found){
+					if(!found){
 					throw new Exception("Error: No existe ningÃºn tipo de nave con el identificador introducido\n");
 				}
+				
+			
 			}
-		//Pre:cierto
+		//Pre: cierto
 		//Post: elimina todas las naves
 		public void EliminarNaves(){
 			listaNaves1.clear();
