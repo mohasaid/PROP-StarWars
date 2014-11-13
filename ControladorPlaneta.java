@@ -144,7 +144,7 @@ public class ControladorPlaneta{
         return BuscarPlaneta(id).Consultar_RutasEntrada();
     }
     //Pre: Cierto.
-    //Post: Retorna el tamaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±o de listaPlanetas.
+    //Post: Retorna el tamaÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±o de listaPlanetas.
     public int Consultar_Size() 
     {
         return listaPlanetas.size();
@@ -193,6 +193,16 @@ public class ControladorPlaneta{
     public void modificarCoordenades(int id, int x, int y) throws Exception 
     {
         BuscarPlaneta(id).modificarCoordenades(x,y);
+    }
+    //Pre: Cierto.
+    //Post: Modifica Fuente del planeta id.
+    public void Modificar_Fuente(int id, int fu) throws Exception{
+    	BuscarPlaneta(id).Modificar_Fuente(fu);
+    }
+    //Pre: Cierto.
+    //Post: Modifica Sumidero del planeta id.
+    public void Modificar_Sumidero(int id, int su) throws Exception{
+    	BuscarPlaneta(id).Modificar_Sumidero(su);
     }
     //Pre: Cierto.
     //Post: Anade la id de una ruta que sale del planeta a la lista de rutas que salen del planeta.
