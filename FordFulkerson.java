@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.PriorityQueue;
@@ -7,92 +7,127 @@ import java.util.Queue;
 public class FordFulkerson {
 	private Grafo g;
 	private Grafo g_residual;
-	private double[] d; //eso es solo para el algoritmo dijkstra
-	private double infinit = Double.POSITIVE_INFINITY;
-	 
-	private void posar_vector_doubles_infinit(int tam)
+
+	
+	public int MaxFlowBFS(int origen, int destino)
 	{
-		for (int i=0; i < tam; ++i) d[i]= infinit;
+		int size = g_residual.sizeGrafo();
+		int path[] = new int[size];
+		Arrays.fill(path,-1);
+		int max_flow = 0;
+		while(bfs(origen,destino,path)) {
+			int min = Integer.MAX_VALUE;
+			int val = destino;
+			while(val != origen) {
+				int u = path[val];
+				if(g_residual.consultaPair(u, val).consultarSegundo() < min) {
+					min = g_residual.consultaPair(u, val).consultarSegundo();
+				}
+				val = path[val];
+			}
+			val = destino;
+			max_flow += min;
+			while(val != origen) {
+				int u = path[val];
+				int tmp = g_residual.consultaPair(u, val).consultarSegundo();
+				tmp = tmp - min;
+				g_residual.consultaPair(u, val).ponSegundo(tmp);
+				int tmp1 = g_residual.consultaPair(val,u).consultarSegundo();
+				tmp1 = tmp1 + min;
+				g_residual.consultaPair(u,val).ponSegundo(tmp1);
+				val = path[val];
+			}
+		}
+		return max_flow;
 	}
 	
-	/*private void dijkstra(int s)
+	// Todas las distancias estan a 1?
+	public boolean bfs(int or1, int dest1, int path[])
 	{
-		int n = g.getNodes().size();
+		int V = g_residual.sizeGrafo();
 		
-		d = new double[n];
-		posar_vector_doubles_infinit(d); //inicializamos todo a infinito
-		d[s] = 0;// la distancia al nodo fuente es 0 (ya que partimo de aqui)
+		Queue<Integer> q1 = new LinkedList<Integer>();
+		q1.add(or1);
 		
-		boolean S[] = new boolean[n];
-		posar_vetor_bools_false(S); //inicializamos el vector de visitados a false
+		boolean[] visitados = new boolean[V];
+		Arrays.fill(visitados,false);
 		
-		PriorityQueue() Q = new PriorityQueue(); //se tiene qe crear bien!
+		visitados[or1] = true;
 		
-		//a partir de aqui es codigo c++
-		priority_queue<ArcP, vector<ArcP>, greater<ArcP> > Q; //perque aquesta cua de prioritat ????
-		Q.push( ArcP(0, s) );
+		while(!q1.isEmpty()) {
+			int u = q1.poll().intValue();
+			int size = g_residual.sizeGrafo(u);
+				for(int i = 0; i < size; ++i) {
+					int v = g_residual.consultarSeg(u, i);
+					int c = g_residual.consultarPrim(u, i); // capacidad-coste
+					if(c != 0 && !visitados[v]) {
+						path[v] = u;
+						visitados[v] = true;
+						q1.add(Integer.valueOf(v));
+					}
+				}
+		}
+		return (visitados[dest1] == true);
+	}
+
+	
+	// vector<vector<ARCP> > grafo 
+	// pair<coste,destino> arcp
+	public void djikstra(int origen, int path[], int dist[])
+	{
+		int V = g_residual.sizeGrafo();
+	
+		dist = new int[V];
+		Arrays.fill(dist,Integer.MAX_VALUE);
+		//for(int i = 0; i < V; ++i) dist[i] = Integer.MAX_VALUE; // inicializar path a infinito
+		path = new int[V];
+		Arrays.fill(path,-1);
+		//for(int i = 0; i < V; ++i) path[i] = -1; // inicializar path a -1
+		boolean visitados[] = new boolean[V];
+		Arrays.fill(visitados,false);
 		
-		while (not Q.empty()) {
-			int u = Q.top().second; 
-			Q.pop();
-			if (not S[u]) {
-				S[u] = true;
-				int siz = G[u].size();
-				for (int i = 0; i < siz ; ++i) {
-					int v = G[u][i].second;
-					int c = G[u][i].first;
-					if (d[v] > d[u] + c) {
-						d[v] = d[u] + c;
-						Q.push(ArcP(d[v], v));
+		dist[origen] = 0;
+		PriorityQueue<Pair<Integer, Integer> > pq = new PriorityQueue<Pair<Integer, Integer> >(1, new PriorityQueueComparator());
+		
+		Pair<Integer, Integer> pa = new Pair<Integer, Integer>(0, origen);
+		pq.add(pa);
+		
+		while(!pq.isEmpty()) {
+			Pair<Integer, Integer> pa1 = pq.poll();
+			int u = pa1.consultarSegundo();
+			int size = g_residual.sizeGrafo(u);
+			if(!visitados[u]) {
+				visitados[u] = true;
+				for(int i = 0; i < size; ++i) {
+					int v = g_residual.consultarSeg(u, i);
+					int c = g_residual.consultarPrim(u, i); // capacidad - coste
+					if(dist[v] > dist[u] + c) {
+						dist[v] = dist[u] + c;
+						path[v] = u;
+						pq.add(new Pair<Integer,Integer>(dist[v],v));
 					}
 				}
 			}
 		}
-	}*/
-	
-	
-	private boolean bfs(int origen1, int destino1, int path[])
-	{
-		int V = g_residual.getNodes().size();
-		Queue<Integer> q = new LinkedList<Integer>();
-		boolean[] visitados = new boolean[V];
-		path = new int[V];
-		q.add(Integer.valueOf(origen1));
-		path[origen1] = -1;
-		visitados[origen1] = true;
-		while(!q.isEmpty()) {
-			Integer actual = q.poll();
-			Nodo ac = g_residual.consultarNodo(actual.intValue());
-			for(int v = 0; v < V; ++v) {
-				Nodo n1 = g_residual.consultarNodo(v);
-				ArrayList<Arco> ara =  g_residual.getArcoEntreNodos(ac,n1);
-				for(int i = 0; i < ara.size(); ++i) {
-					if(visitados[v] == false && ara.get(i).ConsultarCapacidad() > 0)  {
-						q.add(Integer.valueOf(v));
-						path[v] = actual.intValue();
-						visitados[v] = true;
-					}	
-				}
-			}
+	}
+	/* consultar path:
+	if(dist[DESTINO] != Integer.MAX_VALUE) { // si hay path
+		Stack<Integer> st = new Stack<Integer>();
+		while(destino != -1) {
+			st.push(destino);
+			destino = path[destino];
 		}
-		return (visitados[destino1] == true);
+		// escribir path:
+		 while(st.size() > 1) {
+              cout << st.top() << " ";
+              st.pop();
+         }
+         cout << s.top() << endl;
 	}
 	
-	private boolean djikstra(int origen, int destino, int path[], int dist[])
-	{
-		int V = g_residual.getNodes().size();
-		PriorityQueue<Pair<Integer, Integer> > pq = new PriorityQueue<Pair<Integer, Integer> >(1, new PriorityQueueComparator());
-		dist = new int[V];
-		for(int i = 0; i < V; ++i) dist[i] = Integer.MAX_VALUE;
-		path = new int[V];
-		for(int i = 0; i < V; ++i) path[i] = -1;
-		Pair<Integer, Integer> pa = new Pair<Integer, Integer>(null, null);
-		boolean visitados[] = new boolean[V];
-		dist[origen] = 0;
-		// FALTA POR HACER
-		return false;
-				
-	}		
+	else NO HAY PATH
+	*/
+	
 }
 
 class PriorityQueueComparator implements Comparator<Pair<Integer, Integer>> 
