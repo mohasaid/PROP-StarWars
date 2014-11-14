@@ -22,28 +22,34 @@ public class TipoNave3 extends Nave{
 	public TipoNave3(){
 		ident = -1;
 		destino =-1;
+		origen = -1;
 	}
 	//pre:cierto;
 	//Post: Crea una nave de tipo 3 a partir de una nave vacía
 	public TipoNave3(Nave n) throws Exception{
 		ident = n.consultar_id();
 		destino = n.consultar_destino();
+		origen = n.consultar_origen();
 	}
 
 	//pre: el nombre de tipo t no existe ya
 	//post: crea una nave de tipo 1 inicializada
-	public TipoNave3(int id,int d) throws Exception{
+	public TipoNave3(int id,int d, int o) throws Exception{
 		if(ErrorTipograficoID(id)){
 			throw new Exception("Error: El identificador del tipo debe ser mayor o igual que 0\n");
 		}
 		if(ErrorTipografico(d)){
 			throw new Exception("Error: El identificador del planeta destino debe ser mayor o igual que 0\n");
 		}
+		if(ErrorTipograficoID(o)){
+			throw new Exception("Error: El identificador del planeta origen debe ser mayor o igual que 0\n");
+		}
 		if(!definido){
 			throw new Exception("Error: el tipo de nave 3 no ha sido definido\n");
 		}
 		ident = id;
 		destino = d;
+		origen = o;
 	}
 	
 	//Pre:cierto
