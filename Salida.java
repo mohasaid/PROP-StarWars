@@ -20,7 +20,7 @@ public class Salida{
 			CuellosB.add(cb.get(i));
 		}
 		for(int i=0; i < f.size();++i){
-			Pair<Arco,Integer> p = new Pair<Arco,Integer>(f.get(i).getFirst(),f.get(i).getSecond());
+			Pair<Arco,Integer> p = new Pair<Arco,Integer>(f.get(i).consultarPrimero(),f.get(i).consultarSegundo());
 			Flujos.add(p);
 		}
 		for(int i=0; i < ca.size();++i){
@@ -52,8 +52,8 @@ public class Salida{
 
 		for(int i=0; i<Flujos.size();++i){
 			Pair<Arco,Integer> aux = Flujos.get(i);
-			if(aux.getFirst().ConsultarId()==idArco){
-				return (int)aux.getSecond();
+			if(aux.consultarPrimero().ConsultarId()==idArco){
+				return (int)aux.consultarSegundo();
 			}
 		}
 		return -1;
@@ -74,8 +74,8 @@ public class Salida{
 	}
 	public void ModificarFlujo(int idArco, int fn){
 		for(int i = 0; i < Flujos.size();++i){
-			if(Flujos.get(i).getFirst().ConsultarId() == idArco){
-				Flujos.get(i).setSecond(fn);
+			if(Flujos.get(i).consultarPrimero().ConsultarId() == idArco){
+				Flujos.get(i).ponSegundo(fn);
 			}
 		}
 	}
