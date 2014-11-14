@@ -624,7 +624,7 @@ public class ControladorNave{
 			return res; 
 		}
 		
-		public void CargarNaves (String path) throws Exception {
+	public void CargarNaves (String path) throws Exception {
 	        String res; 
 	        Cdn.AbrirLectura(path);
 	        	res = Cdn.cargar(path);
@@ -641,7 +641,7 @@ public class ControladorNave{
 	                    s = sc.next();
 	                    int consumo = Integer.parseInt(s);
 	                    if(ExisteNave(id)){
-	                    	throw new Exception("Error: Una nave con identificador: " + id + " ya existe en el sistema\n");
+	                    	System.out.println("Ya existe una nave con identificador: "+id+". Esta, no se cargará");
 	                    }
 	                    else{
 	                    if(tipo == 1){
