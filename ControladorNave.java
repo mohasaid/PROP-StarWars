@@ -161,36 +161,36 @@ public class ControladorNave{
 		
 		//Pre: cierto
 		//Post: Crea una Nave manualmente y la aÃ±ade a la lista
-		public void CrearNave(int id, int t, int d /*ControladorGalaxia cg*/) throws Exception{
+		public void CrearNave(int id, int t, int d,int o /*ControladorGalaxia cg*/) throws Exception{
 			if(ExisteNave(id)){
 				throw new Exception("Error: Ya existe una nave con el mismo identificador\n");		
 			}
 			if(!ExisteTipo(t)){
-				throw new Exception("Error: No existe ningÃºn tipo de nave con el identificador introducido\n");
+				throw new Exception("Error: No existe ningun tipo de nave con el identificador introducido\n");
 			}
 				if(t<1 || t>5) throw new Exception("Error: El identificador del tipo debe estar entre 1 y 5\n");
 				if(t==1){
-					TipoNave1 n = new TipoNave1(id,d);
+					TipoNave1 n = new TipoNave1(id,d,o);
 					listaNaves1.add(n);
 					//cg.afegirNau(id);
 				}
 				if(t==2){
-					TipoNave2 n = new TipoNave2(id,d);
+					TipoNave2 n = new TipoNave2(id,d,o);
 					listaNaves2.add(n);
 					//cg.afegirNau(id);
 				}
 				if(t==3){
-					TipoNave3 n = new TipoNave3(id,d);
+					TipoNave3 n = new TipoNave3(id,d,o);
 					listaNaves3.add(n);
 					//cg.afegirNau(id);
 				}
 				if(t==4){
-					TipoNave4 n = new TipoNave4(id,d);
+					TipoNave4 n = new TipoNave4(id,d,o);
 					listaNaves4.add(n);
 					//cg.afegirNau(id);
 				}
 				if(t==5){
-					TipoNave5 n = new TipoNave5(id,d);
+					TipoNave5 n = new TipoNave5(id,d,o);
 					listaNaves5.add(n);
 					//cg.afegirNau(id);
 				}
@@ -198,38 +198,38 @@ public class ControladorNave{
 		}
 		//Pre: cierto
 		//Post: Crea una Nave de forma automatica
-		public void CrearNaveAuto(int dest/*ArrayList<int> lp ControladorGalaxia cg*/) throws Exception{
+		public void CrearNaveAuto(int dest,int o/*ArrayList<int> lp ControladorGalaxia cg*/) throws Exception{
 			while(ExisteNave(idn)) ++idn;
 			if(NingunTipo()){
-				throw new Exception("Error: No existe ningÃºn tipo de nave\n");
+				throw new Exception("Error: No existe ningun tipo de nave\n");
 			}
 			int t = TipoRandom();
 			//int d = (int)(Math.random()*lp.size())+0;
 			//int dest = lp.get(d)/*.Consultar_id()*/;
 			if(t==1){
-				TipoNave1 n = new TipoNave1(idn,dest);
+				TipoNave1 n = new TipoNave1(idn,dest,o);
 				listaNaves1.add(n);	
-				//cg.afegirNau(n);
+				//cg.afegirNau(idn);
 			}
 			if(t==2){
-				TipoNave2 n = new TipoNave2(idn,dest);
+				TipoNave2 n = new TipoNave2(idn,dest,o);
 				listaNaves2.add(n);	
-				//cg.afegirNau(n);
+				//cg.afegirNau(idn);
 			}
 			if(t==3){
-				TipoNave3 n = new TipoNave3(idn,dest);
+				TipoNave3 n = new TipoNave3(idn,dest,o);
 				listaNaves3.add(n);	
-				//cg.afegirNau(n);
+				//cg.afegirNau(idn);
 			}
 			if(t==4){
-				TipoNave4 n = new TipoNave4(idn,dest);
+				TipoNave4 n = new TipoNave4(idn,dest,o);
 				listaNaves4.add(n);	
-				//cg.afegirNau(n);
+				//cg.afegirNau(idn);
 			}
 			if(t==5){
-				TipoNave5 n = new TipoNave5(idn,dest);
+				TipoNave5 n = new TipoNave5(idn,dest,o);
 				listaNaves5.add(n);	
-				//cg.afegirNau(n);
+				//cg.afegirNau(idn);
 			}
 			
 		}
@@ -298,8 +298,13 @@ public class ControladorNave{
 		//CONSULTORAS ATRIBUTOS NAVE
 		//Pre: cierto
 		//Post: retorna el identificador del planeta destino de la nave con identificador id
-		public int ConsultarPlanetaDestino(int id) throws Exception{
+		public int ConsultarPlanetaDestino(int id)throws Exception{
 			return BuscarNave(id).consultar_destino();
+		}
+		//Pre: cierto
+		//Post: retorna el identificador del planeta origen de la nave con identificador id
+		public int ConsultarPlanetaOrigen(int id) throws Exception{
+			return BuscarNave(id).consultar_origen();
 		}
 		//Pre: cierto
 		//Post: retorna el tipo de una nave
@@ -439,6 +444,11 @@ public class ControladorNave{
 		public void ModificaDestino(int id, int dn) throws Exception{
 			BuscarNave(id).modificar_destino(dn);
 		}
+		//Pre: el nuevo destino es un planeta existente
+				//Post: modifica el origen de la nave con identificador "id" por "dn"
+				public void ModificaOrigen(int id, int on) throws Exception{
+					BuscarNave(id).modificar_destino(on);
+				}
 
 		//MODIFICADORAS TIPO NAVE
 		
@@ -517,7 +527,7 @@ public class ControladorNave{
 				}
 			}
 					if(!found){
-					throw new Exception("Error: No existe ningÃºn tipo de nave con el identificador introducido\n");
+					throw new Exception("Error: No existe ningun tipo de nave con el identificador introducido\n");
 				}
 				
 			
@@ -624,7 +634,7 @@ public class ControladorNave{
 			return res; 
 		}
 		
-	public void CargarNaves (String path) throws Exception {
+		public void CargarNaves(String path /*ControladorGalaxia cg*/) throws Exception {
 	        String res; 
 	        Cdn.AbrirLectura(path);
 	        	res = Cdn.cargar(path);
@@ -634,6 +644,8 @@ public class ControladorNave{
 	            if(sc.hasNext()) s = sc.next();
 	            while (sc.hasNext()) {
 	                    int id = Integer.parseInt(s);
+	                    s = sc.next();
+	                    int origen = Integer.parseInt(s);
 	                    s = sc.next();
 	                    int destino = Integer.parseInt(s);
 	                    s = sc.next();
@@ -648,7 +660,7 @@ public class ControladorNave{
 	                    	if(!TipoNave1.definido){
 	                    		TipoNave1.DefinirTipo(consumo);
 	                    	}
-	                    	TipoNave1 aux = new TipoNave1(id,destino);
+	                    	TipoNave1 aux = new TipoNave1(id,destino,origen);
 	                    	listaNaves1.add(aux);
 	                    }
 	                    
@@ -656,32 +668,32 @@ public class ControladorNave{
 	                    	if(!TipoNave2.definido){
 	                    		TipoNave2.DefinirTipo(consumo);
 	                    	}
-	                    	TipoNave2 aux = new TipoNave2(id,destino);
+	                    	TipoNave2 aux = new TipoNave2(id,destino,origen);
 	                    	listaNaves2.add(aux);
 	                    }
 	                    if(tipo == 3){
 	                    	if(!TipoNave3.definido){
 	                    		TipoNave3.DefinirTipo(consumo);
 	                    	}
-	                    	TipoNave3 aux = new TipoNave3(id,destino);
+	                    	TipoNave3 aux = new TipoNave3(id,destino,origen);
 	                    	listaNaves3.add(aux);
 	                    }
 	                    if(tipo == 4){
 	                    	if(!TipoNave4.definido){
 	                    		TipoNave4.DefinirTipo(consumo);
 	                    	}
-	                    	TipoNave4 aux = new TipoNave4(id,destino);
+	                    	TipoNave4 aux = new TipoNave4(id,destino,origen);
 	                    	listaNaves4.add(aux);
 	                    }
 	                    if(tipo == 5){
 	                    	if(!TipoNave5.definido){
 	                    		TipoNave5.DefinirTipo(consumo);
 	                    	}
-	                    	TipoNave5 aux = new TipoNave5(id,destino);
+	                    	TipoNave5 aux = new TipoNave5(id,destino,origen);
 	                    	listaNaves5.add(aux);
 	                    }
+	                    //cg.afegirNau(id);
 	                    }
-	            	
 	            s = sc.next();
 	            }
 	        Cdn.CerrarLectura();
@@ -697,6 +709,7 @@ public class ControladorNave{
 	            int iteracions = 0;
 	            for (TipoNave1 r : listaNaves1){  
 	                res += r.consultar_id() + ":";
+	                res += r.consultar_origen() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
