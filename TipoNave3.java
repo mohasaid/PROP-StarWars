@@ -1,8 +1,7 @@
 import java.util.*;
 
-//TIPO 3
 
-public class TipoNave3 extends Nave{
+public class TipoNave4 extends Nave{
 	public static int consumo;
 	public static boolean definido = false;
 
@@ -18,15 +17,15 @@ public class TipoNave3 extends Nave{
 			definido = true;
 	}
 	//pre: cierto
-	//post: crea una nave de tipo 3 vacía
-	public TipoNave3(){
+	//post: crea una nave de tipo 4 vacía
+	public TipoNave4(){
 		ident = -1;
 		destino =-1;
-		origen = -1;
+		consumo = -1;
 	}
 	//pre:cierto;
-	//Post: Crea una nave de tipo 3 a partir de una nave vacía
-	public TipoNave3(Nave n) throws Exception{
+	//Post: Crea una nave de tipo 4 a partir de una nave vacía
+	public TipoNave4(Nave n) throws Exception{
 		ident = n.consultar_id();
 		destino = n.consultar_destino();
 		origen = n.consultar_origen();
@@ -34,11 +33,11 @@ public class TipoNave3 extends Nave{
 
 	//pre: el nombre de tipo t no existe ya
 	//post: crea una nave de tipo 1 inicializada
-	public TipoNave3(int id,int d, int o) throws Exception{
+	public TipoNave4(int id,int d,int o) throws Exception{
 		if(ErrorTipograficoID(id)){
 			throw new Exception("Error: El identificador del tipo debe ser mayor o igual que 0\n");
 		}
-		if(ErrorTipografico(d)){
+		if(ErrorTipograficoID(d)){
 			throw new Exception("Error: El identificador del planeta destino debe ser mayor o igual que 0\n");
 		}
 		if(ErrorTipograficoID(o)){
@@ -61,7 +60,7 @@ public class TipoNave3 extends Nave{
 	//pre: cierto
 	//post: retorna el nombre que identifica al tipo
 	public int consultar_tipo() throws Exception{
-		return 1;
+		return 4;
 	}
 
 	//pre: cierto
@@ -83,8 +82,8 @@ public class TipoNave3 extends Nave{
 	}
 }
 
-class OrdenTipoNave3 implements Comparator<TipoNave3>{
-    public int compare(TipoNave3 n1, TipoNave3 n2){
+class OrdenTipoNave4 implements Comparator<TipoNave4>{
+    public int compare(TipoNave4 n1, TipoNave4 n2){
         try{
             if(n2.consultar_id() < n1.consultar_id()) return 1;
             else return -1;
@@ -95,3 +94,4 @@ class OrdenTipoNave3 implements Comparator<TipoNave3>{
         return 0;
     }
 }
+
