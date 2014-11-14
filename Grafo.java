@@ -3,90 +3,61 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Grafo {
-    private ArrayList<Nodo> nodos;
-    private ArrayList<Arco> arcos;
+	
+	private ArrayList<ArrayList<Pair<Integer, Integer> > > g; // Nodo u -> g[u][i].first = coste para ir a g[u][i].second = destino
     
     public Grafo()
     {
-    	nodos = new ArrayList<Nodo>();
-    	arcos = new ArrayList<Arco>();
+    	g = new ArrayList<ArrayList<Pair<Integer,Integer> > >(); 
     }
     
-    public Grafo(List<Nodo> list, List<Arco> list2) 
+    public Grafo(ArrayList<ArrayList<Pair<Integer,Integer> > > ar) 
     {
-    	nodos = new ArrayList<Nodo>(list);
-    	arcos = new ArrayList<Arco>(list2);
+    	g = ar;
     }
     
-    public ArrayList<Arco> getArcoEntreNodos(Nodo origin, Nodo destination)
+    public ArrayList<Pair<Integer, Integer>> consultarCosteDestinos(int u)
     {
-    	Iterator<Arco> it = arcos.iterator();
-    	ArrayList<Arco> arcs = new ArrayList<Arco>();
-    	Arco actual;
-    	while(it.hasNext()) {
-    		actual = it.next();
-    		if(actual.ConsultarOrigen().consultar_id() == origin.consultar_id() && actual.ConsultarDestino().consultar_id() == destination.consultar_id()) {
-    			arcs.add(actual);
-    		}
-    	}
-    	return arcs;
+    	return g.get(u);
     }
     
-    public void setArcoEntreNodos(Nodo origin, Nodo destination, Arco a)
+    public Integer consultarPrim(int u, int i)
     {
-    	a.ModificarOrigen(origin);
-    	a.ModificarDestino(destination);
+    	return g.get(u).get(i).consultarPrimero();
     }
     
-    public Nodo consultarNodo(int id)
+    public void ponPrim(int u, int i, int val)
     {
-    	for(int i = 0; i < nodos.size(); ++i) {
-    		if(nodos.get(i).consultar_id() == id) return nodos.get(i);
-    	}
-    	return null;
+    	g.get(u).get(i).ponPrimero(val);
     }
     
-    public Arco consultarArco(int id)
+    public void ponSeg(int u, int i, int val)
     {
-    	for(int i = 0; i < arcos.size(); ++i) {
-    		if(arcos.get(i).ConsultarId() == id) return arcos.get(i);
-    	}
-    	return null;
+    	g.get(u).get(i).ponSegundo(val);
     }
     
-    public ArrayList<Nodo> getNodes() {
-        return nodos;
-    }
-    
-    public void ponNodes(ArrayList<Nodo> nodes) {
-        nodos = nodes;
-    }
-    
-    public ArrayList<Arco> getEdges() {
-        return arcos;
-    }
-    
-    public void ponEdges(ArrayList<Arco> edges) {
-        arcos = edges;
-    }
-    
-    public void addNodo(Nodo n)
+    public Integer consultarSeg(int u, int i)
     {
-    	nodos.add(n);
+    	return g.get(u).get(i).consultarSegundo();
     }
     
-    public void addArco(Arco a)
+    public Pair<Integer, Integer> consultaPair(int u, int i)
     {
-    	arcos.add(a);
+    	return g.get(u).get(i);
     }
     
-    public ArrayList<Nodo> consultarNodos()
+    public ArrayList<ArrayList<Pair<Integer, Integer> > > consultarGrafo()
     {
-    	return nodos;
+    	return g;
     }
     
-    public ArrayList<Arco> consultarArcos()
+    public int sizeGrafo() 
     {
-    	return arcos;
+    	return g.size();
+    }
+    
+    public int sizeGrafo(int u)
+    {
+    	return g.get(u).size();
     }
 }
