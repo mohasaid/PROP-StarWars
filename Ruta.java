@@ -5,9 +5,6 @@ public class Ruta {
     private int id;
     private int capacidad;
     private int distancia;
-    private int planetaA;
-    private int planetaB;
-    private boolean bidireccional;
        
     //PARTE PUBLICA
        
@@ -26,15 +23,12 @@ public class Ruta {
         id = -1;
         capacidad = -1;
         distancia = -1;
-        planetaA = -1;
-        planetaB = -1;
-        bidireccional = false; //Por defecto una ruta es dirigida, no bidireccional
     }
        
     
     //Pre: Cierto
-    //Post: Crea una ruta con id = "i", capacidad = "c", distancia = "d", planetaA = "pA", planetaB = "pB", bidireccional = "b"
-    public Ruta(int i, int c, int d, int pA, int pB, boolean b) throws Exception
+    //Post: Crea una ruta con id = "i", capacidad = "c", distancia = "d"
+    public Ruta(int i, int c, int d) throws Exception
     {
         if(ErrorTipografico(i)){
             throw new Exception("Error: El identificador de una ruta debe ser mayor o igual que 0\n");
@@ -45,18 +39,9 @@ public class Ruta {
         if(ErrorTipografico(d) || d == 0){
             throw new Exception("Error: La distancia entre planeas debe ser mayor que 0\n");
         }
-        if(ErrorTipografico(pA) || ErrorTipografico(pB)){
-            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
-        }
-        if (pA == pB) {
-            throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
-        }
         id = i;
         capacidad = c;
         distancia = d;
-        planetaA = pA;
-        planetaB = pB;
-        bidireccional = b;
     }
             
     //CONSULTORAS
@@ -84,42 +69,9 @@ public class Ruta {
         if(distancia == -1) throw new Exception("Error: La ruta no tiene una asignado");
         return distancia;
     }
-       
-    //Pre: Cierto
-    //Post: Retorna un entero que representa el identificador del planetaA de la ruta  
-    public int consultar_planetaA() throws Exception
-    {
-        if(planetaA == -1) throw new Exception("Error: La ruta no tiene un planeta origen asignado");
-        return planetaA;
-    }
-       
-    //Pre: Cierto
-    //Post: Retorna un entero que representa el identificador del planetaB de la ruta
-    public int consultar_planetaB() throws Exception
-    {
-        if(planetaB == -1) throw new Exception("Error: La ruta no tiene un planeta destino asignado");
-        return planetaB;
-    }
-       
-    //Pre: Cierto
-    //Post: Retorna un valor booleano, el cual es cierto en el caso que la ruta sea bidireccional, en caso contrario, la ruta es solo del planetaA al planetaB
-    public boolean consultar_bidireccional() throws Exception
-    {
-        //if(bidireccional == (Boolean) null) throw new Exception("Error: La ruta no tiene una direccion asignada");
-        return bidireccional;
-    }
-       
+             
     //MODIFICDORAS
-       
-    //Pre: La ruta esta inicializada
-    //Post: se hace un swap entre planeta A i planeta B tal que planetaA = planetaB y planetaB = planetaA
-    public void invertir_planetas() throws Exception
-    {
-    	int aux = planetaA;
-    	planetaA = planetaB;
-    	planetaB = aux;
-    }
-    
+          
     //Pre: Cierto
     //Post: El id de la ruta se ha modificado por id = "id_nuevo"
     public void modificar_id(int id_nuevo) throws Exception
@@ -149,40 +101,6 @@ public class Ruta {
         }
         distancia = d;
     }
-       
-    //Pre: Cierto
-    //Post: El id del planetaA de la ruta se ha modificado por planetaA = "idA"
-    public void modificar_planetaA(int idA) throws Exception
-    {
-        if( ErrorTipografico(idA) ){
-            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
-        }
-        if (idA == planetaB) {
-            throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
-        }
-        planetaA = idA;
-    }
-       
-    //Pre: Cierto
-    //Post: El id del planetaB de la ruta se ha modificado por planetaB = "idB"
-    public void modificar_planetaB(int idB) throws Exception
-    {
-        if( ErrorTipografico(idB) ){
-            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
-        }
-        if (idB == planetaA) {
-            throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
-        }
-        planetaB = idB;
-    }
-       
-    //Pre: Cierto
-    //Post: La bidireccionalidad de la ruta ha sido modificada tal que bidireccional = "b"
-    public void modificar_bidireccional(boolean b) throws Exception
-    {
-        bidireccional = b;
-    } 
-  
 }
 
 class OrdenRuta implements Comparator<Ruta>{
