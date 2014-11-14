@@ -4,6 +4,7 @@ public class Nave {
 
 	protected int ident;
 	protected int destino;
+	protected int origen;
  
 	protected static boolean ErrorTipograficoID(int i) {  
         	return (i<0);
@@ -14,17 +15,25 @@ public class Nave {
 	public Nave(){
 		ident = -1;
 		destino = -1;
+		origen = -1;
 	}
 
 	
 	//pre: El planeta destino d existe en la galaxia y el identificador id no está un uso
 	//post: El resultado es una Nave sin tipo
-	public Nave(int id, int d) throws Exception {
+	public Nave(int id, int d, int o) throws Exception {
 		if(ErrorTipograficoID(id)){
 		        throw new Exception("Error : El identificador de una nave debe ser mayor o igual que 0\n"); 
-		}	
+		}
+		if(ErrorTipograficoID(d)){
+	        throw new Exception("Error : El identificador del planeta destino debe ser mayor o igual que 0\n"); 
+	}	
+		if(ErrorTipograficoID(o)){
+	        throw new Exception("Error : El identificador del planeta origen debe ser mayor o igual que 0\n"); 
+	}	
 		ident = id;
 		destino = d;
+		origen= o;
 	}
 
 	//pre: cierto
@@ -37,15 +46,17 @@ public class Nave {
 	}
 
 	//pre: cierto
-	//post: retorna un entero que representa identif del planeta al que la nave se dirige
-	public int consultar_destino() throws Exception{
-		if(destino == -1){
-			throw new Exception("Error: la nave no tiene destino asignado\n");	
-		}	
+	//post: retorna un entero que representa el identificador del planeta al que la nave se dirige
+	public int consultar_destino(){
+
 		return destino;
 	
 	}
-
+	//pre:cieto
+	//post: retorna un entero que representa el identificador del planeta en el que se encuentra la nave inicialmente
+	public int consultar_origen(){
+		return origen;
+	}
 	//pre: cierto
 	//post: la id se ha modificado por el entero id
 	public void modificar_id(int id) throws Exception{
@@ -61,6 +72,14 @@ public class Nave {
 			throw new Exception("Error: El identificador del planeta destino ha de ser mayor o igual que 0\n");	
 	}
 		destino = idD;
+	}
+	//pre: El planeta origen idO existe en la galaxia
+	//post: se ha modificado el origen por el planeta con identificador idO
+	public void modificar_origen(int idO) throws Exception {
+		if(ErrorTipograficoID(idO)){
+			throw new Exception("Error: El identificador del planeta origen ha de ser mayor o igual que 0\n");	
+	}
+		origen = idO;
 	}
 
 }
