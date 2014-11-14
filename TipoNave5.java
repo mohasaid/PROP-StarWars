@@ -1,8 +1,3 @@
-import java.util.*;
-
-
-//TIPO 5:
-
 
 public class TipoNave5 extends Nave{
 	public static int consumo;
@@ -24,28 +19,34 @@ public class TipoNave5 extends Nave{
 	public TipoNave5(){
 		ident = -1;
 		destino =-1;
+		origen = -1;
 	}
 	//pre:cierto;
 	//Post: Crea una nave de tipo 5 a partir de una nave vacía
 	public TipoNave5(Nave n) throws Exception{
 		ident = n.consultar_id();
 		destino = n.consultar_destino();
+		origen = n.consultar_origen();
 	}
 
 	//pre:cierto
 	//post: crea una nave de tipo 5 inicializada
-	public TipoNave5(int id,int d) throws Exception{
+	public TipoNave5(int id,int d,int o) throws Exception{
 		if(ErrorTipograficoID(id)){
 			throw new Exception("Error: El identificador del tipo debe ser mayor o igual que 0\n");
 		}
 		if(ErrorTipograficoID(d)){
 			throw new Exception("Error: El identificador del planeta destino debe ser mayor o igual que 0\n");
 		}
+		if(ErrorTipograficoID(o)){
+			throw new Exception("Error: El identificador del planeta origen debe ser mayor o igual que 0\n");
+		}
 		if(!definido){
 			throw new Exception("Error: el tipo de nave 1 no ha sido definido\n");
 		}
 		ident = id;
 		destino = d;
+		origen = o;
 	}
 	
 	//Pre:cierto
