@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 
 public class DriverNave{
-    public void Executa() {
-        Scanner sc = new Scanner(System.in);
+    public void Executa(Scanner sc) {
         int op;
         TipoNave1 n = new TipoNave1();
 
