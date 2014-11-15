@@ -4,6 +4,7 @@ public class Grafo {
 	
 	// i = id nodo origen , [i][j].second = destino nodo i, [i][j].first.first = capacidad , [i][j].first.second = coste
 	private ArrayList<ArrayList<Pair<Arco,Integer> > > g;
+	// private ArrayList<ArrayList<Pair<Arco, NODO> > > g;
 	
     public Grafo()
     {
