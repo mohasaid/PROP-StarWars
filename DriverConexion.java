@@ -8,20 +8,20 @@ public class DriverConexion {
     {
     	System.out.print(
                 "-----------------------------------------------------------------------------------"
-                +   "                               DRIVER CONNEXIO                                       "
+                +   "                               DRIVER CONEXION                                     "
                 +   "-----------------------------------------------------------------------------------"
-                + "\n\nCREACIO Connexio\n"
-                + " 0: Sortir de la gestio del driver \n"
+                + "\n\nCREACION CONEXION\n"
+                + " 0: Salir de la gestion del driver \n"
                 + " 1: Conexion() \n"
                 + " 2: Conexion(int i, int pA, int pB, boolean b) \n"
                 
-                + "\n\nOPERACIONS DE CONSULTA DE Connexio\n"
+                + "\n\nOPERACIONES DE CONSULTA DE CONEXION\n"
                 + " 3: consultar_id() \n"    
                 + " 4: consultar_planetaA() \n"       
                 + " 5: consultar_planetaB() \n"       
                 + " 6: consultar_bidireccional() \n"
                 
-                + "\n\nOPERACIONS MODIFICADORES DE Connexio\n"
+                + "\n\nOPERACIONES MODIFICADORAS DE CONEXION\n"
                 + " 7: invertir_planetas() \n"
                 + " 8: modificar_id() \n"    
                 + " 9: modificar_planetaA() \n"       
@@ -48,7 +48,7 @@ public class DriverConexion {
             case 9:  TestModificarPlanetaAConnexio(cin);break;
             case 10: TestModificarPlanetaBConnexio(cin);break;
             case 11: TestModificarBidireccionalConnexio(cin);break;
-            default: System.out.println("Opcio incorrecte");
+            default: System.out.println("Opcion incorrecta");
             }
         opciones();
         n = cin.nextInt();
