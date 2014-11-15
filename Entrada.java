@@ -17,5 +17,10 @@ public class Entrada {
     	g = new Grafo(gr.consultarSegundo() , gr.consultarPrimero());
     }
     
-    
+    //Pre: Cierto
+    //Post: Retorna el grafo g
+    public Grafo Consultar_grafo()
+    {
+    	return g;
+    }
 }
