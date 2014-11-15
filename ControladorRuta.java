@@ -8,7 +8,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: La conexion con id = "id" ha sido borrada del arbol de conexiones
-    public void Borrar_Conexion (int id) throws Exception
+    private void Borrar_Conexion (int id) throws Exception
     {
     	boolean found = false;
 		Iterator<Conexion> it = Conexiones.iterator();
@@ -38,15 +38,15 @@ public class ControladorRuta {
 		}
     }
     
-    //PARTE PUBLICA
-      
-    //ALGORITMOS
-      
     //Pre: Cierto
     //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
     private static boolean ErrorTipografico(int i) {
     	return (i<0);
     }
+    
+    //PARTE PUBLICA
+      
+    //ALGORITMOS
       
     //Pre:cierto
     //Post: comprueva si existe la ruta con identificador "id"
@@ -120,7 +120,7 @@ public class ControladorRuta {
       
     //Pre: Cierto
     //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±ade al arbol de rutas
-    public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp, ControladorGalaxia cg) throws Exception
+    public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
         if(ExisteRuta(id)){
             throw new Exception("Error: Ya existe una ruta con el mismo identificador");       
@@ -199,6 +199,14 @@ public class ControladorRuta {
     //CONSULTORAS   
     
     //Pre: Cierto
+    //Post: Retorna la capacidad que tiene la ruta con id = "id"
+    public int ConsultarCapacidadRuta(int id) throws Exception
+    {
+        Ruta solicitada = BuscarRuta(id);
+        return solicitada.consultar_capacidad();
+    }
+    
+    //Pre: Cierto
     //Post: Retorna la distancia que tiene la ruta con id = "id"
     public int ConsultarDistanciaRuta(int id) throws Exception
     {
@@ -206,14 +214,6 @@ public class ControladorRuta {
         return solicitada.consultar_distancia();
     }
     
-    //Pre: Cierto
-    //Post: Retorna la capacidad que tiene la ruta con id = "id"
-    public int ConsultarCapacidadRuta(int id) throws Exception
-    {
-        Ruta solicitada = BuscarRuta(id);
-        return solicitada.consultar_capacidad();
-    }
-      
     //Pre: Cierto
     //Post: Retorna la id del planetaA de la ruta con id = "id"
     public int ConsultarPlanetaARuta(int id) throws Exception
@@ -369,10 +369,18 @@ public class ControladorRuta {
     
     //Pre: La ruta con id = "id" tiene los atributos planetaA y planetaB inicializados
     //Post: Los planetas que conecta la ruta con id = "id" se modifican por planetaA = planetaB y planetaB = planetaB
-    public void invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
+    public void Invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
     {
     	Conexion c = BuscarConexion(id);
     	c.invertir_planetas();
+    	if (c.consultar_bidireccional() == false) {
+    		int idA = c.consultar_planetaA();
+    		int idB = c.consultar_planetaB();
+    		int cap_original_b = cp.Consultar_Capacidad( idB );
+    		int cap_original_a = cp.Consultar_Capacidad( idA );
+    		cp.Modificar_Capacidad( idB, cap_original_b - BuscarRuta(id).consultar_capacidad() );
+    		cp.Modificar_Capacidad( idA, cap_original_a + BuscarRuta(id).consultar_capacidad() );
+    	}
     }
       
     //Pre: Existe una ruta con id = "id"
