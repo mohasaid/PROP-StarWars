@@ -5,117 +5,130 @@ public class DriverControladorRuta {
 	private ControladorPlaneta cp;
     private Scanner cin = new Scanner(System.in);
 
+    public void opcions()
+    {
+    	System.out.print(
+                "-----------------------------------------------------------------------------------"
+              + "                               DRIVER CONTROLADOR RUTA                                         "
+              + "-----------------------------------------------------------------------------------"
+              + "\n\nCREACION RUTA \n"
+              + " 0:  Salir de la gestion del driver\n"
+              + " 1:  CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) \n"
+              + " 2:  CrearRuta_automatica(ControladorPlaneta cp)\n"
+              + " 3:  CrearRuta_automatica(ControladorPlaneta cp, int id)\n"
+              
+              + "\n\nOPERACIONES DE CONSULTA DE RUTA \n"
+              + " 4:  ConsultarCapacidadRuta(int id) \n"       
+              + " 5:  ConsultarDistanciaRuta(int id) \n"       
+              + " 6:  ConsultarPlanetaARuta(int id) \n"       
+              + " 7:  ConsultarPlanetaBRuta(int id) \n"       
+              + " 8:  ConsultarBidireccionalidadRuta(int id) \n"
+              + " 9:  Consultar_numero_rutes()\n" 
+              + " 10: Consultar_arbre_conexions()\n"
+              + " 11: Consultar_entrades_planeta(int id_planeta)\n"
+              + " 12: Consultar_sortides_planeta(int id_planeta)\n"
+              + " 13: Consultar_ids_rutas()\n"
+              + " 14: ExisteConexion(int id)\n"
+              + " 15: ExisteRuta(int id)\n"
+              + " 16: BuscarConexion(int id)\n"
+              + " 17: BuscarRuta(int id)\n"
+              
+              + "\n\nOPERACIONES MODIFICADORAS DE RUTA \n"
+              + " 18: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
+              + " 19: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
+              + " 20: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
+              + " 21: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
+              + " 22: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
+              + " 23: Invertir_planetaA_planetaB(int id)"
+              + " 24: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
+              
+              + " \nOPERACIONES PERA BORRAR RUTAS \n"
+              + " 25: BorrarRutaConexions_desdePlaneta(int id_planeta)"
+              + " 26: BorrarRuta(int id, ControladorPlaneta cp) \n"
+      		);
+    }
+    
     public void Executa(ControladorRuta c, ControladorPlaneta cplaneta) throws Exception {
     	cr = c;
     	cp = cplaneta;
         int n;
-            System.out.print(
-              "-----------------------------------------------------------------------------------"
-            + "                               DRIVER RUTA                                         "
-            + "-----------------------------------------------------------------------------------"
-            + "\n\nCREACIO RUTA \n"
-            + " 0: Sortir de la gestio del driver\n"
-            + " 1: CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional) \n"
-            + " 2: CrearRuta_automatica(ControladorPlaneta cp)"
-            
-            + "\n\nOPERACIONS DE CONSULTA DE RUTA \n"
-            + " 3: ConsultarCapacidadRuta(int id) \n"       
-            + " 4: ConsultarDistanciaRuta(int id) \n"       
-            + " 5: ConsultarPlanetaARuta(int id) \n"       
-            + " 6: ConsultarPlanetaBRuta(int id) \n"       
-            + " 7: ConsultarBidireccionalidadRuta(int id) \n"
-            + " 8: ExisteRuta(int id)\n"
-            
-            + "\n\nOPERACIONS MODIFICADORES DE RUTA \n"
-            + " 9: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
-            + " 10: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
-            + " 11: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
-            + " 12: ModificarPlanetaARuta(int id, int id_planetaA_nuevo, ControladorPlaneta cp) \n"       
-            + " 13: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo, ControladorPlaneta cp) \n"       
-            + " 14: ModificarBidireccionalidadRuta(int id, boolean bidireccional, ControladorPlaneta cp) \n"
-            
-            + " \nOPERACIONS PER BORRAR RUTES \n"
-            + " 15: BorrarRuta(int id, ControladorPlaneta cp) \n"
-            + " 16: BorrarRuta_desdePlaneta(ind id) \n"
-            
- 			+ " \nALTRES OPERACIONS QUE CONTIENE EL CONTROLADOR \n"
- 			+ " 17: BuscarRuta(int id) \n"
-    		);
-            
+        opcions();
         n = cin.nextInt();
         while(n != 0) {
             switch(n) {
-            case 1:  TestControladorCrearRuta(cin);break;
-            case 2:  TestControladorCrearRutaAutomatica();break;
-            
-            case 3:  TestControladorConsultarCpacitatRuta(cin);break;
-            case 4:  TestControladorConsultarDistanciaRuta(cin);break;
-            case 5:  TestControladorConsultarPlanetaARuta(cin);break;
-            case 6:  TestControladorConsultarPlanetaBRuta(cin);break;
-            case 7:  TestControladorConsultarBidireccionalRuta(cin);break;
-            case 8:  TestControladorConsultarExisteRuta(cin);break;
-            
-            case 9:  TestControladorModificarIdRuta(cin);break;
-            case 10: TestControladorModificarCpacitatRuta(cin);break;
-            case 11: TestControladorModificarDistanciaRuta(cin);break;
-            case 12: TestControladorModificarPlanetaARuta(cin);break;
-            case 13: TestControladorModificarPlanetaBRuta(cin);break;
-            case 14: TestControladorModificarBidireccionalRuta(cin);break;
-            
-            case 15: TestControladorBorrarRuta(cin);break;
-            case 16: TestControladorBorrarRutaDesdePlaneta(cin);break;
-            
-            case 17: TestControladorBuscarRuta(cin);break;
-            	
-            default: System.out.println("Opcio incorrecte");
+	            case 1:   TestControladorCrearRuta();break;
+	            case 2:   TestControladorCrearRutaAutomatica1();break;
+	            case 3:   TestControladorCrearRutaAutomatica2();break;
+	
+	            case 4:   TestControladorConsultarCpacitatRuta();break;
+	            case 5:   TestControladorConsultarDistanciaRuta();break;
+	            case 6:   TestControladorConsultarPlanetaARuta();break;
+	            case 7:   TestControladorConsultarPlanetaBRuta();break;
+	            case 8:   TestControladorConsultarBidireccionalRuta();break;
+	            case 9:   TestControladorConsultar_numero_rutes();break;
+	            case 10:  TestConsultar_arbre_conexions();break;
+	            case 11:  TestControladorConsultar_entrades_planeta();break;
+	            case 12:  TestControladorConsultar_sortides_planeta();break;
+	            case 13:  TestControladorExisteConexion();break;
+	            case 14:  TestControladorConsultarExisteRuta();break;
+	            case 15:  TestControladorBuscarConexion();break;
+	            case 16:  TestControladorBuscarRuta();break;
+	            
+	            case 17: TestControladorModificarIdRuta();break;
+	            case 18: TestControladorModificarCpacitatRuta();break;
+	            case 19: TestControladorModificarDistanciaRuta();break;
+	            case 20: TestControladorModificarPlanetaARuta();break;
+	            case 21: TestControladorModificarPlanetaBRuta();break;
+	            case 22: TestControladorInvertir_planetaA_planetaB();break;
+	            case 23: TestControladorModificarBidireccionalRuta();break;
+	            
+	            case 24: TestControladorBorrarRutaConexions_desdePlaneta();break;
+	            case 25: TestControladorBorrarRuta();break;
+	            	
+	            default: System.out.println("Opcion incorrecta");
             }
+            opcions();
+            n = cin.nextInt();
         }
-        n = cin.nextInt();
     }
     
-    public void mirar_entero(Scanner sc) throws Exception
+    public void escriu_arraylist(ArrayList<Integer> e)
     {
-    	while(!sc.hasNextInt()){
-			String s = sc.nextLine();
-			throw new Exception("Error: Tiene que entrar un entero\n");
+    	for( int i = 0 ; i < e.size() ; i++ ){
+    		  System.out.println( e.get(i) );
 		}
     }
     
-    public void mirar_booleano(Scanner sc) throws Exception
+    public void escriu_id_conexions(TreeSet<Conexion> C) throws Exception 
     {
-    	while(!sc.hasNextBoolean()){
-			String s = sc.nextLine();
-			throw new Exception("Error: Tiene que entrar un string\n");
+		Iterator<Conexion> it = C.iterator();
+		Conexion aux = new Conexion();
+		while(it.hasNext()){
+			aux = it.next();
+			System.out.println( aux.consultar_id() );
 		}
     }
     
-    public boolean leer_booleano(Scanner cin) throws Exception 
+    public boolean leer_booleano() throws Exception 
     {	
-    	mirar_entero(cin);
     	if (cin.nextInt() == 1) return true;
     	else return false;
     }
     
-	public void  TestControladorCrearRuta(Scanner cin) throws Exception
+	public void  TestControladorCrearRuta() throws Exception
 	{
 		try {
-			mirar_entero(cin);
 			int id = cin.nextInt();
 			
-			mirar_entero(cin);
 			int capacidad = cin.nextInt();
 			
-			mirar_entero(cin);
 			int distancia = cin.nextInt();
 			
-			mirar_entero(cin);
 			int planetaA = cin.nextInt();
 			
-			mirar_entero(cin);
 			int planetaB = cin.nextInt();
 			
-			leer_booleano(cin);
-			boolean bidireccional = leer_booleano(cin);
+			boolean bidireccional = leer_booleano();
 			
 			cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
 		}
@@ -124,7 +137,7 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void  TestControladorCrearRutaAutomatica() throws Exception
+	public void  TestControladorCrearRutaAutomatica1() throws Exception
 	{
 		try {
 			cr.CrearRuta_automatica(cp);
@@ -133,9 +146,19 @@ public class DriverControladorRuta {
             System.out.print(e);
 		}
 	}
+	
+	public void  TestControladorCrearRutaAutomatica2() throws Exception
+	{
+		try {
+			cr.CrearRuta_automatica(cp, cin.nextInt());
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+	}
 
 		
-	public void TestControladorConsultarCpacitatRuta(Scanner cin) throws Exception
+	public void TestControladorConsultarCpacitatRuta() throws Exception
 	{
 		try {
 			System.out.println(cr.ConsultarCapacidadRuta(cin.nextInt()));
@@ -145,7 +168,7 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorConsultarDistanciaRuta(Scanner cin) throws Exception
+	public void TestControladorConsultarDistanciaRuta() throws Exception
 	{
 		try {
 			System.out.println(cr.ConsultarDistanciaRuta(cin.nextInt()));
@@ -155,7 +178,7 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorConsultarPlanetaARuta(Scanner cin) throws Exception
+	public void TestControladorConsultarPlanetaARuta() throws Exception
 	{
 		try {
 			System.out.println(cr.ConsultarPlanetaARuta(cin.nextInt()));
@@ -165,7 +188,7 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorConsultarPlanetaBRuta(Scanner cin) throws Exception
+	public void TestControladorConsultarPlanetaBRuta() throws Exception
 	{
 		try {
 			System.out.println(cr.ConsultarPlanetaBRuta(cin.nextInt()));
@@ -175,7 +198,7 @@ public class DriverControladorRuta {
 		}
 	}
 		
-	public void TestControladorConsultarBidireccionalRuta(Scanner cin) throws Exception
+	public void TestControladorConsultarBidireccionalRuta() throws Exception
 	{
 		try {
 			if (cr.ConsultarBidireccionalidadRuta(cin.nextInt())) System.out.println("La ruta es bidireccional");
@@ -186,7 +209,86 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorConsultarExisteRuta(Scanner cin) throws Exception
+    public void TestControladorConsultar_numero_rutes()
+    {
+		try {
+			System.out.println(cr.Consultar_numero_rutes());
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    public void TestConsultar_arbre_conexions()
+    {
+		try {
+			TreeSet<Conexion> C = cr.Consultar_arbre_conexions();
+			escriu_id_conexions(C);
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    
+    public void TestControladorConsultar_entrades_planeta()
+    {
+		try {
+			ArrayList<Integer> entrades = cr.Consultar_entrades_planeta(cin.nextInt());
+			escriu_arraylist(entrades);
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    public void TestControladorConsultar_sortides_planeta()
+    {
+		try {
+			ArrayList<Integer> sortides = cr.Consultar_sortides_planeta(cin.nextInt());
+			escriu_arraylist(sortides);
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    
+	public void  TestControladorExisteConexion() throws Exception
+	{
+		try {
+			if ( cr.ExisteConexion(cin.nextInt()) ) System.out.println("La conexion si existe");
+			else System.out.println("La conexion no existe");
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+	}
+	
+	public void  TestControladorBuscarConexion() throws Exception
+	{
+		try {
+			Conexion c = cr.BuscarConexion(cin.nextInt());
+			System.out.println("La conexion que ha devuelto la funcion tiene la id = " + c.consultar_id());
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+	}
+	
+	public void TestControladorBuscarRuta()
+	{
+		try {
+			Ruta r = cr.BuscarRuta(cin.nextInt());
+			System.out.println("La ruta que ha devuelto la funcion tiene la id = " + r.consultar_id());
+
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+	}
+	
+	public void TestControladorConsultarExisteRuta() throws Exception
 	{
 		try {
 			if ( cr.ExisteRuta(cin.nextInt()) ) System.out.println("La ruta si existe");
@@ -197,7 +299,7 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorModificarIdRuta(Scanner cin) throws Exception 
+	public void TestControladorModificarIdRuta() throws Exception 
 	{
 		try {
 			int id_original = cin.nextInt();
@@ -209,7 +311,7 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorModificarCpacitatRuta(Scanner cin) throws Exception 
+	public void TestControladorModificarCpacitatRuta() throws Exception 
 	{
 		try {
 			int id = cin.nextInt();
@@ -220,7 +322,7 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorModificarDistanciaRuta(Scanner cin) throws Exception 
+	public void TestControladorModificarDistanciaRuta() throws Exception 
 	{
 		try {
 			int id = cin.nextInt();
@@ -231,69 +333,75 @@ public class DriverControladorRuta {
 		}
 	}
 	
-	public void TestControladorModificarPlanetaARuta(Scanner cin) throws Exception 
+	public void TestControladorModificarPlanetaARuta() throws Exception 
 	{
 		try {
 			int id = cin.nextInt();
-			cr.ModificarPlanetaARuta(id, cin.nextInt(), cp);
+			cr.ModificarPlanetaARuta(id, cin.nextInt());
 		}
 		catch (Exception e){
             System.out.print(e);
 		}
 	}
 	
-	public void TestControladorModificarPlanetaBRuta(Scanner cin) throws Exception 
+	public void TestControladorModificarPlanetaBRuta() throws Exception 
 	{
 		try {
 			int id = cin.nextInt();
-			cr.ModificarPlanetaBRuta(id, cin.nextInt(), cp);
+			cr.ModificarPlanetaBRuta(id, cin.nextInt());
 		}
 		catch (Exception e){
             System.out.print(e);
 		}
 	}
 		
-	public void TestControladorModificarBidireccionalRuta(Scanner cin) throws Exception 
+	public void TestControladorModificarBidireccionalRuta() throws Exception 
 	{
 		try {
 			int id = cin.nextInt();
-			cr.ModificarBidireccionalidadRuta(id, cin.nextBoolean(), cp);
+			cr.ModificarBidireccionalidadRuta(id, cin.nextBoolean());
 		}
 		catch (Exception e){
             System.out.print(e);
 		}
 	}
 	
-	public void TestControladorBorrarRuta(Scanner cin) throws Exception
+    public void TestControladorInvertir_planetaA_planetaB()
+    {
+		try {
+			cr.Invertir_planetaA_planetaB(cin.nextInt(), cp);
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    public void TestControladorBorrarRutaConexions_desdePlaneta()
+    {
+		try {
+			cr.BorrarRutaConexions_desdePlaneta( cin.nextInt() );
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+	
+	public void TestControladorBorrarRuta() throws Exception
 	{
 		try {
-			int id = cin.nextInt();
-			cr.BorrarRuta(id, cp);
+			cr.BorrarRuta(cin.nextInt(), cp);
 		}
 		catch (Exception e){
             System.out.print(e);
 		}
 	}
 	
-	public void  TestControladorBorrarRutaDesdePlaneta(Scanner cin) throws Exception{
+	public void  TestControladorBorrarRutaDesdePlaneta() throws Exception{
 		try {
-			int id = cin.nextInt();
-			cr.BorrarRuta_desdePlaneta(id);
+			cr.BorrarRutaConexions_desdePlaneta( cin.nextInt() );
 		}
 		catch (Exception e){
             System.out.print(e);
 		}
 	}
-	
-	public void TestControladorBuscarRuta(Scanner  cin)
-	{
-		try {
-			int id = cin.nextInt();
-			
-		}
-		catch (Exception e){
-            System.out.print(e);
-		}
-		
-	}	
 }
