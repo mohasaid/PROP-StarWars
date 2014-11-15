@@ -12,9 +12,9 @@ public class Entrada {
     
     //Pre: Cierto
     //Post: Crea una entrada con el grafo inicializado a partir de de la lista de nodos y otra de arcos
-    public Entrada(Pair<List<Arco>, List<Nodo> > gr)
+    public Entrada(ControladorGalaxia cg)
     {
-    	g = new Grafo(gr.consultarSegundo() , gr.consultarPrimero());
+    	g = new Grafo(cg.convierteRutasYPlanetas));
     }
     
     //Pre: Cierto
