@@ -223,7 +223,69 @@ public class ControladorRuta {
         return c.consultar_bidireccional();
     }
       
+    //Pre: Cierto
+    //Post: Retorna el tamano del arbol de rutas
+    public int Consultar_numero_rutes()
+    {
+    	return ArbolRutas.size();
+    }
+    
+    
+    //Pre: Cierto
+    //Post: Retorna el arbol de conexiones
+    public TreeSet<Conexion> Consultar_arbre_conexions()
+    {
+    	return Conexiones;
+    }
+    
+    //Pre: Cierto
+    //Post: Retorna un arraylist que contiene todos los ids de las rutas presentes
+    public ArrayList<Integer> Consultar_ids_rutas() throws Exception
+    {
+    	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
+    	
+		Iterator<Conexion> it = Conexiones.iterator();
+		Conexion aux = new Conexion();
+		while(it.hasNext()){
+			aux = it.next();
+			ids_rutas.add( aux.consultar_id() );
+		}
+    	
+    	return ids_rutas;
+    }
       
+    //Pre: Cierto
+    //Post: Retorna un arraylist que contiene todos los ids de las rutas que le entran al planeta con id = "id_planeta"
+    public ArrayList<Integer> Consultar_entrades_planeta(int id_planeta) throws Exception
+    {
+    	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
+    	
+		Iterator<Conexion> it = Conexiones.iterator();
+		Conexion aux = new Conexion();
+		while(it.hasNext()){
+			aux = it.next();
+			if (id_planeta == aux.consultar_planetaB()) ids_rutas.add( aux.consultar_id() );
+		}
+    	
+    	return ids_rutas;
+    }
+    
+    //Pre: Cierto
+    //Post: Retorna un arraylist que contiene todos los ids de las rutas que le salen al planeta con id = "id_planeta"
+    public ArrayList<Integer> Consultar_sortides_planeta(int id_planeta) throws Exception
+    {
+    	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
+    	
+		Iterator<Conexion> it = Conexiones.iterator();
+		Conexion aux = new Conexion();
+		while(it.hasNext()){
+			aux = it.next();
+			if (id_planeta == aux.consultar_planetaA()) ids_rutas.add( aux.consultar_id() );
+		}
+    	
+    	return ids_rutas;
+    }
+    
     //MODIFICADORAS    
     
     //Pre: Existe una ruta con id = "id_original"
