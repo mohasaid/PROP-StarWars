@@ -56,9 +56,9 @@ public class ControladorPlaneta{
     // Necesito una con un id por defecto y que solo cree sus atributos random
     public void PlanetaAuto(int id) throws Exception 
     {
-    	int r1 = randInt(0,Integer.MAX_VALUE);
-    	int c1 = randInt(0,Integer.MAX_VALUE);
-    	int c2 = randInt(0,Integer.MAX_VALUE);
+    	int r1 = randInt(0,Integer.MAX_VALUE-1);
+    	int c1 = randInt(0,Integer.MAX_VALUE-1);
+    	int c2 = randInt(0,Integer.MAX_VALUE-1);
         Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
         Coo.ponPrimero(c1);
         Coo.ponSegundo(c2);
