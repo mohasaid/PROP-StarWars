@@ -43,7 +43,7 @@ public class DriverRuta {
             case 6:  TestModificarIdRuta(cin);break;
             case 7: TestModificarCpacitatRuta(cin);break;
             case 8: TestModificarDistanciaRuta(cin);break;
-            default: System.out.println("Opcio incorrecte");
+            default: System.out.println("Opcion incorrecta");
             }
         opciones();
         n = cin.nextInt();
