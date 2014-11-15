@@ -183,7 +183,7 @@ public class ControladorPlaneta{
     public void Borrar(int id, ControladorGalaxia cg, ControladorRuta cr) throws Exception {
         Planeta p = BuscarPlaneta(id);
         listaPlanetas.remove(p);
-        cr.eliminar_conexion(id);
+        ccr.Borrar_Conexion_desdePlaneta (id);
         cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
         p.Borrar();
     }
