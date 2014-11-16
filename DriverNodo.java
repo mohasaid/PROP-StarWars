@@ -9,9 +9,9 @@ public class DriverNodo {
     {
     	System.out.print(
                 "-----------------------------------------------------------------------------------"
-                +   "                               DRIVER RUTA                                      "
+                +   "                               DRIVER NODO                                      "
                 +   "-----------------------------------------------------------------------------------"
-                + "\n\nCREACIO RUTA\n"
+                + "\n\nCREACIO NODO\n"
                 + " 0: Sortir de la gestio del driver \n"
                 + " 1: Nodo() \n"
                 + " 2: Nodo (int ident, boolean es_Yavin, boolean es_Hoth) \n"
