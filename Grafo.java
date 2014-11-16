@@ -4,7 +4,6 @@ public class Grafo {
 	
 	// i = id nodo origen , [i][j].second = destino nodo i, [i][j].first.first = capacidad , [i][j].first.second = coste
 	private ArrayList<ArrayList<Pair<Arco,Integer> > > g;
-	// private ArrayList<ArrayList<Pair<Arco, NODO> > > g;
 	
     public Grafo()
     {
@@ -42,6 +41,21 @@ public class Grafo {
     		}
     	}
     	g.get(u).get(tmp).ponPrimero(p);
+    }
+    
+    public void ponEnVerAr(int u, int v, int cap)
+    {
+    	int tmp = 0;
+    	boolean trobat = false;
+    	for(int i = 0; i < g.get(u).size() && !trobat; ++i) {
+    		if(g.get(u).get(i).consultarSegundo() == v) {
+    			tmp = i;
+    			trobat = true;
+    		}
+    	}
+    	Arco c = g.get(u).get(tmp).consultarPrimero();
+    	c.ModificarCapacidad(cap);
+    	g.get(u).get(tmp).ponPrimero(c); // modifico capacidad del arco
     }
     
     public void ponSeg(int u, int i, int val)
