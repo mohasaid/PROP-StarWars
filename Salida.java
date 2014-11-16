@@ -1,16 +1,16 @@
 import java.util.*;
 public class Salida{
 private ArrayList<Integer> CuellosB;
-private int coste;
 private ArrayList<Pair<Arco,Integer>> Flujos;
 private ArrayList<String> Cambios;
 	//CREADORA
+
 	public Salida(){
 		CuellosB = new ArrayList<Integer>();
-		coste = 0;
 		Flujos = new ArrayList<Pair<Arco,Integer>>();
 		Cambios = new ArrayList<String>();
 	}
+	/*
 	public Salida(ArrayList<Integer> cb, int c, ArrayList<Pair<Arco,Integer>> f, ArrayList<String> ca){
 		coste = c;
 		for(int i=0; i < cb.size();++i){
@@ -24,15 +24,13 @@ private ArrayList<String> Cambios;
 			Cambios.add(ca.get(i));
 		}
 	}
+	*/
 	// CONSULTORAS
 	public ArrayList<Integer> ConsultarCuellos(){
 		return CuellosB;
 	}
 	public ArrayList<Pair<Arco,Integer>> ConsultarFlujos(){
 		return Flujos;
-	}
-	public int ConsultarCost(){
-		return coste;
 	}
 	public ArrayList<String> ConsultarCambios(){
 		return Cambios;
@@ -48,10 +46,10 @@ private ArrayList<String> Cambios;
 		return Cambios.size();
 	}
 	
-	public int FlujoArco(int idArco) {
+	public int FlujoArco(int idRuta) {
 		for(int i=0; i<Flujos.size();++i){
 			Pair<Arco,Integer> aux = Flujos.get(i);
-			if(aux.consultarPrimero().ConsultarId()==idArco){
+			if(aux.consultarPrimero().ConsultarIdRuta()==idRuta){
 				return (int)aux.consultarSegundo();
 			}
 		}
@@ -66,30 +64,8 @@ private ArrayList<String> Cambios;
 		Flujos.add(p);
 	}
 	public void AnadirCambio(String s){
-		Cambios.add(s);
 	}
-	public void ModificarCoste(int cn){
-		coste = cn;
-	}
-	public void IncrementarCoste(int i){
-		coste += i;
-	}
-	/*
-	public void ModificarFlujo(int idArco, int fn){
-		for(int i = 0; i < Flujos.size();++i){
-			if(Flujos.get(i).consultarPrimero().ConsultarId() == idArco){
-				Flujos.get(i).ponSegundo(fn);
-			}
-		}
-	}
-	public void IncrementarFlujo(Arco c,int f){
-		for(int i = 0; i < Flujos.size();++i){
-			if(Flujos.get(i).consultarPrimero().ConsultarId() == idArco){
-				Flujos.get(i).ponSegundo(Flujos.get(i).consultarSegundo+f);
-			}
-		}
-	}
-	*/
+
 	public void GenerarFlujos(Entrada e, ControladorRuta cr) throws Exception{
 		for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
 			for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
