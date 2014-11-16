@@ -1,7 +1,7 @@
- public class Arco {
+public class Arco {
     private int capacidad;
     private int coste; //Contiene la distancia/precio del arco según la función de coste escogida
-     private int idRuta();
+     private int idRuta;
 //CREADORAS
      
     //Pre: cierto
@@ -14,12 +14,10 @@
     }
     //Pre:cierto
     //Post: Crea un Arco inicializado
-    public Arco(int c,int iddr)
+    public Arco(int c,int idr)
     {
         capacidad = c;
-        coste = -1;
-        idr = iddr;
-    }
+        coste = -1;    }
  
 //CONSULTORAS
      
