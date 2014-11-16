@@ -7,9 +7,15 @@ public class ControladorRuta {
     private TreeSet<Conexion> Conexiones;
     private ControladorDadesRuta Cdr;
     
+     //Pre: Cierto
+    //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
+    private static boolean ErrorTipografico(int i) {
+    	return (i<0);
+    }
+    
     //Pre: Cierto
     //Post: La conexion con id = "id" ha sido borrada del arbol de conexiones
-    private void Borrar_Conexion (int id) throws Exception
+    public void Borrar_Conexion (int id) throws Exception
     {
     	boolean found = false;
 		Iterator<Conexion> it = Conexiones.iterator();
@@ -25,7 +31,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
-    private void Borrar_Ruta (int id) throws Exception
+    public void Borrar_Ruta (int id) throws Exception
     {
     	boolean found = false;
 		Iterator<Ruta> it = ArbolRutas.iterator();
@@ -37,12 +43,6 @@ public class ControladorRuta {
 				found = true;
 			}
 		}
-    }
-    
-    //Pre: Cierto
-    //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
-    private static boolean ErrorTipografico(int i) {
-    	return (i<0);
     }
     
     //PARTE PUBLICA
