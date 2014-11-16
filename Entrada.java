@@ -14,7 +14,7 @@ public class Entrada {
     //Post: Crea una entrada con el grafo inicializado a partir de de la lista de nodos y otra de arcos
     public Entrada(ControladorGalaxia cg)
     {
-    	g = new Grafo(cg.convierteRutasYPlanetas));
+    	g = new Grafo(cg.convierteRutasYPlanetas);
     }
     
     //Pre: Cierto
