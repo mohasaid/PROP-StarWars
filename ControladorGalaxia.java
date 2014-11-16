@@ -61,7 +61,7 @@ public class ControladorGalaxia
     {
     	String res = "";
     	res = g.consultarNomGalaxia() + ":" + g.consultarPresupost() + ":" + g.consultarLimitGalaxia();
-    	if(g.consulta_nombreLimits() > 0) { // Solo si tiene limites lo pongo
+    	if(g.consulta_nombreLimits() > 0) {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
 	    	res = res + ":";
@@ -211,29 +211,21 @@ public class ControladorGalaxia
     /**
      * Metodo para modificar el nombre de la galaxia
      * @param nomNou
+     * @throws Exception 
      */
-    public void modificarNom(String nomNou)
+    public void modificarNom(String nomNou) throws Exception
     {
-    	try{
-    		g.modificar_nomGalaxia(nomNou);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
+    	g.modificar_nomGalaxia(nomNou);
     }
     
     /**
      * Metodo para modificar el limite maximo de la galaxia
      * @param limitNou
+     * @throws Exception 
      */
-    public void modificarLimit(int limitNou)
+    public void modificarLimit(int limitNou) throws Exception
     {
-    	try{
-    		g.modificarN(limitNou);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
+    	g.modificarN(limitNou);
     }
     
    /**
@@ -242,24 +234,22 @@ public class ControladorGalaxia
     * @param y
     * @param idPlaneta
     * @param cp
+    * @throws Exception 
     */
-   public void modificarCoordenadesPlaneta(int x, int y, int idPlaneta, ControladorPlaneta cp)
+   public void modificarCoordenadesPlaneta(int x, int y, int idPlaneta, ControladorPlaneta cp) throws Exception
     {
-    	try{
-	    	if(g.existeixPlaneta(idPlaneta)) {
-	    		Planeta p = cp.BuscarPlaneta(idPlaneta);
-	    		g.existeixPlanetaCoordenades(x, y);
-	    		if(g.dintreLimitUsuari(x, y)) {
-	    			g.eliminarPLaneta(p);
-	    			p.modificarCoordenades(x, y);
-	    			g.afegirPlaneta(idPlaneta, x, y);
-	    		}
-	    		else throw new Exception("las coordenadas se encuentran fuera de la galaxia");
-	    	}
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
+	    if(g.existeixPlaneta(idPlaneta)) {
+    		Planeta p = cp.BuscarPlaneta(idPlaneta);
+    		g.existeixPlanetaCoordenades(x, y);
+    		if(g.dintreLimitUsuari(x, y)) {
+    			g.eliminarPLaneta(p);
+    			p.modificarCoordenades(x, y);
+    			g.afegirPlaneta(idPlaneta, x, y);
+    			cp.BorraPla(idPlaneta);
+    			cp.anadirPlaneta(p);
+    		}
+    		else throw new Exception("las coordenadas se encuentran fuera de la galaxia");
+	    }
     }
    
    /**
@@ -267,15 +257,11 @@ public class ControladorGalaxia
     * @param x
     * @param y
     * @param idPlaneta
+ * @throws Exception 
     */
-   public void modificarIDPlaneta(int x, int y, int idPlaneta) 
+   public void modificarIDPlaneta(int x, int y, int idPlaneta) throws Exception 
    {
-	   try{
-		   g.modificarIDplaneta(x, y, idPlaneta);
-	   }
-	   catch(Exception e){
-   		System.out.println(e);
-   	   }
+		  g.modificarIDplaneta(x, y, idPlaneta);
    }
    
     /**
@@ -288,13 +274,7 @@ public class ControladorGalaxia
      */
     public void afegirPlaneta(int idPlaneta, int x, int y) throws Exception
     {
-    	if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
-    	try {
-    			g.afegirPlaneta(idPlaneta,x,y);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
+    	g.afegirPlaneta(idPlaneta,x,y);
     }
     
     /**
@@ -304,18 +284,9 @@ public class ControladorGalaxia
      * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
      * @throws Exception
      */
-    public void afegirPlanetaAutomatic(ControladorPlaneta cp, int idPlaneta) throws Exception
+    public Pair<Integer, Integer> afegirPlanetaAutomatic(int idPlaneta) throws Exception
     {
-    	if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
-	    try {  	
-    		Planeta p = cp.BuscarPlaneta(idPlaneta);
-	      	Pair<Integer, Integer> pa = g.afegirPlanetaAutomatic(idPlaneta);
-	      	p.modificarCoordenades(pa.consultarPrimero(), pa.consultarSegundo());
-	      	// quitar del controlador y ponerlo
-	    }
-	    catch(Exception e){
-    		System.out.println(e);
-    	}
+	    return g.afegirPlanetaAutomatic(idPlaneta);
     }
     
     /**
@@ -326,45 +297,24 @@ public class ControladorGalaxia
      */
     public void eliminarPlaneta(int idPlaneta) throws Exception
     {
-    	try {
-	    	g.eliminarPlaneta(idPlaneta);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
+	    g.eliminarPlaneta(idPlaneta);
     }
     
-    public void CrearNau(ControladorNave cn, int id, int t, int d, int o)
+    public void CrearNau(ControladorNave cn, int id, int t, int d, int o) throws Exception
     {
-    	try {
-    		cn.CrearNave(id, t, d, o);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
+    	cn.CrearNave(id, t, d, o);
     }
     
-    public void eliminarNau(int idNau, ControladorNave cn)
+    public void eliminarNau(int idNau, ControladorNave cn) throws Exception
     {
-    	try{
-	    	cn.EliminarNave(idNau);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
+	    cn.EliminarNave(idNau);
     }
     
-    public void eliminarTotesNaus(ControladorNave cn)
+    public void eliminarTotesNaus(ControladorNave cn) throws Exception
     {
-    	try{
-    		cn.EliminarNaves();
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
+    	cn.EliminarNaves();
     }
     
-    // CONSULTAR NAVE, PLANETA, RUTAS INDIVIDUALMENTE EN GALAXIA?
     public String consultaNave(int id, ControladorNave cn) throws Exception
     {
     	String res = "";
@@ -373,50 +323,29 @@ public class ControladorGalaxia
     	return res;
     }
     
-    public void crearRuta(ControladorRuta cr, int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) 
+    public void crearRuta(ControladorRuta cr, int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception 
     {
-    	try{
-    		cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
+    	cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
     }
     
-    public void eliminarRuta(ControladorRuta cr, int idRuta)
+    public void eliminarRuta(ControladorRuta cr, int idRuta) throws Exception
     {
-    	try {
-    		cr.Borrar_Ruta(idRuta);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
+    	cr.Borrar_Ruta(idRuta);
     }
     
-    public void eliminarRutes(ControladorRuta cr)
+    public void eliminarRutes(ControladorRuta cr) throws Exception
     {
-    	try {
-    		cr.BorrarRutas();
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
+    	cr.BorrarRutas();
     }
     
-    public String consultarRuta(int idRuta, ControladorRuta cr)
+    public String consultarRuta(int idRuta, ControladorRuta cr) throws Exception
     {
-    	try {
-	    	String res = "";
-	    	Ruta r = cr.BuscarRuta(idRuta);
-	    	res += r.consultar_id() + ":" + r.consultar_capacidad() + ":" + r.consultar_distancia();
-	    	Conexion c = cr.BuscarConexion(idRuta);
-	    	res += c.consultar_planetaA() + ":" + c.consultar_planetaB() + c.consultar_bidireccional();
-	    	return res;
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-		return null;
+    	String res = "";
+    	Ruta r = cr.BuscarRuta(idRuta);
+    	res += r.consultar_id() + ":" + r.consultar_capacidad() + ":" + r.consultar_distancia();
+    	Conexion c = cr.BuscarConexion(idRuta);
+    	res += c.consultar_planetaA() + ":" + c.consultar_planetaB() + c.consultar_bidireccional();
+    	return res;
     }
     
 
@@ -465,12 +394,7 @@ public class ControladorGalaxia
      */
     public void eliminarContingutGalaxia() throws Exception
     {
-    	try {
-    		g.eliminarContingutGalaxia();
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
+    	g.eliminarContingutGalaxia();
     }
     
     /**
@@ -565,29 +489,23 @@ public class ControladorGalaxia
     	String result = "";
     	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia();
     	if(g.consulta_nombreLimits() > 0 ) result += ":" + g.consultarValorLimits();
-    	result += "#@";
-    	if(cp.Consultar_Size() > 0) { // PLANETAS
-    		ArrayList<Integer> pla = cp.consultarPlanetas();
-    		for(int i = 0; i < pla.size(); ++i) {
-    			Planeta p = cp.BuscarPlaneta(pla.get(i));
-    			result += p.Consultar_id() + ":" + p.consultar_X() + ":" + p.consultar_Y(); // ID:X:Y
-    		}
-    	}
-    	result += "#@";
-    	if(cr.Consultar_numero_rutes() > 0) { // RUTAS
-    		ArrayList<Integer> rut = cr.Consultar_ids_rutas();
-    		for(int i = 0; i < rut.size(); ++i) {
-    			result += ":" + rut.get(i);  // ID:ID
-    		}
-    	}
-    	result += "#@";
-    	if(cn.size() > 0) { // NAVES -> ARREGLAR ESTO
-    		ArrayList<Integer> nau = null;
-    		for(int i = 0; i < nau.size(); ++i) {
-    			result += ":" + nau.get(i);  // ID:ID
-    		}
-    	}
     	cdg.guardar(result);
+    	
+    	result = "#@";
+    	if(cp.Consultar_Size() > 0) { // PLANETAS
+    		cp.GuardarPlanetas(directori);
+    		cdg.guardar(result);
+    	}
+    	result = "#@";
+    	if(cr.Consultar_numero_rutes() > 0) { // RUTAS
+    		
+    		cdg.guardar(result);
+    	}
+    	result = "#@";
+    	if(cn.size() > 0) { // NAVES -> ARREGLAR ESTO
+    		cn.GuardarNaves(directori);
+    		cdg.guardar(result);
+    	}
     	cdg.CerrarEscritura();
    	}
 }
