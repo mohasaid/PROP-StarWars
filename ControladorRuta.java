@@ -393,20 +393,20 @@ public class ControladorRuta {
         solicitada.modificar_bidireccional(bidireccional_nuevo);
     }
     
-    //Pre: Existe una ruta con id = "id_planeta"
-    //Post: Las rutas que tienen planetaA = "id_planeta" o planetaB = "id_planeta" han sido borrada del arbol de rutas y de conexiones
-    public void BorrarRutaConexions_desdePlaneta(int id_planeta) throws Exception
-    {
-		Iterator<Conexion> it = Conexiones.iterator();
-		Conexion aux = new Conexion();
-		while( it.hasNext() ) {
-			aux = it.next();
-			if(aux.consultar_planetaA() == id_planeta || aux.consultar_planetaB() == id_planeta){
-				it.remove();
-				Borrar_Ruta( aux.consultar_id() );
-			}
-		}
-	}
+ //Pre: Existe una ruta con id = "id_planeta"
+  //Post: Las rutas que tienen planetaA = "id_planeta" o planetaB = "id_planeta" han sido borrada del arbol de rutas y de conexiones
+  public void BorrarRutaConexions(int id_planeta) throws Exception
+  {
+	  Iterator<Conexion> it = Conexiones.iterator();
+	  Conexion aux = new Conexion();
+	  while( it.hasNext() ) {
+		  aux = it.next();
+		  if(aux.consultar_planetaA() == id_planeta || aux.consultar_planetaB() == id_planeta){
+			  it.remove();
+			  Borrar_Ruta( aux.consultar_id() );
+		  }
+	  }
+  }
     
   //Pre: Existe una ruta con id = "id"
   //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
