@@ -14,6 +14,15 @@ public abstract class MFP{
 		public int ConsultarCoste(){
 		return s.ConsultarCost();
 		}
+		public int size(){
+			return s.size();
+		}
+		public int sizeCambios(){
+			return s.size();
+		}
+		public void GenerarFlujos(Entrada e, ControladorRuta cr){
+			s.GenerarFlujos(e,cr);
+		}
 		//Cambiar:
 		public ArrayList<String> ConsultarCambios(){
 		return s.ConsultarCambios();
