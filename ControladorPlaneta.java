@@ -19,6 +19,11 @@ public class ControladorPlaneta {
         listaPlanetas = new TreeSet<Planeta>(new OrdenPlaneta());
     }
     
+    public void anadirPlaneta(Planeta p) throws Exception
+    {
+    	if(ExistePlaneta(p.Consultar_id())) throw new Exception("Ya hay un planeta con este identificador");
+    	listaPlanetas.add(p);
+    }
     //Pre: Cierto.
     //Post: Retorna true si el planeta existe y false si no.
     public boolean ExistePlaneta(int idP) throws Exception 
@@ -28,6 +33,16 @@ public class ControladorPlaneta {
             if (it.next().Consultar_id() == idP) return true;
         }
         return false;
+    }
+    
+    public void BorraPla(int idPlaneta) throws Exception
+    {
+    	Iterator<Planeta> it = listaPlanetas.iterator();
+    	Planeta p = null;
+    	while(it.hasNext()) {
+    		p = it.next();
+    		if(p.Consultar_id() == idPlaneta) it.remove();
+    	}
     }
     //Pre: Cierto.
     //Post: Retorna un Planeta con idedentificador "id".
@@ -55,8 +70,10 @@ public class ControladorPlaneta {
         Coo.ponPrimero(c1);
         Coo.ponSegundo(c2);
         Planeta p = new Planeta(idP, r1, Coo);
+        Pair<Integer, Integer> co_nuevas = cg.afegirPlanetaAutomatic(idP);
+        p.modificarCoordenades(co_nuevas.consultarPrimero(), co_nuevas.consultarSegundo());
         listaPlanetas.add(p);
-        cg.afegirPlaneta(idP, c1, c2);
+        
         // AUTOMATICO
     }
     // Necesito una con un id por defecto y que solo cree sus atributos random
@@ -69,8 +86,9 @@ public class ControladorPlaneta {
         Coo.ponPrimero(c1);
         Coo.ponSegundo(c2);
         Planeta p = new Planeta(id, r1, Coo);
+        Pair<Integer, Integer> co_nuevas = cg.afegirPlanetaAutomatic(id);
+        p.modificarCoordenades(co_nuevas.consultarPrimero(), co_nuevas.consultarSegundo());
         listaPlanetas.add(p);
-        cg.afegirPlaneta(id, c1, c2);
         // AUTOMATICO
     }
     //Pre: Cierto.
@@ -204,6 +222,12 @@ public class ControladorPlaneta {
         cg.eliminarPlaneta(p.Consultar_id());
         // p.Borrar();
     }
+    
+    public void BorrarTodos() throws Exception {
+    	if(listaPlanetas.size() < 1) throw new Exception("No hay planetas");
+    	listaPlanetas.clear();
+    }
+    
     //Pre: Cierto.
     //Post: 
     public void CargarPlanetas (String path, ControladorGalaxia cg) throws Exception {
