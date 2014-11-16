@@ -13,7 +13,7 @@ public class DriverControladorMFP{
    	         +"-                     [opcion   Operacion(Atributos)]                           -\n"
              +"---------------------------------------------------------------------------------\n"
              +"-                                                                               -\n"
-             +"-   0   Salir del DriverNave                                                    -\n"
+             +"-   0   Salir del DriverControladorMFP                                          -\n"
              +"-   1   TestSeleccionarFC(int i)                                                -\n"
              +"-   2   TestSeleccionarAlgoritmo(int i)                                         -\n"
              +"-   3   Mostrar solucion                                                        -\n"
