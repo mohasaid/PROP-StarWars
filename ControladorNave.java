@@ -13,7 +13,6 @@ public class ControladorNave{
 	private Iterator<TipoNave4> itc4;
 	private Iterator<TipoNave5> itc5;
 	ControladorDadesNave Cdn;
-	
 		//Pre: cierto
 		//Post: Crea un ControladorNave
 	/**
@@ -300,7 +299,7 @@ public class ControladorNave{
 		 * @param lp
 		 * @throws Exception
 		 */
-		public void CrearNaveAuto(int i/*, int dest,int o,*/ ,ArrayList<Planeta> lp) throws Exception{
+		public void CrearNaveAuto(int i,ArrayList<Integer> lp) throws Exception{
 			while(i>0){
 				while(ExisteNave(idn)) ++idn;
 				if(NingunTipo()){
@@ -308,9 +307,9 @@ public class ControladorNave{
 				}
 				int t = TipoRandom();
 				int d = (int)(Math.random()*lp.size())+0;
-				int dest = lp.get(d).Consultar_id();
+				int dest = lp.get(d);
 				int or = (int)(Math.random()*lp.size())+0;
-				int o = lp.get(or).Consultar_id();
+				int o = lp.get(or);
 				if(t==1){
 					TipoNave1 n = new TipoNave1(idn,dest,o);
 					listaNaves1.add(n);	
@@ -383,6 +382,9 @@ public class ControladorNave{
 		 */
 		public void CrearTipoNaveAuto() throws Exception{
 			int t = TipoNoDefinido();
+			if(t==-1){
+				throw new Exception("Error: Ya se han definido 5 tipos\n");
+			}
 			int c = (int)Math.random()*Integer.MAX_VALUE+1;
 			if(t==1){
 				TipoNave1 n = new TipoNave1();
@@ -712,9 +714,9 @@ public class ControladorNave{
 		 */
 		public String ConsultarTipos(){
 			String s = "";
-			if(TipoNave1.definido) s+= "1, ";
-			if(TipoNave2.definido) s+= "2, ";
-			if(TipoNave3.definido) s+= "3, ";
+			if(TipoNave1.definido) s+= "1,";
+			if(TipoNave2.definido) s+= "2,";
+			if(TipoNave3.definido) s+= "3,";
 			if(TipoNave4.definido) s+= "4,";
 			if(TipoNave5.definido) s+= "5";
 			return s;
@@ -759,8 +761,9 @@ public class ControladorNave{
 				res += "Naves tipo 1: \n";
 			}
 			while(itc1.hasNext() && j<100){
-				res += itc1.next().consultar_id() +",";
+				res += itc1.next().consultar_id();
 				++j;
+				if(itc1.hasNext()) res += ",";
 				if(!itc1.hasNext()){
 					if(itc2.hasNext()) res += "\nNaves tipo 2: \n";
 					else if(itc3.hasNext()) res += "\nNaves tipo 3: \n";
@@ -773,8 +776,9 @@ public class ControladorNave{
 				res += "Naves tipo 2: \n";
 			}
 			while(itc2.hasNext() && j<100){
-				res += itc2.next().consultar_id() + ",";
+				res += itc2.next().consultar_id();
 				++j;
+				if(itc2.hasNext()) res += ",";
 				if(!itc2.hasNext()){
 					if(itc3.hasNext()) res += "\nNaves tipo 3: \n";
 					else if(itc4.hasNext()) res += "\nNaves tipo 4: \n";
@@ -786,8 +790,9 @@ public class ControladorNave{
 				res += "Naves tipo 3: \n";
 			}
 			while(itc3.hasNext() && j<100){
-				res += itc3.next().consultar_id() + ",";
+				res += itc3.next().consultar_id();
 				++j;
+				if(itc3.hasNext()) res += ",";
 				if(!itc3.hasNext()){
 					if(itc4.hasNext()) res += "\nNaves tipo 4: \n";
 					else if(itc5.hasNext()) res += "\nNaves tipo 5: \n";
@@ -798,9 +803,10 @@ public class ControladorNave{
 				res += "Naves tipo 4: \n";
 			}
 			while(itc4.hasNext() && j<100){
-				res += itc4.next().consultar_id() + ",";
+				res += itc4.next().consultar_id();
 				++j;
-				if(!itc3.hasNext()){
+				if(itc4.hasNext()) res += ",";
+				if(!itc4.hasNext()){
 					if(itc5.hasNext()) res += "\nNaves tipo 5: \n";
 				}
 			}
@@ -809,9 +815,10 @@ public class ControladorNave{
 				res += "Naves tipo 5: \n";
 			}
 			while(itc5.hasNext() && j<100){
-				res += itc5.next().consultar_id() + ",";
+				res += itc5.next().consultar_id();
 				++j;
-				if(!itc1.hasNext()) res += "\n";
+				if(itc5.hasNext()) res += ",";
+				if(!itc5.hasNext()) res += "\n";
 			}
 			return res; 
 		}
@@ -905,7 +912,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                System.out.println(res);
 	                ++iteracions;
 	                if(iteracions == 100){
 	                    Cdn.guardar(path,res);
@@ -923,7 +929,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                System.out.println(res);
 	                ++iteracions;
 	                if(iteracions == 100){
 	                    Cdn.guardar(path,res);
@@ -940,7 +945,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                System.out.println(res);
 	                ++iteracions;
 	                if(iteracions == 100){
 	                    Cdn.guardar(path,res);
@@ -957,7 +961,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                System.out.println(res);
 	                ++iteracions;
 	                if(iteracions == 100){
 	                    Cdn.guardar(path,res);
@@ -974,7 +977,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                System.out.println(res);
 	                ++iteracions;
 	                if(iteracions == 100){
 	                    Cdn.guardar(path,res);
