@@ -3,7 +3,7 @@ import java.util.*;
  
  
 public class DriverControladorNave{
-    public void Executa(Scanner sc, ControladorNave cn) {
+    public void Executa(Scanner sc, ControladorNave cn/*, ControladorPlaneta cp*/) {
         int n;
                 System.out.print(
                  "-----------------------------------------------------------------------------------\n"
@@ -32,14 +32,15 @@ public class DriverControladorNave{
                 +"-   19  TestEliminarNave(int idNave)                                              -\n"
                 +"-   20  TestGuardarNaves(String path)                                             -\n"
                 +"-   21  TestCargarNaves(String path)                                              -\n"
+                +"-   22  TestEliminarNaves()                                                       -\n"
                 +"-----------------------------------------------------------------------------------\n");
 
         n = sc.nextInt();
                  
         while(n != 0){
             switch (n) {
-            case 1: TestCrearNave(sc,cn);break;
-            case 2: TestCrearNaveAuto(sc,cn);break;
+            case 1: TestCrearNave(sc,cn/*,cp*/);break;
+            case 2: TestCrearNaveAuto(sc,cn/*,cp*/);break;
             case 3: TestCrearTipo(sc,cn);break;
             case 4: TestCrearTipoAuto(cn);break;
             case 5: TestConsultarNaves(cn);break;
@@ -59,12 +60,13 @@ public class DriverControladorNave{
             case 19: TestEliminarNave(sc,cn);break;
             case 20: TestGuardarNaves(sc,cn);break;
             case 21: TestCargarNaves(sc,cn);break;
+            case 22: TestEliminarNaves(cn);break;
             default: System.out.println("Opcion incorrecta");
             }
     n = sc.nextInt();
     }
    }
-            public static void TestCrearNave(Scanner sc, ControladorNave cn){
+            public static void TestCrearNave(Scanner sc, ControladorNave cn/*, ControladorPlaneta cp*/){
                 try{
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
@@ -86,6 +88,14 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador del planeta origen debe ser un entero\n");
                     }
                     int origID = sc.nextInt();
+                    /*
+                    if(!cp.ExistePlaneta(destID)){
+                    	throw new Exception("Error: No existe ningun planeta con identificador: "+ destID+"\n");
+                    }
+                    if(!cp.ExistePlaneta(origID)){
+                    	throw new Exception("Error: No existe ningun planeta con identificador: "+ origID +"\n");
+                    }
+                    */
                     cn.CrearNave(id,tipoID,destID,origID);
                 }  
                 catch (Exception e){
@@ -93,19 +103,21 @@ public class DriverControladorNave{
                 }
             }
 
-            public static void TestCrearNaveAuto(Scanner sc, ControladorNave cn){
+            public static void TestCrearNaveAuto(Scanner sc, ControladorNave cn/*,ControladorPlaneta cp*/){
                 try{
-                    while(!sc.hasNextInt()){
+                	while(!sc.hasNextInt()){
                         String s = sc.nextLine();
-                        throw new Exception("Error: El identificador del destino debe ser un entero\n");
+                        throw new Exception("Error: El numero de naves a crear debe ser un entero\n");
                     }
-                    int destID = sc.nextInt();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El identificador del origen debe ser un entero\n");
-                    }
-                    int origID = sc.nextInt();
-                    cn.CrearNaveAuto(destID,origID);
+                	int i = sc.nextInt(); //Numero de naves que se quieren crear
+                	
+                	//Planetas definidos solo con el fin de probar la clase ControladorNave, eliminados en la versión final
+                	ArrayList<Integer> planetas = new ArrayList<Integer>();
+                	planetas.add(1);
+                	planetas.add(2);
+                	planetas.add(3);
+                	
+                    cn.CrearNaveAuto(i, planetas/*,cp.consultarPlanetas()*/);
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -150,7 +162,7 @@ public class DriverControladorNave{
                     int orig = cn.ConsultarPlanetaOrigen(id);
                     int tipo = cn.ConsultarTipo(id);
                     int cons = cn.ConsultarConsumo(id);
-                    System.out.print("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", origen:" + orig + ", destino: " + dest + "\n");
+                    System.out.print("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", origen: " + orig + ", destino: " + dest + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -163,7 +175,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idtipo = sc.nextInt();
-                    
+                    System.out.println("tipo: "+idtipo+" consumo: "+cn.ConsultarConsumoTipo(idtipo));
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -238,6 +250,7 @@ public class DriverControladorNave{
             }
             public static void TestModificaID(Scanner sc,ControladorNave cn){
                 try{
+                	
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador debe ser un entero\n");
@@ -248,6 +261,9 @@ public class DriverControladorNave{
                         throw new Exception("Error: El nuevo identificador debe ser un entero\n");
                     }
                     int id2 = sc.nextInt();
+                    if(cn.ExisteNave(id2)){
+                    	throw new Exception("Error: ya existe una nave con el identificador introducido");
+                    }
                     cn.ModificaID( id, id2);
                 }
                 catch (Exception e){
@@ -346,6 +362,11 @@ public class DriverControladorNave{
                    int n = cn.size();
                    while(i < n){
                 	   String s = cn.ConsultarNaves(i);
+                	   if((i+100)>cn.size()){
+                		   if (s.length() > 0 && s.charAt(s.length()-1)==',') {
+                     	      s= s.substring(0, s.length()-1);  
+                		   }
+                	   }
                 	   System.out.print(s);
                 	   i += 100;
                     }
@@ -359,13 +380,12 @@ public class DriverControladorNave{
             public static void TestConsultarTipos(ControladorNave cn){
                 try{
                    String s = cn.ConsultarTipos();
-                   Scanner sc = new Scanner(s);
-                   sc.useDelimiter(",");
-                   while(sc.hasNext()){
-                	   System.out.print(sc.next());
+                   if (s.length() > 0 && s.charAt(s.length()-1)==',') {
+                	      s= s.substring(0, s.length()-1);  
                    }
-                   System.out.print("\n");
+                   System.out.println(s);
                     }
+                  
                 catch (Exception e){
                     System.out.print(e);
                 }
@@ -383,6 +403,14 @@ public class DriverControladorNave{
             	try{
             		String s = sc.next();
             		cn.CargarNaves(s);
+            	}
+            	catch(Exception e){
+            		System.out.print(e);
+            	}
+            }
+            public static void TestEliminarNaves(ControladorNave cn){
+            	try{
+            		cn.EliminarNaves();
             	}
             	catch(Exception e){
             		System.out.print(e);
