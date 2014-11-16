@@ -16,6 +16,9 @@ public class ControladorNave{
 	
 		//Pre: cierto
 		//Post: Crea un ControladorNave
+	/**
+	 * metodo que crea un controlador de nave
+	 */
 		public ControladorNave(){
 			listaNaves1 = new TreeSet<TipoNave1>(new OrdenTipoNave1());
 			listaNaves2 = new TreeSet<TipoNave2>(new OrdenTipoNave2());
@@ -25,8 +28,13 @@ public class ControladorNave{
 			Cdn = new ControladorDadesNave();
 		}
 
-		//Pre: cierto
+				//Pre: cierto
 				//Post: devuelve la nave con identificador "id"
+		/**
+		 * metodo que devuelve la nave con identificador id 
+		 * @param id
+		 * @throws Exception
+		 */
 				public Nave BuscarNave(int id) throws Exception{
 						Iterator<TipoNave1> it = listaNaves1.iterator();
 						boolean found = false;
@@ -74,10 +82,83 @@ public class ControladorNave{
 						}
 						return null;
 				}
+				public ArrayList<Integer> PlanetasOrigen(int id) throws Exception{
+					ArrayList<Integer> planetas = new ArrayList<Integer>();
+					Iterator<TipoNave1> it = listaNaves1.iterator();
+					while(it.hasNext()){
+							TipoNave1 aux = it.next();
+							Integer p = new Integer(aux.consultar_origen());
+							planetas.add(p);
+						}
+					Iterator<TipoNave2> it2 = listaNaves2.iterator();
+					while(it2.hasNext()){
+							TipoNave2 aux = it2.next();
+							Integer p = new Integer(aux.consultar_origen());
+							planetas.add(p);
+						}
+					Iterator<TipoNave3> it3 = listaNaves3.iterator();
+					while(it3.hasNext()){
+							TipoNave3 aux = it3.next();
+							Integer p = new Integer(aux.consultar_origen());
+							planetas.add(p);
+						}
+					Iterator<TipoNave4> it4 = listaNaves4.iterator();
+					while(it4.hasNext()){
+							TipoNave4 aux = it4.next();
+							Integer p = new Integer(aux.consultar_origen());
+							planetas.add(p);
+						}
+					Iterator<TipoNave5> it5 = listaNaves5.iterator();
+					while(it5.hasNext()){
+							TipoNave5 aux = it5.next();
+							Integer p = new Integer(aux.consultar_origen());
+							planetas.add(p);
+						}
+					return planetas;				
+			}
+				public ArrayList<Integer> PlanetasDestino(int id) throws Exception{
+					ArrayList<Integer> planetas = new ArrayList<Integer>();
+					Iterator<TipoNave1> it = listaNaves1.iterator();
+					while(it.hasNext()){
+							TipoNave1 aux = it.next();
+							Integer p = new Integer(aux.consultar_destino());
+							planetas.add(p);
+						}
+					Iterator<TipoNave2> it2 = listaNaves2.iterator();
+					while(it2.hasNext()){
+							TipoNave2 aux = it2.next();
+							Integer p = new Integer(aux.consultar_destino());
+							planetas.add(p);
+						}
+					Iterator<TipoNave3> it3 = listaNaves3.iterator();
+					while(it3.hasNext()){
+							TipoNave3 aux = it3.next();
+							Integer p = new Integer(aux.consultar_destino());
+							planetas.add(p);
+						}
+					Iterator<TipoNave4> it4 = listaNaves4.iterator();
+					while(it4.hasNext()){
+							TipoNave4 aux = it4.next();
+							Integer p = new Integer(aux.consultar_destino());
+							planetas.add(p);
+						}
+					Iterator<TipoNave5> it5 = listaNaves5.iterator();
+					while(it5.hasNext()){
+							TipoNave5 aux = it5.next();
+							Integer p = new Integer(aux.consultar_destino());
+							planetas.add(p);
+						}
+					return planetas;				
+			}
 
 
 		//Pre: cierto
 		//Post: comprueva si existe el tipo de nave ocn identificador "id"
+				/**
+				 * metodo que retorna un booleano indicando si el tipo id ha sido definido
+				 * @param id
+				 * @throws Exception
+				 */
 		public boolean ExisteTipo(int id) throws Exception{
 			if (id==1){
 				return TipoNave1.definido;
@@ -96,7 +177,11 @@ public class ControladorNave{
 			}
 			else throw new Exception("Error; el identificador del tipo tiene que estar entre 1 y 5\n");
 		} 
-		
+		/**
+		 * metodo para comprovar si existe una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		//Pre:cierto
 		//Post: comprueva si existe la nave con identificador "id"
 		public boolean ExisteNave(int id) throws Exception{
@@ -125,7 +210,10 @@ public class ControladorNave{
 		
 		//Pre:cierto
 		//Post: Devuelve el menor identificador de tipo que no haya sido definido, y -1 en caso de que tidos esten definidos
-		public int TipoNoDefinido(){
+		/**
+		 * metodo que devulve el identificador de un tipo que no haya sido aún definido
+		 */
+		private int TipoNoDefinido(){
 					if(!TipoNave1.definido)return 1;
 					if(!TipoNave2.definido)return 2;
 					if(!TipoNave3.definido)return 3;
@@ -135,6 +223,9 @@ public class ControladorNave{
 		}
 		//Pre:cierto
 		//Post: devuelve un boleean indicando si hay algÃºn tipo definido
+		/**
+		 * metodo que indica si queda algún tipo por definir
+		 */
 		public boolean NingunTipo(){
 			if(TipoNave1.definido) return false;
 			if(TipoNave2.definido) return false;
@@ -143,8 +234,11 @@ public class ControladorNave{
 			if(TipoNave5.definido) return false;
 			return true;
 		}
-		//Pre: existe algÃºn tipo definido
+		//Pre: existe algun tipo definido
 		//Post: devuelve un tipo aleatorio que estÃ© definido
+		/**
+		 * metodo que devuelve el identificador de un tipo de nave que haya sido definido aleatoriamente.
+		 */
 		public int TipoRandom(){
 			ArrayList<Integer> def = new ArrayList<Integer>();
 			if(TipoNave1.definido) def.add(1);
@@ -161,7 +255,15 @@ public class ControladorNave{
 		
 		//Pre: cierto
 		//Post: Crea una Nave manualmente y la aÃ±ade a la lista
-		public void CrearNave(int id, int t, int d,int o /*ControladorGalaxia cg*/) throws Exception{
+		/**
+		 * metodo que crea una nave de un tipo, con identificador, destino y origen
+		 * @param id
+		 * @param t
+		 * @param d
+		 * @param o
+		 * @throws Exception
+		 */
+		public void CrearNave(int id, int t, int d,int o) throws Exception{
 			if(ExisteNave(id)){
 				throw new Exception("Error: Ya existe una nave con el mismo identificador\n");		
 			}
@@ -172,72 +274,78 @@ public class ControladorNave{
 				if(t==1){
 					TipoNave1 n = new TipoNave1(id,d,o);
 					listaNaves1.add(n);
-					//cg.afegirNau(id);
 				}
 				if(t==2){
 					TipoNave2 n = new TipoNave2(id,d,o);
 					listaNaves2.add(n);
-					//cg.afegirNau(id);
 				}
 				if(t==3){
 					TipoNave3 n = new TipoNave3(id,d,o);
 					listaNaves3.add(n);
-					//cg.afegirNau(id);
 				}
 				if(t==4){
 					TipoNave4 n = new TipoNave4(id,d,o);
 					listaNaves4.add(n);
-					//cg.afegirNau(id);
 				}
 				if(t==5){
 					TipoNave5 n = new TipoNave5(id,d,o);
 					listaNaves5.add(n);
-					//cg.afegirNau(id);
 				}
 				
 		}
 		//Pre: cierto
 		//Post: Crea una Nave de forma automatica
-		public void CrearNaveAuto(int dest,int o/*ArrayList<int> lp ControladorGalaxia cg*/) throws Exception{
-			while(ExisteNave(idn)) ++idn;
-			if(NingunTipo()){
-				throw new Exception("Error: No existe ningun tipo de nave\n");
-			}
-			int t = TipoRandom();
-			//int d = (int)(Math.random()*lp.size())+0;
-			//int dest = lp.get(d)/*.Consultar_id()*/;
-			if(t==1){
-				TipoNave1 n = new TipoNave1(idn,dest,o);
-				listaNaves1.add(n);	
-				//cg.afegirNau(idn);
-			}
-			if(t==2){
-				TipoNave2 n = new TipoNave2(idn,dest,o);
-				listaNaves2.add(n);	
-				//cg.afegirNau(idn);
-			}
-			if(t==3){
-				TipoNave3 n = new TipoNave3(idn,dest,o);
-				listaNaves3.add(n);	
-				//cg.afegirNau(idn);
-			}
-			if(t==4){
-				TipoNave4 n = new TipoNave4(idn,dest,o);
-				listaNaves4.add(n);	
-				//cg.afegirNau(idn);
-			}
-			if(t==5){
-				TipoNave5 n = new TipoNave5(idn,dest,o);
-				listaNaves5.add(n);	
-				//cg.afegirNau(idn);
+		/**
+		 * metodo que crea i naves de forma automatica
+		 * @param lp
+		 * @throws Exception
+		 */
+		public void CrearNaveAuto(int i/*, int dest,int o,*/ ,ArrayList<Planeta> lp) throws Exception{
+			while(i>0){
+				while(ExisteNave(idn)) ++idn;
+				if(NingunTipo()){
+					throw new Exception("Error: No existe ningun tipo de nave\n");
+				}
+				int t = TipoRandom();
+				int d = (int)(Math.random()*lp.size())+0;
+				int dest = lp.get(d).Consultar_id();
+				int or = (int)(Math.random()*lp.size())+0;
+				int o = lp.get(or).Consultar_id();
+				if(t==1){
+					TipoNave1 n = new TipoNave1(idn,dest,o);
+					listaNaves1.add(n);	
+				}
+				if(t==2){
+					TipoNave2 n = new TipoNave2(idn,dest,o);
+					listaNaves2.add(n);	
+				}
+				if(t==3){
+					TipoNave3 n = new TipoNave3(idn,dest,o);
+					listaNaves3.add(n);	
+				}
+				if(t==4){
+					TipoNave4 n = new TipoNave4(idn,dest,o);
+					listaNaves4.add(n);	
+				}
+				if(t==5){
+					TipoNave5 n = new TipoNave5(idn,dest,o);
+					listaNaves5.add(n);	
+				}
+				--i;
 			}
 			
 		}
 		
 		//CREADORAS TIPO DE NAVE
-
+		/**
+		 * metodo que crea un tipo de nave
+		 * @param id
+		 * @param c
+		 * @throws Exception
+		 */
 		//Pre: cierto
-		//Post: Crea un tipo de nave y lo aÃ±ade a la lista
+		//Post: Crea un tipo de nave y lo anade a la lista
+		
 		public void CrearTipoNave(int id, int c) throws Exception{
 			if((id<1) || (id>5)){
 				throw new Exception("Error: El identificador de un tipo debe estar entre 1 y 5\n");
@@ -268,7 +376,11 @@ public class ControladorNave{
 			
 		}
 		//Pre: cierto
-		//Post: crea un tipo de nave de forma automatica y lo aÃ±ade a la lista
+		//Post: crea un tipo de nave de forma automatica y lo anade a la lista
+		/**
+		 * metodo que crea un tipod e nave de forma automatica
+		 * @throws Exception
+		 */
 		public void CrearTipoNaveAuto() throws Exception{
 			int t = TipoNoDefinido();
 			int c = (int)Math.random()*Integer.MAX_VALUE+1;
@@ -298,16 +410,31 @@ public class ControladorNave{
 		//CONSULTORAS ATRIBUTOS NAVE
 		//Pre: cierto
 		//Post: retorna el identificador del planeta destino de la nave con identificador id
+		/**
+		 * metodo que consulta el planeta destino de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public int ConsultarPlanetaDestino(int id)throws Exception{
 			return BuscarNave(id).consultar_destino();
 		}
 		//Pre: cierto
 		//Post: retorna el identificador del planeta origen de la nave con identificador id
+		/**
+		 * metodo que consulta el planeta origen de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public int ConsultarPlanetaOrigen(int id) throws Exception{
 			return BuscarNave(id).consultar_origen();
 		}
 		//Pre: cierto
 		//Post: retorna el tipo de una nave
+		/**
+		 * metodo que consulta el tipo de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public int ConsultarTipo(int id) throws Exception{
 			Iterator<TipoNave1> it = listaNaves1.iterator();
 			boolean found = false;
@@ -357,6 +484,11 @@ public class ControladorNave{
 		}
 		//Pre: cierto
 		//Post: retorna el consumo asociado a una nave
+		/**
+		 * metodo que consulta el consumo de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public int ConsultarConsumo(int id) throws Exception{
 			int t = ConsultarTipo(id);
 			if(t==1){
@@ -381,10 +513,14 @@ public class ControladorNave{
 			}
 			return 0;	
 		}
-		
 		//CONSULTORAS TIPO NAVE
 		//Pre: cierto
 		//Post: retorna el consumo asociado a un tipo de nave
+		/**
+		 * metodo que consulta el consumo asociado a un tipo de nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public int ConsultarConsumoTipo(int t) throws Exception{
 			if(t<1 || t>5) throw new Exception("Error: El identificador del tipo debe estar entre 1 y 5\n");
 			if(t==1){
@@ -404,15 +540,25 @@ public class ControladorNave{
 			}
 			return 0;
 		}
-		
+
 		//MODIFICADORAS NAVE
 		//Pre: cierto
 		//Post: modifica el identificador de una nave "id" por "id2"
+		/**
+		 * metodo que modifica el identificador de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public void ModificaID(int id, int id2) throws Exception{
 			 BuscarNave(id).modificar_id(id2);
 		}
 		//Pre: cierto
 		//Post: modifica el tipo de la nave con identificador "id" por "tn"
+		/**
+		 * metodo que modifica el tipo de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public void ModificaTipo(int id, int idtipo) throws Exception{
 			Nave aux = BuscarNave(id);
 			EliminarNave(id);
@@ -441,11 +587,21 @@ public class ControladorNave{
 		}
 		//Pre: el nuevo destino es un planeta existente
 		//Post: modifica el destino de la nave con identificador "id" por "dn"
+		/**
+		 * metodo que modifica el destino de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 		public void ModificaDestino(int id, int dn) throws Exception{
 			BuscarNave(id).modificar_destino(dn);
 		}
 		//Pre: el nuevo destino es un planeta existente
 				//Post: modifica el origen de la nave con identificador "id" por "dn"
+		/**
+		 * metodo que modifica el origen de una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
 				public void ModificaOrigen(int id, int on) throws Exception{
 					BuscarNave(id).modificar_destino(on);
 				}
@@ -454,6 +610,11 @@ public class ControladorNave{
 		
 		//Pre: cierto
 		//Post: modifica el consumo del tipo de nave con identificador "id" por "cn"
+				/**
+				 * metodo modifica que el consumo de un tipo de nave dado su identificador
+				 * @param id
+				 * @throws Exception
+				 */
 		public void ModificaConsumo(int id,int cn) throws Exception{
 			if(id==1){
 				TipoNave1.modificar_consumo(cn);
@@ -474,7 +635,12 @@ public class ControladorNave{
 		//DESTRUCTORAS
 		//Pre: cierto
 		//Post: elimina la nave con identificador "id"
-		public void EliminarNave(int id/*, ControladorGalaxia cg*/) throws Exception{
+		/**
+		 * metodo que elimina una nave dado su identificador
+		 * @param id
+		 * @throws Exception
+		 */
+		public void EliminarNave(int id) throws Exception{
 			boolean found = false;
 			Iterator<TipoNave1> it = listaNaves1.iterator();
 			TipoNave1 aux = new TipoNave1();
@@ -483,7 +649,6 @@ public class ControladorNave{
 				if(aux.consultar_id()==id){
 					it.remove();
 					found = true;
-					//cg.eliminarNau(aux);
 				}
 			}
 			Iterator<TipoNave2> it2 = listaNaves2.iterator();
@@ -493,7 +658,6 @@ public class ControladorNave{
 				if(aux2.consultar_id()==id){
 					it2.remove();
 					found = true;
-					//cg.eliminarNau(aux);
 				}
 			}
 			Iterator<TipoNave3> it3 = listaNaves3.iterator();
@@ -503,7 +667,6 @@ public class ControladorNave{
 				if(aux3.consultar_id()==id){
 					it3.remove();
 					found = true;
-					//cg.eliminarNau(aux);
 				}
 			}
 			Iterator<TipoNave4> it4 = listaNaves4.iterator();
@@ -513,7 +676,6 @@ public class ControladorNave{
 				if(aux4.consultar_id()==id){
 					it4.remove();
 					found = true;
-					//cg.eliminarNau(aux);
 				}
 			}
 			Iterator<TipoNave5> it5 = listaNaves5.iterator();
@@ -523,7 +685,6 @@ public class ControladorNave{
 				if(aux5.consultar_id()==id){
 					it5.remove();
 					found = true;
-					//cg.eliminarNau(aux);
 				}
 			}
 					if(!found){
@@ -534,6 +695,9 @@ public class ControladorNave{
 			}
 		//Pre:cierto
 		//Post: elimina todas las naves
+		/**
+		 * metodo que elimina todas las naves del sistema
+		 */
 		public void EliminarNaves(){
 			listaNaves1.clear();
 			listaNaves2.clear();
@@ -541,6 +705,11 @@ public class ControladorNave{
 			listaNaves4.clear();
 			listaNaves5.clear();
 		}
+		//Pre:cierto
+		//Post: devulve un string conteniendo los identificadores de los tipos de naves que han sido definidos
+		/**
+		 * metodo que retorna un string conteniendo todos los tipos de naves que han sido definidos
+		 */
 		public String ConsultarTipos(){
 			String s = "";
 			if(TipoNave1.definido) s+= "1, ";
@@ -550,6 +719,11 @@ public class ControladorNave{
 			if(TipoNave5.definido) s+= "5";
 			return s;
 		}
+		//Pre:cierto
+		//Post: devuelve el numero de naves que existen en la galaxia
+		/**
+		 * metodo que retorna el numero de naves existentes en la galaxia
+		 */
 		public int size(){
 			int s1 =listaNaves1.size();
 			int s2 = listaNaves2.size();
@@ -559,13 +733,21 @@ public class ControladorNave{
 			int s = s1+s2+s3+s4+s5;
 			return s;
 		}
-		public void Inicializar(){
+		private void Inicializar(){
+
 			itc1 = listaNaves1.iterator();
 			itc2 = listaNaves2.iterator();
 			itc3 = listaNaves3.iterator();
 			itc4 = listaNaves4.iterator();
 			itc5 = listaNaves5.iterator();
 		}
+		//Pre: cierto
+		//Post: Devuelve parte de las naves que se encuentran en el sistema
+		/**
+		 * metodo que retorna un string conteniendo parte de las naves del sistema
+		 * @param i
+		 * @throws Exception
+		 */
 		public String ConsultarNaves(int i) throws Exception{
 			if(i==0){
 				Inicializar();
@@ -633,8 +815,14 @@ public class ControladorNave{
 			}
 			return res; 
 		}
-		
-		public void CargarNaves(String path /*ControladorGalaxia cg*/) throws Exception {
+		//Pre: cierto
+		//Post: Carga al sistema todas aquellas naves que se encuentren en el archivo que indica path siempre que no exista ya en el sistema una nave con el mismo identificador
+		/**
+		 * metodo que carga todas las naves existenetes en el archivo indicado en "path" siemrpe que no exista en la galaxia, ya, una con el mismo identificador
+		 * @param path
+		 * @throws Exception
+		 */
+		public void CargarNaves(String path) throws Exception {
 	        String res; 
 	        Cdn.AbrirLectura(path);
 	        	res = Cdn.cargar(path);
@@ -692,15 +880,18 @@ public class ControladorNave{
 	                    	TipoNave5 aux = new TipoNave5(id,destino,origen);
 	                    	listaNaves5.add(aux);
 	                    }
-	                    //cg.afegirNau(id);
 	                    }
 	            s = sc.next();
 	            }
 	        Cdn.CerrarLectura();
 	    }    
-	     
-	    //Pre:
-	    //Post:
+	     /**
+	      * metodo que guarda todas las naves de la galaxia en el archivo indicado en "path"
+	      * @param path
+	      * @throws Exception
+	      */
+	    //Pre: Cierto
+	    //Post: Guarda todas las naves existentes en el sistema en el fichero indicado en el path
 	    public void GuardarNaves(String path) throws Exception {
 	    	String res = "";
 	        if(!listaNaves1.isEmpty()){
