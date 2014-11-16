@@ -14,10 +14,11 @@
     }
     //Pre:cierto
     //Post: Crea un Arco inicializado
-    public Arco(int c,int idr)
+    public Arco(int c,int iddr)
     {
         capacidad = c;
         coste = -1;
+        idr = iddr;
     }
  
 //CONSULTORAS
