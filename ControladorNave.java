@@ -26,7 +26,7 @@ public class ControladorNave{
 			listaNaves5 = new TreeSet<TipoNave5>(new OrdenTipoNave5());
 			Cdn = new ControladorDadesNave();
 		}
-
+		
 				//Pre: cierto
 				//Post: devuelve la nave con identificador "id"
 		/**
@@ -991,5 +991,95 @@ public class ControladorNave{
 	        	Cdn.CerrarEscritura();
 	        }
 	    }
+	    public ArrayList<Integer> NavesDestino(int id) throws Exception{
+			ArrayList<Integer> naves = new ArrayList<Integer>();
+			Iterator<TipoNave1> it = listaNaves1.iterator();
+			while(it.hasNext()){
+					TipoNave1 aux = it.next();
+					if(aux.consultar_destino()==id){
+						Integer p = new Integer(aux.consultar_id());
+						naves.add(p);
+					}
+				}
+			Iterator<TipoNave2> it2 = listaNaves2.iterator();
+			while(it2.hasNext()){
+				TipoNave2 aux = it2.next();
+				if(aux.consultar_destino()==id){
+					Integer p = new Integer(aux.consultar_id());
+					naves.add(p);
+				}
+			}
+			Iterator<TipoNave3> it3 = listaNaves3.iterator();
+			while(it3.hasNext()){
+				TipoNave3 aux = it3.next();
+				if(aux.consultar_destino()==id){
+					Integer p = new Integer(aux.consultar_id());
+					naves.add(p);
+				}
+			}
+			Iterator<TipoNave4> it4 = listaNaves4.iterator();
+			while(it4.hasNext()){
+				TipoNave4 aux = it4.next();
+				if(aux.consultar_destino()==id){
+					Integer p = new Integer(aux.consultar_id());
+					naves.add(p);
+				}
+			}
+			Iterator<TipoNave5> it5 = listaNaves5.iterator();
+			while(it5.hasNext()){
+				TipoNave5 aux = it5.next();
+				if(aux.consultar_destino()==id){
+					Integer p = new Integer(aux.consultar_id());
+					naves.add(p);
+				}
+			}
+			return naves;				
+			}
+			
+			public ArrayList<Integer> NavesOrigen(int id) throws Exception{
+				ArrayList<Integer> naves = new ArrayList<Integer>();
+				Iterator<TipoNave1> it = listaNaves1.iterator();
+				while(it.hasNext()){
+						TipoNave1 aux = it.next();
+						if(aux.consultar_origen()==id){
+							Integer p = new Integer(aux.consultar_id());
+							naves.add(p);
+						}
+					}
+				Iterator<TipoNave2> it2 = listaNaves2.iterator();
+				while(it2.hasNext()){
+					TipoNave2 aux = it2.next();
+					if(aux.consultar_origen()==id){
+						Integer p = new Integer(aux.consultar_id());
+						naves.add(p);
+					}
+				}
+				Iterator<TipoNave3> it3 = listaNaves3.iterator();
+				while(it3.hasNext()){
+					TipoNave3 aux = it3.next();
+					if(aux.consultar_origen()==id){
+						Integer p = new Integer(aux.consultar_id());
+						naves.add(p);
+					}
+				}
+				Iterator<TipoNave4> it4 = listaNaves4.iterator();
+				while(it4.hasNext()){
+					TipoNave4 aux = it4.next();
+					if(aux.consultar_origen()==id){
+						Integer p = new Integer(aux.consultar_id());
+						naves.add(p);
+					}
+				}
+				Iterator<TipoNave5> it5 = listaNaves5.iterator();
+				while(it5.hasNext()){
+					TipoNave5 aux = it5.next();
+					if(aux.consultar_origen()==id){
+						Integer p = new Integer(aux.consultar_id());
+						naves.add(p);
+					}
+				}
+				return naves;				
+		
+				}
 	    
 }
