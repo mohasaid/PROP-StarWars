@@ -10,8 +10,6 @@ public class ControladorGalaxia
  
     //CONSTRUCTORAS
  
-    // Pre: Cierto
-    // Post: Se crea un nuevo controlador de galaxia
     /**
      * Metodo para crear el controlador de la galaxia
      */
@@ -19,8 +17,6 @@ public class ControladorGalaxia
     	cdg = new ControladorDadesGalaxia();
     }
  
-    // Pre: Cierto
-    // Post: Es crea una galaxia amb nom "nom" i amb N "n"
     /**
      * Metodo para crear una galaxia con nombre y limite maximo
      * @param nom
@@ -65,11 +61,13 @@ public class ControladorGalaxia
     {
     	String res = "";
     	res = g.consultarNomGalaxia() + ":" + g.consultarPresupost() + ":" + g.consultarLimitGalaxia();
-    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
-    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
-    	res = res + ":";
-    	while(it.hasNext()) {
-    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
+    	if(g.consulta_nombreLimits() > 0) { // Solo si tiene limites lo pongo
+	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
+	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
+	    	res = res + ":";
+	    	while(it.hasNext()) {
+	    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
+	    	}
     	}
     	return res;
     }
@@ -81,32 +79,32 @@ public class ControladorGalaxia
      */
     public String consultarLimitsGalaxia() throws Exception
     {
-    	//String res = "";
-    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
-    	/*Iterator<Pair<Integer, Integer> > it = lp.iterator();
-    	while(it.hasNext()) {
-    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo() + ":";
-    	}*/
-    	return lp.toString();
-    	//return res;
+    	if(g.consulta_nombreLimits() > 0) {
+	    	String res = "";
+	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
+	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
+	    	while(it.hasNext()) {
+	    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo(); // revisar + ","
+	    	}
+	    	return res;
+    	}
+    	else throw new Exception("La galaxia no tiene forma");
     }
     
-    // Pre: Cierto
-    // Post: Lista los planetas de la galaxia junto con sus coordenadas
     /**
      * Metodo para consultar el listado de planetas de la galaxia
      * @return Los identificadores de los planetas
      * @throws Exception
      */
-    public String llista_planetes() throws Exception
+    public String llista_planetes(ControladorPlaneta cp) throws Exception
     {
     	String res = "";
-    	if(g.consulta_nombrePlanetes() > 0) { // listar planetas
-    		ArrayList<Integer> np = g.consultarPlanetes();
-    		for(Integer a : np) {
-    			res += a.toString() + ":";
-    		}
-    	}
+    	if(cp.Consultar_Size() > 0) {
+    		ArrayList<Integer> np = cp.consultarPlanetas();
+	    		for(Integer a : np) {
+	    			res += a.toString() + ":";
+	    		}
+	    }
     	return res;
     }
     
@@ -115,11 +113,11 @@ public class ControladorGalaxia
      * @return Los identificadores de las rutas
      * @throws Exception
      */
-    public String llista_rutes() throws Exception
+    public String llista_rutes(ControladorRuta cr) throws Exception
     {
     	String res = "";
-    	if(g.consulta_nombreRutes() > 0) { // listar planetas
-    		ArrayList<Integer> nr = g.consultarRutes();
+    	if(cr.Consultar_numero_rutes() > 0) {
+    		ArrayList<Integer> nr = cr.Consultar_ids_rutas();
     		for(Integer a : nr) {
     			res += a.toString() + ":";
     		}
@@ -132,33 +130,28 @@ public class ControladorGalaxia
      * @return Los identificadores de las naves
      * @throws Exception
      */
-    public String llista_naus() throws Exception
+    public String llista_naus(ControladorNave cn) throws Exception
     {
     	String res = "";
-    	if(g.consulta_nombreNaus() > 0) { // listar planetas
-    		ArrayList<Integer> nn = g.consultarNaus();
-    		for(Integer a : nn) {
-    			res += a.toString() + ":";
-    		}
-    	}
+    	int i=0;
+        int n = cn.size();
+        while(i < n) {
+        	res += cn.ConsultarNaves(i);
+        	++i;
+        }
     	return res;
     }
     
-    
-    // Pre: Cierto
-    // Post: Devuelve el numero de planetas que hay en la galaxia
     /**
      * Metodo para consultar el numero de planetas en la galaxia
      * @return Numero de planetas en la galaxia
      * @throws Exception
      */
-    public int consultarNumPlanetes() throws Exception
+    public int consultarNumPlanetes(ControladorPlaneta cp) throws Exception
     {
-        return g.consulta_nombrePlanetes();
+        return cp.Consultar_Size();
     }
     
-    // Pre: Cierto
-    // Post: Devuelve el valor limite de la galaxia
     /**
      * Metodo para consultar el limite maximo de la galaxia
      * @return Limite maximo de la galaxia
@@ -169,10 +162,8 @@ public class ControladorGalaxia
         return g.consultarLimitGalaxia();
     }
  
-    // Pre: Cierto
-    // Post: Devuelve cierto si el planeta con id "idplaneta" existe en la galaxia, falso en caso contrario
     /**
-     * Metodo para consultar si existe un planeta determinado en la galaxia
+     * Metodo para consultar si existe un planeta con un identificador determinado en la galaxia
      * @param idplaneta
      * @return Cierto si existe un planeta en la galaxia con identificador "idplaneta", falso en caso contrario
      * @throws Exception
@@ -181,11 +172,42 @@ public class ControladorGalaxia
     {
         return g.existeixPlaneta(idplaneta);
     }
+    
+    /**
+     * Metodo para consultar si la galaxia tiene algun planeta
+     * @return Cierto si existe algun planeta en la galaxia, falso en caso contrario
+     */
+    public boolean algunPlaneta() 
+    {
+    	return g.algunPlaneta();
+    }
+    
+    /**
+     * Metodo para consultar si existe algun planeta en las coordenadas "x" y "y"
+     * @param x
+     * @param y
+     * @return Cierto si existe algun planeta en las coordenadas "x" y "y", falso en caso contrario
+     * @throws Exception
+     */
+    public boolean existeixPlanetaCoordenades(int x, int y) throws Exception
+    {
+    	return g.existeixPlanetaCoordenades(x, y);
+    }
+    
+    /**
+     * Metodo para consultar si las coordenadas estan dentro de la galaxia
+     * @param x
+     * @param y
+     * @return Cierto si las coordenadas estan dentro de la galaxia, falso en caso contrario
+     * @throws Exception
+     */
+    public boolean dintreLimitUsuari(int x, int y) throws Exception
+    {
+    	return g.dintreLimitUsuari(x, y);
+    }
  
     // MODIFICADORES
     
-    // Pre: Cierto
-    // Post: Devuelve la galaxia con nuevo nombre "nomNou"
     /**
      * Metodo para modificar el nombre de la galaxia
      * @param nomNou
@@ -200,8 +222,6 @@ public class ControladorGalaxia
     	}
     }
     
-    // Pre: Cierto
-    // Post: Devuelve el nuevo valor del limite de galaxia
     /**
      * Metodo para modificar el limite maximo de la galaxia
      * @param limitNou
@@ -216,27 +236,48 @@ public class ControladorGalaxia
     	}
     }
     
-    // Pre: Cierto
-    // Post: 
-   /*public void modificarCoordenadesPlaneta(int x, int y, Planeta p)
+   /**
+    * Metodo para modificar las coordenadas del planeta con identificador "idPlaneta" 
+    * @param x
+    * @param y
+    * @param idPlaneta
+    * @param cp
+    */
+   public void modificarCoordenadesPlaneta(int x, int y, int idPlaneta, ControladorPlaneta cp)
     {
     	try{
 	    	if(g.existeixPlaneta(idPlaneta)) {
-	    		Planeta p = g.consultarPlaneta(idPlaneta);
+	    		Planeta p = cp.BuscarPlaneta(idPlaneta);
 	    		g.existeixPlanetaCoordenades(x, y);
-	    		p.modificarCoordenades(x, y);
-	    		g.eliminarPLaneta(idPlaneta);
-	    		g.afegirPlaneta(p);
+	    		if(g.dintreLimitUsuari(x, y)) {
+	    			g.eliminarPLaneta(p);
+	    			p.modificarCoordenades(x, y);
+	    			g.afegirPlaneta(idPlaneta, x, y);
+	    		}
+	    		else throw new Exception("las coordenadas se encuentran fuera de la galaxia");
 	    	}
     	}
     	catch(Exception e){
     		System.out.println(e);
     	}
-    }*/
-    
-    // Pre: Cierto
-    // Post: 
-
+    }
+   
+   /**
+    * Metodo para modificar el el identificador del planeta con las coordenadas "x" y "y"
+    * @param x
+    * @param y
+    * @param idPlaneta
+    */
+   public void modificarIDPlaneta(int x, int y, int idPlaneta) 
+   {
+	   try{
+		   g.modificarIDplaneta(x, y, idPlaneta);
+	   }
+	   catch(Exception e){
+   		System.out.println(e);
+   	   }
+   }
+   
     /**
      * Metodo para añadir un planeta en la galaxia en las coordenadas "x" y "y"
      * @param cp
@@ -245,21 +286,17 @@ public class ControladorGalaxia
      * @param y
      * @throws Exception
      */
-    public void afegirPlaneta(ControladorPlaneta cp, int idPlaneta, int x, int y) throws Exception
+    public void afegirPlaneta(int idPlaneta, int x, int y) throws Exception
     {
-    	// AÃ‘ADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
-    	//if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
+    	if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
     	try {
-	    	Planeta p = cp.BuscarPlaneta(idPlaneta);
-	    	g.afegirPlaneta(p,x,y);
+    			g.afegirPlaneta(idPlaneta,x,y);
     	}
     	catch(Exception e){
     		System.out.println(e);
     	}
     }
     
-    // Pre: Cierto
-    // Post: // COORDENADAS ALEATORIAS
     /**
      * Metodo para añadir un planeta creado automaticamente
      * @param cp
@@ -267,179 +304,161 @@ public class ControladorGalaxia
      * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
      * @throws Exception
      */
-    public String afegirPlanetaAutomatic(ControladorPlaneta cp, int idPlaneta) throws Exception
+    public void afegirPlanetaAutomatic(ControladorPlaneta cp, int idPlaneta) throws Exception
     {
-    	// AÃ‘ADIR LO DE ABAJO SI SE CREA UNA CONSTRUCTORA VACIA CON LIMITE 0
-    	//if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
+    	if(g.consultarLimitGalaxia() < 1) throw new Exception("Error: no es pot afegir un planeta a una galaxia sense limit");
 	    try {  	
     		Planeta p = cp.BuscarPlaneta(idPlaneta);
-	      	Pair<Integer, Integer> pa = g.afegirPlanetaAutomatic(p);
-	      	String res = "";
-	      	res = pa.consultarPrimero() + "," + pa.consultarSegundo();
-	    	return res;
+	      	Pair<Integer, Integer> pa = g.afegirPlanetaAutomatic(idPlaneta);
+	      	p.modificarCoordenades(pa.consultarPrimero(), pa.consultarSegundo());
+	      	// quitar del controlador y ponerlo
 	    }
 	    catch(Exception e){
     		System.out.println(e);
     	}
-		return null;
     }
     
-    // Pre: Cierto
-    // Post:
     /**
      * Metodo para eliminar un planeta de la galaxia
      * @param idPlaneta
      * @param cp
      * @throws Exception
      */
-    public void eliminarPlaneta(int idPlaneta, ControladorPlaneta cp) throws Exception
+    public void eliminarPlaneta(int idPlaneta) throws Exception
     {
     	try {
-	    	if(g.consulta_nombrePlanetes() > 0) {
-	    		Planeta p = cp.BuscarPlaneta(idPlaneta);
-	    		g.eliminarPLaneta(p);
-	    	}
+	    	g.eliminarPlaneta(idPlaneta);
     	}
     	catch(Exception e){
     		System.out.println(e);
     	}
     }
-
-    // Pre: Cierto
-    // Post:
-    /**
-     * Metodo para añadir una ruta en la galaxia con id "idRuta", capacidad "c", distancia "d", une los planetas "a" y "b", y bidireccional "bid"
-     * @param idRuta
-     * @throws Exception
-     */
-    public void afegirRuta(int idRuta, ControladorRuta cr) throws Exception
+    
+    public void CrearNau(ControladorNave cn, int id, int t, int d, int o)
+    {
+    	try {
+    		cn.CrearNave(id, t, d, o);
+    	}
+    	catch(Exception e){
+    		System.out.println(e);
+    	}
+    }
+    
+    public void eliminarNau(int idNau, ControladorNave cn)
     {
     	try{
-    		if(cr.ExisteRuta(idRuta)) {
-    			Ruta r = cr.BuscarRuta(idRuta);
-    			ArrayList<Integer> la = g.consultarPlanetes();
-    			if(la.contains(r.consultar_planetaA()) && la.contains(r.consultar_planetaB())) { // Existen los planetas en la galaxia
-    	    		g.afegirRuta(idRuta);
-    			}
-    			else throw new Exception("No se puede añadir una ruta cuyos planetas no existan en la galaxia");
+	    	cn.EliminarNave(idNau);
+    	}
+    	catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void eliminarTotesNaus(ControladorNave cn)
+    {
+    	try{
+    		cn.EliminarNaves();
+    	}
+    	catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    // CONSULTAR NAVE, PLANETA, RUTAS INDIVIDUALMENTE EN GALAXIA?
+    public String consultaNave(int id, ControladorNave cn) throws Exception
+    {
+    	String res = "";
+    	Nave a = cn.BuscarNave(id);
+    	res += a.consultar_id() + ":" + a.consultar_origen() + ":" + a.consultar_destino();
+    	return res;
+    }
+    
+    public void crearRuta(ControladorRuta cr, int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) 
+    {
+    	try{
+    		cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
+    	}
+    	catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void eliminarRuta(ControladorRuta cr, int idRuta)
+    {
+    	try {
+    		cr.Borrar_Ruta(idRuta);
+    	}
+    	catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void eliminarRutes(ControladorRuta cr)
+    {
+    	try {
+    		cr.BorrarRutas();
+    	}
+    	catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+    
+    public String consultarRuta(int idRuta, ControladorRuta cr)
+    {
+    	try {
+	    	String res = "";
+	    	Ruta r = cr.BuscarRuta(idRuta);
+	    	res += r.consultar_id() + ":" + r.consultar_capacidad() + ":" + r.consultar_distancia();
+	    	Conexion c = cr.BuscarConexion(idRuta);
+	    	res += c.consultar_planetaA() + ":" + c.consultar_planetaB() + c.consultar_bidireccional();
+	    	return res;
+    	}
+    	catch(Exception e) {
+            System.out.println(e);
+        }
+		return null;
+    }
+    
+
+    /**
+     * Metodo para transformar los elementos de la galaxia en un grafo
+     * @throws Exception
+     */
+    public ArrayList<ArrayList<Pair<Arco,Integer> > > convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp) throws Exception 
+    {
+    	ArrayList<ArrayList<Pair<Arco,Integer> > > resultado = new ArrayList<ArrayList<Pair<Arco,Integer> > >();
+    	ArrayList<Pair<Arco, Integer> > ap = new ArrayList<Pair<Arco, Integer> >();
+    	ArrayList<Integer> pl = cp.consultarPlanetas();
+    	int tam = pl.size();
+    	ArrayList<Conexion> ac = cr.consultar_Conexiones();
+    	for(int i = 0; i < ac.size(); ++i) { // anado las conexiones bidireccionales
+    		if(ac.get(i).consultar_bidireccional()) {
+    			int idRuta = ac.get(i).consultar_id();
+    			int Pa = ac.get(i).consultar_planetaA();
+    			int Pb = ac.get(i).consultar_planetaB();
+    			Conexion c = new Conexion(idRuta,Pb,Pa,false);
+    			ac.add(c);
     		}
-    		else throw new Exception("No existe la ruta con identificador: " + idRuta);
     	}
-    	catch(Exception e){
-    		System.out.println(e);
+    	for(int i = 0; i < pl.size(); ++i) { // planetas
+    		int id = pl.get(i);
+    		for(int j = 0; j < ac.size(); ++j) {
+    			if(ac.get(j).consultar_planetaA() == id) {
+    				int ru = ac.get(j).consultar_id();
+    				Ruta r = cr.BuscarRuta(ru);
+    				int cap = r.consultar_capacidad();
+    				int cost = r.consultar_distancia();
+    				Arco arc = new Arco(cap,cost);
+    				ap.get(i).ponPrimero(arc);
+    				ap.get(i).ponSegundo(ac.get(j).consultar_planetaB());
+    			}
+    		}
+    		resultado.add(ap);
     	}
+    	// FALTA CONSULTAR TODAS LAS DESTINACIONES, PARA CREAR EL NODO VIRTUAL QUE LE ENTREN ESTAS
+    	return resultado;
     }
-    
-    // Pre: Cierto
-    // Post:
-    /**
-     * Metodo para eliminar una ruta de la galaxia
-     * @param idRuta
-     * @throws Exception
-     */
-    public void eliminarRuta(int idRuta) throws Exception
-    {
-    	try {
-    		g.eliminarRuta(idRuta);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
-    }
-    
-    // Pre: Cierto
-    // Post:
-    /**
-     * Metodo para añadir una nave en la galaxia
-     * @param idn
-     * @throws Exception
-     */
-    public void afegirNau(int idn, ControladorNave cn) throws Exception
-    {
-    	try {
-    		if(cn.ExisteNave(idn)) g.afegirNau(idn);
-    		else throw new Exception("No existe la nave con id: " + idn);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
-    }
-        
-    // Pre: Cierto
-    // Post:
-    /**
-     * Metodo para eliminar una nave de la galaxia
-     * @param idNau
-     * @throws Exception
-     */
-    public void eliminarNau(int idNau) throws Exception
-    {
-    	try {
-    		g.eliminarNau(idNau);
-    	}
-    	catch(Exception e){
-    		System.out.println(e);
-    	}
-    }
-    
-    /**
-     * Metodo para transformar los planetas a nodos y las rutas a vertices
-     * @throws Exception
-     */
-    public Pair<List<Arco>, List<Nodo> > convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp) throws Exception 
-    {
-    	List<Arco> laa = new ArrayList<Arco>();
-    	List<Nodo> lnn = new ArrayList<Nodo>();
-		ArrayList<Integer> ai = g.consultarRutes();
-		int idRuta, origen, destino, capac, idGeneral;
-		boolean bi;
-		Nodo o, d;
-		idGeneral = 0;
-		Ruta r = null;
-		Arco a = null;
-		Arco b = null;
-		Planeta p1, p2;
-		for(int i = 0; i < ai.size(); ++i) {
-			r = cr.BuscarRuta(ai.get(i));
-			idRuta = r.consultar_id();
-			origen = r.consultar_planetaA();
-			destino = r.consultar_planetaB();
-			capac = r.consultar_capacidad();
-			bi = r.consultar_bidireccional();
-			p1 = cp.BuscarPlaneta(origen);
-			p2 = cp.BuscarPlaneta(destino);
-			o = transformar_PlanetaANodo(p1);
-			d = transformar_PlanetaANodo(p2);
-			if(!lnn.contains(o)) lnn.add(o);
-			if(!lnn.contains(d)) lnn.add(d);
-			if(!bi) {
-				a = new Arco(idGeneral,o,d,capac,idRuta);
-				++idGeneral;
-				laa.add(a);
-			}
-			else {
-				a = new Arco(idGeneral,o,d,capac,idRuta);
-				++idGeneral;
-				b = new Arco(idGeneral,d,o,capac,idRuta);
-				++idGeneral;
-				laa.add(a);
-				laa.add(b);
-			}
-		}
-		return new Pair<List<Arco>, List<Nodo> >(laa,lnn);
-    }
-    
-    /**
-     * Metodo para transformar de planeta a nodo
-     * @throws Exception
-     */
-    public Nodo transformar_PlanetaANodo(Planeta p) throws Exception
-    {
-    	return new Nodo(p.Consultar_id(),p.Consultar_Fuente(),p.Consultar_Sumidero());
-    }
-    
-    // Pre: Cierto
-    // Post:
+    	
     /**
      * Metodo para eliminar el contenido de la galaxia
      * @throws Exception
@@ -453,9 +472,15 @@ public class ControladorGalaxia
     		System.out.println(e);
     	}
     }
-        
-    // Pre: Cierto
-    // Post:
+    
+    /**
+     * Metodo para cargar los elementos que forman la galaxia
+     * @param directori
+     * @param cp
+     * @param cn
+     * @param cr
+     * @throws Exception
+     */
     public void carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn, ControladorRuta cr) throws Exception
     {
 		g.eliminarContingutGalaxia(); // Empiezo borrando el contenido de la galaxia
@@ -495,21 +520,27 @@ public class ControladorGalaxia
 							String y = cin.next();
 							int x1 = Integer.parseInt(x);
 							int y1 = Integer.parseInt(y);
-							g.afegirPlaneta(p, x1, y1);
+							g.afegirPlaneta(p.Consultar_id(), x1, y1); // cp.afegirPlaneta
 						}
 					}
 					while(cin.hasNext() && info != "Y") { 	// LEER RUTAS
 						info = cin.next();
 						if (info.contentEquals("@")) break; 
 						if(cr.ExisteRuta(Integer.parseInt(info))) { // existe la ruta
-							g.afegirRuta(Integer.parseInt(info));
+							throw new Exception("Ya existe una ruta con ese identificador");
+						}
+						else {
+							//cr.afegirRuta(info);
 						}
 					}
 					while(cin.hasNext()) { 	// LEER NAVES
 						info = cin.next();
 						if (info.contentEquals("@")) break; 
-						if(cn.ExisteNave(Integer.parseInt(info))) { // existe la ruta
-							g.afegirNau(Integer.parseInt(info));
+						if(cn.ExisteNave(Integer.parseInt(info))) { // existe la nave
+							throw new Exception("Ya existe una nave con ese identificador");
+						}
+						else {
+							//cn.afegirNau(info);
 						}
 					}
 				}	
@@ -518,10 +549,16 @@ public class ControladorGalaxia
 		}
     	cdg.CerrarEscritura();
     }
-
-    // Pre: Cierto
-    // Post:
-    public void guardarConjuntGalaxia(String directori, ControladorPlaneta cp) throws Exception
+    
+    /**
+     * Metodo para guardar los elementos que forman la galaxia
+     * @param directori
+     * @param cp
+     * @param cr
+     * @param cn
+     * @throws Exception
+     */
+    public void guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) throws Exception
     {
     	cdg.AbrirEscritura(directori);
     	// int iteracions = 0;
@@ -529,23 +566,23 @@ public class ControladorGalaxia
     	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia();
     	if(g.consulta_nombreLimits() > 0 ) result += ":" + g.consultarValorLimits();
     	result += "#@";
-    	if(g.consulta_nombrePlanetes() > 0) { // PLANETAS
-    		ArrayList<Integer> pla = g.consultarPlanetes();
+    	if(cp.Consultar_Size() > 0) { // PLANETAS
+    		ArrayList<Integer> pla = cp.consultarPlanetas();
     		for(int i = 0; i < pla.size(); ++i) {
     			Planeta p = cp.BuscarPlaneta(pla.get(i));
     			result += p.Consultar_id() + ":" + p.consultar_X() + ":" + p.consultar_Y(); // ID:X:Y
     		}
     	}
     	result += "#@";
-    	if(g.consulta_nombreRutes() > 0) { // RUTAS
-    		ArrayList<Integer> rut = g.consultarRutes();
+    	if(cr.Consultar_numero_rutes() > 0) { // RUTAS
+    		ArrayList<Integer> rut = cr.Consultar_ids_rutas();
     		for(int i = 0; i < rut.size(); ++i) {
     			result += ":" + rut.get(i);  // ID:ID
     		}
     	}
     	result += "#@";
-    	if(g.consulta_nombreNaus() > 0) { // NAVES
-    		ArrayList<Integer> nau = g.consultarNaus();
+    	if(cn.size() > 0) { // NAVES -> ARREGLAR ESTO
+    		ArrayList<Integer> nau = null;
     		for(int i = 0; i < nau.size(); ++i) {
     			result += ":" + nau.get(i);  // ID:ID
     		}
