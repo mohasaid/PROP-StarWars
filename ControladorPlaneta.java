@@ -160,15 +160,17 @@ public class ControladorPlaneta {
     
     //Pre: 0 <= X < listaPlanetas.size().
     //Post: Consulta el elemento X de la listaPlanetas en caso de que exista
-    public Planeta Consultar_PlanetaX(int x) {
-    	Iterator<Planeta> it = listaPlanetas.iterator();
+    public Planeta Consultar_PlanetaX(int x) throws Exception {
+        if (listaPlanetas.isEmpty()) throw new Exception("Error: No existe ningun planeta");
+        Iterator<Planeta> it = listaPlanetas.iterator();
         int n = 0;
         Planeta a = null;
-    	while(n != x) {
-    		a = it.next();
-    		++n;
-    	}
-    	return a;
+        while(n != x) {
+                a = it.next();
+                ++n;
+        }
+        a = it.next();
+        return a;
     }
     //Pre: Cierto.
     //Post: Modifica la id del planeta.
