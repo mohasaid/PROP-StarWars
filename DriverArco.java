@@ -3,8 +3,7 @@ import java.util.Scanner;
 
 
 public class DriverArco{
-    public void Executa() {
-        Scanner sc = new Scanner(System.in);
+    public void Executa(Scanner sc) {
         int op;
         Arco a = new Arco();
         Nodo aux1 = new Nodo(1,false,false);
