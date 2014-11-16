@@ -26,9 +26,9 @@ public class DriverControladorMFP{
         while(op != 0){
             switch (op) {
             case 1: TestSeleccionarFC(sc,cMFP,cg,cr,cp);break;
-            case 2: TestSeleccionarAlgoritmo(sc,cMFP);break;
-            //case 3: TestConsultarSalida(cMFP);break;
-            //case 4: TestConsultarCambios(cMFP);break;
+            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cr);break;
+            case 3: TestConsultarSalida(cMFP);break;
+            case 4: TestConsultarCambios(cMFP);break;
             default: System.out.println("Opción incorrecta");
             }
     op = sc.nextInt(); 
@@ -49,14 +49,14 @@ public class DriverControladorMFP{
 	                +"-----------------------------------------------\n");
 	    	int i = sc.nextInt();
 	    	if(i<1 || i>3) throw new Exception("Error: Opcion incorrecta");
-	    	cMFP.InitEntrada(cg,cr,cp);
+	    	cMFP.InitEntrada(cg);
 	    	cMFP.SeleccionarFC(i,cg,cr,cp);
     	}
     	catch(Exception e){
     		System.out.println(e);
     	}
     }
-    public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP){
+    public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP, ControladorRuta cr){
     	try{
 	    	System.out.print("Opciones:\n\n"
 	    			+"-----------------------------------------------\n"
@@ -71,10 +71,39 @@ public class DriverControladorMFP{
 	                +"-----------------------------------------------\n");
 	    	int i = sc.nextInt();
 	    	if(i<1 || i>3) throw new Exception("Error: Opcion incorrecta");
-	    	cMFP.SeleccionarAlgoritmo(i);
+	    	cMFP.SeleccionarAlgoritmo(i,cr);
     	}
     	catch(Exception e){
     		System.out.println(e);
     	}
+    }
+    public static void TestConsultarSalida(ControladorMFP cMFP){
+    	try{
+            int i=0;
+            int n = cMFP.size();
+            while(i < n){
+         	   String s = cMFP.ConsultarSalida(i);
+         	   System.out.print(s);
+         	   i += 100;
+             }
+            System.out.print("Coste: " + cMFP.ConsultarCoste()+"\n");
+         }
+         catch (Exception e){
+             System.out.print(e);
+         }
+    }
+    public static void TestConsultarCambios(ControladorMFP cMFP){
+    	try{
+            int i=0;
+            int n = cMFP.size();
+            while(i < n){
+         	   String s = cMFP.ConsultarCambios(i);
+         	   System.out.print(s);
+         	   i += 100;
+             }
+         }
+         catch (Exception e){
+             System.out.print(e);
+         }
     }
 }
