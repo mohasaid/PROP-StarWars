@@ -1,8 +1,8 @@
 import java.util.*;
 
-public abstract class FuncionesCoste{
-	public FuncionesCoste(){
+public class FuncionDistancia extends FuncionesCoste{
+	public FuncionDistancia(){}
+	public int CalcularCoste() throws Exception{
+		return r.consultar_distancia();
 	}
-	public abstract Entrada Calcular(Pair<List<Arco>,List<Nodo>> pl ,Entrada e);
 }
-
