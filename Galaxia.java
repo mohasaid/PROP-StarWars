@@ -438,7 +438,6 @@ public class Galaxia {
     {
         presupost = Integer.valueOf(-1);
         limits = new ArrayList<Pair<Integer,Integer> >();
-        N = 0;
         gal = new int[N][N];
     }
 }
