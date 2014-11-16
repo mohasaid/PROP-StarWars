@@ -64,10 +64,11 @@ public class ControladorGalaxia
     	if(g.consulta_nombreLimits() > 0) {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
-	    	res = res + ":";
+	    	res = res + ":(";
 	    	while(it.hasNext()) {
 	    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
 	    	}
+	    	res = res + ")";
     	}
     	return res;
     }
@@ -84,7 +85,7 @@ public class ControladorGalaxia
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
 	    	while(it.hasNext()) {
-	    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo(); // revisar + ","
+	    		res += "(" + it.next().consultarPrimero() + "," + it.next().consultarSegundo() + "):";
 	    	}
 	    	return res;
     	}
@@ -96,41 +97,41 @@ public class ControladorGalaxia
      * @return Los identificadores de los planetas
      * @throws Exception
      */
-    public String llista_planetes(ControladorPlaneta cp) throws Exception
+    /*public String llista_planetes(ControladorPlaneta cp) throws Exception
     {
     	String res = "";
     	if(cp.Consultar_Size() > 0) {
     		ArrayList<Integer> np = cp.consultarPlanetas();
 	    		for(Integer a : np) {
-	    			res += a.toString() + ":";
+	    			res += a.toString() + ",";
 	    		}
 	    }
     	return res;
-    }
+    }*/
     
     /**
      * Metodo para consultar el listado de rutas de la galaxia
      * @return Los identificadores de las rutas
      * @throws Exception
      */
-    public String llista_rutes(ControladorRuta cr) throws Exception
+   /* public String llista_rutes(ControladorRuta cr) throws Exception
     {
     	String res = "";
     	if(cr.Consultar_numero_rutes() > 0) {
     		ArrayList<Integer> nr = cr.Consultar_ids_rutas();
     		for(Integer a : nr) {
-    			res += a.toString() + ":";
+    			res += a.toString() + ",";
     		}
     	}
     	return res;
-    }
+    }*/
     
     /**
      * Metodo para consultar el listado de naves en la galaxia
      * @return Los identificadores de las naves
      * @throws Exception
      */
-    public String llista_naus(ControladorNave cn) throws Exception
+    /*public String llista_naus(ControladorNave cn) throws Exception
     {
     	String res = "";
     	int i=0;
@@ -140,7 +141,7 @@ public class ControladorGalaxia
         	++i;
         }
     	return res;
-    }
+    }*/
     
     /**
      * Metodo para consultar el numero de planetas en la galaxia
@@ -152,6 +153,15 @@ public class ControladorGalaxia
         return cp.Consultar_Size();
     }
     
+    public int consultarNumRutas(ControladorRuta cr)
+    {
+    	return cr.Consultar_numero_rutes();
+    }
+    
+    public int consultarNumNaves(ControladorNave cn)
+    {
+    	return cn.size();
+    }
     /**
      * Metodo para consultar el limite maximo de la galaxia
      * @return Limite maximo de la galaxia
@@ -236,7 +246,7 @@ public class ControladorGalaxia
     * @param cp
     * @throws Exception 
     */
-   public void modificarCoordenadesPlaneta(int x, int y, int idPlaneta, ControladorPlaneta cp) throws Exception
+   /*public void modificarCoordenadesPlaneta(int x, int y, int idPlaneta, ControladorPlaneta cp) throws Exception
     {
 	    if(g.existeixPlaneta(idPlaneta)) {
     		Planeta p = cp.BuscarPlaneta(idPlaneta);
@@ -250,7 +260,7 @@ public class ControladorGalaxia
     		}
     		else throw new Exception("las coordenadas se encuentran fuera de la galaxia");
 	    }
-    }
+    }*/
    
    /**
     * Metodo para modificar el el identificador del planeta con las coordenadas "x" y "y"
@@ -300,19 +310,12 @@ public class ControladorGalaxia
 	    g.eliminarPlaneta(idPlaneta);
     }
     
-    public void CrearNau(ControladorNave cn, int id, int t, int d, int o) throws Exception
+    /*public String consultaPlaneta(int idPlaneta, ControladorPlaneta cp) throws Exception
     {
-    	cn.CrearNave(id, t, d, o);
-    }
-    
-    public void eliminarNau(int idNau, ControladorNave cn) throws Exception
-    {
-	    cn.EliminarNave(idNau);
-    }
-    
-    public void eliminarTotesNaus(ControladorNave cn) throws Exception
-    {
-    	cn.EliminarNaves();
+    	String res = "";
+    	Planeta a = cp.BuscarPlaneta(idPlaneta);
+    	res += a.Consultar_id() + ":" + a.Consultar_Capacidad() + ":" + a.Consultar_Coste() + ":" + a.consultar_coordenades();   
+    	return res;
     }
     
     public String consultaNave(int id, ControladorNave cn) throws Exception
@@ -323,42 +326,25 @@ public class ControladorGalaxia
     	return res;
     }
     
-    public void crearRuta(ControladorRuta cr, int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception 
-    {
-    	cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
-    }
-    
-    public void eliminarRuta(ControladorRuta cr, int idRuta) throws Exception
-    {
-    	cr.Borrar_Ruta(idRuta);
-    }
-    
-    public void eliminarRutes(ControladorRuta cr) throws Exception
-    {
-    	cr.BorrarRutas();
-    }
-    
     public String consultarRuta(int idRuta, ControladorRuta cr) throws Exception
     {
     	String res = "";
     	Ruta r = cr.BuscarRuta(idRuta);
-    	res += r.consultar_id() + ":" + r.consultar_capacidad() + ":" + r.consultar_distancia();
+    	res += r.consultar_id() + "," + r.consultar_capacidad() + "," + r.consultar_distancia();
     	Conexion c = cr.BuscarConexion(idRuta);
-    	res += c.consultar_planetaA() + ":" + c.consultar_planetaB() + c.consultar_bidireccional();
+    	res += c.consultar_planetaA() + "," + c.consultar_planetaB() + "," + c.consultar_bidireccional();
     	return res;
-    }
+    }*/
     
-
     /**
      * Metodo para transformar los elementos de la galaxia en un grafo
      * @throws Exception
      */
-    public ArrayList<ArrayList<Pair<Arco,Integer> > > convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp) throws Exception 
+    public ArrayList<ArrayList<Pair<Arco,Integer> > > convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception 
     {
     	ArrayList<ArrayList<Pair<Arco,Integer> > > resultado = new ArrayList<ArrayList<Pair<Arco,Integer> > >();
     	ArrayList<Pair<Arco, Integer> > ap = new ArrayList<Pair<Arco, Integer> >();
     	ArrayList<Integer> pl = cp.consultarPlanetas();
-    	int tam = pl.size();
     	ArrayList<Conexion> ac = cr.consultar_Conexiones();
     	for(int i = 0; i < ac.size(); ++i) { // anado las conexiones bidireccionales
     		if(ac.get(i).consultar_bidireccional()) {
@@ -384,7 +370,15 @@ public class ControladorGalaxia
     		}
     		resultado.add(ap);
     	}
-    	// FALTA CONSULTAR TODAS LAS DESTINACIONES, PARA CREAR EL NODO VIRTUAL QUE LE ENTREN ESTAS
+    	ArrayList<Integer> destinos = cn.PlanetasDestino();
+		ArrayList<Pair<Arco, Integer> > tmp = new ArrayList<Pair<Arco, Integer> >();
+    	for(int i = 0; i < destinos.size(); ++i) {
+    		Arco c = new Arco(Integer.MAX_VALUE,0);
+    		int t = destinos.get(i);
+    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,t);
+    		tmp.add(pac);
+    	}
+    	resultado.add(tmp); // ULTIMO NODO VIRTUAL
     	return resultado;
     }
     	
