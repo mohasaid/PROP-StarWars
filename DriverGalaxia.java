@@ -10,7 +10,9 @@ public class DriverGalaxia {
 	              "---------------------------------------------------------------------------------------- \n"
 	            + "                               DRIVER GALAXIA                                    	    \n"
 	            + "---------------------------------------------------------------------------------------- \n"
+	            
 	            + "- Opcion 0: Salir de la gestion del driver                                        	    \n"
+	            
 	            + "- Opcion 1: Galaxia(String nom, int n)                                           		\n"       
 	            + "- Opcion 2: Galaxia(String nom, int n, List<Pair<Integer, Integer> > l)   				\n"
 	            
@@ -45,22 +47,24 @@ public class DriverGalaxia {
 	            + "- Opcion 23: modificarN(int n) 											    			\n"
 	            
 	            + "- Opcion 24: TestCrearafegirPlaneta(Scanner cin,ControladorPlaneta cp)  					\n"		
-	            + "- Opcion 22: afegirPlanetaAutomatic(int idPlaneta) 							    		\n"
-	            + "- Opcion 23: eliminarPLaneta(int idPlaneta)  						    				\n"
-	            + "- Opcion 24: eliminarTotsPlanetes() 										    			\n"
+	            + "- Opcion 25: afegirPlanetaAutomatic(int idPlaneta) 							    		\n"
+	            + "- Opcion 26: eliminarPLaneta(int idPlaneta)  						    				\n"
+	            + "- Opcion 27: eliminarTotsPlanetes() 										    			\n"
 	            
-	            + "- Opcion 25: TestcrearNau(Scanner cin, ControladorNave cn)  								\n"
-	            + "- Opcion 26: TestCrearNaveAuto(ControladorNave cn,Scanner cin, ControladorPlaneta cp)    \n"
-	            + "- Opcion 27: TesteliminarNau(Scanner cin, ControladorNave cn) 							\n"
-	            + "- Opcion 28: TesteliminarTotesNaus(ControladorNave cn) 					    			\n"
+	            + "- Opcion 28: TestcrearNau(Scanner cin, ControladorNave cn)  								\n"
+	            + "- Opcion 29: TestCrearNaveAuto(ControladorNave cn,Scanner cin, ControladorPlaneta cp)    \n"
+	            + "- Opcion 30: TesteliminarNau(Scanner cin, ControladorNave cn) 							\n"
+	            + "- Opcion 31: TesteliminarTotesNaus(ControladorNave cn) 					    			\n"
 	            
-	            + "- Opcion 29: TestcrearRuta(Scanner cin,ControladorRuta cr,ControladorPlaneta cp) 		\n"
-	            + "- Opcion 28: TestCrearRutaAutoID(Scanner cin,ControlaorRuta cr, ControladorPlaneta cp) 	\n"
-	            + "- Opcion 22: TestcrearRutaAuto(Scanner cin,ControladorPlaneta cp,ControladorRuta cr)     \n"
-	            + "- Opcion 29: TesteliminarRuta(Scanner cin,ControladorRuta cr)		    				\n"
-	            + "- Opcion 30: TesteliminarTotesRutes(ControladorRuta cr) 					    			\n"
+	            + "- Opcion 32: TestcrearRuta(Scanner cin,ControladorRuta cr,ControladorPlaneta cp) 		\n"
+	            + "- Opcion 33: TestCrearRutaAutoID(Scanner cin,ControlaorRuta cr, ControladorPlaneta cp) 	\n"
+	            + "- Opcion 34: TestcrearRutaAuto(Scanner cin,ControladorPlaneta cp,ControladorRuta cr)     \n"
+	            + "- Opcion 35: TesteliminarRuta(Scanner cin,ControladorRuta cr)		    				\n"
+	            + "- Opcion 36: TesteliminarTotesRutes(ControladorRuta cr) 					    			\n"
 	            
-	            + "- Opcion 31: eliminarContingutGalaxia() 									    			\n");
+	            + "- Opcion 37: eliminarContingutGalaxia() 									    			\n"
+	            + "- Opcion 38: dintreLimitUsuari(int x, int y) 											\n"
+	            + "- Opcion 39: algunPlaneta()																\n");
         n = cin.nextInt();
         while(n != 0) {
             switch(n) {
@@ -115,6 +119,8 @@ public class DriverGalaxia {
 	            
 	            case 37: TesteliminarContingutGalaxia(cp,cr,cn);break;
 	            
+	            case 38: TestdintreLimitUsuari(cin); break;
+	            case 39: TestalgunPlaneta(); break;
 	            default: System.out.println("Opcion incorrecta");
             }
             n = cin.nextInt();
@@ -209,6 +215,13 @@ public class DriverGalaxia {
             System.out.println(e);
         }
     }
+    
+    public void TestalgunPlaneta()
+    {
+    	boolean b = g.algunPlaneta();
+    	if(b) System.out.println("Hay algun planeta en la galaxia");
+    	else System.out.println("No hay ningun planeta en la galaxia");
+    }
      
     public void Testconsulta_nombrePlanetes(ControladorPlaneta cp)
     {
@@ -276,6 +289,21 @@ public class DriverGalaxia {
     {
         int p = g.consultarLimitGalaxia().intValue();
         System.out.println("El limit de la galaxia es: " + p);
+    }
+    
+    public void TestdintreLimitUsuari(Scanner cin)
+    {
+    	boolean b;
+		try {
+			int x = cin.nextInt();
+			int y = cin.nextInt();
+			b = g.dintreLimitUsuari(x, y);
+			if(b) System.out.println("Si que esta dins el limit");
+			else System.out.println("No esta dins el limit");
+		} 
+		catch (Exception e) {
+			System.out.println(e);
+		}
     }
      
     public void TestexisteixPlanetaCoordenades(Scanner cin)
@@ -621,5 +649,5 @@ public class DriverGalaxia {
     	catch(Exception e) {
             System.out.println(e);
         }
-	}
+     }
 }
