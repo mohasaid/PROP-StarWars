@@ -76,7 +76,7 @@ public class ControladorPlaneta {
         
         // AUTOMATICO
     }
-    // Necesito una con un id por defecto y que solo cree sus atributos random
+    
     public void PlanetaAuto(int id, ControladorGalaxia cg) throws Exception 
     {
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
