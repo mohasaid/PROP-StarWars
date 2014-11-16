@@ -121,7 +121,7 @@ public class ControladorRuta {
     }
       
     //Pre: Cierto
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
     public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
         if(ExisteRuta(id)){
@@ -301,6 +301,18 @@ public class ControladorRuta {
     	return ids_rutas;
     }
     
+    //Pre: Cierto
+    //Post: Retorna el arbol de conexiones transformado a ArrayList<Conexiones>
+	public ArrayList<Conexion> Consultar_Conexiones()
+	{
+		ArrayList<Conexion> ai = new ArrayList<Conexion>();
+		Iterator<Conexion> it = Conexiones.iterator();
+		while(it.hasNext()) {
+			ai.add(it.next());
+		}
+		return ai;
+	}
+    
     //MODIFICADORAS    
     
     //Pre: Existe una ruta con id = "id_original"
@@ -426,6 +438,8 @@ public class ControladorRuta {
   	  Borrar_Conexion(id);
   }
   
+  //Pre: Cierto
+  //Post: Borra todas las rutas del ArbolRutas y todas las conexiones de Conexiones
   void BorrarRutas() throws Exception{
 	  if(ArbolRutas.size() < 1) throw new Exception("No hay rutas");
 	  ArbolRutas.clear();
@@ -492,7 +506,7 @@ public class ControladorRuta {
         }
     }
     
-    //res += "@"; //Le añadimo este separador para diferenciar entre ruas y conexiones
+    //res += "@"; //Le aÃ±adimo este separador para diferenciar entre ruas y conexiones
     
     //Guardamos toadas las conexiones
     if(!Conexiones.isEmpty()){
