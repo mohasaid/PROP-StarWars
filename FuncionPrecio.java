@@ -1,8 +1,11 @@
 import java.util.*;
 
 public class FuncionPrecio extends FuncionesCoste{
-	public void FuncionPrecio(){}
-	public void CalcularCoste(Arco a, int distancia, int precio){
-		a.ModificarCoste(distancia*precio);
+	public FuncionPrecio(){
+		r = new Ruta();
+		p = new Planeta();
+	}
+	public int CalcularCoste() throws Exception{
+		return r.consultar_distancia()*p.Consultar_Coste();
 	}
 }
