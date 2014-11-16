@@ -5,17 +5,17 @@ import java.util.Random;
 public class Galaxia {
 	
     private String nomGalaxia;
-    private int[][] gal; // N*N
+    private int[][] gal;
     private Integer presupost;
-    private Integer N; // valor del limit de la galaxia, posem algun limit com 10 (matriu 10x10)
-    private List<Pair<Integer,Integer> > limits; // private list<pairs> con coordenadas de la galaxia impuestas por el usuario
+    private Integer N;
+    private List<Pair<Integer,Integer> > limits;
     
     /**
      * Metodo que dice si el nombre es alfanumerico
      * @param nom
      * @return Cierto si "nom" contiene caracteres alfanumericos y un tamano menor a 20 caracteres, falso en caso contrario
      */
-    private boolean alfa_numeric(String nom) // NOM ALFANUMERIC I < 20 CARACTERS
+    private boolean alfa_numeric(String nom)
     {
         if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
         for(int i = 0; i < nom.length(); ++i) {
@@ -251,19 +251,19 @@ public class Galaxia {
      * @return Cierto si "x" y "y" estan dentro del limite formado en la galaxia, falso en caso contrario
      * @throws Exception
      */
-	public boolean dintreLimitUsuari(int x, int y) throws Exception
+    public boolean dintreLimitUsuari(int x, int y) throws Exception
 	{
 	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
 	         int max_first, max_second, max_x, max_y;
 	         max_first = max_second = max_x = max_y = 0;
 	         for(int i = 0; i < N; ++i) {
-	         	if(gal[x][i] == -1 && i != x) { // Primero que encuentre paro
+	         	if(gal[x][i] == -1 && i != x) {
 	         		max_first = i;
 	         		break;
 	         	}
 	         }
 	         for(int i = max_first + 1; i < N; ++i) {
-	         	if(gal[x][i] == -1 && i != x) max_second = i; // Tengo que consultar hasta el ultimo, no break
+	         	if(gal[x][i] == -1 && i != x) max_second = i;
 	         }
 	         for(int i = 0; i < N; ++i) {
 	         	if(gal[i][y] == -1 && i != y) {
@@ -332,6 +332,12 @@ public class Galaxia {
     	inicialitzaMatriu();
     }
     
+    public void modificarIDplaneta(int x, int y, int idnova) throws Exception
+    {
+    	if(existeixPlaneta(idnova)) throw new Exception("Error: ya existe un planeta con este identificador");
+    	gal[x][y] = idnova;
+    }
+    
     /**
      * Metodo para anadir un planeta en la galaxia en unas determinadas coordenadas
      * @param p
@@ -355,7 +361,7 @@ public class Galaxia {
      * @return Las coordenadas del planeta 
      * @throws Exception
      */
-    public Pair<Integer, Integer> afegirPlanetaAutomatic(int idPlaneta) throws Exception // Viene con unos valores random, aqui compruebo su validez
+    public Pair<Integer, Integer> afegirPlanetaAutomatic(int idPlaneta) throws Exception
     {
     	if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
     	
@@ -398,14 +404,20 @@ public class Galaxia {
     /**
      * Metodo para eliminar un paneta de la galaxia con el identificador "idPlaneta"
      * @param idPlaneta
+     * @throws Exception 
      */
-    public void eliminarPla(int idPlaneta)
+    public void eliminarPlaneta(int idPlaneta) throws Exception
     {
+    	boolean esta = false;
     	for(int i = 0; i < N; ++i) {
     		for(int j = 0; j < N; ++j) {
-    			if(gal[i][j] == idPlaneta) gal[i][j] = 0;
+    			if(gal[i][j] == idPlaneta) {
+    				gal[i][j] = 0;
+    				esta = true;
+    			}
     		}
     	}
+    	if(!esta) throw new Exception("El planeta introducido no existe en la galaxia");
     }
     
     /**
@@ -425,7 +437,6 @@ public class Galaxia {
 	public void eliminarContingutGalaxia() throws Exception
     {
         presupost = Integer.valueOf(-1);
-        // Pierde los planetas y los limites
         limits = new ArrayList<Pair<Integer,Integer> >();
         N = 0;
         gal = new int[N][N];
