@@ -422,9 +422,14 @@ public class ControladorRuta {
 	  if(ConsultarBidireccionalidadRuta(id)) { 
 		  cp.Modificar_Capacidad(idA, (capacidadA - r.consultar_capacidad()) );
 	  }
-
 	  Borrar_Ruta(id);
   	  Borrar_Conexion(id);
+  }
+  
+  void BorrarRutas() throws Exception{
+	  if(ArbolRutas.size() < 1) throw new Exception("No hay rutas");
+	  ArbolRutas.clear();
+	  Conexiones.clear();
   }
   
   //Pre: Cierto.
