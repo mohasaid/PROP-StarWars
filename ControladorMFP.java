@@ -16,21 +16,24 @@ public class ControladorMFP{
 		
 	}
 	//Seleccion/Ejecucion del algoritmo
-	public void SeleccionarAlgoritmo(int i) throws Exception{
+	public void SeleccionarAlgoritmo(int i,ControladorRuta cr) throws Exception{
 		if(!FuncionElegida){
 			throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
 		}
 		if(i==1){
 			alg = new FordFulkersonBFS(e);
 			alg.Ejecutar();
+			alg.GenerarFlujos(e,cr);
 		}
 		if(i==2){
 			alg = new FordFulkerson_Dijkstra(e);
 			alg.Ejecutar();
+			alg.GenerarFlujos(e,cr);
 		}
 		if(i==3){
 			//alg = new PushRelabel(e);
-			//s = alg.Ejecutar();
+			// alg.Ejecutar();
+			//alg.GenerarFlujos(e,cr);
 		}
 	}
 	
@@ -74,35 +77,63 @@ public class ControladorMFP{
 		}
 		FuncionElegida=true;
 	}
-/*
+
 //OPERACIONES SALIDA
+	public void Inicializar1(){
+		itF = (alg.ConsultarFlujos()).iterator();
+		itCB = (alg.ConsultarCuellos()).iterator();
+	}
+	public void Inicializar2(){
+		itC = (alg.ConsultarCambios()).iterator();
+	}
 	//Pre:cierto
 	//Post: devuelve el numero de elementos que conforman la salida incluyendo numero de rutas, numero de cuellos de botella y el coste
 	//Pre:cierto
 	//Post: devuelve un string que contiene: flujos de cada ruta, los cuellos de botella y el coste
 	public String ConsultarSalida(int i){
-		ArrayList<Integer> CuellosB = new ArrayList<Integer>();
-		int coste = 0;
-		ArrayList<Pair<Arco,Integer>> Flujos = new ArrayList<Pair<Arco,Integer>>();
+		String res = "";
+		int j=0;
 		if(i==0){
-			++i;
-			//Inicializar1();
-			ArrayList<Integer> CuellosB = alg.ConsultarCuellos();
-			int coste = alg.ConsularCoste();
-			ArrayList<Pair<Arco,Integer>> Flujos = alg.ConsultarFlujos();
+			Inicializar1();
+			res += "Ruta : Flujo\n";
 		}
-		//HACER
+		while(itF.hasNext() && j<100){
+			Pair<Arco,Integer> aux = itF.next();
+			int idr = aux.consultarPrimero().ConsultarIdRuta();
+			res += idr+" : "+aux.consultarSegundo()+"\n";
+			++j;
+			if(!itF.hasNext() && itCB.hasNext()) res += "Cuellos de botella:\n";
+		}
+		while(itCB.hasNext() && j<100){
+			res += itCB.next()+"\n";
+			++j;
+		}
+		return res;
 	}
+	public int size(){
+		return alg.size();
+	}
+	public int sizeCambios(){
+		return alg.sizeCambios();
+	}
+	public int ConsultarCoste(){
+		return alg.ConsultarCoste();
+	}
+	
 	//Pre:cierto
 	//Post:devuelve un string que contiene los cambios que se han ido produciendo en el grafo durante la ejecución del algoritmo.
 	public String ConsultarCambios(int i){
+		String res = "";
+		int j=0;
 		if(i==0){
-			++i;
-			//Inicializar2();
-			ArrayList<String> Cambios = alg.ConsultarCambios();
+			Inicializar2();
+			res += "Pasos realizados en el algoritmo:\n";
 		}
-		//HACER
-		
+		while(itC.hasNext() && j<100){
+			res += itC.next()+"\n";
+			++j;
+		}
+		return res;
 	}
-	*/
+	
 }
