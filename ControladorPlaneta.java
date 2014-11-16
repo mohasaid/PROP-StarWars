@@ -1,20 +1,24 @@
 import java.util.*;
-import java.util.Scanner;
-public class ControladorPlaneta{
+
+
+public class ControladorPlaneta {
     private TreeSet<Planeta> listaPlanetas;
     private ControladorDadesPlaneta cdp;
+    
     private int randInt(int min, int max)
     {
     	Random rand = new Random();
     	int randomNum = rand.nextInt((max - min) + 1) + min;
     	return randomNum;
     }
+    
     //Pre: Cierto.
     //Post: Crea un ControladorPlaneta.
     public ControladorPlaneta()
     {
         listaPlanetas = new TreeSet<Planeta>(new OrdenPlaneta());
     }
+    
     //Pre: Cierto.
     //Post: Retorna true si el planeta existe y false si no.
     public boolean ExistePlaneta(int idP) throws Exception 
@@ -40,7 +44,7 @@ public class ControladorPlaneta{
     }
     //Pre: Cierto.
     //Post: Crea un planeta automaticamente con atributos aleatorios incluida la id
-    public void PlanetaAuto() throws Exception 
+    public void PlanetaAuto(ControladorGalaxia cg) throws Exception 
     {
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
     	int c1 = randInt(0,Integer.MAX_VALUE-1);
@@ -52,9 +56,11 @@ public class ControladorPlaneta{
         Coo.ponSegundo(c2);
         Planeta p = new Planeta(idP, r1, Coo);
         listaPlanetas.add(p);
+        cg.afegirPlaneta(idP, c1, c2);
+        // AUTOMATICO
     }
     // Necesito una con un id por defecto y que solo cree sus atributos random
-    public void PlanetaAuto(int id) throws Exception 
+    public void PlanetaAuto(int id, ControladorGalaxia cg) throws Exception 
     {
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
     	int c1 = randInt(0,Integer.MAX_VALUE-1);
@@ -64,13 +70,16 @@ public class ControladorPlaneta{
         Coo.ponSegundo(c2);
         Planeta p = new Planeta(id, r1, Coo);
         listaPlanetas.add(p);
+        cg.afegirPlaneta(id, c1, c2);
+        // AUTOMATICO
     }
     //Pre: Cierto.
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Fuente = F y Sumidero = S.
-    public void Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception {
+    public void Planeta(int id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception {
         if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(p);
+        cg.afegirPlaneta(id, Coo.consultarPrimero(), Coo.consultarSegundo());
     }
     //Pre: Cierto.
     //Post: Retorna la Capacidad del planeta.
@@ -132,6 +141,17 @@ public class ControladorPlaneta{
     	result.add(res);
         return result;
     }
+    
+    public ArrayList<Integer> consultarPlanetas() throws Exception
+    {
+    	ArrayList<Integer> pl = new ArrayList<Integer>();
+    	Iterator<Planeta> it = listaPlanetas.iterator();
+    	while(it.hasNext()) {
+    		pl.add(it.next().Consultar_id());
+    	}
+    	return pl;
+    }
+    
     //Pre: 0 <= X < listaPlanetas.size().
     //Post: Consulta el elemento X de la listaPlanetas en caso de que exista
     public Planeta Consultar_PlanetaX(int x) {
@@ -146,12 +166,13 @@ public class ControladorPlaneta{
     }
     //Pre: Cierto.
     //Post: Modifica la id del planeta.
-    public void Modificar_id (int idold, int idnew) throws Exception 
+    public void Modificar_id(int idold, int idnew, ControladorGalaxia cg) throws Exception 
     {
         Planeta p = BuscarPlaneta(idold);
         listaPlanetas.remove(p);
         p.Modificar_id(idnew);
         listaPlanetas.add(p);
+        cg.modificarIDPlaneta(p.consultar_X(),p.consultar_Y(), idnew); ///NUEVA
     }
     //Pre: Cierto.
     //Post: Modifica la capacidad del planeta.
@@ -167,20 +188,25 @@ public class ControladorPlaneta{
     }
     //Pre: Cierto.
     //Post: Modifica las coordenadas del planeta.
-    public void modificarCoordenades(int id, int x, int y) throws Exception 
+    public void modificarCoordenades(int id, int x, int y, ControladorGalaxia cg) throws Exception 
     {
-        BuscarPlaneta(id).modificarCoordenades(x,y);
+    	Planeta p = BuscarPlaneta(id);
+    	cg.eliminarPlaneta(id);
+        p.modificarCoordenades(x,y);
+        cg.afegirPlaneta(id, x, y);
     }
     //Pre: Cierto.
     //Post: Borra el planeta.
-    public void Borrar(int id, ControladorRuta cr) throws Exception {
+    public void Borrar(int id, ControladorGalaxia cg, ControladorRuta cr) throws Exception {
         Planeta p = BuscarPlaneta(id);
         listaPlanetas.remove(p);
-        p.Borrar();
+        cr.BorrarRutaConexions_desdePlaneta(id);
+        cg.eliminarPlaneta(p.Consultar_id());
+        // p.Borrar();
     }
     //Pre: Cierto.
     //Post: 
-    public void CargarPlanetas (String path) throws Exception {
+    public void CargarPlanetas (String path, ControladorGalaxia cg) throws Exception {
     	String res;
     	cdp.AbrirLectura(path);
     	res = cdp.cargar(path);
@@ -197,16 +223,18 @@ public class ControladorPlaneta{
     		x = Integer.parseInt(s);
     		s = sc.next();
     		y = Integer.parseInt(s);
-    		if(ExistePlaneta(id)) throw new Exception ("Error: El Planeta con identificador: " +id+ " ya existe y no se cargara");
+    		if(ExistePlaneta(id)) throw new Exception ("Error: El Planeta con identificador: " + id + " ya existe y no se cargara");
     		else {
     			Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
     			Planeta p = new Planeta(id,k,Coo);
     			listaPlanetas.add(p);
+    			cg.afegirPlaneta(id, x, y);
     		}
     		sc.next();
     	}
     	cdp.CerrarLectura();
     }
+    
     //Pre: Cierto.
     //Post: 
     public void GuardarPlanetas (String path) throws Exception {
@@ -216,11 +244,11 @@ public class ControladorPlaneta{
     		cdp.AbrirEscritura(path);
     		res = "";
     		for(Planeta p : listaPlanetas) {
-    			res+=p.Consultar_id()+":";
-    			res+=p.Consultar_Coste()+":";
-    			res+=p.consultar_X()+":";
-    			res+=p.consultar_Y();
-    			res+="#";
+    			res +=p.Consultar_id()+":";
+    			res +=p.Consultar_Coste()+":";
+    			res +=p.consultar_X()+":";
+    			res +=p.consultar_Y();
+    			res +="#";
     			System.out.println(res);
     			++iter;
     			if(iter == 100){
