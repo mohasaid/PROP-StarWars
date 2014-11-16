@@ -5,18 +5,50 @@ public class ControladorRuta {
     //PARTE PRIVADA
     private TreeSet<Ruta> ArbolRutas;
     private TreeSet<Conexion> Conexiones;
+    private ControladorDadesRuta Cdr;
+    
+    //Pre: Cierto
+    //Post: La conexion con id = "id" ha sido borrada del arbol de conexiones
+    private void Borrar_Conexion (int id) throws Exception
+    {
+    	boolean found = false;
+		Iterator<Conexion> it = Conexiones.iterator();
+		Conexion aux = new Conexion();
+		while(!found && it.hasNext()){
+			aux = it.next();
+			if(aux.consultar_id() == id){
+				it.remove();
+				found = true;
+			}
+		}
+    }
+    
+    //Pre: Cierto
+    //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
+    private void Borrar_Ruta (int id) throws Exception
+    {
+    	boolean found = false;
+		Iterator<Ruta> it = ArbolRutas.iterator();
+		Ruta aux = new Ruta();
+		while(!found && it.hasNext()){
+			aux = it.next();
+			if(aux.consultar_id() == id){
+				it.remove();
+				found = true;
+			}
+		}
+    }
     
     //Pre: Cierto
     //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
-    private static boolean ErrorTipografico(int i) 
-    {
-  	return (i<0);
+    private static boolean ErrorTipografico(int i) {
+    	return (i<0);
     }
     
     //PARTE PUBLICA
       
     //ALGORITMOS
-    
+      
     //Pre:cierto
     //Post: comprueva si existe la ruta con identificador "id"
     public boolean ExisteRuta(int id) throws Exception
@@ -37,46 +69,6 @@ public class ControladorRuta {
     		if (it.next().consultar_id() == id) return true;
     	}
     	return false;
-    }
-    
-    //Pre: Cierto
-    //Post: La conexion con id = "id" ha sido borrada del arbol de conexiones
-    public void Borrar_Conexion (int id) throws Exception
-    {
-    	boolean found = false;
-		Iterator<Conexion> it = Conexiones.iterator();
-		Conexion aux = new Conexion();
-		while(!found && it.hasNext()) {
-			aux = it.next();
-			if(aux.consultar_id() == id){
-				it.remove();
-				found = true;
-			}
-		}
-    }
-    
-    //Pre: Cierto
-    //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
-    public void Borrar_Ruta (int id) throws Exception
-    {
-    	boolean found = false;
-		Iterator<Ruta> it = ArbolRutas.iterator();
-		Ruta aux = new Ruta();
-		while(!found && it.hasNext()){
-			aux = it.next();
-			if(aux.consultar_id() == id){
-				it.remove();
-				found = true;
-			}
-		}
-		// anadido, si borro la ruta, se borra la conexion 
-		/*Iterator<Conexion> it1 = Conexiones.iterator();
-		Conexion c;
-		while(it1.hasNext()) {
-			c = it1.next();
-			if(c.consultar_id() == id) it.remove();
-		}*/
-		Borrar_Conexion(id);
     }
     
     //pre: cierto
@@ -125,10 +117,11 @@ public class ControladorRuta {
     {
         ArbolRutas = new TreeSet<Ruta>(new OrdenRuta());
         Conexiones = new TreeSet<Conexion>(new OrdenConexion());
+        Cdr = new ControladorDadesRuta();
     }
       
     //Pre: Cierto
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±ade al arbol de rutas
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
     public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
         if(ExisteRuta(id)){
@@ -208,6 +201,14 @@ public class ControladorRuta {
     //CONSULTORAS   
     
     //Pre: Cierto
+    //Post: Retorna la capacidad que tiene la ruta con id = "id"
+    public int ConsultarCapacidadRuta(int id) throws Exception
+    {
+        Ruta solicitada = BuscarRuta(id);
+        return solicitada.consultar_capacidad();
+    }
+    
+    //Pre: Cierto
     //Post: Retorna la distancia que tiene la ruta con id = "id"
     public int ConsultarDistanciaRuta(int id) throws Exception
     {
@@ -215,14 +216,6 @@ public class ControladorRuta {
         return solicitada.consultar_distancia();
     }
     
-    //Pre: Cierto
-    //Post: Retorna la capacidad que tiene la ruta con id = "id"
-    public int ConsultarCapacidadRuta(int id) throws Exception
-    {
-        Ruta solicitada = BuscarRuta(id);
-        return solicitada.consultar_capacidad();
-    }
-      
     //Pre: Cierto
     //Post: Retorna la id del planetaA de la ruta con id = "id"
     public int ConsultarPlanetaARuta(int id) throws Exception
@@ -310,17 +303,6 @@ public class ControladorRuta {
     	return ids_rutas;
     }
     
-    // ANADIDA
-    public ArrayList<Conexion> consultar_Conexiones()
-    {
-    	ArrayList<Conexion> ai = new ArrayList<Conexion>();
-    	Iterator<Conexion> it = Conexiones.iterator();
-    	while(it.hasNext()) {
-    		ai.add(it.next());
-    	}
-    	return ai;
-    }
-    
     //MODIFICADORAS    
     
     //Pre: Existe una ruta con id = "id_original"
@@ -389,10 +371,18 @@ public class ControladorRuta {
     
     //Pre: La ruta con id = "id" tiene los atributos planetaA y planetaB inicializados
     //Post: Los planetas que conecta la ruta con id = "id" se modifican por planetaA = planetaB y planetaB = planetaB
-    public void invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
+    public void Invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
     {
     	Conexion c = BuscarConexion(id);
     	c.invertir_planetas();
+    	if (c.consultar_bidireccional() == false) {
+    		int idA = c.consultar_planetaA();
+    		int idB = c.consultar_planetaB();
+    		int cap_original_b = cp.Consultar_Capacidad( idB );
+    		int cap_original_a = cp.Consultar_Capacidad( idA );
+    		cp.Modificar_Capacidad( idB, cap_original_b - BuscarRuta(id).consultar_capacidad() );
+    		cp.Modificar_Capacidad( idA, cap_original_a + BuscarRuta(id).consultar_capacidad() );
+    	}
     }
       
     //Pre: Existe una ruta con id = "id"
@@ -439,13 +429,92 @@ public class ControladorRuta {
   	  Borrar_Conexion(id);
   }
   
-  // ANADIDA
-  public void BorrarRutas() throws Exception 
-  {
-	  if(ArbolRutas.size() > 0) {
-		  ArbolRutas.clear();
-		  Conexiones.clear();
-	  }
-	  else throw new Exception("No hay rutas en la galaxia");
+  //Pre: Cierto.
+  //Post: Carga todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
+  public void CargarRutas (String path) throws Exception {
+	  String res;
+      Cdr.AbrirLectura(path);
+      res = Cdr.cargar(path);
+      Scanner sc = new Scanner(res);
+      sc.useDelimiter("#|:");
+      String s="";
+      if(sc.hasNext()) s = sc.next();
+      while (sc.hasNext()) {
+    	  if ( Integer.parseInt(s) == 0 ) { //anadimos ruta
+    	      int id = Integer.parseInt(s);
+    	      s = sc.next();
+    	      int capacidad = Integer.parseInt(s);
+    	      s = sc.next();
+    	      int distancia = Integer.parseInt(s);
+    	      s = sc.next();
+    	      Ruta r = new Ruta(id,capacidad,distancia);
+    	      ArbolRutas.add(r);
+	      } else { //anadimos conexion
+	    	  int id = Integer.parseInt(s);
+    	      s = sc.next();
+    	      int ida = Integer.parseInt(s);
+    	      s = sc.next();
+    	      int idb = Integer.parseInt(s);
+    	      s = sc.next();
+    	      Boolean b = Boolean.parseBoolean(s);
+    	      s = sc.next();
+    	      Conexion c = new Conexion(id,ida,idb,b);
+	      }
+      }
+      Cdr.CerrarLectura();
+  }    
+  
+  //Pre: Cierto.
+  //Post: Guarda todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
+  public void GuardarRutas (String path) throws Exception {
+  	String res = "";
+  	//Guardamos todas la rutas
+    if(!ArbolRutas.isEmpty()){
+        Cdr.AbrirEscritura(path);        
+        res = "";
+        int iteracions = 0;
+        for (Ruta r : ArbolRutas){  
+            res += 0 + ":"; //quiere decir que se trata de una ruta
+            res += r.consultar_id() + ":";
+            res += r.consultar_capacidad() + ":";
+            res += r.consultar_distancia();
+            res += "#";
+            System.out.println(res);
+            ++iteracions;
+            if(iteracions == 100){
+                Cdr.guardar(path,res);
+                iteracions = 0;
+                res = "";
+            }
+        }
+    }
+    
+    //res += "@"; //Le añadimo este separador para diferenciar entre ruas y conexiones
+    
+    //Guardamos toadas las conexiones
+    if(!Conexiones.isEmpty()){
+        Cdr.AbrirEscritura(path);        
+        res = "";
+        int iteracions = 0;
+        for (Conexion c : Conexiones){  
+            res += 1 + ":"; //quiere decir que se trata de una conexion
+            res += c.consultar_id() + ":";
+            res += c.consultar_planetaA() + ":";
+            res += c.consultar_planetaB() + ":";
+            res += c.consultar_bidireccional();
+            res += "#";
+            System.out.println(res);
+            ++iteracions;
+            if(iteracions == 100){
+                Cdr.guardar(path,res);
+                iteracions = 0;
+                res = "";
+            }
+        }
+    }
+    if(res != ""){
+    	Cdr.guardar(path,res);
+    	Cdr.CerrarEscritura();
+    }
   }
 }
