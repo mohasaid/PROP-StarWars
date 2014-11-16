@@ -32,19 +32,27 @@ public class DriverControladorRuta {
               + " 15: ExisteRuta(int id)\n"
               + " 16: BuscarConexion(int id)\n"
               + " 17: BuscarRuta(int id)\n"
-              
+              + " 18: Consultar_Conexiones()\n"
+
               + "\n\nOPERACIONES MODIFICADORAS DE RUTA \n"
-              + " 18: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
-              + " 19: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
-              + " 20: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
-              + " 21: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
-              + " 22: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
-              + " 23: Invertir_planetaA_planetaB(int id)"
-              + " 24: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
+              + " 19: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
+              + " 20: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
+              + " 21: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
+              + " 22: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
+              + " 23: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
+              + " 24: Invertir_planetaA_planetaB(int id)"
+              + " 25: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
               
               + " \nOPERACIONES PERA BORRAR RUTAS \n"
-              + " 25: BorrarRutaConexions_desdePlaneta(int id_planeta)"
-              + " 26: BorrarRuta(int id, ControladorPlaneta cp) \n"
+              + " 26: BorrarRutaConexions(int id_planeta)"
+              + " 27: BorrarRuta(int id, ControladorPlaneta cp) \n"
+              + " 28: Borrar_Conexion(int id) \n"
+              + " 29: Borrar_Rutas() \n"
+              
+              + " \nOPERACIONES CARGAR/GUARDAR \n"
+              + " 30: Cargar_Rutas() \n"
+              + " 31: Guardar_Rutas() \n"
+
       		);
     }
     
@@ -69,27 +77,106 @@ public class DriverControladorRuta {
 	            case 10:  TestConsultar_arbre_conexions();break;
 	            case 11:  TestControladorConsultar_entrades_planeta();break;
 	            case 12:  TestControladorConsultar_sortides_planeta();break;
-	            case 13:  TestControladorExisteConexion();break;
-	            case 14:  TestControladorConsultarExisteRuta();break;
-	            case 15:  TestControladorBuscarConexion();break;
-	            case 16:  TestControladorBuscarRuta();break;
+	            case 13:  TestControladorConsultar_ids_rutas();break;
+	            case 14:  TestControladorExisteConexion();break;
+	            case 15:  TestControladorConsultarExisteRuta();break;
+	            case 16:  TestControladorBuscarConexion();break;
+	            case 17:  TestControladorBuscarRuta();break;
+	            case 18:  TestControladorConsultarConexiones();break;
 	            
-	            case 17: TestControladorModificarIdRuta();break;
-	            case 18: TestControladorModificarCpacitatRuta();break;
-	            case 19: TestControladorModificarDistanciaRuta();break;
-	            case 20: TestControladorModificarPlanetaARuta();break;
-	            case 21: TestControladorModificarPlanetaBRuta();break;
-	            case 22: TestControladorInvertir_planetaA_planetaB();break;
-	            case 23: TestControladorModificarBidireccionalRuta();break;
+	            case 19: TestControladorModificarIdRuta();break;
+	            case 20: TestControladorModificarCpacitatRuta();break;
+	            case 21: TestControladorModificarDistanciaRuta();break;
+	            case 22: TestControladorModificarPlanetaARuta();break;
+	            case 23: TestControladorModificarPlanetaBRuta();break;
+	            case 24: TestControladorInvertir_planetaA_planetaB();break;
+	            case 25: TestControladorModificarBidireccionalRuta();break;
 	            
-	            case 24: TestControladorBorrarRutaConexions_desdePlaneta();break;
-	            case 25: TestControladorBorrarRuta();break;
-	            	
+	              
+	            case 26: TestControladorBorrarRutaConexions_desdePlaneta();break;
+	            case 27: TestControladorBorrarRuta();break;
+	            case 28: TestControladorBorrarConexion();break;
+	            case 29: TestControladorBorrarTodasRutas();break;
+	              
+	            case 30: TestControladorCargarRutas();break;
+	            case 31: TestControladorGuardarRutas();break;
 	            default: System.out.println("Opcion incorrecta");
             }
             opcions();
             n = cin.nextInt();
         }
+    }
+    
+    public void  TestControladorGuardarRutas()
+    {
+    	try {
+    		cr.GuardarRutas( cin.next() );
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    public void  TestControladorCargarRutas()
+    {
+    	try {
+    		cr.CargarRutas( cin.next() );
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    public void  TestControladorBorrarTodasRutas()
+    {
+    	try {
+    		cr.BorrarRutas();
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    public void  TestControladorBorrarConexion()
+    {
+    	try {
+    		cr.Borrar_Conexion( cin.nextInt() );   		
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    public void escriu_arraylist_conexions (ArrayList<Conexion> c) throws Exception
+    {
+    	for( Conexion con : c ){
+    		con.consultar_id();
+		}
+    }
+    
+    public void  TestControladorConsultarConexiones()
+    {
+    	try {
+    		ArrayList<Conexion> c = new ArrayList<Conexion>();
+    		c = cr.Consultar_Conexiones();
+    		escriu_arraylist_conexions(c);    		
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
+    }
+    
+    
+    public void TestControladorConsultar_ids_rutas()
+    {
+    	try {
+    		ArrayList<Integer> c = new ArrayList<Integer>();
+    		c = cr.Consultar_ids_rutas();
+    		escriu_arraylist(c);
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
     }
     
     public void escriu_arraylist(ArrayList<Integer> e)
