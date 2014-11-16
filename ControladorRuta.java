@@ -144,10 +144,8 @@ public class ControladorRuta {
     public void CrearRuta_automatica(ControladorPlaneta cp) throws Exception
     {
         Random aleatorio = new Random();
-        int id = aleatorio.nextInt(2147483647); // 0 <= id < 2147483648
-        while (ExisteRuta(id)){
-            id = aleatorio.nextInt(2147483647); // 0 <= id < 2147483648
-        }
+        int id = 0;
+        while(ExisteRuta(id)) ++id;
         int capacidad = aleatorio.nextInt(2147483647);
         int distancia = aleatorio.nextInt(2147483647);
         while (distancia == 0) {
