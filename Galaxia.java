@@ -50,38 +50,6 @@ public class Galaxia {
     }
     
     /**
-     * Metodo para consultar las coordenadas menores del limite que forma la galaxia
-     * @return La minima "x" y la minima "y" de las coordenadas que forman el limite de la galaxia
-     */
-    private Pair<Integer, Integer> menorXY()
-    {
-    	Integer first = limits.get(0).consultarPrimero();
-    	Integer second = limits.get(0).consultarSegundo();
-    	for(int i = 1; i < limits.size(); ++i) {
-    		if(limits.get(i).consultarPrimero() < first) first = limits.get(i).consultarPrimero();
-    		if(limits.get(i).consultarSegundo() < second) second = limits.get(i).consultarSegundo();
-    	}
-    	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(first,second);
-    	return pa;
-    }
-    
-    /**
-     * Metodo para consultar las coordenadas maximas del limite que forma la galaxia
-     * @return La maxima "x" y la maxima "y" de las coordenadas que forman el limite de la galaxia
-     */
-    private Pair<Integer, Integer> majorXY()
-    {
-    	Integer first = limits.get(0).consultarPrimero();
-    	Integer second = limits.get(0).consultarSegundo();
-    	for(int i = 1; i < limits.size(); ++i) {
-    		if(limits.get(i).consultarPrimero() > first) first = limits.get(i).consultarPrimero();
-    		if(limits.get(i).consultarSegundo() > second) second = limits.get(i).consultarSegundo();
-    	}
-    	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(first,second);
-    	return pa;
-    }
-    
-    /**
      * Metodo para devolver un numero aleatorio en un rango delimitado por [min..max]
      * @param min
      * @param max
@@ -90,7 +58,7 @@ public class Galaxia {
     private int randInt(int min, int max)
     {
     	Random rand = new Random();
-    	int randomNum = rand.nextInt((max - min) + 1) + min;
+    	int randomNum = rand.nextInt(max - min + 1) + min;
     	return randomNum;
     }
     
@@ -140,10 +108,10 @@ public class Galaxia {
         if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
         if(l.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
         nomGalaxia = nom;
+        gal = new int[n][n]; 
         N = new Integer(n);
         limits = l;
         presupost = new Integer(-1);
-        gal = new int[n][n]; 
         inicialitzaMatriu();
     }
   
@@ -210,7 +178,9 @@ public class Galaxia {
     {
         if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
         if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
-        if(!dintreLimitUsuari(x,y)) throw new Exception("Error: las coordenadas no pueden estar fuera del limite que da forma a la galaxia");
+        if(limits.size() > 0) {
+        	if(!dintreLimitUsuari(x,y)) throw new Exception("Error: las coordenadas no pueden estar fuera del limite que da forma a la galaxia");
+        }
         
         return (gal[x][y] > 0);
     }
@@ -254,28 +224,28 @@ public class Galaxia {
     public boolean dintreLimitUsuari(int x, int y) throws Exception
 	{
 	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
-	         int max_first, max_second, max_x, max_y;
-	         max_first = max_second = max_x = max_y = 0;
+	         int min_first, max_second, min_x, max_y;
+	         min_first = max_second = min_x = max_y = 0;
 	         for(int i = 0; i < N; ++i) {
-	         	if(gal[x][i] == -1 && i != x) {
-	         		max_first = i;
+	         	if(gal[x][i] == -1) {
+	         		min_first = i;
 	         		break;
 	         	}
 	         }
-	         for(int i = max_first + 1; i < N; ++i) {
-	         	if(gal[x][i] == -1 && i != x) max_second = i;
+	         for(int i = min_first + 1; i < N; ++i) {
+	         	if(gal[x][i] == -1) max_second = i;
 	         }
 	         for(int i = 0; i < N; ++i) {
-	         	if(gal[i][y] == -1 && i != y) {
-	         		max_x = i;
+	         	if(gal[i][y] == -1) {
+	         		min_x = i;
 	             	break;
 	         	}
 	         }
-	         for(int i = max_x + 1; i < N; ++i) {
-	         	if(gal[i][y] == -1 && i != y) max_y = i;
+	         for(int i = min_x + 1; i < N; ++i) {
+	         	if(gal[i][y] == -1) max_y = i;
 	         }
 	         
-	         if((max_first < x && x < max_second) && (max_x < y && y < max_y)) return true;
+	         if((min_first < y  &&  y < max_second) && (min_x < x && x < max_y)) return true;
 	         else return false;
 	 }
 
@@ -366,16 +336,20 @@ public class Galaxia {
     	if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
     	
     	if(limits.size() > 0) { // Galaxia con limites impuestos
-		    Pair<Integer, Integer> pa = menorXY();
-		    Pair<Integer, Integer> pa1 = majorXY();
-		    int rndX = randInt(pa.consultarPrimero().intValue(), pa1.consultarPrimero().intValue());
-		    int rndY = randInt(pa.consultarSegundo().intValue(), pa1.consultarSegundo().intValue());
-		    boolean b = existeixPlanetaCoordenades(rndX, rndY);
-		    boolean c = dintreLimitUsuari(rndX, rndY);
-		    if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
-		    if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
-		    Pair<Integer, Integer> par = new Pair<Integer, Integer>(rndX, rndY);
-    		gal[rndX][rndY] = idPlaneta;
+    		int tmp1 = 0,tmp2 = 0;
+    		boolean posible = false;
+    		for(int i = 0; i < N && !posible; ++i) {
+    			for(int j = 0; j < N && !posible; ++j) {
+    				if(dintreLimitUsuari(i,j) && (gal[i][j] == 0)) {
+    					posible = true;
+    					tmp1 = i;
+    					tmp2 = j;
+    				}
+    			}
+    		}
+    		if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
+		    Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
+    		gal[tmp1][tmp2] = idPlaneta;
     		return par;
     	}
     	else { // Galaxia sin limites
