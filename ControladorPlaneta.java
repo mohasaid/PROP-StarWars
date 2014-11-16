@@ -82,6 +82,7 @@ public class ControladorPlaneta {
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Fuente = F y Sumidero = S.
     public void Planeta(int id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception {
         if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
+        if(id < 1) throw new Exception("El identificador ha de ser mayor que 0");
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(p);
         cg.afegirPlaneta(id, Coo.consultarPrimero(), Coo.consultarSegundo());
