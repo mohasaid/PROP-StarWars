@@ -62,34 +62,21 @@ public class ControladorPlaneta {
     public void PlanetaAuto(ControladorGalaxia cg) throws Exception 
     {
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
-    	int c1 = randInt(0,Integer.MAX_VALUE-1);
-    	int c2 = randInt(0,Integer.MAX_VALUE-1);
-        int idP = 0;
+        int idP = 1;
         while(ExistePlaneta(idP)) ++idP;
-        Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
-        Coo.ponPrimero(c1);
-        Coo.ponSegundo(c2);
-        Planeta p = new Planeta(idP, r1, Coo);
         Pair<Integer, Integer> co_nuevas = cg.afegirPlanetaAutomatic(idP);
+        Planeta p = new Planeta(idP, r1, co_nuevas);
         p.modificarCoordenades(co_nuevas.consultarPrimero(), co_nuevas.consultarSegundo());
         listaPlanetas.add(p);
-        
-        // AUTOMATICO
     }
     
     public void PlanetaAuto(int id, ControladorGalaxia cg) throws Exception 
     {
+    	if(ExistePlaneta(id)) throw new Exception("Existe un planeta con ese identificador");
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
-    	int c1 = randInt(0,Integer.MAX_VALUE-1);
-    	int c2 = randInt(0,Integer.MAX_VALUE-1);
-        Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(null, null);
-        Coo.ponPrimero(c1);
-        Coo.ponSegundo(c2);
-        Planeta p = new Planeta(id, r1, Coo);
         Pair<Integer, Integer> co_nuevas = cg.afegirPlanetaAutomatic(id);
-        p.modificarCoordenades(co_nuevas.consultarPrimero(), co_nuevas.consultarSegundo());
+        Planeta p = new Planeta(id, r1, co_nuevas);
         listaPlanetas.add(p);
-        // AUTOMATICO
     }
     //Pre: Cierto.
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Fuente = F y Sumidero = S.
@@ -218,7 +205,7 @@ public class ControladorPlaneta {
     public void Borrar(int id, ControladorGalaxia cg, ControladorRuta cr) throws Exception {
         Planeta p = BuscarPlaneta(id);
         listaPlanetas.remove(p);
-        cr.BorrarRutaConexions_desdePlaneta(id);
+        cr.BorrarRutaConexions(id);
         cg.eliminarPlaneta(p.Consultar_id());
         // p.Borrar();
     }
