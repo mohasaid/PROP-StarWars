@@ -35,22 +35,42 @@ public class ControladorMFP{
 	}
 	
 	//Entrada
-	public void InitEntrada(ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp) throws Exception{
-		e = new Entrada(cg.convierteRutasYPlanetas(cr,cp));
+	public void InitEntrada(ControladorGalaxia cg) throws Exception{
+		e = new Entrada(cg);
 	}
 	//Funciones de coste
-	public void SeleccionarFC(int i, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp) throws Exception{
-		if(i==1){
+	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp) throws Exception{
+		if(x==1){
 			fc = new FuncionFlujo();
-			e = fc.Calcular(cg.convierteRutasYPlanetas(cr,cp),e);
+			for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
+				for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
+					e.Consultar_grafo().consultarPrim(i,j).ModificarCoste(fc.CalcularCoste());
+				}
+			}
 		}
-		if(i==2){
+		if(x==2){
 			fc = new FuncionDistancia();
-			e = fc.Calcular(cg.convierteRutasYPlanetas(cr,cp),e);
+			for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
+				for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
+					Arco aux = e.Consultar_grafo().consultarPrim(i,j);
+					Ruta r = cr.BuscarRuta(aux.ConsultarIdRuta());
+					fc.ModificarRuta(r);
+					e.Consultar_grafo().consultarPrim(i,j).ModificarCoste(fc.CalcularCoste());
+				}
+			}
 		}
-		if(i==3){
+		if(x==3){
 			fc = new FuncionPrecio();
-			e = fc.Calcular(cg.convierteRutasYPlanetas(cr,cp),e);
+			for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
+				for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
+					Arco aux = e.Consultar_grafo().consultarPrim(i,j);
+					Ruta r = cr.BuscarRuta(aux.ConsultarIdRuta());
+					Planeta p = cp.Consultar_PlanetaX(e.Consultar_grafo().consultarSeg(i,j));
+					fc.ModificarRuta(r);
+					fc.ModificarPlaneta(p);
+					e.Consultar_grafo().consultarPrim(i,j).ModificarCoste(fc.CalcularCoste());
+				}
+			}
 		}
 		FuncionElegida=true;
 	}
