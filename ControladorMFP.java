@@ -35,6 +35,7 @@ public class ControladorMFP{
 		Iterator<Integer> it = aux.iterator();
 		while(it.hasNext()){
 			int id = it.next();
+			Nave n = cn.BuscarNave(id);
 			int cons =  cn.ConsultarConsumo(id);
 			alg.Caminos(id,cons);
 		}
