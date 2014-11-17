@@ -88,12 +88,6 @@ public class ControladorPlaneta {
         cg.afegirPlaneta(id, Coo.consultarPrimero(), Coo.consultarSegundo());
     }
     //Pre: Cierto.
-    //Post: Retorna la Capacidad del planeta.
-    public int Consultar_Capacidad(int id) throws Exception 
-    {
-        return BuscarPlaneta(id).Consultar_Capacidad();
-    }
-    //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
     public int Consultar_Coste(int id) throws Exception 
     {
@@ -125,27 +119,16 @@ public class ControladorPlaneta {
     }
     //Pre: Cierto.
     //Post: Retorna listaPlanetas.
-    public ArrayList<String> Consultar_listaPlanetas() throws Exception
+    public String Consultar_listaPlanetas() throws Exception
     {
-    	ArrayList<String> result = new ArrayList<String>();
     	String res;
     	Iterator<Planeta> it = listaPlanetas.iterator();
-    	int iter = 0;
     	res = "";
     	while (it.hasNext()) {
-    		if(iter < 100) {
     			res += " - " + it.next().Consultar_id();
-    			++iter;
-    		}
-    		else {
-    			result.add(res);
-    			iter = 0;
-    			res = "";
-    		}
     	}
     	res += "\n";
-    	result.add(res);
-        return result;
+        return res;
     }
     
     public ArrayList<Integer> consultarPlanetas() throws Exception
@@ -172,21 +155,12 @@ public class ControladorPlaneta {
         a = it.next();
         return a;
     }
+    
     //Pre: Cierto.
-    //Post: Modifica la id del planeta.
-    public void Modificar_id(int idold, int idnew, ControladorGalaxia cg) throws Exception 
-    {
-        Planeta p = BuscarPlaneta(idold);
-        listaPlanetas.remove(p);
-        p.Modificar_id(idnew);
-        listaPlanetas.add(p);
-        cg.modificarIDPlaneta(p.consultar_X(),p.consultar_Y(), idnew); ///NUEVA
-    }
-    //Pre: Cierto.
-    //Post: Modifica la capacidad del planeta.
-    public void Modificar_Capacidad(int id, int c) throws Exception 
-    {
-        BuscarPlaneta(id).modificarCapacidad(c);
+    //Post: Retorna todas las rutas que conectan con el Planeta id.
+    public void consultarRutasConecta(int id, ControladorRuta cr) throws Exception{
+    	System.out.println("Las Rutas que entran en el Planeta son: " + cr.Consultar_entrades_planeta(id));
+    	System.out.println("Las Rutas que salen del Planeta son: " + cr.Consultar_sortides_planeta(id));
     }
     //Pre: Cierto.
     //Post: Modifica el coste del planeta.
