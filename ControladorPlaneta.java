@@ -252,7 +252,8 @@ public class ControladorPlaneta {
     		cdp.CerrarEscritura();
     	}
     }
-    public String consultarTodoPlaneta(String path) throws Exception {
+    
+    public String consultarTODO() throws Exception {
     	String res ="";
     	for(Planeta p : listaPlanetas) {
 			res +=p.Consultar_id()+":";
