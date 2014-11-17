@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Scanner;
  
 public class ControladorGalaxia
 {
@@ -194,13 +193,12 @@ public class ControladorGalaxia
      * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
      * @throws Exception
      */
-    public /*String*/ Pair<Integer, Integer> afegirPlanetaAutomatic(int idPlaneta) throws Exception
+    public String afegirPlanetaAutomatic(int idPlaneta) throws Exception
     {
-    	/*String res = "";
+    	String res = "";
     	Pair<Integer, Integer> p = g.afegirPlanetaAutomatic(idPlaneta);
     	res = p.consultarPrimero() + "," + p.consultarSegundo();
-    	return res;*/
-    	return g.afegirPlanetaAutomatic(idPlaneta);
+    	return res;
     }
     
     /**
@@ -265,12 +263,21 @@ public class ControladorGalaxia
     	ArrayList<Integer> destinos = cn.PlanetasDestino();
 		ArrayList<Pair<Arco, Integer> > tmp = new ArrayList<Pair<Arco, Integer> >();
     	for(int i = 0; i < destinos.size(); ++i) {
-    		Arco c = new Arco(Integer.MAX_VALUE,0);
+    		Arco c = new Arco(Integer.MAX_VALUE,-1);
     		int t = destinos.get(i);
     		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,t);
     		tmp.add(pac);
     	}
-    	resultado.add(tmp); // ULTIMO NODO VIRTUAL
+    	resultado.add(tmp); // ULTIMO NODO VIRTUAL - DESTINO
+    	ArrayList<Pair<Arco, Integer> > tmp1 = new ArrayList<Pair<Arco, Integer> >();
+    	ArrayList<Integer> origenes = cn.PlanetasOrigen();
+    	for(int i = 0; i < origenes.size(); ++i) {
+    		Arco c = new Arco(Integer.MAX_VALUE,-2);
+    		int t = origenes.get(i);
+    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,t);
+    		tmp.add(pac);
+    	}
+    	resultado.add(tmp1); // ULTIMO NODO VIRTUAL - ORIGEN
     	return resultado;
     }
     	
