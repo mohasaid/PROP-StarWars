@@ -2,7 +2,10 @@ import java.util.*;
 
 
 public abstract class MFP{
-	//protected Salida s;
+	protected Salida s;
+	protected Grafo g_residual;
+	protected Grafo g;
+	
 	public ArrayList<Integer> ConsultarCuellos(){
 		return s.ConsultarCuellos();
 	}
@@ -24,5 +27,8 @@ public abstract class MFP{
 	}
 	public abstract int Ejecutar(int origen, int destino);
 	public abstract void Recorrido(int origen,int destino);
+	public void Caminos(int idNave, int consumo){
+		//Codigo caminos
 	}
-
+	
+	}
