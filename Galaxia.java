@@ -62,20 +62,6 @@ public class Galaxia {
     }
     
     // CONSTRUCTORAS
-  
-    // Pre: Cierto
-    // Post: Se crea una galaxia vacia
-    /*public Galaxia()
-    {
-        nomGalaxia = "";
-        //gal = new int[N][]; 
-        presupost = new Integer(-1); 
-        planetes = new TreeSet<Planeta>(new OrdenPlaneta()); 
-        rutes = new TreeSet<Ruta>(new OrdenRuta());
-        naus = new TreeSet<Nave>(new OrdenNave());
-        //N = 0;
-        limits = new ArrayList<Pair<Integer,Integer> >();
-    }*/
     
     /**
      * Metodo para construir una galaxia sin ningun tipo de limite/forma con un determinado nombre y limite maximo
@@ -374,7 +360,6 @@ public class Galaxia {
 	public void eliminarContingutGalaxia() throws Exception
     {
         limits = new ArrayList<Pair<Integer,Integer> >();
-        // N = 0;
         gal = new int[N][N];
     }
 }
