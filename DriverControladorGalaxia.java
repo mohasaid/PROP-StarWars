@@ -79,59 +79,59 @@ public class DriverControladorGalaxia {
       n = cin.nextInt();
       while(n != 0) {
     	  switch(n) {
-    	  	case 1: TestCrearControladorGalaxia(); break; // HECHA
+    	  	case 1: TestCrearControladorGalaxia(); break; 
     	  	
-    	  	case 2: TestCrearGalaxia(); break; // HECHA
-    	  	case 3: TestCrearGalaxia2(); break; // HECHA
+    	  	case 2: TestCrearGalaxia(); break; 
+    	  	case 3: TestCrearGalaxia2(); break; 
     	  	
-    	  	case 4: TestConsultarNom(); break; // HECHA
-    	  	case 5: TestConsultarElementsGalaxia(); break; // HECHA
-    	  	case 6: TestConsultarLimitsGalaxia(); break; // HECHA
-    	  	case 7: TestConsultarLimit(); break; // HECHA
-    	  	case 8: TestConsultarPresupost(); break; // HECHA
-    	  	case 9: TestdintreLimitUsuari(cin); break;  // HECHA
+    	  	case 4: TestConsultarNom(); break; 
+    	  	case 5: TestConsultarElementsGalaxia(); break; 
+    	  	case 6: TestConsultarLimitsGalaxia(); break; 
+    	  	case 7: TestConsultarLimit(); break; 
+    	  	case 8: TestConsultarPresupost(); break; 
+    	  	case 9: TestdintreLimitUsuari(cin); break;  
     	  	
-    	  	case 10: TestmodificarNom(cin); break; // HECHA
-    	  	case 11: TestmodificarLimit(cin); break; // HECHA
-    	  	case 12: TestmodificarPresupost(cin); break; // HECHA
-    	  	case 13: TestmodificarLimits(cin); break;  // HECHA
+    	  	case 10: TestmodificarNom(cin); break; 
+    	  	case 11: TestmodificarLimit(cin); break; 
+    	  	case 12: TestmodificarPresupost(cin); break; 
+    	  	case 13: TestmodificarLimits(cin); break;  
     	  	
-    	  	case 14: TestconsultarNumPlanetes(cp); break; // HECHA
-    	  	case 15: TestLlistaPlanetes(cp); break; // HECHA
-    	  	case 16: TestConsultarPlaneta(cin,cp); break; // HECHA
-    	  	case 17: TestexisteixPlaneta(cin); break; // HECHA
-    	  	case 18: TestexisteixPlanetaCoordenades(cin); break; // HECHA
-    	  	case 19: TestAlgunPlaneta(); break; // HECHA
-    	  	case 20: TestconsultaIDplaneta(cin); break; // HECHA
-    	  	case 21: TestmodificarIDplaneta(cin,cp); break; // HECHA
-    	  	case 22: TestafegirPlaneta(cp,cin); break; // HECHA
-    	  	case 23: TestafegirPlanetaAutomatic(cp,cin); break; // HECHA
-    	  	case 24: TestAfegirPlanetaNIDAuto(cp); break; // HECHA
-    	  	case 25: TesteliminarPlaneta(cp,cr,cn); break; // HECHA
-    	  	case 26: TesteliminarPlanetes(cp,cr,cn); break; // HECHA
+    	  	case 14: TestconsultarNumPlanetes(cp); break; 
+    	  	case 15: TestLlistaPlanetes(cp); break; 
+    	  	case 16: TestConsultarPlaneta(cin,cp); break; 
+    	  	case 17: TestexisteixPlaneta(cin); break; 
+    	  	case 18: TestexisteixPlanetaCoordenades(cin); break; 
+    	  	case 19: TestAlgunPlaneta(); break; 
+    	  	case 20: TestconsultaIDplaneta(cin); break; 
+    	  	case 21: TestmodificarIDplaneta(cin,cp); break; 
+    	  	case 22: TestafegirPlaneta(cp,cin); break; 
+    	  	case 23: TestafegirPlanetaAutomatic(cp,cin); break; 
+    	  	case 24: TestAfegirPlanetaNIDAuto(cp); break; 
+    	  	case 25: TesteliminarPlaneta(cp,cr,cn); break; 
+    	  	case 26: TesteliminarPlanetes(cp,cr,cn); break; 
     	  	
-    	  	case 27: TestconsultarNumRutes(cr); break; // HECHA
-    	  	case 28: TestLlistaRutes(cr); break; // HECHA
-    	  	case 29: TestconsultarRuta(cr,cin); break; // HECHA
-    	  	case 30: TestexisteixRuta(cr,cin); break; // HECHA
-    	  	case 31: TestCrearRuta(cr,cp,cin); break; // HECHA
-    	  	case 32: TestCrearRutaAuto(cr,cp); break; // HECHA
-    	  	case 33: TestCrearRutaAutoID(cin,cr,cp); break; // HECHA
-    	  	case 34: TestEliminarRuta(cr,cin); break; // HECHA
-    	  	case 35: TestEliminarRutes(cr); break; // HECHA
+    	  	case 27: TestconsultarNumRutes(cr); break; 
+    	  	case 28: TestLlistaRutes(cr); break; 
+    	  	case 29: TestconsultarRuta(cr,cin); break; 
+    	  	case 30: TestexisteixRuta(cr,cin); break; 
+    	  	case 31: TestCrearRuta(cr,cp,cin); break; 
+    	  	case 32: TestCrearRutaAuto(cr,cp); break; 
+    	  	case 33: TestCrearRutaAutoID(cin,cr,cp); break; 
+    	  	case 34: TestEliminarRuta(cr,cin); break; 
+    	  	case 35: TestEliminarRutes(cr); break; 
     	  	
-    	  	case 36: TestConsultaNumNau(cn); break; // HECHA
-    	  	case 37: TestLListaNaus(cn); break; // HECHA
-    	  	case 38: TestCrearTipoNave(cin,cn); break; // HECHA
-    	  	case 39: TestCrearTipoNaveAuto(cin,cn); break; // HECHA
-    	  	case 40: TestConsultarTiposNave(cn); break; // HECHA
-    	  	case 41: TestConsultarConsumoTipoNave(cin,cn); break; // HECHA
-    	  	case 42: TestcrearNau(cin,cn); break; // HECHA
-    	  	case 43: TestCrearNaveAuto(cn,cin,cp); break; // HECHA
-    	  	case 44: TesteliminarNau(cin,cn); break; // HECHA
-    	  	case 45: TesteliminarTotesNaus(cn); break; // HECHA
+    	  	case 36: TestConsultaNumNau(cn); break; 
+    	  	case 37: TestLListaNaus(cn); break; 
+    	  	case 38: TestCrearTipoNave(cin,cn); break; 
+    	  	case 39: TestCrearTipoNaveAuto(cin,cn); break; 
+    	  	case 40: TestConsultarTiposNave(cn); break; 
+    	  	case 41: TestConsultarConsumoTipoNave(cin,cn); break; 
+    	  	case 42: TestcrearNau(cin,cn); break; 
+    	  	case 43: TestCrearNaveAuto(cn,cin,cp); break; 
+    	  	case 44: TesteliminarNau(cin,cn); break; 
+    	  	case 45: TesteliminarTotesNaus(cn); break; 
     	  	
-    	  	case 46: TesteliminarContingutGalaxia(cr,cp,cn); break; // HECHA
+    	  	case 46: TesteliminarContingutGalaxia(cr,cp,cn); break; 
     	  	
     	  	case 47: TestcarregarConjuntGalaxia(cr,cp,cn); break;
     	  	case 48: TestguardarConjuntGalaxia(cr,cp,cn); break;
@@ -142,12 +142,12 @@ public class DriverControladorGalaxia {
       }
 	}
 	
-	public void TestCrearControladorGalaxia()  // HECHA
+	public void TestCrearControladorGalaxia()  
 	{
 		cGalaxia = new ControladorGalaxia();
 	}
 	
-	public void TestCrearGalaxia() // HECHA
+	public void TestCrearGalaxia() 
 	{
 		try {
 			String n = cin.next();
@@ -159,7 +159,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestCrearGalaxia2() // HECHA
+	public void TestCrearGalaxia2() 
 	{
 		try {
 			System.out.println("Introduce nombre");
@@ -212,7 +212,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarNom() // HECHA
+	public void TestConsultarNom() 
 	{
 		try {
 			System.out.println(cGalaxia.consultar_nom());
@@ -222,7 +222,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarElementsGalaxia() // HECHA
+	public void TestConsultarElementsGalaxia() 
 	{
 		try {
 			String res = cGalaxia.consultarElementsGalaxia();
@@ -237,7 +237,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarPresupost() // HECHA
+	public void TestConsultarPresupost() 
 	{
 		try {
 			System.out.println(cGalaxia.consultarPresupost());
@@ -247,7 +247,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestdintreLimitUsuari(Scanner cin) // HECHA
+	public void TestdintreLimitUsuari(Scanner cin) 
 	{
 		try {
 			int x = cin.nextInt();
@@ -260,7 +260,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestLlistaPlanetes(ControladorPlaneta cp) // HECHA
+	public void TestLlistaPlanetes(ControladorPlaneta cp) 
 	{
 		try {
 			ArrayList<Integer> ar = cp.consultarPlanetas();
@@ -272,7 +272,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestLlistaRutes(ControladorRuta cr) // HECHA
+	public void TestLlistaRutes(ControladorRuta cr) 
 	{
 		try {
 			 ArrayList<Integer> ar = cr.Consultar_ids_rutas();
@@ -284,7 +284,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestLListaNaus(ControladorNave cn) // HECHA
+	public void TestLListaNaus(ControladorNave cn) 
 	{
 		try{
         	String res = "";
@@ -301,7 +301,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestconsultarNumPlanetes(ControladorPlaneta cp) // HECHA
+	public void TestconsultarNumPlanetes(ControladorPlaneta cp) 
 	{
 		try {
 			int n = cp.Consultar_Size();
@@ -312,7 +312,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarLimit() // HECHA
+	public void TestConsultarLimit() 
 	{
 		try {
 			System.out.println(cGalaxia.consultarLimit());
@@ -322,7 +322,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarLimitsGalaxia() // HECHA
+	public void TestConsultarLimitsGalaxia() 
 	{
 		try {
 			String res = cGalaxia.consultarLimitsGalaxia();
@@ -337,7 +337,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestexisteixPlaneta(Scanner cin) // HECHA
+	public void TestexisteixPlaneta(Scanner cin)
 	{
 		try {
 			int idPlaneta = cin.nextInt();
@@ -349,7 +349,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestmodificarNom(Scanner cin) // HECHA
+	public void TestmodificarNom(Scanner cin)
 	{
 		try {
 			String n = cin.next();
@@ -360,7 +360,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestmodificarLimit(Scanner cin) // HECHA
+	public void TestmodificarLimit(Scanner cin) 
 	{
 		try {
 			int l = cin.nextInt();
@@ -371,7 +371,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestmodificarPresupost(Scanner cin) // HECHA
+	public void TestmodificarPresupost(Scanner cin) 
 	{
 		try {
 			int p = cin.nextInt();
@@ -382,7 +382,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestmodificarLimits(Scanner cin)  // HECHA
+	public void TestmodificarLimits(Scanner cin)  
 	{
 		try {
 			List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
@@ -430,7 +430,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestafegirPlaneta(ControladorPlaneta cp, Scanner cin) // HECHA
+	public void TestafegirPlaneta(ControladorPlaneta cp, Scanner cin) 
 	{
 		try {
 			int idPlaneta = cin.nextInt();
@@ -447,7 +447,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestafegirPlanetaAutomatic(ControladorPlaneta cp, Scanner cin) // HECHA
+	public void TestafegirPlanetaAutomatic(ControladorPlaneta cp, Scanner cin) 
 	{
 		try {
 			int idPlaneta = cin.nextInt();
@@ -462,7 +462,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestAfegirPlanetaNIDAuto(ControladorPlaneta cp) // HECHA
+	public void TestAfegirPlanetaNIDAuto(ControladorPlaneta cp) 
 	{
 		try {
 			Random rand = new Random();
@@ -479,7 +479,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarPlaneta(Scanner cin, ControladorPlaneta cp) // HECHA
+	public void TestConsultarPlaneta(Scanner cin, ControladorPlaneta cp) 
 	{
 		try {
 			int idPlaneta = cin.nextInt();
@@ -495,7 +495,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestexisteixPlanetaCoordenades(Scanner cin)  // HECHA
+	public void TestexisteixPlanetaCoordenades(Scanner cin)  
 	{
 		try {
 			int x = cin.nextInt();
@@ -508,7 +508,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestAlgunPlaneta() // HECHA
+	public void TestAlgunPlaneta() 
 	{
 		try {
 			if(cGalaxia.algunPlaneta()) System.out.println("Si que hay algun planeta");
@@ -519,7 +519,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestconsultaIDplaneta(Scanner cin) // HECHA
+	public void TestconsultaIDplaneta(Scanner cin) 
 	{
 		try {
 			int x = cin.nextInt();
@@ -532,7 +532,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestmodificarIDplaneta(Scanner cin, ControladorPlaneta cp) // HECHA
+	public void TestmodificarIDplaneta(Scanner cin, ControladorPlaneta cp) 
 	{
 		try {
 			int x = cin.nextInt();
@@ -551,7 +551,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TesteliminarPlaneta(ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) // HECHA
+	public void TesteliminarPlaneta(ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) 
 	{
 		try {
 			int idPlaneta = cin.nextInt();
@@ -565,7 +565,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TesteliminarPlanetes(ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) // HECHA
+	public void TesteliminarPlanetes(ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) 
 	{
 		try{
 	    	cGalaxia.eliminarPlanetes();
@@ -578,13 +578,13 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestconsultarNumRutes(ControladorRuta cr) // HECHA
+	public void TestconsultarNumRutes(ControladorRuta cr) 
 	{
 		 int p = cr.Consultar_numero_rutes();
 	     System.out.println("Numero de rutas en la galaxia es: " + p);
 	}
 	
-	public void TestconsultarRuta(ControladorRuta cr, Scanner cin) // HECHA
+	public void TestconsultarRuta(ControladorRuta cr, Scanner cin) 
 	{
 		try {
     		System.out.println("Introduce el identificador de la ruta");
@@ -603,7 +603,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestexisteixRuta(ControladorRuta cr, Scanner cin) // HECHA
+	public void TestexisteixRuta(ControladorRuta cr, Scanner cin) 
 	{
 		try{
     		System.out.println("Introduce el identificador de la ruta");
@@ -617,7 +617,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestCrearRuta(ControladorRuta cr, ControladorPlaneta cp, Scanner cin) // HECHA
+	public void TestCrearRuta(ControladorRuta cr, ControladorPlaneta cp, Scanner cin) 
 	{
 		try {
 			int idRuta = cin.nextInt();
@@ -633,7 +633,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestCrearRutaAuto(ControladorRuta cr, ControladorPlaneta cp) // HECHA
+	public void TestCrearRutaAuto(ControladorRuta cr, ControladorPlaneta cp) 
 	{
 		try {
         	cr.CrearRuta_automatica(cp);
@@ -642,7 +642,7 @@ public class DriverControladorGalaxia {
             System.out.println(e);
         }
 	}
-	public void TestCrearRutaAutoID(Scanner cin, ControladorRuta cr, ControladorPlaneta cp) // HECHA
+	public void TestCrearRutaAutoID(Scanner cin, ControladorRuta cr, ControladorPlaneta cp) 
 	{
 		try {
     		System.out.print("Introduce el identificador de la ruta");
@@ -654,7 +654,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestEliminarRuta(ControladorRuta cr, Scanner cin) // HECHA
+	public void TestEliminarRuta(ControladorRuta cr, Scanner cin) 
 	{
 		try {
 			int idRuta = cin.nextInt();
@@ -665,7 +665,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestEliminarRutes(ControladorRuta cr) // HECHA
+	public void TestEliminarRutes(ControladorRuta cr) 
 	{
 		try{
     		cr.BorrarRutas();
@@ -675,13 +675,13 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultaNumNau(ControladorNave cn) // HECHA
+	public void TestConsultaNumNau(ControladorNave cn) 
 	{
 		int p = cn.size();
         System.out.println("Numero de naves en la galaxia: " + p);
 	}
 	
-	public void TestafegirNau(ControladorNave cn) // HECHA
+	public void TestafegirNau(ControladorNave cn) 
 	{
 		try {
 			int idNau = cin.nextInt();
@@ -695,7 +695,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestCrearTipoNave(Scanner cin, ControladorNave cn) // HECHA
+	public void TestCrearTipoNave(Scanner cin, ControladorNave cn) 
     {
     	try {
     		System.out.println("Introduce tipo");
@@ -709,7 +709,7 @@ public class DriverControladorGalaxia {
         }
     }
 	
-	public void TestCrearTipoNaveAuto(Scanner cin, ControladorNave cn) // HECHA
+	public void TestCrearTipoNaveAuto(Scanner cin, ControladorNave cn) 
     {
     	try {
     		cn.CrearTipoNaveAuto();
@@ -719,7 +719,7 @@ public class DriverControladorGalaxia {
         }
     }
 	
-	public void TestConsultarTiposNave(ControladorNave cn) // HECHA
+	public void TestConsultarTiposNave(ControladorNave cn) 
     {
     	try {
     		System.out.println(cn.ConsultarTipos());
@@ -729,7 +729,7 @@ public class DriverControladorGalaxia {
         }
     }
 	
-	 public void TestConsultarConsumoTipoNave(Scanner cin, ControladorNave cn) // HECHA
+	 public void TestConsultarConsumoTipoNave(Scanner cin, ControladorNave cn) 
 	 {
     	try {
     		System.out.println("Introduce tipo");
@@ -794,7 +794,7 @@ public class DriverControladorGalaxia {
         }
     }
 	
-	public void TesteliminarContingutGalaxia(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) // HECHA
+	public void TesteliminarContingutGalaxia(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) 
 	{
 		try {
 			cGalaxia.eliminarContingutGalaxia();
