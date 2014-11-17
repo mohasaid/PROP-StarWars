@@ -115,7 +115,7 @@ public class ControladorNave{
 						}
 					return planetas;				
 			}
-				public ArrayList<Integer> PlanetasDestino(int id) throws Exception{
+				public ArrayList<Integer> PlanetasDestino() throws Exception{
 					ArrayList<Integer> planetas = new ArrayList<Integer>();
 					Iterator<TipoNave1> it = listaNaves1.iterator();
 					while(it.hasNext()){
