@@ -19,7 +19,8 @@ public class Planeta
     // Pre: Cierto.
     // Post: Crea un planeta con idPlaneta = id, Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
     public Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception
-    {
+    {	
+    	if (id < 0) throw new Exception ("Error: ID no valida");
         if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo\n");
         idPlaneta = id;
         Coste = k;
@@ -41,21 +42,24 @@ public class Planeta
     }
     //Pre: Cierto.
     //Post: Retorna las Coordenadas del planeta.
-    public Pair<Integer,Integer> consultar_coordenades() //No se como funciona en pairs
+    public Pair<Integer,Integer> consultar_coordenades() throws Exception //No se como funciona en pairs
     {
+    	if(Coordenadas == null) throw new Exception ("Error: El Planeta no tiene coordenadas\n");
         return Coordenadas;
     }
     //Pre: Cierto.
     //Post: Retorna la primera coordenada del planeta.
-    public int consultar_X() 
+    public int consultar_X() throws Exception 
     {
-        return Coordenadas.consultarPrimero();
+        if(Coordenadas == null) throw new Exception ("Error: El Planeta no tiene coordenadas\n");
+    	return Coordenadas.consultarPrimero();
     }
     
     //Pre: Cierto.
     //Post: Retorna la segunda coordenada del planeta.
-    public int consultar_Y() 
+    public int consultar_Y() throws Exception 
     {
+    	if(Coordenadas == null) throw new Exception ("Error: El Planeta no tiene coordenadas\n");
         return Coordenadas.consultarSegundo();
     }
     //Pre: Cierto.
@@ -81,6 +85,7 @@ public class Planeta
     {
         idPlaneta = -1;
         Coste = -1;
+        Coordenadas = null;
     }
 }
 
