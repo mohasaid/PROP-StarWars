@@ -1,36 +1,22 @@
 import java.util.*;
 public class Salida{
 private ArrayList<Integer> CuellosB;
-private ArrayList<Pair<Arco,Integer>> Flujos;
+private ArrayList<String> Caminos;
 private ArrayList<String> Cambios;
 	//CREADORA
 
 	public Salida(){
 		CuellosB = new ArrayList<Integer>();
-		Flujos = new ArrayList<Pair<Arco,Integer>>();
+		Caminos = new ArrayList<String>();
 		Cambios = new ArrayList<String>();
 	}
-	/*
-	public Salida(ArrayList<Integer> cb, int c, ArrayList<Pair<Arco,Integer>> f, ArrayList<String> ca){
-		coste = c;
-		for(int i=0; i < cb.size();++i){
-			CuellosB.add(cb.get(i));
-		}
-		for(int i=0; i < f.size();++i){
-			Pair<Arco,Integer> p = new Pair<Arco,Integer>(f.get(i).consultarPrimero(),f.get(i).consultarSegundo());
-			Flujos.add(p);
-		}
-		for(int i=0; i < ca.size();++i){
-			Cambios.add(ca.get(i));
-		}
-	}
-	*/
+
 	// CONSULTORAS
 	public ArrayList<Integer> ConsultarCuellos(){
 		return CuellosB;
 	}
-	public ArrayList<Pair<Arco,Integer>> ConsultarFlujos(){
-		return Flujos;
+	public ArrayList<String> ConsultarCaminos(){
+		return Caminos;
 	}
 	public ArrayList<String> ConsultarCambios(){
 		return Cambios;
@@ -38,48 +24,29 @@ private ArrayList<String> Cambios;
 	//Pre:cierto
 	//Post: devuelve la suma del numero de elementos en Flujos, y cuellosB
 	public int size(){
-		return Flujos.size()+CuellosB.size();
+		return Caminos.size()+CuellosB.size();
 	}
 	//Pre:cierto
 	//Post: devuelve el numero de elementos en Cambios
 	public int sizeCambios(){
 		return Cambios.size();
 	}
-	
-	public int FlujoArco(int idRuta) {
-		for(int i=0; i<Flujos.size();++i){
-			Pair<Arco,Integer> aux = Flujos.get(i);
-			if(aux.consultarPrimero().ConsultarIdRuta()==idRuta){
-				return (int)aux.consultarSegundo();
-			}
-		}
-		return -1;
-	}
 	//MODIFICADORAS
 	public void AnadirCuello(Arco c){
-		CuellosB.add(c.ConsultarIdRuta());
+		int id = c.ConsultarIdRuta();
+		if(!CuellosB.contains(id))CuellosB.add(id);
 	}
-	public void AnadirFlujo(Arco c, int f){
-		Pair<Arco,Integer> p = new Pair<Arco,Integer>(c,f);
-		Flujos.add(p);
+	public void AnadirCamino(String s){
+		if(!Caminos.contains(s))Caminos.add(s);
 	}
 	public void AnadirCambio(String s){
-	}
-
-	public void GenerarFlujos(Entrada e, ControladorRuta cr) throws Exception{
-		for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
-			for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
-				Arco aux = e.Consultar_grafo().consultarPrim(i,j);
-				int f = (cr.BuscarRuta(aux.ConsultarIdRuta()).consultar_capacidad())-(aux.ConsultarCapacidad());
-				Pair<Arco,Integer> p = new Pair<Arco,Integer>(aux,f);
-			}
-		}
+		if(!Cambios.contains(s))Cambios.add(s);
 	}
 	public void EliminarCuellos(){
 		CuellosB.clear();
 	}
-	public void EliminarFlujos(){
-		Flujos.clear();
+	public void EliminarCaminos(){
+		Caminos.clear();
 	}
 	public void EliminarCambios(){
 		Cambios.clear();
