@@ -27,7 +27,7 @@ public class ControladorNave{
 			Cdn = new ControladorDadesNave();
 		}
 		
-			public ArrayList<Integer> IdNaves(){
+			public ArrayList<Integer> IdNaves() throws Exception{
 				ArrayList<Integer> res = new ArrayList<Integer>();
 				Iterator<TipoNave1> it = listaNaves1.iterator();
 				while(it.hasNext()){
