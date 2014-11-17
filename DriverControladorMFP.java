@@ -8,9 +8,9 @@ public class DriverControladorMFP{
 
         
                 		System.out.print("Opciones: \n\n"
-	     +"---------------------------------------------------------------------------------\n"
+		     +"---------------------------------------------------------------------------------\n"
       	     +"-                                 OPCIONES                                      -\n"
-   	     +"-                     [opcion   Operacion(Atributos)]                           -\n"
+   	         +"-                     [opcion   Operacion(Atributos)]                           -\n"
              +"---------------------------------------------------------------------------------\n"
              +"-                                                                               -\n"
              +"-   0   Salir del DriverControladorMFP                                          -\n"
@@ -37,8 +37,8 @@ public class DriverControladorMFP{
     public static void TestSeleccionarFC(Scanner sc, ControladorMFP cMFP, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp){
     	try{
 	    	System.out.print("Opciones:\n\n"
-	    		+"-----------------------------------------------\n"
-	         	+"-             OPCIONES                        -\n"
+	    			+"-----------------------------------------------\n"
+	         	    +"-             OPCIONES                        -\n"
 	      	        +"-     [opcion   Operacion(Atributos)]         -\n"
 	                +"-----------------------------------------------\n"
 	                +"-                                             -\n"
@@ -56,7 +56,7 @@ public class DriverControladorMFP{
     		System.out.println(e);
     	}
     }
-    public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP, ControladorRuta cr){
+    public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn){
     	try{
 	    	System.out.print("Opciones:\n\n"
 	    			+"-----------------------------------------------\n"
