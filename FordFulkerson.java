@@ -45,6 +45,8 @@ public abstract class FordFulkerson extends MFP{
 			max_flow += pathflow;
 			s.AnadirCambio(res); // salida[i] = iteracion i-1
 		}
+		res = "Llegados a este punto hemos encontrado el flujo maximo, cuyo valor es " + max_flow + ".";
+		s.AnadirCambio(res);
 		s.AnadirMax_flow(max_flow);
 	}
 	
@@ -54,4 +56,3 @@ public abstract class FordFulkerson extends MFP{
 	public abstract boolean Recorrido(int origen, int destino);
 	
 }
-
