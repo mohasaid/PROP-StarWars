@@ -551,15 +551,16 @@ public class ControladorRuta {
       if(sc.hasNext()) s = sc.next();
       while (sc.hasNext()) {
     	  if ( Integer.parseInt(s) == 0 ) { //anadimos ruta
+    	      s = sc.next();
     	      int id = Integer.parseInt(s);
     	      s = sc.next();
     	      int capacidad = Integer.parseInt(s);
     	      s = sc.next();
     	      int distancia = Integer.parseInt(s);
-    	      s = sc.next();
     	      Ruta r = new Ruta(id,capacidad,distancia);
     	      ArbolRutas.add(r);
 	      } else { //anadimos conexion
+		      s = sc.next();
 	    	  int id = Integer.parseInt(s);
     	      s = sc.next();
     	      int ida = Integer.parseInt(s);
@@ -567,12 +568,42 @@ public class ControladorRuta {
     	      int idb = Integer.parseInt(s);
     	      s = sc.next();
     	      Boolean b = Boolean.parseBoolean(s);
-    	      s = sc.next();
+    	      System.out.print("ida = " + ida + "idb = " + idb + "\n");
     	      Conexion c = new Conexion(id,ida,idb,b);
+    	      Conexiones.add(c);
 	      }
+	      s = sc.next();
       }
       Cdr.CerrarLectura();
   }    
+  
+  public String consultarTODO() throws Exception {
+	  String res = "";
+	  	//Guardamos todas la rutas
+	    if(!ArbolRutas.isEmpty()){
+	        res = "";
+	        for (Ruta r : ArbolRutas){  
+	            res += 0 + ":"; //quiere decir que se trata de una ruta
+	            res += r.consultar_id() + ":";
+	            res += r.consultar_capacidad() + ":";
+	            res += r.consultar_distancia();
+	            res += "#";
+	            }
+	        }
+	    
+	    //Guardamos toadas las conexiones
+	    if(!Conexiones.isEmpty()){
+	        for (Conexion c : Conexiones){  
+	            res += 1 + ":"; //quiere decir que se trata de una conexion
+	            res += c.consultar_id() + ":";
+	            res += c.consultar_planetaA() + ":";
+	            res += c.consultar_planetaB() + ":";
+	            res += c.consultar_bidireccional();
+	            res += "#";
+	        }
+	    }
+	    return res;
+  }
   
   //Pre: Cierto.
   //Post: Guarda todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
@@ -599,12 +630,10 @@ public class ControladorRuta {
         }
     }
     
-    //res += "@"; //Le aÃ±adimo este separador para diferenciar entre ruas y conexiones
+    //res += "@"; //Le anadimo este separador para diferenciar entre ruas y conexiones
     
     //Guardamos toadas las conexiones
     if(!Conexiones.isEmpty()){
-        Cdr.AbrirEscritura(path);        
-        res = "";
         int iteracions = 0;
         for (Conexion c : Conexiones){  
             res += 1 + ":"; //quiere decir que se trata de una conexion
