@@ -71,10 +71,10 @@ public class DriverGeneral
                 case 4: DCGalaxia.Executa(cp, cr, cn); break;
                 case 5: DCRuta.Executa(cr, cp); break;
                 case 6: DRuta.Executa(r); break;
-                case 7:	DCP.Ejecuta(cr);break;
+                case 7:	DCP.Ejecuta(cr,cg);break;
                 case 8: Dp.Ejecuta();break;
                 case 9: Dc.Executa(c);break;
-                case 10: De.Executa(en, cg, cr, cp);break;
+                case 10: De.Executa(en, cg);break;
                 case 11: Darco.Executa(sc);break;
                 case 12: Dsalida.Executa(sc,cr,cg);break;
                 case 13: dMFP.Executa(sc,cMFP,cg,cr,cp);break;
