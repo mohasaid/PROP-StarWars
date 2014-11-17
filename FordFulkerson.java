@@ -56,3 +56,4 @@ public abstract class FordFulkerson extends MFP{
 	public abstract boolean Recorrido(int origen, int destino);
 	
 }
+
