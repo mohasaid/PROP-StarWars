@@ -358,27 +358,27 @@ public class ControladorGalaxia
 
     	String result = "";
     	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia() + ":" + consultarLimitsGalaxia();
-    	cdg.guardar(result);
+    	cdg.guardar(directori,result);
     	
     	result = "#@";
     	if(cp.Consultar_Size() > 0) { // PLANETAS
     		String GP = cp.consultarTODO();
     		result += GP;
-    		cdg.guardar(result);
+    		cdg.guardar(directori,result);
     	}
     	
     	result = "#@";
     	if(cr.Consultar_numero_rutes() > 0) { // RUTAS
     		String GP1 = cr.consultarTODO();
     		result += GP1;
-    		cdg.guardar(result);
+    		cdg.guardar(directori,result);
     	}
     	
     	result = "#@";
     	if(cn.size() > 0) { // NAVES -> ARREGLAR ESTO
     		String GP2 = cn.consultarTODO();
     		result += GP2;
-    		cdg.guardar(result);
+    		cdg.guardar(directori,result);
     	}
     	cdg.CerrarEscritura();
    	}
