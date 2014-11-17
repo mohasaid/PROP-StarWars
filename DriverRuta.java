@@ -2,14 +2,13 @@ import java.util.*;
 
 public class DriverRuta {
 	private Ruta r;
-    private Scanner cin = new Scanner(System.in);
 
     public void opciones()
     {
     	System.out.print(
-                "-----------------------------------------------------------------------------------"
-                +   "                               DRIVER RUTA                                      "
-                +   "-----------------------------------------------------------------------------------"
+                "-----------------------------------------------------------------------------------\n"
+                +   "                               DRIVER RUTA                                      \n"
+                +   "-----------------------------------------------------------------------------------\n"
                 + "\n\nCREACION RUTA\n"
                 + " 0: Salir de la gestion del driver \n"
                 + " 1: Ruta() \n"
@@ -28,9 +27,9 @@ public class DriverRuta {
     			);
     }
     
-    public void Executa(Ruta r1) throws Exception {
+    public void Executa(Scanner cin) throws Exception {
         int n;
-        r = r1;
+        r = new Ruta();
         opciones();
         n = cin.nextInt();
         while(n != 0) {
