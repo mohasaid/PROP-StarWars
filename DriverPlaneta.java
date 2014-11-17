@@ -8,58 +8,30 @@ public class DriverPlaneta {
         Scanner sc = new Scanner(System.in);
             System.out.print(
             "-----------------------------------------------------------------------------------"
-            +   "                    DRIVER CONTROLADOR PLANETA                                     "
+            +   "                    DRIVER PLANETA                                     "
             +   "-----------------------------------------------------------------------------------"
             + "Opciones \n"
             + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, bool F, bool S)\n"
             + " 2: Consultar_id()\n"
-            + " 3: Consultar_Capacidad()\n"
             + " 4: Consultar_Coste()\n"
-            + " 5: Consultar_Fuente()\n"
-            + " 6: Consultar_Sumidero()\n"
-            + " 7: Consultar_Coordenadas()\n"
-            + " 8: consultar_X( )\n"
-            + " 9: consultar_Y( )\n"
-            + " 10: consultarRutasConecta()\n"
-            + " 11: Consultar_RutasSalida()\n"
-            + " 12: Consultar_RutasEntrada()\n"
-            + " 13: Modificar_id(int id)\n"
-            + " 14: Modificar_Capacidad(int c)\n"
-            + " 15: Modificar_Coste(int k)\n"
-            + " 16: modificarCoordenades(int x, int y)\n"
-            + " 17: Modificar_Fuente(int fu)\n"
-            + " 18: Modificar_Sumidero(int su)\n"
-            + " 19: Anadir_Salida(int id)\n"
-            + " 20: Anadir_Salida(int id)\n"
-            + " 21: Borrar_Salida(int id)\n"
-            + " 22: Borrar_Entrada(int id)\n"
-            + " 23: Borrar()\n");
+            + " 5: Consultar_Coordenadas()\n"
+            + " 6: consultar_X( )\n"
+            + " 7: consultar_Y( )\n"
+            + " 9: Modificar_Coste(int k)\n"
+            + " 10: modificarCoordenades(int x, int y)\n"
+            + " 11: Borrar()\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
                 case 1: TestCrearP(sc);break;
                 case 2: TestCId();break;
-                case 3: TestCCapacidad();break;
                 case 4: TestCCoste();break;
-                case 5: TestCFuente();break;
-                case 6: TestCSumidero();break;
-                case 7: TestCCoordenadas();break;
-                case 8: TestCCoordenadaX();break;
-                case 9: TestCCoordenadaY();break;
-                case 10: TestCRutasConecta();break;
-                case 11: TestCRutasSalida();break;
-                case 12: TestCRutasEntrada();break;
-                case 13: TestMId(sc);break;
-                case 14: TestMCapacidad(sc);break;
-                case 15: TestMCoste(sc);break;
-                case 16: TestMCoordenadas(sc);break;
-                case 17: TestMFuente(sc);break;
-                case 18: TestMSumidero(sc);break;
-                case 19: TestASalida(sc);break;
-                case 20: TestAEntrada(sc);break;
-                case 21: TestBSalida(sc);break;
-                case 22: TestBEntrada(sc);break;
-                case 23: TestB();break;
+                case 5: TestCCoordenadas();break;
+                case 6: TestCCoordenadaX();break;
+                case 7: TestCCoordenadaY();break;
+                case 9: TestMCoste(sc);break;
+                case 10: TestMCoordenadas(sc);break;
+                case 11: TestB();break;
             }
             n = sc.nextInt();
         }
@@ -102,7 +74,7 @@ public class DriverPlaneta {
     		boolean S = false;
     		if(fu == 1) F = true;
     		if(su == 1) S = true; 
-    		p = new Planeta(id,k,Coo,F,S);
+    		p = new Planeta(id,k,Coo);
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -122,35 +94,6 @@ public class DriverPlaneta {
     	try {
     		int k = p.Consultar_Coste();
     		System.out.print("El Coste del Planeta es: " + k + "\n");
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestCCapacidad( ) {
-    	try {
-    		int c = p.Consultar_Capacidad();
-    		System.out.print("La Capacidad del Planeta es: " + c + "\n");
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestCFuente( ) {
-    	try {
-    		boolean F = p.Consultar_Fuente();
-    		if(F) System.out.print("El Planeta es Fuente\n");
-    		else System.out.print("El Planeta NO es Fuente\n");
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestCSumidero( ) {
-    	try {
-    		boolean S = p.Consultar_Sumidero();
-    		if(S) System.out.print("El Planeta es Sumidero\n");
-    		else System.out.print("El Planeta NO es Sumidero\n");
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -178,76 +121,6 @@ public class DriverPlaneta {
     	try {
     		int y = p.consultar_Y();
     		System.out.print("La Coordenada Y del Planeta es: " + y + "\n");
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestCRutasConecta( ) {
-        try {
-            TreeSet<Integer> rutas = p.consultarRutasConecta();
-            Iterator<Integer> it = rutas.iterator();
-            System.out.print("Las rutas que conectan con el Planeta son: ");
-            while (it.hasNext()) {
-                System.out.print(it.next() + "  ");           
-            }
-            System.out.print("\n");
-        }
-        catch (Exception e) {
-            System.out.print(e);
-        }          
-    }
-    public void TestCRutasSalida( ) {
-        try {
-            TreeSet<Integer> rutas = p.Consultar_RutasSalida();
-            Iterator<Integer> it = rutas.iterator();
-            System.out.print("Las rutas que salen del Planeta son: ");
-            while (it.hasNext()) {
-                System.out.print(it.next() + "  ");           
-            }
-            System.out.print("\n");
-        }
-        catch (Exception e) {
-            System.out.print(e);
-        }          
-    }
-    public void TestCRutasEntrada( ) {
-        try {
-            TreeSet<Integer> rutas = p.Consultar_RutasEntrada();
-            Iterator<Integer> it = rutas.iterator();
-            System.out.print("Las rutas que entran en el Planeta son: ");
-            while (it.hasNext()) {
-                System.out.print(it.next() + "  ");           
-            }
-            System.out.print("\n");
-        }
-        catch (Exception e) {
-            System.out.print(e);
-        }          
-    }
-    public void TestMId (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: El identificador de un Planeta tiene que ser un entero\n");
-    		}
-    		int idnew = sc.nextInt();
-    		p.Modificar_id(idnew);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestMCapacidad (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: La Capacidad de un Planeta tiene que ser un entero\n");
-    		}
-    		int cnew = sc.nextInt();
-    		p.modificarCapacidad(cnew);
     	}
     	catch (Exception e) {
     		System.out.print(e);
@@ -281,90 +154,6 @@ public class DriverPlaneta {
     		}
     		int ynew = sc.nextInt();
     		p.modificarCoordenades(xnew,ynew);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestMFuente (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: Si es Fuente se indica con un 1 y si no lo es con un 0\n");
-    		}
-    		int funew = sc.nextInt();
-    		p.Modificar_Fuente(funew);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestMSumidero (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: Si es Sumidero se indica con un 1 y si no lo es con un 0\n");
-    		}
-    		int funew = sc.nextInt();
-    		p.Modificar_Fuente(funew);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestAEntrada (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
-    		}
-    		int id = sc.nextInt();
-    		p.Anadir_Entrada(id);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestASalida (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
-    		}
-    		int id = sc.nextInt();
-    		p.Anadir_Salida(id);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestBEntrada (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
-    		}
-    		int id = sc.nextInt();
-    		p.Borrar_Entrada(id);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestBSalida (Scanner sc  ) {
-    	try {
-    		String s;
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: El identificador de una Ruta tiene que ser un entero\n");
-    		}
-    		int id = sc.nextInt();
-    		p.Borrar_Salida(id);
     	}
     	catch (Exception e) {
     		System.out.print(e);
