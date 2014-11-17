@@ -26,55 +26,52 @@ public class DriverControladorGalaxia {
 	            + "- Opcion 5: consultarElementsGalaxia() 							   						\n"
 	            + "- Opcion 6: consultarLimitsGalaxia()                                                     \n"
 	            + "- Opcion 7: consultarLimit()                                                             \n"
-	            + "- Opcion 8: ConsultarPresupost()                                                         \n"
-	            + "- Opcion 9: dintreLimitUsuari(int x, int y)                                              \n"
+	            + "- Opcion 8: dintreLimitUsuari(int x, int y)                                              \n"
 	            
-				+ "- Opcion 10: modificarNom(String nomNou)                                                 \n"
-				+ "- Opcion 11: modificarLimit(int limitNou)                                                \n"
-				+ "- Opcion 12: modificarPresupost(int p)                                                   \n"
-				+ "- Opcion 13: modificarLimits(List<Pair<Integer, Integer> > lp)                           \n"
+				+ "- Opcion 9: modificarNom(String nomNou)                                                 \n"
+				+ "- Opcion 10: modificarLimit(int limitNou)                                                \n"
+				+ "- Opcion 11: modificarLimits(List<Pair<Integer, Integer> > lp)                           \n"
 				
-				+ "- Opcion 14: Consultar_Size()                                                    		\n"
-				+ "- Opcion 15: consultarPlanetas()                                                         \n"
-				+ "- Opcion 16: ConsultarPlaneta(int idPlaneta, ControladorPlaneta cp)            			\n"
-				+ "- Opcion 17: existeixPlaneta(idPlaneta)                                                  \n"
-				+ "- Opcion 18: existeixPlanetaCoordenades(int x, int y)                                    \n"
-				+ "- Opcion 19: algunPlaneta()                                                              \n"
-				+ "- Opcion 20: consultaIdplaneta(int x, int y)                                             \n"
-				+ "- Opcion 21: modificarIDPlaneta(int x, int y, int idNueva)                               \n"
-				+ "- Opcion 22: afegirPlaneta(int idPlaneta, int x, int y)                                  \n"
-				+ "- Opcion 23: afegirPlanetaAutomatic(int idPlaneta)                                       \n"
-				+ "- Opcion 24: afegirPlanetaIDAutomatic(int idP)                                           \n"
-				+ "- Opcion 25: eliminarPlaneta(int idPlaneta)                                              \n"
-				+ "- Opcion 26: eliminarPlanetes()                                                          \n"
+				+ "- Opcion 12: Consultar_Size()                                                    		\n"
+				+ "- Opcion 13: consultarPlanetas()                                                         \n"
+				+ "- Opcion 14: ConsultarPlaneta(int idPlaneta, ControladorPlaneta cp)            			\n"
+				+ "- Opcion 15: existeixPlaneta(idPlaneta)                                                  \n"
+				+ "- Opcion 16: existeixPlanetaCoordenades(int x, int y)                                    \n"
+				+ "- Opcion 17: algunPlaneta()                                                              \n"
+				+ "- Opcion 18: consultaIdplaneta(int x, int y)                                             \n"
+				+ "- Opcion 19: afegirPlaneta(int idPlaneta, int x, int y)                                  \n"
+				+ "- Opcion 20: afegirPlanetaAutomatic(int idPlaneta)                                       \n"
+				+ "- Opcion 21: afegirPlanetaIDAutomatic(int idP)                                           \n"
+				+ "- Opcion 22: eliminarPlaneta(int idPlaneta)                                              \n"
+				+ "- Opcion 23: eliminarPlanetes()                                                          \n"
 				
-				+ "- Opcion 27: Consultar_numero_rutes()                                                    \n"
-				+ "- Opcion 28: Consultar_ids_rutas()                                                       \n"
-				+ "- Opcion 29: ConsultarRuta(int idRuta, ControladorRuta cr)                               \n"
-				+ "- Opcion 30: ExisteRuta(int idRuta)                                                      \n"
-				+ "- Opcion 31: CrearRuta(int idRuta, int capacidad, int distancia, int planetaA, int planetaB, "
+				+ "- Opcion 24: Consultar_numero_rutes()                                                    \n"
+				+ "- Opcion 25: Consultar_ids_rutas()                                                       \n"
+				+ "- Opcion 26: ConsultarRuta(int idRuta, ControladorRuta cr)                               \n"
+				+ "- Opcion 27: ExisteRuta(int idRuta)                                                      \n"
+				+ "- Opcion 28: CrearRuta(int idRuta, int capacidad, int distancia, int planetaA, int planetaB, "
 				+ "boolean bidireccional, ControladorPlaneta cp)                                            \n"
-				+ "- Opcion 32: CrearRuta_automatica(ControladorPlaneta cp)                                 \n"
-				+ "- Opcion 33: CrearRuta_automatica(ControladorPlaneta cp, int idRuta)                     \n"
-				+ "- Opcion 34: Borrar_Ruta(int idRuta)                                                     \n"
-				+ "- Opcion 35: BorrarRutas()                                                               \n"
+				+ "- Opcion 29: CrearRuta_automatica(ControladorPlaneta cp)                                 \n"
+				+ "- Opcion 30: CrearRuta_automatica(ControladorPlaneta cp, int idRuta)                     \n"
+				+ "- Opcion 31: Borrar_Ruta(int idRuta)                                                     \n"
+				+ "- Opcion 32: BorrarRutas()                                                               \n"
 				
-				+ "- Opcion 36: cn.size()                                                                   \n"
-				+ "- Opcion 37: ConsultarNaves()                                                            \n"
-				+ "- Opcion 38: CrearTipoNave(int tipo, int consumo)                                        \n"
-				+ "- Opcion 39: CrearTipoNaveAuto()                                                         \n"
-				+ "- Opcion 40: ConsultarTipos()                                                            \n"
-				+ "- Opcion 41: ConsultarConsumoTipo(int tipo)                                              \n"
-				+ "- Opcion 42: CrearNave(int id, int t, int d, int o)                                      \n"
-				+ "- Opcion 43: CrearNaveAuto(int num_naves, ArrayList<Integer> ai)                         \n"
-				+ "- Opcion 44: EliminarNave(int idNave)                                                    \n"
-				+ "- Opcion 45: EliminarNaves()                                                             \n"
+				+ "- Opcion 33: cn.size()                                                                   \n"
+				+ "- Opcion 34: ConsultarNaves()                                                            \n"
+				+ "- Opcion 35: CrearTipoNave(int tipo, int consumo)                                        \n"
+				+ "- Opcion 36: CrearTipoNaveAuto()                                                         \n"
+				+ "- Opcion 37: ConsultarTipos()                                                            \n"
+				+ "- Opcion 38: ConsultarConsumoTipo(int tipo)                                              \n"
+				+ "- Opcion 39: CrearNave(int id, int t, int d, int o)                                      \n"
+				+ "- Opcion 40: CrearNaveAuto(int num_naves, ArrayList<Integer> ai)                         \n"
+				+ "- Opcion 41: EliminarNave(int idNave)                                                    \n"
+				+ "- Opcion 42: EliminarNaves()                                                             \n"
 				
-				+ "- Opcion 46: eliminarContingutGalaxia()                                                  \n"
+				+ "- Opcion 43: eliminarContingutGalaxia()                                                  \n"
 				
-				+ "- Opcion 47: carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn,"
+				+ "- Opcion 44: carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn,"
 				+ " ControladorRuta cr)                                                                     \n"
-				+ "- Opcion 48: guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr,"
+				+ "- Opcion 45: guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr,"
 				+ " ControladorNave cn)                                                                     \n");
       n = cin.nextInt();
       while(n != 0) {
@@ -88,53 +85,50 @@ public class DriverControladorGalaxia {
     	  	case 5: TestConsultarElementsGalaxia(); break; 
     	  	case 6: TestConsultarLimitsGalaxia(); break; 
     	  	case 7: TestConsultarLimit(); break; 
-    	  	case 8: TestConsultarPresupost(); break; 
-    	  	case 9: TestdintreLimitUsuari(cin); break;  
+    	  	case 8: TestdintreLimitUsuari(cin); break;  
     	  	
-    	  	case 10: TestmodificarNom(cin); break; 
-    	  	case 11: TestmodificarLimit(cin); break; 
-    	  	case 12: TestmodificarPresupost(cin); break; 
-    	  	case 13: TestmodificarLimits(cin); break;  
+    	  	case 9: TestmodificarNom(cin); break; 
+    	  	case 10: TestmodificarLimit(cin); break; 
+    	  	case 11: TestmodificarLimits(cin); break;  
     	  	
-    	  	case 14: TestconsultarNumPlanetes(cp); break; 
-    	  	case 15: TestLlistaPlanetes(cp); break; 
-    	  	case 16: TestConsultarPlaneta(cin,cp); break; 
-    	  	case 17: TestexisteixPlaneta(cin); break; 
-    	  	case 18: TestexisteixPlanetaCoordenades(cin); break; 
-    	  	case 19: TestAlgunPlaneta(); break; 
-    	  	case 20: TestconsultaIDplaneta(cin); break; 
-    	  	case 21: TestmodificarIDplaneta(cin,cp); break; 
-    	  	case 22: TestafegirPlaneta(cp,cin); break; 
-    	  	case 23: TestafegirPlanetaAutomatic(cp,cin); break; 
-    	  	case 24: TestAfegirPlanetaNIDAuto(cp); break; 
-    	  	case 25: TesteliminarPlaneta(cp,cr,cn); break; 
-    	  	case 26: TesteliminarPlanetes(cp,cr,cn); break; 
+    	  	case 12: TestconsultarNumPlanetes(cp); break; 
+    	  	case 13: TestLlistaPlanetes(cp); break; 
+    	  	case 14: TestConsultarPlaneta(cin,cp); break; 
+    	  	case 15: TestexisteixPlaneta(cin); break; 
+    	  	case 16: TestexisteixPlanetaCoordenades(cin); break; 
+    	  	case 17: TestAlgunPlaneta(); break; 
+    	  	case 18: TestconsultaIDplaneta(cin); break; 
+    	  	case 19: TestafegirPlaneta(cp,cin); break; 
+    	  	case 20: TestafegirPlanetaAutomatic(cp,cin); break; 
+    	  	case 21: TestAfegirPlanetaNIDAuto(cp); break; 
+    	  	case 22: TesteliminarPlaneta(cp,cr,cn); break; 
+    	  	case 23: TesteliminarPlanetes(cp,cr,cn); break; 
     	  	
-    	  	case 27: TestconsultarNumRutes(cr); break; 
-    	  	case 28: TestLlistaRutes(cr); break; 
-    	  	case 29: TestconsultarRuta(cr,cin); break; 
-    	  	case 30: TestexisteixRuta(cr,cin); break; 
-    	  	case 31: TestCrearRuta(cr,cp,cin); break; 
-    	  	case 32: TestCrearRutaAuto(cr,cp); break; 
-    	  	case 33: TestCrearRutaAutoID(cin,cr,cp); break; 
-    	  	case 34: TestEliminarRuta(cr,cin); break; 
-    	  	case 35: TestEliminarRutes(cr); break; 
+    	  	case 24: TestconsultarNumRutes(cr); break; 
+    	  	case 25: TestLlistaRutes(cr); break; 
+    	  	case 26: TestconsultarRuta(cr,cin); break; 
+    	  	case 27: TestexisteixRuta(cr,cin); break; 
+    	  	case 28: TestCrearRuta(cr,cp,cin); break; 
+    	  	case 29: TestCrearRutaAuto(cr,cp); break; 
+    	  	case 30: TestCrearRutaAutoID(cin,cr,cp); break; 
+    	  	case 31: TestEliminarRuta(cr,cin); break; 
+    	  	case 32: TestEliminarRutes(cr); break; 
     	  	
-    	  	case 36: TestConsultaNumNau(cn); break; 
-    	  	case 37: TestLListaNaus(cn); break; 
-    	  	case 38: TestCrearTipoNave(cin,cn); break; 
-    	  	case 39: TestCrearTipoNaveAuto(cin,cn); break; 
-    	  	case 40: TestConsultarTiposNave(cn); break; 
-    	  	case 41: TestConsultarConsumoTipoNave(cin,cn); break; 
-    	  	case 42: TestcrearNau(cin,cn); break; 
-    	  	case 43: TestCrearNaveAuto(cn,cin,cp); break; 
-    	  	case 44: TesteliminarNau(cin,cn); break; 
-    	  	case 45: TesteliminarTotesNaus(cn); break; 
+    	  	case 33: TestConsultaNumNau(cn); break; 
+    	  	case 34: TestLListaNaus(cn); break; 
+    	  	case 35: TestCrearTipoNave(cin,cn); break; 
+    	  	case 36: TestCrearTipoNaveAuto(cin,cn); break; 
+    	  	case 37: TestConsultarTiposNave(cn); break; 
+    	  	case 38: TestConsultarConsumoTipoNave(cin,cn); break; 
+    	  	case 39: TestcrearNau(cin,cn); break; 
+    	  	case 40: TestCrearNaveAuto(cn,cin,cp); break; 
+    	  	case 41: TesteliminarNau(cin,cn); break; 
+    	  	case 42: TesteliminarTotesNaus(cn); break; 
     	  	
-    	  	case 46: TesteliminarContingutGalaxia(cr,cp,cn); break; 
+    	  	case 43: TesteliminarContingutGalaxia(cr,cp,cn); break; 
     	  	
-    	  	case 47: TestcarregarConjuntGalaxia(cr,cp,cn); break;
-    	  	case 48: TestguardarConjuntGalaxia(cr,cp,cn); break;
+    	  	case 44: TestcarregarConjuntGalaxia(cr,cp,cn); break;
+    	  	case 45: TestguardarConjuntGalaxia(cr,cp,cn); break;
     	  	
     	  	default: System.out.println("Opcion incorrecta");
     	  }
@@ -224,7 +218,7 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarElementsGalaxia() 
+	public void TestConsultarElementsGalaxia()  // MIRAR
 	{
 		try {
 			String res = cGalaxia.consultarElementsGalaxia();
@@ -233,16 +227,6 @@ public class DriverControladorGalaxia {
 			while(scan.hasNext()) {
 				System.out.println(scan.next());
 			}
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestConsultarPresupost() 
-	{
-		try {
-			System.out.println(cGalaxia.consultarPresupost());
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -376,18 +360,6 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestmodificarPresupost(Scanner cin) 
-	{
-		try {
-			System.out.println("Introduce presupuesto");
-			int p = cin.nextInt();
-			cGalaxia.modificarPresupost(p);
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
 	public void TestmodificarLimits(Scanner cin)  
 	{
 		try {
@@ -465,6 +437,14 @@ public class DriverControladorGalaxia {
 			Random rand = new Random();
 	    	int coste = rand.nextInt((Integer.MAX_VALUE - 0) + 1); 
 			Pair<Integer, Integer> pa = cGalaxia.afegirPlanetaAutomatic(idPlaneta);
+			/*
+			String pa1 = cGalaxia.afegirPlanetaAutomatic(idPlaneta);
+			Scanner c = new Scanner(pa1);
+			c.useDelimiter(",");
+			Integer a = Integer.parseInt(c.next());
+			Integer b = Integer.pasreInt(c.next()); 
+			Pair<Integer,Integer> pa = new Pair<Integer,Integer>(a,b);
+			 */
 			Planeta a = new Planeta(idPlaneta, coste, pa);
 			cp.anadirPlaneta(a);
 		}
@@ -497,7 +477,6 @@ public class DriverControladorGalaxia {
 			if(!cGalaxia.existeixPlaneta(idPlaneta)) System.out.println("No existe ningun planeta con ese identificador");
 	    	Planeta a = cp.BuscarPlaneta(idPlaneta);
 	    	System.out.println("El planeta con id: " + idPlaneta + " tiene como atributos: \n"
-	    						+ "- Capacidad: " + a.Consultar_Capacidad() + "\n"
 	    						+ "- Coste: " + a.Consultar_Coste() + "\n"
 	    						+ "- Coordenadas: (" + a.consultar_X() + ", " + a.consultar_Y() + ")\n");
 		}
@@ -541,28 +520,6 @@ public class DriverControladorGalaxia {
 			int y = cin.nextInt();
 			int id = cGalaxia.consultaIdplaneta(x, y);
 			System.out.println("El planeta con coordenadas (" + x + "," + y + ") tiene como id " +id);
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestmodificarIDplaneta(Scanner cin, ControladorPlaneta cp) 
-	{
-		try {
-			System.out.println("Introduce primera coordenada");
-			int x = cin.nextInt();
-			System.out.println("Introduce segunda coordenada");
-			int y = cin.nextInt();
-			System.out.println("Introduce el identificador nuevo");
-			int idNueva = cin.nextInt();
-			int id = cGalaxia.consultaIdplaneta(x, y);
-    		cGalaxia.modificarIDPlaneta(x, y, idNueva);
-    		Planeta a = cp.BuscarPlaneta(id);
-    		cp.BorraPla(id);
-    		a.Modificar_id(idNueva);
-    		cp.anadirPlaneta(a);
-    		// BORRAR O MODIFICAR RUTAS-NAVES
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -841,7 +798,7 @@ public class DriverControladorGalaxia {
 		try {
 			System.out.println("Introduce directorio");
 			String directori = cin.next();
-			cGalaxia.carregarConjuntGalaxia(directori, cp, cn, cr);
+			//cGalaxia.carregarConjuntGalaxia(directori, cp, cn, cr);
 		}
 		catch(Exception e) {
             System.out.println(e);
