@@ -239,7 +239,6 @@ public class ControladorPlaneta {
     			res +=p.consultar_X()+":";
     			res +=p.consultar_Y();
     			res +="#";
-    			System.out.println(res);
     			++iter;
     			if(iter == 100){
     				cdp.guardar(path, res);
@@ -252,5 +251,16 @@ public class ControladorPlaneta {
     		cdp.guardar(path, res);
     		cdp.CerrarEscritura();
     	}
+    }
+    public String consultarTodoPlaneta(String path) throws Exception {
+    	String res ="";
+    	for(Planeta p : listaPlanetas) {
+			res +=p.Consultar_id()+":";
+			res +=p.Consultar_Coste()+":";
+			res +=p.consultar_X()+":";
+			res +=p.consultar_Y();
+			res +="#";
+		}
+    	return res;
     }
 }
