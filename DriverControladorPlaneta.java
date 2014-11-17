@@ -14,36 +14,34 @@ public class DriverControladorPlaneta {
             + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S)\n"
             + " 2: PlanetaAuto()\n"
             + " 3: PlanetaAuto2(int id)\n"
-            + " 4: Consultar_Capacidad(int id)\n"
-            + " 5: Consultar_Coste(int id)\n"
-            + " 6: Consultar_Coordenadas(int id)\n"
-            + " 7: consultar_X(int id)\n"
-            + " 8: consultar_Y(int id)\n"
-            + " 9: consultarRutasConecta(int id)\n"
-            + " 10: Consultar_listaPlanetas()\n"
-            + " 11: Modificar_Coste(int id, int k)\n"
-            + " 12: modificarCoordenades(int id, int x, int y)\n"
-            + " 13: Borrar(Planeta p)\n"
-            + " 14: CargarPlanetas()\n"
-            + " 15: GuardarPlanetas()\n");
+            + " 4: Consultar_Coste(int id)\n"
+            + " 5: Consultar_Coordenadas(int id)\n"
+            + " 6: consultar_X(int id)\n"
+            + " 7: consultar_Y(int id)\n"
+            + " 8: consultarRutasConecta(int id)\n"
+            + " 9: Consultar_listaPlanetas()\n"
+            + " 10: Modificar_Coste(int id, int k)\n"
+            + " 11: modificarCoordenades(int id, int x, int y)\n"
+            + " 12: Borrar(Planeta p)\n"
+            + " 13: CargarPlanetas()\n"
+            + " 14: GuardarPlanetas()\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
                 case 1: TestCrearPlaneta(sc, contp, cg);break;
                 case 2: TestCrearPlanetaAuto(sc, contp, cg);break;
                 case 3: TestCrearPlanetaAuto2(sc, contp, cg);break; 
-                case 4: TestConsultarCapacidad(sc, contp);break;
-                case 5: TestConsultarCoste(sc, contp);break;
-                case 6: TestConsultarCoordenadas(sc, contp);break;
-                case 7: TestConsultarCoordenadaX(sc, contp);break;
-                case 8: TestConsultarCoordenadaY(sc, contp);break;
-                case 9: TestConsultarRutasConecta(sc, contp, contr);break;
-                case 10: TestConsultarlistaPlaneta(contp);break;
-                case 11: TestModificarCoste(sc, contp);break;
-                case 12: TestModificarCoordenadas(sc, contp, cg);break;
-                case 13: TestBorrar(sc, contp, contr, cg);break;
-                case 14: TestCargar(sc,contp, cg);break;
-                case 15: TestGuardar(sc,contp);break;
+                case 4: TestConsultarCoste(sc, contp);break;
+                case 5: TestConsultarCoordenadas(sc, contp);break;
+                case 6: TestConsultarCoordenadaX(sc, contp);break;
+                case 7: TestConsultarCoordenadaY(sc, contp);break;
+                case 8: TestConsultarRutasConecta(sc, contp, contr);break;
+                case 9: TestConsultarlistaPlaneta(contp);break;
+                case 10: TestModificarCoste(sc, contp);break;
+                case 11: TestModificarCoordenadas(sc, contp, cg);break;
+                case 12: TestBorrar(sc, contp, contr, cg);break;
+                case 13: TestCargar(sc,contp, cg);break;
+                case 14: TestGuardar(sc,contp);break;
             }
             n = sc.nextInt();
         }
@@ -100,20 +98,6 @@ public class DriverControladorPlaneta {
             System.out.print(e);       
         }
     } 
-    public static void TestConsultarCapacidad(Scanner sc, ControladorPlaneta contp) {
-        try {
-            String s;
-            while (!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identificador de un Planeta es un entero\n");
-            }
-            int id = sc.nextInt();
-            System.out.print("La Capacidad del Planeta es: " + contp.Consultar_Capacidad(id) + "\n");    
-        }
-        catch (Exception e) {
-            System.out.print(e);
-        }          
-    }
     public static void TestConsultarCoste(Scanner sc, ControladorPlaneta contp) {
         try {
             String s;
@@ -187,7 +171,7 @@ public class DriverControladorPlaneta {
     }
     public static void TestConsultarlistaPlaneta(ControladorPlaneta contp) {
         try {
-        	ArrayList<String> lp = contp.Consultar_listaPlanetas();
+        	String lp = contp.Consultar_listaPlanetas();
         	System.out.print(lp);
         }
         catch (Exception e) {
