@@ -21,13 +21,12 @@ public class DriverSalida{
              +"-   1   TestConsultarCuellos()                                     -\n"
              +"-   2   TestConsultarCaminos()                                     -\n"
              +"-   3   TestconsultarCambios()                                     -\n"
-             +"-   5   TestAnadirCuellos(int idRuta)                              -\n"
-             +"-   6   TestAnadirCamino(String s)                                 -\n"
-             +"-   7   TestAnadirCambio(String cambio)                            -\n"
-             +"-   8   TestGenerarFlujos()                                        -\n"
-             +"-   9   TestEliminarCuellos()                                      -\n"
-             +"-   10   TestEliminarCaminos()                                     -\n"
-             +"-   11   TestEliminarCambios()                                     -\n"
+             +"-   4   TestAnadirCuellos(int idRuta)                              -\n"
+             +"-   5   TestAnadirCamino(String s)                                 -\n"
+             +"-   6   TestAnadirCambio(String cambio)                            -\n"
+             +"-   7   TestEliminarCuellos()                                      -\n"
+             +"-   8   TestEliminarCaminos()                                      -\n"
+             +"-   9   TestEliminarCambios()                                      -\n"
              +"-                                                                  -\n"
              +"--------------------------------------------------------------------\n");
 
@@ -43,22 +42,12 @@ public class DriverSalida{
             case 6: TestAnadirCambio(sc);break;
             case 7: TestEliminarCuellos();break;
             case 8: TestEliminarCambios();break;
-            case 10: TestEliminarCambios();break;
+            case 9: TestEliminarCambios();break;
             default: System.out.println("Opción incorrecta");
             }
     op = sc.nextInt(); 
     }
    }
-    public static void TestCrearSalida(Scanner sc){	
-    	while(sc.hasNextInt()){
-    		
-    	}
-    	while(!sc.hasNextInt()){
-            String s = sc.nextLine();
-            throw new Exception("Error: El identificador debe ser un entero\n");
-        }
-    }
-    
     public static void TestConsultarCuellos(){
     	try{
     		ArrayList<Integer> C = s.ConsultarCuellos();
@@ -67,6 +56,7 @@ public class DriverSalida{
 	    	while(it.hasNext()){
 	    		System.out.print(","+it.next());
 	    	}
+	    	System.out.print("\n");
     	}
     	catch(Exception e){
     		System.out.print(e);
@@ -107,10 +97,10 @@ public class DriverSalida{
 	    	int id = sc.nextInt();
 	    	Arco aux = new Arco();
 	    	aux.ModificarIdRuta(id);
-	    	s.AnadirCuello(aux);
+	    	s.AnadirCuello(aux); 
     	}
     	catch(Exception e){
-    		System.out.print(e);
+    		System.out.println(e);
     	}
     }
     public static void TestAnadirCamino(Scanner sc){
@@ -142,7 +132,7 @@ public class DriverSalida{
     }
     public static void TestEliminarCaminos(){
     	try{
-    		s.EliminarCuellos();
+    		s.EliminarCaminos();
     	}
     	catch(Exception e){
     		System.out.print(e);
@@ -150,7 +140,7 @@ public class DriverSalida{
     }
     public static void TestEliminarCambios(){
     	try{
-    		s.EliminarCuellos();
+    		s.EliminarCambios();
     	}
     	catch(Exception e){
     		System.out.print(e);
@@ -158,3 +148,4 @@ public class DriverSalida{
     }
 }
     
+  
