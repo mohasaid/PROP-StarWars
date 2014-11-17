@@ -2,8 +2,7 @@ import java.util.*;
  
 public class DriverControladorPlaneta {
 	private ControladorPlaneta contp;
-    public void Ejecuta(ControladorPlaneta cp, ControladorRuta contr, ControladorGalaxia cg) {
-        Scanner sc = new Scanner(System.in);
+    public void Ejecuta(Scanner sc, ControladorPlaneta cp, ControladorRuta contr, ControladorGalaxia cg) {
         int n;
             System.out.print(
             "-----------------------------------------------------------------------------------"
