@@ -5,9 +5,7 @@ import java.util.Queue;
 
 
 	public class FordFulkersonBFS extends FordFulkerson {
-		//private int path[]; // path como privado o la paso por la funcion
-	int path[] = new int[size];
-	Arrays.fill(path, -1);
+		
 		public FordFulkersonBFS(){
 			g = new Grafo();
 			g_residual = new Grafo();
@@ -22,9 +20,9 @@ import java.util.Queue;
 			super.Caminos(idNave, consumo);
 		}
 		public void Ejecutar(){
-			return super.Ejecutar(origen,destino);
+			super.Ejecutar();
 		}
-		public void Recorrido(int origen, int destino){
+		public boolean Recorrido(int origen, int destino){
 			int V = g_residual.sizeGrafo();
 			boolean[] visitados = new boolean[V];
 			Arrays.fill(visitados,false);
@@ -46,4 +44,4 @@ import java.util.Queue;
 			}
 		}
 	}
-	}
+
