@@ -11,7 +11,9 @@ public class ControladorDadesPlaneta extends ControladorDades {
 	}
 	public String cargar (String path) throws FileNotFoundException {
 		String res= "";
-		FileReader f = new FileReader(path);
+		String separator = File.separator;
+		String file = "Planeta.txt";
+		FileReader f = new FileReader(path+separator+file);
 		Scanner sc = new Scanner(f);
 		while (sc.hasNext()){
 			res += sc.nextLine();
@@ -22,9 +24,10 @@ public class ControladorDadesPlaneta extends ControladorDades {
 	}
 	public void guardar(String path, String res) throws IOException{
 		String separator = File.separator;
+		String file = "Planeta.txt";
 		PrintWriter out;
-		if(inicial) out = new PrintWriter(path);
-		else out = new PrintWriter(new BufferedWriter (new FileWriter(path, true)));
+		if(inicial) out = new PrintWriter(path+separator+file);
+		else out = new PrintWriter(new BufferedWriter (new FileWriter(path+separator+file, true)));
 		Scanner sc = new Scanner(res);
 		sc.useDelimiter("#");
 		String s;
