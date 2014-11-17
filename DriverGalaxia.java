@@ -3,8 +3,7 @@ import java.util.*;
 public class DriverGalaxia {
      private Galaxia g;
      
-     public void Executa(ControladorNave cn, ControladorPlaneta cp, ControladorRuta cr) throws Exception {
-        Scanner cin = new Scanner(System.in);
+     public void Executa(Scanner cin, ControladorNave cn, ControladorPlaneta cp, ControladorRuta cr) throws Exception {
         int n;
         System.out.print(
 	              "---------------------------------------------------------------------------------------- \n"
@@ -143,9 +142,7 @@ public class DriverGalaxia {
     public void TestCrearGalaxia(Scanner cin) throws Exception
     {
         try{
-        	System.out.println("Introduce nombre");
             String n = cin.next();
-            System.out.println("Introduce limite");
             int n1 = cin.nextInt();
             g = new Galaxia(n,n1);
         }
@@ -157,25 +154,19 @@ public class DriverGalaxia {
     public void TestCrearGalaxia1(Scanner cin)
     {
         try{
-        	System.out.println("Introduce nombre");
             String n = cin.next();
-            System.out.println("Introduce limite");
             int n1 = cin.nextInt();
             
             List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
             int pa_f, pa_s;
             
-            System.out.println("Introduce primera coordenada");
             pa_f = cin.nextInt();
-            System.out.println("Introduce segunda coordenada");
             pa_s = cin.nextInt();
             
             Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_f,pa_s);
             pa1.add(primero);
             
-            System.out.println("Introduce primera coordenada");
             int l1 = cin.nextInt();
-            System.out.println("Introduce segunda coordenada");
             int l2 = cin.nextInt();
             
             int limite1 = primero.consultarPrimero().intValue();
@@ -192,14 +183,10 @@ public class DriverGalaxia {
 	            	System.out.println(pa1);
             	}
             	else throw new Exception("Las coordenadas no son secuenciales");
-            	System.out.println("Introduce primera coordenada");
             	l1 = cin.nextInt();
-            	System.out.println("Introduce segunda coordenada");
                 l2 = cin.nextInt();
                 if((l1 == limite1 && l2 == limite2)) trobat = true;
-                System.out.println(trobat);
             }
-            System.out.println("FUERA DEL WHILE");
             g = new Galaxia(n,n1,pa1);
         }
         catch(Exception e) {
@@ -210,7 +197,7 @@ public class DriverGalaxia {
     public void TestConsultarNomGalaxia() 
     {
             String s = g.consultarNomGalaxia();
-            System.out.println("El nombre de la galaxia es: " + s);
+            System.out.println(s);
     }
      
      
@@ -236,13 +223,13 @@ public class DriverGalaxia {
     public void Testconsulta_nombrePlanetes(ControladorPlaneta cp)
     {
         int p = cp.Consultar_Size();
-        System.out.println("El numero de planetas en la galaxia es: " + p);
+        System.out.println(p);
     }
      
     public void Testconsulta_nombreLimits()
     {
         int p = g.consulta_nombreLimits();
-        System.out.println("Numero de coordenadas introducidas por el usuario: " + p);
+        System.out.println(p);
     }
      
     public void TestconsultarRutes(ControladorRuta cr)
@@ -260,7 +247,7 @@ public class DriverGalaxia {
     public void Testconsulta_nombreRutes(ControladorRuta cr)
     {
         int p = cr.Consultar_numero_rutes();
-        System.out.println("Numero de rutas en la galaxia es: " + p);
+        System.out.println(p);
     }
      
     public void TestconsultarNaus(ControladorNave cn)
@@ -283,22 +270,20 @@ public class DriverGalaxia {
     public void Testconsulta_nombreNaus(ControladorNave cn)
     {
         int p = cn.size();
-        System.out.println("Numero de naves en la galaxia: " + p);
+        System.out.println(p);
     }
      
     public void TestconsultarLimitGalaxia()
     {
         int p = g.consultarLimitGalaxia().intValue();
-        System.out.println("El limit de la galaxia es: " + p);
+        System.out.println(p);
     }
     
     public void TestdintreLimitUsuari(Scanner cin)
     {
     	boolean b;
 		try {
-			System.out.print("Introduce primera coordenada");
 			int x = cin.nextInt();
-			System.out.print("Introduce primera coordenada");
 			int y = cin.nextInt();
 			if(g.consulta_nombreLimits() > 0) {
 				b = g.dintreLimitUsuari(x, y);
@@ -318,9 +303,7 @@ public class DriverGalaxia {
     public void TestexisteixPlanetaCoordenades(Scanner cin)
     {  
     	try{
-    		System.out.println("Introduce primera coordenada");
 	    	int cX = cin.nextInt();
-	    	System.out.println("Introduce segunda coordenada");
 	    	int cY = cin.nextInt();
 	    	boolean exist = g.existeixPlanetaCoordenades(cX, cY);
 	    	if(exist) System.out.println("Existe un planeta en la galaxia con esas coordenadas");
@@ -334,13 +317,10 @@ public class DriverGalaxia {
    public void TestconsultarPlaneta(Scanner cin, ControladorPlaneta cp)
     {
     	try{
-    		System.out.println("Introduce el identificador del planeta");
 	    	int idPlaneta = cin.nextInt();
 	    	if(!g.existeixPlaneta(idPlaneta)) System.out.println("No existe ningun planeta con ese identificador");
 	    	Planeta a = cp.BuscarPlaneta(idPlaneta);
-	    	System.out.println("El planeta con id: " + idPlaneta + " tiene como atributos: \n"
-	    						+ "- Coste: " + a.Consultar_Coste() + "\n"
-	    						+ "- Coordenadas: (" + a.consultar_X() + ", " + a.consultar_Y() + ")\n");
+	    	System.out.println(idPlaneta + " " + a.Consultar_Coste() + " (" + a.consultar_X() + ", " + a.consultar_Y() + ")");
     	}
     	catch(Exception e) {
             System.out.println(e);
@@ -350,7 +330,6 @@ public class DriverGalaxia {
     public void TestexisteixPlaneta(Scanner cin)
     {
     	try{
-    		System.out.println("Introduce el identificador del planeta");
 	    	int idPlaneta = cin.nextInt();
 	    	boolean b = g.existeixPlaneta(idPlaneta);
 	    	if(b) System.out.println("El planeta con id: " + idPlaneta + " existe en la galaxia");
@@ -369,11 +348,9 @@ public class DriverGalaxia {
 	    	if(!cr.ExisteRuta(idRuta)) System.out.println("No existe ninguna ruta con ese identificador");
 	    	Ruta r = cr.BuscarRuta(idRuta);
 	    	Conexion c = cr.BuscarConexion(idRuta);
-	    	System.out.println("La ruta con id: " + idRuta 
-	    						+ "\n tiene como capacidad: " + r.consultar_capacidad()
-	    						+ "\n tiene como distancia: " + r.consultar_distancia()
-	    						+ "\n conecta los planetas: " + c.consultar_planetaA() + " y " + c.consultar_planetaB()
-	    						+ "\n y bidireccional = " + c.consultar_bidireccional());
+	    	System.out.println(idRuta + " " + r.consultar_capacidad() + " " + r.consultar_distancia()
+	    						+ " " + c.consultar_planetaA() + " " + c.consultar_planetaB()
+	    						+ " " + c.consultar_bidireccional());
     	}
     	catch(Exception e) {
             System.out.println(e);
@@ -383,7 +360,6 @@ public class DriverGalaxia {
     public void TestexisteixRuta(Scanner cin, ControladorRuta cr)
     {
     	try{
-    		System.out.println("Introduce el identificador de la ruta");
 	    	int idRuta = cin.nextInt();
 	    	boolean b = cr.ExisteRuta(idRuta);
 	    	if(b) System.out.println("La ruta con id: " + idRuta + " existe en la galaxia");
@@ -398,16 +374,12 @@ public class DriverGalaxia {
    public void TestconsultarNau(Scanner cin, ControladorNave cn)
     {
 	    try{
-	    	System.out.println("Introduce el identificador de la nave");
     		int idNave = cin.nextInt();
     		if(!cn.ExisteNave(idNave)) throw new Exception("No existe ninguna nave con ese identificador");
 	    	Nave n = cn.BuscarNave(idNave);
 	    	int tipo = cn.ConsultarTipo(idNave);
 	    	int consumo = cn.ConsultarConsumo(idNave);
-	    	System.out.println("La nave con id: " + idNave
-	    						+ "\n tiene como Tipo: " + tipo
-	    						+ "\n tiene como consumo: " + consumo
-	    						+ "\n tiene como destino: " + n.consultar_destino());
+	    	System.out.println(idNave + " " + tipo + " " + consumo + " " + n.consultar_destino());
 	    }
 	    catch(Exception e) {
             System.out.println(e);
@@ -417,7 +389,6 @@ public class DriverGalaxia {
     public void TestexisteixNau(Scanner cin, ControladorNave cn)
     {
     	try{
-    		System.out.println("Introduce el identificador de la ruta");
 	    	int idNave = cin.nextInt();
 	    	boolean b = cn.ExisteNave(idNave);
 	    	if(b) System.out.print("La nave con id: " + idNave + " existe en la galaxia");
@@ -431,7 +402,6 @@ public class DriverGalaxia {
     public void Testmodificar_nomGalaxia(Scanner cin)
     {
     	try	{
-    		System.out.println("Introduce nombre");
 	    	String nouNom = cin.next();
 	    	g.modificar_nomGalaxia(nouNom);
     	}
@@ -443,7 +413,6 @@ public class DriverGalaxia {
     public void TestmodificarN(Scanner cin)
     {
     	try{
-    		System.out.println("Introduce el nuevo limite");
 	    	int n1 = cin.nextInt();
 	    	g.modificarN(n1);
     	}
@@ -455,13 +424,9 @@ public class DriverGalaxia {
     public void TestCrearafegirPlaneta(Scanner cin, ControladorPlaneta cp)
     { 	
     	try {
-    		System.out.println("Introduce el identificador del planeta");
 	    	int idPlaneta = cin.nextInt();
-	    	System.out.println("Introduce primera coordenada");
 	    	int x = cin.nextInt();
-	    	System.out.println("Introduce segunda coordenada");
 	    	int y = cin.nextInt();
-	    	System.out.println("Introduce coste");
 	    	int coste = cin.nextInt();
 	    	Pair<Integer, Integer> co = new Pair<Integer, Integer>(x,y);
 	    	Planeta a = new Planeta(idPlaneta,coste, co);
@@ -493,7 +458,6 @@ public class DriverGalaxia {
     public void TestafegirPlanetaAutomaticID(Scanner cin, ControladorPlaneta cp)
     {	
     	try{
-    		System.out.println("Introduce el identificador del planeta");
 	    	int idPlaneta = cin.nextInt();
 	    	Random rand = new Random();
 	    	int randomNum = rand.nextInt(Integer.MAX_VALUE);
@@ -509,7 +473,6 @@ public class DriverGalaxia {
     public void TesteliminarPLaneta(Scanner cin, ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn)
     {
     	try{
-    		System.out.println("Introduce el identificador del planeta a borrar");
 	    	int idPlaneta = cin.nextInt();
 	    	g.eliminarPlaneta(idPlaneta);
 	    	cr.BorrarRutaConexions(idPlaneta);
@@ -537,9 +500,7 @@ public class DriverGalaxia {
     public void TestCrearTipoNave(Scanner cin, ControladorNave cn)
     {
     	try {
-    		System.out.println("Introduce tipo");
     		int tipo = cin.nextInt();
-    		System.out.println("Introduce consumo");
     		int consumo = cin.nextInt();
     		cn.CrearTipoNave(tipo, consumo);
     	}
@@ -571,7 +532,6 @@ public class DriverGalaxia {
     public void TestConsultarConsumoTipoNave(Scanner cin, ControladorNave cn)
     {
     	try {
-    		System.out.println("Introduce tipo");
     		int tipo = cin.nextInt();
     		System.out.println(cn.ConsultarConsumoTipo(tipo));
     	}
@@ -583,13 +543,9 @@ public class DriverGalaxia {
     public void TestcrearNau(Scanner cin, ControladorNave cn)
     {
     	try{
-    		System.out.println("Introduce id");
     		int id = cin.nextInt();
-    		System.out.println("Introduce tipo");
     		int t = cin.nextInt();
-    		System.out.println("Introduce destino");
     		int d = cin.nextInt();
-    		System.out.println("Introduce origen");
     		int o = cin.nextInt();
     		cn.CrearNave(id, t, d, o);
     	}
@@ -603,7 +559,6 @@ public class DriverGalaxia {
     public void TestCrearNaveAuto(ControladorNave cn, Scanner cin, ControladorPlaneta cp)
     {
     	try {
-    		System.out.println("Introduce numero naves");
     		int num_naves = cin.nextInt();
     		ArrayList<Integer> ai = cp.consultarPlanetas();
     		cn.CrearNaveAuto(num_naves, ai);
@@ -616,7 +571,6 @@ public class DriverGalaxia {
     public void TesteliminarNau(Scanner cin, ControladorNave cn)
     {
     	try{
-    		System.out.print("Introduce el identificador de la nave a borrar");
 	    	int idNave = cin.nextInt();
 	    	cn.EliminarNave(idNave);
     	}
@@ -638,17 +592,11 @@ public class DriverGalaxia {
     public void TestcrearRuta(Scanner cin, ControladorRuta cr, ControladorPlaneta cp)
     {
     	try{
-    		System.out.print("Introduce el identificador de la ruta");
     		int id = cin.nextInt();
-    		System.out.print("Introduce la capacidad");
     		int capacidad = cin.nextInt();
-    		System.out.print("Introduce la distancia");
     		int distancia = cin.nextInt();
-    		System.out.print("Introduce el planeta origen");
     		int planetaA = cin.nextInt();
-    		System.out.print("Introduce el planeta destino");
     		int planetaB = cin.nextInt();
-    		System.out.print("Introduce si es bidireccional");
     		boolean bidireccional = cin.nextBoolean();
     		cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
     	}
@@ -660,7 +608,6 @@ public class DriverGalaxia {
     public void TestCrearRutaAutoID(Scanner cin, ControladorRuta cr, ControladorPlaneta cp)
     {
     	try {
-    		System.out.print("Introduce el identificador de la ruta");
     		int id = cin.nextInt();
     		cr.CrearRuta_automatica(cp, id);
     	}
@@ -682,7 +629,6 @@ public class DriverGalaxia {
     public void TesteliminarRuta(Scanner cin, ControladorRuta cr)
     {
     	try{
-    		System.out.print("Introduce el identificador de la ruta a borrar");
     		int idRuta = cin.nextInt();
     		cr.Borrar_Ruta(idRuta);
     	}
@@ -720,10 +666,6 @@ public class DriverGalaxia {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	if(lp.size() < 1) throw new Exception("La galaxia no tiene forma");
 	    	System.out.print("Coordenadas que dan forma a la galaxia:");
-	    	/*for(int i = 0; i < lp.size()-1; ++i) {
-				System.out.print("(" + lp.get(i).consultarPrimero() + ", " + lp.get(i).consultarSegundo() + "), ");
-			}
-			System.out.print("(" + lp.get(lp.size()-1).consultarPrimero() + ", " + lp.get(lp.size()-1).consultarSegundo() + ")");*/
 	    	System.out.print(lp);
     	}
     	catch(Exception e) {
@@ -737,17 +679,13 @@ public class DriverGalaxia {
     		List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
             int pa_f, pa_s;
             
-            System.out.println("Introduce primera coordenada");
             pa_f = cin.nextInt();
-            System.out.println("Introduce segunda coordenada");
             pa_s = cin.nextInt();
             
             Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_f,pa_s);
             pa1.add(primero);
             
-            System.out.println("Introduce primera coordenada");
             int l1 = cin.nextInt();
-            System.out.println("Introduce segunda coordenada");
             int l2 = cin.nextInt();
             
             int limite1 = primero.consultarPrimero().intValue();
@@ -764,14 +702,10 @@ public class DriverGalaxia {
 	            	System.out.println(pa1);
             	}
             	else throw new Exception("Las coordenadas no son secuenciales");
-            	System.out.println("Introduce primera coordenada");
             	l1 = cin.nextInt();
-            	System.out.println("Introduce segunda coordenada");
                 l2 = cin.nextInt();
                 if((l1 == limite1 && l2 == limite2)) trobat = true;
-                System.out.println(trobat);
             }
-            System.out.println("FUERA DEL WHILE");
             g.modificarLimitsUsuari(pa1);
     	}
     	catch(Exception e) {
@@ -790,4 +724,6 @@ public class DriverGalaxia {
             System.out.println(e);
         }
     }
+
+    	
 }
