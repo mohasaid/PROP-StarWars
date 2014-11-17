@@ -2,11 +2,9 @@ import java.util.*;
 
 
 public abstract class FordFulkerson extends MFP{
-	public FordFulkerson(){
-		g = new Grafo();
-		g_residual = new Grafo();
-		s = new Salida();
-	}
+	protected int path[];
+	protected int dist[];
+
 	public void Ejecutar(){
 		int size = g.sizeGrafo();
 		// g_residual = g;
@@ -38,6 +36,6 @@ public abstract class FordFulkerson extends MFP{
 	public void Caminos(int idNave, int consumo){
 		super.Caminos(idNave, consumo);
 	}
-	public abstract void Recorrido(int origen, int destino);
+	public abstract boolean Recorrido(int origen, int destino);
 	
 }
