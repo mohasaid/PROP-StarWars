@@ -84,15 +84,6 @@ public class Conexion {
     
     //MODIFICADORAS
     
-    //Pre: La conexion esta inicializada
-    //Post: se hace un swap entre planeta A i planeta B tal que planetaA = planetaB y planetaB = planetaA
-    public void invertir_planetas() throws Exception
-    {
-    	int aux = planetaA;
-    	planetaA = planetaB;
-    	planetaB = aux;
-    }
-    
     //Pre: Cierto
     //Post: El id de la conexion se ha modificado por id = "id_nuevo"
     public void modificar_id(int id_nuevo) throws Exception
