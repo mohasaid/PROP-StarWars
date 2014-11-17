@@ -59,15 +59,16 @@ public class ControladorGalaxia
     public String consultarElementsGalaxia() throws Exception
     {
     	String res = "";
-    	res = g.consultarNomGalaxia() + ":" + g.consultarPresupost() + ":" + g.consultarLimitGalaxia();
+    	res = g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia();
     	if(g.consulta_nombreLimits() > 0) {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
-	    	res = res + ":(";
+	    	res += ":";
+	    	// res = res + ":(";
 	    	while(it.hasNext()) {
 	    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
 	    	}
-	    	res = res + ")";
+	    	//res = res + ")";
     	}
     	return res;
     }
@@ -84,16 +85,11 @@ public class ControladorGalaxia
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
 	    	while(it.hasNext()) {
-	    		res += ":(" + it.next().consultarPrimero() + "," + it.next().consultarSegundo() + ")";
+	    		res += /*":"+ */it.next().consultarPrimero() + "," + it.next().consultarSegundo();
 	    	}
 	    	return res;
     	}
     	else throw new Exception("La galaxia no tiene forma");
-    }
-    
-    public Integer consultarPresupost() throws Exception
-    {
-    	return g.consultarPresupost();
     }
     
     /**
@@ -194,11 +190,6 @@ public class ControladorGalaxia
 		  g.modificarIDplaneta(x, y, idPlaneta);
    }
    
-   public void modificarPresupost(int p) throws Exception
-   {
-	   g.modificarPresupost(p);
-   }
-   
     /**
      * Metodo para añadir un planeta en la galaxia en las coordenadas "x" y "y"
      * @param cp
@@ -223,7 +214,7 @@ public class ControladorGalaxia
     {
     	/*String res = "";
     	Pair<Integer, Integer> p = g.afegirPlanetaAutomatic(idPlaneta);
-    	res = "(" + p.consultarPrimero() + "," + p.consultarSegundo() + ")";
+    	res = p.consultarPrimero() + "," + p.consultarSegundo();
     	return res;*/
     	return g.afegirPlanetaAutomatic(idPlaneta);
     }
@@ -262,7 +253,7 @@ public class ControladorGalaxia
     	ArrayList<ArrayList<Pair<Arco,Integer> > > resultado = new ArrayList<ArrayList<Pair<Arco,Integer> > >();
     	ArrayList<Pair<Arco, Integer> > ap = new ArrayList<Pair<Arco, Integer> >();
     	ArrayList<Integer> pl = cp.consultarPlanetas();
-    	ArrayList<Conexion> ac = cr.consultar_Conexiones();
+    	ArrayList<Conexion> ac = cr.Consultar_Conexiones();
     	for(int i = 0; i < ac.size(); ++i) { // anado las conexiones bidireccionales
     		if(ac.get(i).consultar_bidireccional()) {
     			int idRuta = ac.get(i).consultar_id();
@@ -278,10 +269,9 @@ public class ControladorGalaxia
     			if(ac.get(j).consultar_planetaA() == id) {
     				int ru = ac.get(j).consultar_id();
     				Ruta r = cr.BuscarRuta(ru);
-    				// int idRuta = r.consultar_id()
+    				int idRuta = r.consultar_id();
     				int cap = r.consultar_capacidad();
-    				int cost = r.consultar_distancia();
-    				Arco arc = new Arco(cap,cost);
+    				Arco arc = new Arco(cap,idRuta);
     				ap.get(i).ponPrimero(arc);
     				ap.get(i).ponSegundo(ac.get(j).consultar_planetaB());
     			}
@@ -327,11 +317,9 @@ public class ControladorGalaxia
 					info = cin.next(); // limite siempre tendra
 					Integer N = Integer.parseInt(info);
 					info = cin.next();
-					Integer presu = Integer.parseInt(info);
 					info = cin.next();
 					if(info.contentEquals("null")) {
 						g = new Galaxia(nomG,N);
-						g.modificarPresupost(presu);
 						break; // no tiene limites
 					}
 					else {
@@ -346,7 +334,6 @@ public class ControladorGalaxia
 							lpa.add(paird);
 						}
 						g = new Galaxia(nomG,N,lpa);
-						g.modificarPresupost(presu);
 					}
 				}
 				//cp.CargarPlanetas(path);
@@ -368,25 +355,29 @@ public class ControladorGalaxia
     public void guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) throws Exception
     {
     	cdg.AbrirEscritura(directori);
-    	// int iteracions = 0;
+
     	String result = "";
-    	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia() + ":" + g.consultarPresupost();
-    	if(g.consulta_nombreLimits() > 0 ) result += ":" + g.consultarValorLimits();
+    	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia() + ":" + consultarLimitsGalaxia();
     	cdg.guardar(result);
     	
     	result = "#@";
     	if(cp.Consultar_Size() > 0) { // PLANETAS
-    		cp.GuardarPlanetas(directori);
+    		String GP = cp.consultarTODO();
+    		result += GP;
     		cdg.guardar(result);
     	}
+    	
     	result = "#@";
     	if(cr.Consultar_numero_rutes() > 0) { // RUTAS
-    		cr.GuardarRutas(directori);
+    		String GP1 = cr.consultarTODO();
+    		result += GP1;
     		cdg.guardar(result);
     	}
+    	
     	result = "#@";
     	if(cn.size() > 0) { // NAVES -> ARREGLAR ESTO
-    		cn.GuardarNaves(directori);
+    		String GP2 = cn.consultarTODO();
+    		result += GP2;
     		cdg.guardar(result);
     	}
     	cdg.CerrarEscritura();
