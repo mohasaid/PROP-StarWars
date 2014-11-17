@@ -40,11 +40,11 @@ public class DriverControladorRuta {
               + " 21: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
               + " 22: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
               + " 23: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
-              + " 24: Invertir_planetaA_planetaB(int id)"
+              + " 24: Invertir_planetaA_planetaB(int id)\n"
               + " 25: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
               
               + " \nOPERACIONES PERA BORRAR RUTAS \n"
-              + " 26: BorrarRutaConexions(int id_planeta)"
+              + " 26: BorrarRutaConexions(int id_planeta)\n"
               + " 27: BorrarRuta(int id, ControladorPlaneta cp) \n"
               + " 28: Borrar_Conexion(int id) \n"
               + " 29: Borrar_Rutas() \n"
@@ -426,7 +426,7 @@ public class DriverControladorRuta {
 	{
 		try {
 			int id = cin.nextInt();
-			cr.ModificarPlanetaARuta(id, cin.nextInt());
+			cr.ModificarPlanetaARuta(id, cin.nextInt(), cp);
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -437,7 +437,7 @@ public class DriverControladorRuta {
 	{
 		try {
 			int id = cin.nextInt();
-			cr.ModificarPlanetaBRuta(id, cin.nextInt());
+			cr.ModificarPlanetaBRuta(id, cin.nextInt(),cp);
 		}
 		catch (Exception e){
             System.out.print(e);
