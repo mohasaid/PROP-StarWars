@@ -412,16 +412,12 @@ public class ControladorRuta {
       
     //Pre: Existe una ruta con id = "id"
     //Post: La capacidad de la ruta con id = "id" ha sido modificada por capacidad = "capacidad_nueva"
-    public void ModificarCapacidadRuta(int id, int capacidad_nueva, ControladorPlaneta cp) throws Exception
+    public void ModificarCapacidadRuta(int id, int capacidad_nueva) throws Exception
     {
         if(ErrorTipografico(capacidad_nueva)){
             throw new Exception("Error : La capacidad debe ser mayor o igual que 0\n");
         }
-        int idb = ConsultarPlanetaBRuta(id); 
-        int vp = cp.Consultar_Capacidad(idb);
-        int vr = ConsultarCapacidadRuta(id); 
         
-        cp.Modificar_Capacidad(idb, vp-vr+capacidad_nueva);
         Ruta solicitada = BuscarRuta(id);
         solicitada.modificar_capacidad(capacidad_nueva);
     }
@@ -486,14 +482,6 @@ public class ControladorRuta {
         }
     	Conexiones.add(c);//anadimos otra vez la conexion
     	c.invertir_planetas();
-    	if (c.consultar_bidireccional() == false) {
-    		int idA = c.consultar_planetaA();
-    		int idB = c.consultar_planetaB();
-    		int cap_original_b = cp.Consultar_Capacidad( idB );
-    		int cap_original_a = cp.Consultar_Capacidad( idA );
-    		cp.Modificar_Capacidad( idB, cap_original_b - BuscarRuta(id).consultar_capacidad() );
-    		cp.Modificar_Capacidad( idA, cap_original_a + BuscarRuta(id).consultar_capacidad() );
-    	}
     }
       
     //Pre: Existe una ruta con id = "id"
@@ -536,18 +524,9 @@ public class ControladorRuta {
   //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
   public void BorrarRuta(int id, ControladorPlaneta cp) throws Exception
   {
-	  Ruta r = BuscarRuta(id);
-	  int idA = ConsultarPlanetaARuta(id);
-	  int idB = ConsultarPlanetaBRuta(id);
-	  
-	  int capacidadA = cp.Consultar_Capacidad(idA);
-	  int capacidadB = cp.Consultar_Capacidad(idB);
-	  
-	  cp.Modificar_Capacidad(idB, ( capacidadB -  r.consultar_capacidad()) );
-	  
-	  if(ConsultarBidireccionalidadRuta(id)) { 
-		  cp.Modificar_Capacidad(idA, ( capacidadA - r.consultar_capacidad() ) );
-	  }
+	  if (id < 0) {
+		  throw new Exception("La id de la ruta tiene que ser mayor o igual que 0 \n");
+	  } 
 	  Borrar_Ruta(id);
   	  Borrar_Conexion(id);
   }
