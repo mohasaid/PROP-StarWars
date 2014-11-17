@@ -67,8 +67,8 @@ public class DriverGeneral
             {
                 case 1: DCNave.Executa(sc,cn,cp); break;  
                 case 2: Dnave.Executa(sc); break;
-                case 3: DGalaxia.Executa(sc,cg,cn,cp,cr); break;
-                case 4: DCGalaxia.Executa(sc,cp, cr, cn); break;
+                case 3: DGalaxia.Executa(sc,cn,cp,cr); break;
+                case 4: DCGalaxia.Executa(sc,cp, cr, cn,cg); break;
                 case 5: DCRuta.Executa(cr, cp, sc); break;
                 case 6: DRuta.Executa(sc); break;
                 case 7:	DCP.Ejecuta(sc,cp,cr,cg);break;
