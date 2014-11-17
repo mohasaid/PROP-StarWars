@@ -215,7 +215,9 @@ public class DriverControladorRuta {
 			
 			int planetaB = cin.nextInt();
 			
-			boolean bidireccional = leer_booleano();
+			//boolean bidireccional = leer_booleano();
+			
+			boolean bidireccional = cin.nextBoolean();
 			
 			cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
 		}
