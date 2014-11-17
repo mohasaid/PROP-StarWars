@@ -6,9 +6,9 @@ public class ControladorMFP{
 	private FuncionesCoste fc;
 	private boolean FuncionElegida;
 	private Iterator<Integer> itCB;
-	private int coste;
-	private Iterator<Pair<Arco,Integer>> itF;
+	private Iterator<String> itF;
 	private Iterator<String> itC;
+	
 	//CREADORA
 	public ControladorMFP(){
 		e = new Entrada();
@@ -16,24 +16,27 @@ public class ControladorMFP{
 		
 	}
 	//Seleccion/Ejecucion del algoritmo
-	public void SeleccionarAlgoritmo(int i,ControladorRuta cr) throws Exception{
+	public void SeleccionarAlgoritmo(int i,ControladorRuta cr,ControladorPlaneta cp,ControladorNave cn) throws Exception{
 		if(!FuncionElegida){
 			throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
 		}
 		if(i==1){
 			alg = new FordFulkersonBFS(e);
-			alg.Ejecutar();
-			alg.GenerarFlujos(e,cr);
 		}
 		if(i==2){
 			alg = new FordFulkerson_Dijkstra(e);
-			alg.Ejecutar();
-			alg.GenerarFlujos(e,cr);
 		}
 		if(i==3){
 			//alg = new PushRelabel(e);
-			// alg.Ejecutar();
-			//alg.GenerarFlujos(e,cr);
+		}
+
+		alg.Ejecutar();
+		ArrayList<Integer> aux = cn.IdNaves();
+		Iterator<Integer> it = aux.iterator();
+		while(it.hasNext()){
+			int id = it.next();
+			int cons =  cn.ConsultarConsumo(id);
+			alg.Caminos(id,cons);
 		}
 	}
 	
@@ -80,7 +83,7 @@ public class ControladorMFP{
 
 //OPERACIONES SALIDA
 	public void Inicializar1(){
-		itF = (alg.ConsultarFlujos()).iterator();
+		itF = (alg.ConsultarCaminos()).iterator();
 		itCB = (alg.ConsultarCuellos()).iterator();
 	}
 	public void Inicializar2(){
@@ -95,13 +98,11 @@ public class ControladorMFP{
 		int j=0;
 		if(i==0){
 			Inicializar1();
-			res += "Ruta : Flujo\n";
+			res += "Camino que ha de recorrer cada nave:\n";
 		}
 		while(itF.hasNext() && j<100){
-			Pair<Arco,Integer> aux = itF.next();
-			int idr = aux.consultarPrimero().ConsultarIdRuta();
-			res += idr+" : "+aux.consultarSegundo()+"\n";
-			++j;
+			String aux = itF.next();
+			res += aux+"\n";
 			if(!itF.hasNext() && itCB.hasNext()) res += "Cuellos de botella:\n";
 		}
 		while(itCB.hasNext() && j<100){
