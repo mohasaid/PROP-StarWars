@@ -1,9 +1,7 @@
 import java.io.*;
 import java.util.Scanner;
- 
-/** HACER**/
 
-public class ControladorDadesGalaxia {
+public class ControladorDadesGalaxia extends ControladorDades {
  
     private boolean inicial;
  
@@ -17,14 +15,12 @@ public class ControladorDadesGalaxia {
     //METODES
     public String carregar(String path) throws FileNotFoundException 
     {     
-        String sep = File.separator; // separador de paths = \
-        String filename = "Galaxia.txt";
         String res = "";
-        FileReader fr = new FileReader(path + sep + filename);
+        FileReader fr = new FileReader(path);
         Scanner in = new Scanner(fr);
         while (in.hasNextLine()) {
             res += in.nextLine();
-            res += "@";
+            res += "#";
         }
         in.close();
         return res;
@@ -32,22 +28,17 @@ public class ControladorDadesGalaxia {
      
     public void guardar(String path, String res)throws IOException  
     {        
-        String sep = File.separator; 
-        String filename = "Galaxia.txt";
-         
         PrintWriter out;
          
         if (inicial) {
-            // si comencem a guardar matxaquem el que hi havia
-            out = new PrintWriter(path + sep + filename);
+            out = new PrintWriter(path);
         }
         else {
-            // si hi ha mes blocs per guardar afegim el contingut
-            out = new PrintWriter(new BufferedWriter(new FileWriter(path + sep + filename, true)));
+            out = new PrintWriter(new BufferedWriter(new FileWriter(path, true)));
         }
          
         Scanner scan = new Scanner(res);
-        scan.useDelimiter("\\@");
+        scan.useDelimiter("#");
         String s;
         while(scan.hasNext()) {
             s = scan.next();
