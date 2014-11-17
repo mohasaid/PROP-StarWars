@@ -38,10 +38,9 @@ public class DriverControladorPlaneta {
                 case 8: TestConsultarRutasConecta(sc, contp, contr);break;
                 case 9: TestConsultarlistaPlaneta(contp);break;
                 case 10: TestModificarCoste(sc, contp);break;
-                case 11: TestModificarCoordenadas(sc, contp, cg);break;
-                case 12: TestBorrar(sc, contp, contr, cg);break;
-                case 13: TestCargar(sc,contp, cg);break;
-                case 14: TestGuardar(sc,contp);break;
+                case 11: TestBorrar(sc, contp, contr, cg);break;
+                case 12: TestCargar(sc,contp, cg);break;
+                case 13: TestGuardar(sc,contp);break;
             }
             n = sc.nextInt();
         }
@@ -197,30 +196,6 @@ public class DriverControladorPlaneta {
     		System.out.print(e);
     	}
     }
-    public static void TestModificarCoordenadas(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg){
-    	try {
-    		String s;
-    		while (!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
-    		}
-    		int id = sc.nextInt();
-    		while (!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception("Error: la coordenada X de un Planeta tiene que ser un entero\n");
-    		}
-    		int x = sc.nextInt();
-    		while (!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception("Error: la coordenada Y de un Planeta tiene que ser un entero\n");
-    		}
-    		int y = sc.nextInt();
-    		contp.modificarCoordenades(id,x,y,cg);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
     public static void TestBorrar(Scanner sc, ControladorPlaneta contp, ControladorRuta contr, ControladorGalaxia cg) {
     	try {
     		String s;
@@ -229,7 +204,7 @@ public class DriverControladorPlaneta {
     			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int id = sc.nextInt();
-    		contp.Borrar(id, cg, contr);
+    		contp.Borrar(id, contr);
     	}
     	catch (Exception e){
     		System.out.print(e);
