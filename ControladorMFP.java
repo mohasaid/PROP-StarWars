@@ -41,8 +41,8 @@ public class ControladorMFP{
 	}
 	
 	//Entrada
-	public void InitEntrada(ControladorGalaxia cg) throws Exception{
-		e = new Entrada(cg);
+	public void InitEntrada(ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception{
+		e = new Entrada(cg,cr,cp,cn);
 	}
 	//Funciones de coste
 	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp) throws Exception{
