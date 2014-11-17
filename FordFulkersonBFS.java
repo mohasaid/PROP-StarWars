@@ -21,7 +21,7 @@ import java.util.Queue;
 		public void Caminos(int idNave, int consumo){
 			super.Caminos(idNave, consumo);
 		}
-		public int Ejecutar(int origen, int destino){
+		public void Ejecutar(){
 			return super.Ejecutar(origen,destino);
 		}
 		public void Recorrido(int origen, int destino){
