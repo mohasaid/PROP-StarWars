@@ -27,7 +27,7 @@ public class ControladorNave{
 			Cdn = new ControladorDadesNave();
 		}
 		
-			public ArrayList<Integer> IdNaves() throws Exception{
+			public ArrayList<Integer> IdNaves(){
 				ArrayList<Integer> res = new ArrayList<Integer>();
 				Iterator<TipoNave1> it = listaNaves1.iterator();
 				while(it.hasNext()){
@@ -49,6 +49,7 @@ public class ControladorNave{
 				while(it5.hasNext()){
 						res.add(it5.next().consultar_id());
 					}
+				return res;
 			}
 			
 				//Pre: cierto
@@ -139,7 +140,7 @@ public class ControladorNave{
 						}
 					return planetas;				
 			}
-				public ArrayList<Integer> PlanetasDestino() throws Exception{
+				public ArrayList<Integer> PlanetasDestino(int id) throws Exception{
 					ArrayList<Integer> planetas = new ArrayList<Integer>();
 					Iterator<TipoNave1> it = listaNaves1.iterator();
 					while(it.hasNext()){
