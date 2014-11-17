@@ -996,7 +996,6 @@ public class ControladorNave{
 	    	String res = "";
 	        if(!listaNaves1.isEmpty()){    
 	            res = "";
-	            int iteracions = 0;
 	            for (TipoNave1 r : listaNaves1){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_origen() + ":";
@@ -1004,8 +1003,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                ++iteracions;
-	                if(iteracions == 100){
 	                    iteracions = 0;
 	                    res = "";
 	                }
@@ -1013,63 +1010,42 @@ public class ControladorNave{
 	        }
 	        
 	        if(!listaNaves2.isEmpty()){
-	            int iteracions = 0;
 	            for (TipoNave2 r : listaNaves2){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                ++iteracions;
-	                if(iteracions == 100){
 	                    iteracions = 0;
 	                    res = "";
 	                }
 	            }
 	        }
 	        if(!listaNaves3.isEmpty()){
-	            int iteracions = 0;
 	            for (TipoNave3 r : listaNaves3){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                ++iteracions;
-	                if(iteracions == 100){
-	                    iteracions = 0;
-	                    res = "";
-	                }
 	            }
 	        }
 	        if(!listaNaves4.isEmpty()){
-	            int iteracions = 0;
 	            for (TipoNave4 r : listaNaves4){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                ++iteracions;
-	                if(iteracions == 100){
-	                    iteracions = 0;
-	                    res = "";
-	                }
 	            }
 	        }
-	        if(!listaNaves5.isEmpty()){       
-	            int iteracions = 0;
+	        if(!listaNaves5.isEmpty()){ 
 	            for (TipoNave5 r : listaNaves5){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                ++iteracions;
-	                if(iteracions == 100){
-	                    iteracions = 0;
-	                    res = "";
-	                }
 	            }
 	        }
 	        return res;
