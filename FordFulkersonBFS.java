@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 
-	public class FordFulkersonBFS extends FordFulkerson {
+public class FordFulkersonBFS extends FordFulkerson {
 		
 		public FordFulkersonBFS(){
 			g = new Grafo();
@@ -26,7 +26,9 @@ import java.util.Queue;
 			int V = g_residual.sizeGrafo();
 			boolean[] visitados = new boolean[V];
 			Arrays.fill(visitados,false);
+			
 			visitados[origen] = true;
+			
 			Queue<Integer> q1 = new LinkedList<Integer>();
 			q1.add(origen);
 			while(!q1.isEmpty()) {
@@ -42,6 +44,6 @@ import java.util.Queue;
 					}
 				}
 			}
+			return visitados[destino];
 		}
 	}
-
