@@ -149,8 +149,11 @@ public class DriverControladorRuta {
     
     public void escriu_arraylist_conexions (ArrayList<Conexion> c) throws Exception
     {
-    	for( Conexion con : c ){
-    		con.consultar_id();
+		Iterator<Conexion> it = c.iterator();
+		Conexion aux = new Conexion();
+		while( it.hasNext() ){
+			aux = it.next();
+            System.out.print(aux.consultar_id());
 		}
     }
     
@@ -404,7 +407,7 @@ public class DriverControladorRuta {
 	{
 		try {
 			int id = cin.nextInt();
-			cr.ModificarCapacidadRuta(id, cin.nextInt(), cp);
+			cr.ModificarCapacidadRuta(id, cin.nextInt());
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -468,7 +471,7 @@ public class DriverControladorRuta {
     public void TestControladorBorrarRutaConexions_desdePlaneta()
     {
 		try {
-			cr.BorrarRutaConexions( cin.nextInt() );
+			cr.BorrarRutaConexions( cin.nextInt(), cp );
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -487,7 +490,7 @@ public class DriverControladorRuta {
 	
 	public void  TestControladorBorrarRutaDesdePlaneta() throws Exception{
 		try {
-			cr.BorrarRutaConexions( cin.nextInt() );
+			cr.BorrarRutaConexions( cin.nextInt(), cp );
 		}
 		catch (Exception e){
             System.out.print(e);
