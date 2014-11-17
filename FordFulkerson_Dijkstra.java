@@ -1,14 +1,7 @@
 import java.util.*;
 
 	public class FordFulkerson_Dijkstra extends FordFulkerson {
-		private int path[]; // PASARLAS COMO PARAMETRO O COMO ATRIBUTOS PRIVADOS
-		private int dist[];
-		/*
-	int path[] = new int[size];
-	Arrays.fill(path, -1);
-	int dist[] = new int[size];
-	Arrays.fill(dist, Integer.MAX_VALUE);
-		 */
+
 		public FordFulkerson_Dijkstra(){
 			g = new Grafo();
 			g_residual = new Grafo();
@@ -25,7 +18,7 @@ import java.util.*;
 		public void Ejecutar(){
 			return super.Ejecutar();
 		}
-		public void Recorrido(int origen, int destino){
+		public boolean Recorrido(int origen, int destino){
 			int V = g_residual.sizeGrafo();
 			boolean[] visitados = new boolean[V];
 			Arrays.fill(visitados, false);
