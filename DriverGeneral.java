@@ -74,7 +74,7 @@ public class DriverGeneral
                 case 7:	DCP.Ejecuta(cr,cg);break;
                 case 8: Dp.Ejecuta();break;
                 case 9: Dc.Executa(c);break;
-                case 10: De.Executa(en, cg);break;
+                case 10: De.Executa(en, cg, cr, cp, cn);break;
                 case 11: Darco.Executa(sc);break;
                 case 12: Dsalida.Executa(sc,cr,cg);break;
                 case 13: dMFP.Executa(sc,cMFP,cg,cr,cp);break;
