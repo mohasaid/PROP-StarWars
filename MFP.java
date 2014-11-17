@@ -51,6 +51,36 @@ public abstract class MFP{
 		}		
 	}
 	
+	public void Calcular_cuellos_botellas ()
+	{
+		int path[] = new int[g_residual.sizeGrafo()];
+		int V = g_residual.sizeGrafo();
+		int origen = V-1;
+		boolean[] visitados = new boolean[V];
+		Arrays.fill(visitados,false);
+		visitados[ origen ] = true;
+		Queue<Integer> q1 = new LinkedList<Integer>();
+		q1.add(origen);
+		while(!q1.isEmpty()) {
+			int actual = q1.poll().intValue();
+			int size = g.sizeGrafo(actual);
+			for(int i = 0; i < size; ++i) {
+				int adj = g.consultarSeg(actual, i);
+				int cap = g.consultarPrim(actual, i).ConsultarCapacidad();
+				if(cap != 0 && !visitados[adj]) {
+					path[adj] = actual;
+					visitados[adj] = true;
+					q1.add(adj);
+				}
+				if (cap == 0) //tenemos cuello de botella
+				{
+					Arco c = g.consultarPrim(actual, adj);
+					s.AnadirCuello(c);
+				}
+			}
+		}
+	}
+	
 	public String Caminos(Nave n, int consumo, boolean b){
 		//Codigo caminos
 		int origen = n.consultar_origen();
