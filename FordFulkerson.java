@@ -1,6 +1,6 @@
 import java.util.*;
 
-public /*abstract*/ class FordFulkerson extends MFP{
+public abstract class FordFulkerson extends MFP{
 	protected Grafo g;
 	protected Grafo g_residual;
 	
@@ -44,7 +44,7 @@ public /*abstract*/ class FordFulkerson extends MFP{
 	}
 	return max_flow;
 	}
-
+	public abstract void Recorrido(int origen, int destino);
 }
 
 
