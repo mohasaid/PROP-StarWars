@@ -470,20 +470,6 @@ public class ControladorRuta {
         c.modificar_planetaB(id_planetaB_nuevo);
     }
     
-    //Pre: La ruta con id = "id" tiene los atributos planetaA y planetaB inicializados
-    //Post: Los planetas que conecta la ruta con id = "id" se modifican por planetaA = planetaB y planetaB = planetaB
-    public void Invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
-    {
-    	Conexion c = BuscarConexion(id);
-    	Borrar_Conexion(id);//esta para que no vea esta ruta al momento de buscar
-        if ( !Disponibilidad_crear_ruta( c.consultar_planetaB(), c.consultar_planetaA() ) ) {
-        	Conexiones.add(c); //anadimos otra vez la conexion
-            throw new Exception("No se pueden invertir los planetas, ya que existe una ruta que los conecta\n");
-        }
-    	Conexiones.add(c);//anadimos otra vez la conexion
-    	c.invertir_planetas();
-    }
-      
     //Pre: Existe una ruta con id = "id"
     //Post: La bidireccionalidad de la ruta con id = "id" ha sido modificada tal que bidireccional = "bidireccional_nuevo"
     public void ModificarBidireccionalidadRuta(int id, boolean bidireccional_nuevo)throws Exception
