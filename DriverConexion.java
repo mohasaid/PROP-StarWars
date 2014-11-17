@@ -7,26 +7,25 @@ public class DriverConexion {
     public void opciones()
     {
     	System.out.print(
-                "-----------------------------------------------------------------------------------"
-                +   "                               DRIVER CONEXION                                     "
-                +   "-----------------------------------------------------------------------------------"
+                "-----------------------------------------------------------------------------------\n"
+                +   "                               DRIVER CONEXION                                     \n"
+                +   "-----------------------------------------------------------------------------------\n"
                 + "\n\nCREACION CONEXION\n"
                 + " 0: Salir de la gestion del driver \n"
                 + " 1: Conexion() \n"
                 + " 2: Conexion(int i, int pA, int pB, boolean b) \n"
                 
                 + "\n\nOPERACIONES DE CONSULTA DE CONEXION\n"
-                + " 3: consultar_id() \n"    
+                + " 3: consultar_id() \n"
                 + " 4: consultar_planetaA() \n"       
                 + " 5: consultar_planetaB() \n"       
                 + " 6: consultar_bidireccional() \n"
                 
                 + "\n\nOPERACIONES MODIFICADORAS DE CONEXION\n"
-                + " 7: invertir_planetas() \n"
-                + " 8: modificar_id() \n"    
-                + " 9: modificar_planetaA() \n"       
-                + " 10: modificar_planetaB() \n"       
-                + " 11: modificar_bidireccional() \n"
+                + " 7:  modificar_id() \n"    
+                + " 8:  modificar_planetaA() \n"       
+                + " 9:  modificar_planetaB() \n"       
+                + " 10: modificar_bidireccional() \n"
     			);
     }
     
@@ -43,25 +42,15 @@ public class DriverConexion {
             case 4:  TestConsultarPlanetaAConnexio();break;
             case 5:  TestConsultarPlanetaBConnexio();break;
             case 6:  TestConsultarBidireccionalConnexio();break;
-            case 7:  TestInvertirPlanetasConnexio();
-            case 8:  TestModificarIdConnexio(cin);break;
-            case 9:  TestModificarPlanetaAConnexio(cin);break;
-            case 10: TestModificarPlanetaBConnexio(cin);break;
-            case 11: TestModificarBidireccionalConnexio(cin);break;
+            case 7:  TestModificarIdConnexio(cin);break;
+            case 8:  TestModificarPlanetaAConnexio(cin);break;
+            case 9: TestModificarPlanetaBConnexio(cin);break;
+            case 10: TestModificarBidireccionalConnexio(cin);break;
             default: System.out.println("Opcion incorrecta");
             }
         opciones();
         n = cin.nextInt();
         }
-    }
-    
-    public void TestInvertirPlanetasConnexio() throws Exception {
-    	try{
-    		c.invertir_planetas();
-    	}
-		catch (Exception e){
-	        System.out.print(e);
-		}
     }
     
 	public void TestCrearConnexioBuida()
