@@ -23,9 +23,10 @@ public abstract class MFP{
 		return s.ConsultarCambios();
 	}
 	public abstract void Ejecutar();
-	public abstract void Recorrido(int origen,int destino);
+	public abstract boolean Recorrido(int origen,int destino);
 	public void Caminos(int idNave, int consumo){
 		//Codigo caminos
 	}
 	
 	}
+
