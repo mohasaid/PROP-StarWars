@@ -1,71 +1,68 @@
 
 public class PushRelabel {
-	  public int Push_Relabel(Grafo g, int s, int t) {
-	    int n = g.sizeGrafo();
-	    int[] h = new int[n]; //Height
-	    h[s] = n - 1;
-	    int[] maxh = new int[n]; 
-	    Grafo f = new Grafo(g.consultarGrafo());
-	    int[] e = new int[n]; //excess
-	    int cap;
-	    for (int i = 0; i < n; ++i) {
-	    	f.ponGeneral(i, s, g.consultaPairUn(i, s));//f[i][s] = -f[s][i];
-	    	cap = g.consultaPairUn(s, i).consultarPrimero().ConsultarCapacidad();;
-	    	f.ponEnVerAr(i, s, - cap);
-	    	e[i] = cap;
-	    }
-	    int sz = 0;
-	    while (true) {
-	      if (sz == 0) {
-	        for (int i = 0; i < n; ++i) {
-	          if (i != s && i != t && e[i] > 0) {
-	            if (sz != 0 && h[i] > h[maxh[0]]){
-	              sz = 0;
-	            }
-	            maxh[sz++] = i;
-	          }
-	        }
-	        break;
-	      }
-	      while (sz != 0) {
-	        int i = maxh[sz - 1];
-	        boolean pushed = false;
-	        int cg, cf;
-	        for (int j = 0; j < n && e[i] != 0; ++j) {
-	        	cg = g.consultaPairUn(i, j).consultarPrimero().ConsultarCapacidad();
-	        	cf = f.consultaPairUn(i, j).consultarPrimero().ConsultarCapacidad();
-	        	if (h[i] == h[j] + 1 &&  cg- cf > 0) {
-	            int df = Math.min(cg - cf, e[i]);
-	            f.ponEnVerAr(i, j, cf + df); //f[i][j] += df
-	            f.ponEnVerAr(j, i, f.consultaPairUn(j, i).consultarPrimero().ConsultarCapacidad() -df);//f[j][i] -= df;
-	            e[i] -= df;
-	            e[j] += df;
-	            if (e[i] == 0)
-	              --sz;
-	            pushed = true;
-	            }
-	        }
-	        if (!pushed) {
-	          h[i] = Integer.MAX_VALUE;
-	          for (int j = 0; j < n; ++j) {
-	        	  cg = g.consultaPairUn(i, j).consultarPrimero().ConsultarCapacidad();
-	        	  cf = f.consultaPairUn(i, j).consultarPrimero().ConsultarCapacidad();
-	        	  if (h[i] > h[j] + 1 && cg - cf > 0) {
-	        		  h[i] = h[j] + 1;
-	        	  }
-	          }
-	          if (h[i] > h[maxh[0]]) {
-	            sz = 0;
-	            break;
-	          }
-	        }
-	      }
-	    }
+	  public static int[][] Matrix(Grafo g) {
+		int f[][] = new int[g.sizeGrafo()][g.sizeGrafo()];
+		int v;
+		for(int i = 0; i < g.sizeGrafo(); ++i) {
+			for(int j = 0; j < g.sizeGrafo(i); ++j) {
+				v = g.consultaPair(i, j).consultarSegundo();
+				f[i][v] = g.consultaPair(i, j).consultarPrimero().ConsultarCapacidad();
+			}
+		}
+		return f;
+	}
+	public static int Push_Relabel(Grafo G, int s, int t) {
+		int g[][] = Matrix(G);
+		int n = g.length;
+		int h[] = new int[n];
+		h[s] = n-1;
+		int maxh[] = new int[n];
+		int e[] = new int[n];
+		int f[][] = new int[n][n];
+		for (int i = 0; i < n; ++i) {
+			f[s][i] = g[s][i];
+			f[i][s] = -f[s][i];
+			e[i] = g[s][i];
+		}
+		for (int sz = 0;;) {
+			if (sz == 0) {
+				for (int i = 0; i < n; ++i){
+					if (i != s && i != t && e[i] > 0) {
+						if (sz != 0 && h[i] > h[maxh[0]]) sz = 0;
+				        	maxh[sz++] = i;
+					}
+				}
+			}
+		      	if (sz == 0) break;
+		      	while (sz != 0) {
+		        	int i = maxh[sz - 1];
+			        boolean pushed = false;
+			        for (int j = 0; j < n && e[i] != 0; ++j) {
+			        	if (h[i] == h[j] + 1 && g[i][j] - f[i][j] > 0) {
+			            		int df = Math.min(g[i][j] - f[i][j], e[i]);
+			            		f[i][j] += df;
+			            		f[j][i] -= df;
+			            		e[i] -= df;
+			            		e[j] += df;
+			            		if (e[i] == 0) --sz;
+	            				pushed = true;
+		          		}
+			        }
+			        if (!pushed) {
+			        	h[i] = Integer.MAX_VALUE;
+			          	for (int j = 0; j < n; ++j){
+			            		if (h[i] > h[j] + 1 && g[i][j] - f[i][j] > 0) h[i] = h[j] + 1;
+		          		}
+			          	if (h[i] > h[maxh[0]]) {
+			            		sz = 0;
+			            		break;
+			          	}
+			        }
+		      	}
+	    	}
 
-	    int flow = 0;
-	    for (int i = 0; i < n; i++) {
-	      flow += f.consultaPairUn(s, i).consultarPrimero().ConsultarCapacidad();//f[s][i];
-	   }
-	    return flow;
-	  }
+	    	int flow = 0;
+    		for (int i = 0; i < n; i++) flow += f[s][i];
+	    	return flow;
+	}
 }
