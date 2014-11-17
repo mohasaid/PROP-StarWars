@@ -36,7 +36,7 @@ public class ControladorMFP{
 		while(it.hasNext()){
 			int id = it.next();
 			int cons =  cn.ConsultarConsumo(id);
-			alg.Caminos(id,cons);
+			alg.Caminos(id,cons,(fc instanceof FuncionPrecio);
 		}
 	}
 	
