@@ -150,7 +150,9 @@ public class DriverControladorGalaxia {
 	public void TestCrearGalaxia() 
 	{
 		try {
+			System.out.println("Introduce nombre");
 			String n = cin.next();
+			System.out.println("Introduce limite");
 			int l = cin.nextInt();
 			cGalaxia.creaGalaxia(n, l);
 		}
@@ -340,6 +342,7 @@ public class DriverControladorGalaxia {
 	public void TestexisteixPlaneta(Scanner cin)
 	{
 		try {
+			System.out.println("Introduce idplaneta");
 			int idPlaneta = cin.nextInt();
 			String res = cGalaxia.existeixPlaneta(idPlaneta) ? "Existeix el planeta amb id " + idPlaneta : "No existeix el planeta amb id " + idPlaneta;
 			System.out.println(res);
@@ -352,6 +355,7 @@ public class DriverControladorGalaxia {
 	public void TestmodificarNom(Scanner cin)
 	{
 		try {
+			System.out.println("Introduce nombre");
 			String n = cin.next();
 			cGalaxia.modificarNom(n);
 		}
@@ -363,6 +367,7 @@ public class DriverControladorGalaxia {
 	public void TestmodificarLimit(Scanner cin) 
 	{
 		try {
+			System.out.println("Introduce limite");
 			int l = cin.nextInt();
 			cGalaxia.modificarLimit(l);
 		}
@@ -374,6 +379,7 @@ public class DriverControladorGalaxia {
 	public void TestmodificarPresupost(Scanner cin) 
 	{
 		try {
+			System.out.println("Introduce presupuesto");
 			int p = cin.nextInt();
 			cGalaxia.modificarPresupost(p);
 		}
@@ -433,9 +439,13 @@ public class DriverControladorGalaxia {
 	public void TestafegirPlaneta(ControladorPlaneta cp, Scanner cin) 
 	{
 		try {
+			System.out.println("Introduce idplaneta");
 			int idPlaneta = cin.nextInt();
+			System.out.println("Introduce coste");
 			int coste = cin.nextInt();
+			System.out.println("Introduce primera coordenada");
 			int x = cin.nextInt();
+			System.out.println("Introduce segunda coordenada");
 			int y = cin.nextInt();
 			Pair<Integer, Integer> co = new Pair<Integer, Integer>(x,y);
 			Planeta a = new Planeta(idPlaneta,coste,co);
@@ -450,6 +460,7 @@ public class DriverControladorGalaxia {
 	public void TestafegirPlanetaAutomatic(ControladorPlaneta cp, Scanner cin) 
 	{
 		try {
+			System.out.println("Introduce idplaneta");
 			int idPlaneta = cin.nextInt();
 			Random rand = new Random();
 	    	int coste = rand.nextInt((Integer.MAX_VALUE - 0) + 1); 
@@ -498,7 +509,9 @@ public class DriverControladorGalaxia {
 	public void TestexisteixPlanetaCoordenades(Scanner cin)  
 	{
 		try {
+			System.out.println("Introduce primera coordenada");
 			int x = cin.nextInt();
+			System.out.println("Introduce segunda coordenada");
 			int y = cin.nextInt();
 			if(cGalaxia.existeixPlanetaCoordenades(x, y)) System.out.println("Existe un planeta en esas coordenadas");
 			else System.out.println("No existe ningun planeta en esas coordenadas");
@@ -522,7 +535,9 @@ public class DriverControladorGalaxia {
 	public void TestconsultaIDplaneta(Scanner cin) 
 	{
 		try {
+			System.out.println("Introduce primera coordenada");
 			int x = cin.nextInt();
+			System.out.println("Introduce segunda coordenada");
 			int y = cin.nextInt();
 			int id = cGalaxia.consultaIdplaneta(x, y);
 			System.out.println("El planeta con coordenadas (" + x + "," + y + ") tiene como id " +id);
@@ -535,8 +550,11 @@ public class DriverControladorGalaxia {
 	public void TestmodificarIDplaneta(Scanner cin, ControladorPlaneta cp) 
 	{
 		try {
+			System.out.println("Introduce primera coordenada");
 			int x = cin.nextInt();
+			System.out.println("Introduce segunda coordenada");
 			int y = cin.nextInt();
+			System.out.println("Introduce el identificador nuevo");
 			int idNueva = cin.nextInt();
 			int id = cGalaxia.consultaIdplaneta(x, y);
     		cGalaxia.modificarIDPlaneta(x, y, idNueva);
@@ -554,6 +572,7 @@ public class DriverControladorGalaxia {
 	public void TesteliminarPlaneta(ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) 
 	{
 		try {
+			System.out.println("Introduce el identificador del planeta");
 			int idPlaneta = cin.nextInt();
 			cGalaxia.eliminarPlaneta(idPlaneta);
 			cp.BorraPla(idPlaneta);
@@ -620,10 +639,15 @@ public class DriverControladorGalaxia {
 	public void TestCrearRuta(ControladorRuta cr, ControladorPlaneta cp, Scanner cin) 
 	{
 		try {
+			System.out.println("Introduce idruta");
 			int idRuta = cin.nextInt();
+			System.out.println("Introduce capacidad");
 			int capacidad = cin.nextInt();
+			System.out.println("Introduce distancia");
 			int distancia = cin.nextInt();
+			System.out.println("Introduce planetaA");
 			int planetaA = cin.nextInt();
+			System.out.println("Introduce planetaB");
 			int planetaB = cin.nextInt();
 			boolean bidireccional = cin.nextBoolean();
 			cr.CrearRuta(idRuta, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
@@ -657,6 +681,7 @@ public class DriverControladorGalaxia {
 	public void TestEliminarRuta(ControladorRuta cr, Scanner cin) 
 	{
 		try {
+			System.out.println("Introduce idRuta");
 			int idRuta = cin.nextInt();
 			cr.Borrar_Ruta(idRuta);
 		}
@@ -684,9 +709,13 @@ public class DriverControladorGalaxia {
 	public void TestafegirNau(ControladorNave cn) 
 	{
 		try {
+			System.out.println("Introduce idNave");
 			int idNau = cin.nextInt();
+			System.out.println("Introduce tipo");
 			int t = cin.nextInt();
+			System.out.println("Introduce destino");
 			int d = cin.nextInt();
+			System.out.println("Introduce origen");
 			int o = cin.nextInt();
 			cn.CrearNave(idNau, t, d, o);
 		}
@@ -810,6 +839,7 @@ public class DriverControladorGalaxia {
 	public void TestcarregarConjuntGalaxia(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn)
 	{
 		try {
+			System.out.println("Introduce directorio");
 			String directori = cin.next();
 			cGalaxia.carregarConjuntGalaxia(directori, cp, cn, cr);
 		}
@@ -821,6 +851,7 @@ public class DriverControladorGalaxia {
 	public void TestguardarConjuntGalaxia(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn)
 	{
 		try {
+			System.out.println("Introduce directorio");
 			String directori = cin.next();
 			cGalaxia.guardarConjuntGalaxia(directori,cp,cr,cn);
 		}
