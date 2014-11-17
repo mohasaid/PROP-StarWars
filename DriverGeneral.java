@@ -48,7 +48,7 @@ public class DriverGeneral
         ControladorRuta cr = new ControladorRuta();
         ControladorGalaxia cg = new ControladorGalaxia();
         
-       Ruta (controlador ruta ya esta creado)
+       //Ruta (controlador ruta ya esta creado)
         DriverRuta DRuta = new DriverRuta();
         DriverControladorRuta DCRuta = new DriverControladorRuta(); 
         Ruta r = new Ruta();
