@@ -2,7 +2,7 @@ import java.util.*;
  
 public class DriverControladorPlaneta {
 	private ControladorPlaneta contp;
-    public void Ejecuta(ControladorRuta contr) {
+    public void Ejecuta(ControladorRuta contr, ControladorGalaxia cg) {
         Scanner sc = new Scanner(System.in);
         contp = new ControladorPlaneta();
         int n;
@@ -30,9 +30,9 @@ public class DriverControladorPlaneta {
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
-                case 1: TestCrearPlaneta(sc, contp);break;
-                case 2: TestCrearPlanetaAuto(sc, contp);break;
-                case 3: TestCrearPlanetaAuto2(sc, contp);break; 
+                case 1: TestCrearPlaneta(sc, contp, cg);break;
+                case 2: TestCrearPlanetaAuto(sc, contp, cg);break;
+                case 3: TestCrearPlanetaAuto2(sc, contp, cg);break; 
                 case 4: TestConsultarCapacidad(sc, contp);break;
                 case 5: TestConsultarCoste(sc, contp);break;
                 case 6: TestConsultarCoordenadas(sc, contp);break;
@@ -40,17 +40,17 @@ public class DriverControladorPlaneta {
                 case 8: TestConsultarCoordenadaY(sc, contp);break;
                 case 9: TestConsultarRutasConecta(sc, contp);break;
                 case 10: TestConsultarlistaPlaneta(contp);break;
-                case 11: TestModificarId(sc, contp);break;
+                case 11: TestModificarId(sc, contp, cg);break;
                 case 12: TestModificarCoste(sc, contp);break;
-                case 13: TestModificarCoordenadas(sc, contp);break;
-                case 14: TestBorrar(sc, contp, contr);break;
-                case 15: TestCargar(sc,contp);break;
+                case 13: TestModificarCoordenadas(sc, contp, cg);break;
+                case 14: TestBorrar(sc, contp, contr, cg);break;
+                case 15: TestCargar(sc,contp, cg);break;
                 case 16: TestGuardar(sc,contp);break;
             }
             n = sc.nextInt();
         }
     }
-    public static void TestCrearPlaneta(Scanner sc, ControladorPlaneta contp) {
+    public static void TestCrearPlaneta(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
         try {
             String s;
             while(!sc.hasNextInt()) {
@@ -74,21 +74,21 @@ public class DriverControladorPlaneta {
             }
             int y = sc.nextInt();
             Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-            contp.Planeta(id,k,Coo);
+            contp.Planeta(id,k,Coo, cg);
         }
         catch (Exception e){
             System.out.print(e);
         }
     }
-    public static void TestCrearPlanetaAuto(Scanner sc, ControladorPlaneta contp) {
+    public static void TestCrearPlanetaAuto(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
         try{
-            contp.PlanetaAuto();       
+            contp.PlanetaAuto(cg);       
         }  
         catch (Exception e) {
             System.out.print(e);       
         }
     }
-    public static void TestCrearPlanetaAuto2(Scanner sc, ControladorPlaneta contp) {
+    public static void TestCrearPlanetaAuto2(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
         try{
         	String s;
             while(!sc.hasNextInt()) {
@@ -96,7 +96,7 @@ public class DriverControladorPlaneta {
                 throw new Exception("Error: El identifcador del Planeta debe ser un entero\n");
             }
             int id = sc.nextInt();
-            contp.PlanetaAuto(id);       
+            contp.PlanetaAuto(id,cg);       
         }  
         catch (Exception e) {
             System.out.print(e);       
@@ -189,7 +189,7 @@ public class DriverControladorPlaneta {
             System.out.print(e);
         }          
     }
-    public static void TestModificarId(Scanner sc, ControladorPlaneta contp) {
+    public static void TestModificarId(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
         try {
             String s;
             while (!sc.hasNextInt()) {
@@ -202,7 +202,7 @@ public class DriverControladorPlaneta {
                 throw new Exception("Error: El identificador de un Planeta tiene que ser un entero\n");
             }
             int idnew = sc.nextInt();
-            contp.Modificar_id(idact,idnew);
+            contp.Modificar_id(idact,idnew, cg);
         }
         catch (Exception e){
         	System.out.print(e);
@@ -227,7 +227,7 @@ public class DriverControladorPlaneta {
     		System.out.print(e);
     	}
     }
-    public static void TestModificarCoordenadas(Scanner sc, ControladorPlaneta contp){
+    public static void TestModificarCoordenadas(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg){
     	try {
     		String s;
     		while (!sc.hasNextInt()) {
@@ -245,13 +245,13 @@ public class DriverControladorPlaneta {
     			throw new Exception("Error: la coordenada Y de un Planeta tiene que ser un entero\n");
     		}
     		int y = sc.nextInt();
-    		contp.modificarCoordenades(id,x,y);
+    		contp.modificarCoordenades(id,x,y,cg);
     	}
     	catch (Exception e) {
     		System.out.print(e);
     	}
     }
-    public static void TestBorrar(Scanner sc, ControladorPlaneta contp, ControladorRuta contr) {
+    public static void TestBorrar(Scanner sc, ControladorPlaneta contp, ControladorRuta contr, ControladorGalaxia cg) {
     	try {
     		String s;
     		while (!sc.hasNextInt()) {
@@ -259,7 +259,7 @@ public class DriverControladorPlaneta {
     			throw new Exception("Error: el identificador de un Planeta es un entero\n");
     		}
     		int id = sc.nextInt();
-    		contp.Borrar(id, contr);
+    		contp.Borrar(id, cg, contr);
     	}
     	catch (Exception e){
     		System.out.print(e);
@@ -274,10 +274,10 @@ public class DriverControladorPlaneta {
                System.out.print(e);
            }
     }
-    public static void TestCargar(Scanner sc, ControladorPlaneta contp){
+    public static void TestCargar(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg){
     	try{
     		String s = sc.next();
-    		contp.CargarPlanetas(s);
+    		contp.CargarPlanetas(s,cg);
     	}
     	catch(Exception e){
     		System.out.print(e);
