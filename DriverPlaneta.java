@@ -17,9 +17,9 @@ public class DriverPlaneta {
             + " 5: Consultar_Coordenadas()\n"
             + " 6: consultar_X( )\n"
             + " 7: consultar_Y( )\n"
-            + " 9: Modificar_Coste(int k)\n"
-            + " 10: modificarCoordenades(int x, int y)\n"
-            + " 11: Borrar()\n");
+            + " 8: Modificar_Coste(int k)\n"
+            + " 9: modificarCoordenades(int x, int y)\n"
+            + " 10: Borrar()\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
@@ -29,9 +29,9 @@ public class DriverPlaneta {
                 case 5: TestCCoordenadas();break;
                 case 6: TestCCoordenadaX();break;
                 case 7: TestCCoordenadaY();break;
-                case 9: TestMCoste(sc);break;
-                case 10: TestMCoordenadas(sc);break;
-                case 11: TestB();break;
+                case 8: TestMCoste(sc);break;
+                case 9: TestMCoordenadas(sc);break;
+                case 10: TestB();break;
             }
             n = sc.nextInt();
         }
