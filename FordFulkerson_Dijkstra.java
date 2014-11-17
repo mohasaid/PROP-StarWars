@@ -19,6 +19,9 @@ import java.util.*;
 			g_residual = e.Consultar_grafo();
 			s = new Salida();
 		}
+		public void Caminos(int idNave, int consumo){
+			super.Caminos(idNave, consumo);
+		}
 		public int Ejecutar(int origen, int destino){
 			return super.Ejecutar(origen,destino);
 		}
