@@ -33,7 +33,7 @@ public class DriverGeneral
         DriverNave Dnave = new DriverNave();
          //Galaxia
         DriverControladorGalaxia DCGalaxia = new DriverControladorGalaxia();
-        DriverGalaxia DGalaxia = new DriverGalaxia();*/
+        DriverGalaxia DGalaxia = new DriverGalaxia();
         //Arco
         DriverArco Darco = new DriverArco();
         //Salida
@@ -72,7 +72,7 @@ public class DriverGeneral
                 case 5: DCRuta.Executa(cr, cp); break;
                 case 6: DRuta.Executa(r); break;
                 case 7:	DCP.Ejecuta(cr);break;
-                case 8: Dp.Ejecuta();
+                case 8: Dp.Ejecuta();break;
                 case 9: Dc.Executa(c);break;
                 case 10: De.Executa(en, cg, cr, cp);break;
                 case 11: Darco.Executa(sc);break;
