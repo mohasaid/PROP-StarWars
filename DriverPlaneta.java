@@ -3,9 +3,8 @@ import java.util.*;
 public class DriverPlaneta {
 	private Planeta p;
 	
-	public void Ejecuta() {
+	public void Ejecuta(Scanner sc) {
         int n;
-        Scanner sc = new Scanner(System.in);
             System.out.print(
             "-----------------------------------------------------------------------------------"
             +   "                    DRIVER PLANETA                                     "
@@ -168,3 +167,4 @@ public class DriverPlaneta {
     	}
     }
 }
+
