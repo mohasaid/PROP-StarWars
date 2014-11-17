@@ -22,7 +22,7 @@ public abstract class MFP{
 	public ArrayList<String> ConsultarCambios(){
 		return s.ConsultarCambios();
 	}
-	public abstract int Ejecutar(int origen, int destino);
+	public abstract void Ejecutar();
 	public abstract void Recorrido(int origen,int destino);
 	public void Caminos(int idNave, int consumo){
 		//Codigo caminos
