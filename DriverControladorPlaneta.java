@@ -21,12 +21,11 @@ public class DriverControladorPlaneta {
             + " 8: consultar_Y(int id)\n"
             + " 9: consultarRutasConecta(int id)\n"
             + " 10: Consultar_listaPlanetas()\n"
-            + " 11: Modificar_id(int idold, int idnew)\n"
-            + " 12: Modificar_Coste(int id, int k)\n"
-            + " 13: modificarCoordenades(int id, int x, int y)\n"
-            + " 14: Borrar(Planeta p)\n"
-            + " 15: CargarPlanetas()\n"
-            + " 16: GuardarPlanetas()\n");
+            + " 11: Modificar_Coste(int id, int k)\n"
+            + " 12: modificarCoordenades(int id, int x, int y)\n"
+            + " 13: Borrar(Planeta p)\n"
+            + " 14: CargarPlanetas()\n"
+            + " 15: GuardarPlanetas()\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
@@ -38,14 +37,13 @@ public class DriverControladorPlaneta {
                 case 6: TestConsultarCoordenadas(sc, contp);break;
                 case 7: TestConsultarCoordenadaX(sc, contp);break;
                 case 8: TestConsultarCoordenadaY(sc, contp);break;
-                case 9: TestConsultarRutasConecta(sc, contp);break;
+                case 9: TestConsultarRutasConecta(sc, contp, contr);break;
                 case 10: TestConsultarlistaPlaneta(contp);break;
-                case 11: TestModificarId(sc, contp, cg);break;
-                case 12: TestModificarCoste(sc, contp);break;
-                case 13: TestModificarCoordenadas(sc, contp, cg);break;
-                case 14: TestBorrar(sc, contp, contr, cg);break;
-                case 15: TestCargar(sc,contp, cg);break;
-                case 16: TestGuardar(sc,contp);break;
+                case 11: TestModificarCoste(sc, contp);break;
+                case 12: TestModificarCoordenadas(sc, contp, cg);break;
+                case 13: TestBorrar(sc, contp, contr, cg);break;
+                case 14: TestCargar(sc,contp, cg);break;
+                case 15: TestGuardar(sc,contp);break;
             }
             n = sc.nextInt();
         }
@@ -173,8 +171,15 @@ public class DriverControladorPlaneta {
             System.out.print(e);
         }          
     }
-    public static void TestConsultarRutasConecta(Scanner sc, ControladorPlaneta contp) {
+    public static void TestConsultarRutasConecta(Scanner sc, ControladorPlaneta contp, ControladorRuta cr) {
         try {
+        	String s;
+        	while (!sc.hasNextInt()) {
+        		s = sc.nextLine();
+        		throw new Exception ("Error: El identificador de un Planeta es un entero\n");
+        	}
+        	int id = sc.nextInt();
+        	contp.consultarRutasConecta(id,cr);
         }
         catch (Exception e) {
             System.out.print(e);
@@ -188,25 +193,6 @@ public class DriverControladorPlaneta {
         catch (Exception e) {
             System.out.print(e);
         }          
-    }
-    public static void TestModificarId(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
-        try {
-            String s;
-            while (!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identificador de un Planeta es un entero\n");
-            }
-            int idact = sc.nextInt();
-            while (!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identificador de un Planeta tiene que ser un entero\n");
-            }
-            int idnew = sc.nextInt();
-            contp.Modificar_id(idact,idnew, cg);
-        }
-        catch (Exception e){
-        	System.out.print(e);
-        }
     }
     public static void TestModificarCoste(Scanner sc, ControladorPlaneta contp){
     	try {
