@@ -2,8 +2,6 @@ import java.util.*;
 
 public class DriverEntrada {
 	private Entrada e;
-    private Scanner cin = new Scanner(System.in);
-
     public void opciones()
     {
     	System.out.print(
@@ -20,8 +18,8 @@ public class DriverEntrada {
     			);
     }
     
-    public void Executa(Entrada en, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception {
-        e = en;
+    public void Executa(ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn, Scanner cin) throws Exception {
+        e = new Entrada();
         opciones();
         int op = cin.nextInt();
         while(op != 0) {
@@ -60,7 +58,6 @@ public class DriverEntrada {
     {
 		try {
 			Grafo g = e.Consultar_grafo();
-			//posar alguna cosa per veure que s'ha passat correctament el graf
 		}
 		catch (Exception e){
             System.out.print(e);
