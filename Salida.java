@@ -3,12 +3,14 @@ public class Salida{
 private ArrayList<Integer> CuellosB;
 private ArrayList<String> Caminos;
 private ArrayList<String> Cambios;
+private int max_flow;
 	//CREADORA
 
 	public Salida(){
 		CuellosB = new ArrayList<Integer>();
 		Caminos = new ArrayList<String>();
 		Cambios = new ArrayList<String>();
+		max_flow = 0;
 	}
 
 	// CONSULTORAS
@@ -20,6 +22,9 @@ private ArrayList<String> Cambios;
 	}
 	public ArrayList<String> ConsultarCambios(){
 		return Cambios;
+	}
+	public int ConsultarMax_flow(){
+		return max_flow;
 	}
 	//Pre:cierto
 	//Post: devuelve la suma del numero de elementos en Flujos, y cuellosB
@@ -41,6 +46,9 @@ private ArrayList<String> Cambios;
 	}
 	public void AnadirCambio(String s){
 		if(!Cambios.contains(s))Cambios.add(s);
+	}
+	public void AnadirMax_flow(int x){
+		max_flow = x;
 	}
 	public void EliminarCuellos(){
 		CuellosB.clear();
