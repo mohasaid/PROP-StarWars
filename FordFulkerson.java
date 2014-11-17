@@ -2,14 +2,12 @@ import java.util.*;
 
 
 public abstract class FordFulkerson extends MFP{
-	//protected Grafo g;
-	//protected Grafo g_residual;
 	public FordFulkerson(){
 		g = new Grafo();
 		g_residual = new Grafo();
 		s = new Salida();
 	}
-	public int Ejecutar(int origen, int destino){
+	public void Ejecutar(){
 		int size = g.sizeGrafo();
 		// g_residual = g;
 		int path[] = new int[size];
