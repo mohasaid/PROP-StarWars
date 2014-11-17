@@ -509,17 +509,25 @@ public class ControladorRuta {
         c.modificar_bidireccional(bidireccional_nuevo);
     }
     
- //Pre: Existe una ruta con id = "id_planeta"
+  //Pre: Existe una ruta con id = "id_planeta"
   //Post: Las rutas que tienen planetaA = "id_planeta" o planetaB = "id_planeta" han sido borrada del arbol de rutas y de conexiones
-  public void BorrarRutaConexions(int id_planeta) throws Exception
+  public void BorrarRutaConexions(int id_planeta, ControladorPlaneta cp) throws Exception
   {
+	  if (id_planeta < 0) {
+		  throw new Exception("La id del planeta tiene que ser mayor o igual que 0 \n");
+	  }
+	  if (!cp.ExistePlaneta(id_planeta)) {
+		  throw new Exception("El planeta no existe \n");
+	  }
 	  Iterator<Conexion> it = Conexiones.iterator();
 	  Conexion aux = new Conexion();
 	  while( it.hasNext() ) {
 		  aux = it.next();
 		  if(aux.consultar_planetaA() == id_planeta || aux.consultar_planetaB() == id_planeta){
+			  System.out.print("enrrem al borrar");
 			  it.remove();
 			  Borrar_Ruta( aux.consultar_id() );
+			  
 		  }
 	  }
   }
@@ -535,10 +543,10 @@ public class ControladorRuta {
 	  int capacidadA = cp.Consultar_Capacidad(idA);
 	  int capacidadB = cp.Consultar_Capacidad(idB);
 	  
-	  cp.Modificar_Capacidad(idB, (capacidadB - r.consultar_capacidad()) );
+	  cp.Modificar_Capacidad(idB, ( capacidadB -  r.consultar_capacidad()) );
 	  
 	  if(ConsultarBidireccionalidadRuta(id)) { 
-		  cp.Modificar_Capacidad(idA, (capacidadA - r.consultar_capacidad()) );
+		  cp.Modificar_Capacidad(idA, ( capacidadA - r.consultar_capacidad() ) );
 	  }
 	  Borrar_Ruta(id);
   	  Borrar_Conexion(id);
