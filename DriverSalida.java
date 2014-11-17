@@ -115,8 +115,8 @@ public class DriverSalida{
     }
     public static void TestAnadirCamino(Scanner sc){
     	try{
-    		String s = sc.next();
-	    	s.AnadirCamino(s);
+    		String st = sc.next();
+	    	s.AnadirCamino(st);
     	}
     	catch(Exception e){
     		System.out.print(e);
