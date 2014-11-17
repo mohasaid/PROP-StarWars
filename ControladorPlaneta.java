@@ -64,7 +64,12 @@ public class ControladorPlaneta {
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
         int idP = 1;
         while(ExistePlaneta(idP)) ++idP;
-        Pair<Integer, Integer> co_nuevas = cg.afegirPlanetaAutomatic(idP);
+        String a11 = cg.afegirPlanetaAutomatic(idP);
+		Scanner sc = new Scanner(a11);
+		sc.useDelimiter(",");
+		Integer a1 = sc.nextInt();
+		Integer a2 = sc.nextInt();
+		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
         Planeta p = new Planeta(idP, r1, co_nuevas);
         p.modificarCoordenades(co_nuevas.consultarPrimero(), co_nuevas.consultarSegundo());
         listaPlanetas.add(p);
@@ -74,7 +79,12 @@ public class ControladorPlaneta {
     {
     	if(ExistePlaneta(id)) throw new Exception("Existe un planeta con ese identificador");
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
-        Pair<Integer, Integer> co_nuevas = cg.afegirPlanetaAutomatic(id);
+    	String a11 = cg.afegirPlanetaAutomatic(id);
+		Scanner sc = new Scanner(a11);
+		sc.useDelimiter(",");
+		Integer a1 = sc.nextInt();
+		Integer a2 = sc.nextInt();
+		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
         Planeta p = new Planeta(id, r1, co_nuevas);
         listaPlanetas.add(p);
     }
@@ -168,26 +178,18 @@ public class ControladorPlaneta {
     {
         BuscarPlaneta(id).Modificar_Coste(k);
     }
-    //Pre: Cierto.
-    //Post: Modifica las coordenadas del planeta.
-    public void modificarCoordenades(int id, int x, int y, ControladorGalaxia cg) throws Exception 
-    {
-    	Planeta p = BuscarPlaneta(id);
-    	cg.eliminarPlaneta(id);
-        p.modificarCoordenades(x,y);
-        cg.afegirPlaneta(id, x, y);
-    }
+    
     //Pre: Cierto.
     //Post: Borra el planeta.
-    public void Borrar(int id, ControladorGalaxia cg, ControladorRuta cr) throws Exception {
+    public void Borrar(int id, ControladorRuta cr) throws Exception 
+    {
         Planeta p = BuscarPlaneta(id);
         listaPlanetas.remove(p);
         cr.BorrarRutaConexions(id);
-        cg.eliminarPlaneta(p.Consultar_id());
-        // p.Borrar();
     }
     
-    public void BorrarTodos() throws Exception {
+    public void BorrarTodos() throws Exception 
+    {
     	if(listaPlanetas.size() < 1) throw new Exception("No hay planetas");
     	listaPlanetas.clear();
     }
