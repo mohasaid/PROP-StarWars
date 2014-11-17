@@ -26,7 +26,7 @@ public class DriverControladorMFP{
         while(op != 0){
             switch (op) {
             case 1: TestSeleccionarFC(sc,cMFP,cg,cr,cp);break;
-            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cr);break;
+            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cr,cp,cn);break;
             case 3: TestConsultarSalida(cMFP);break;
             case 4: TestConsultarCambios(cMFP);break;
             default: System.out.println("Opción incorrecta");
@@ -86,7 +86,6 @@ public class DriverControladorMFP{
          	   System.out.print(s);
          	   i += 100;
              }
-            System.out.print("Coste: " + cMFP.ConsultarCoste()+"\n");
          }
          catch (Exception e){
              System.out.print(e);
