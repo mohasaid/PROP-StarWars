@@ -1,6 +1,5 @@
 import java.util.*;
 
-  
 public class ControladorRuta {
     //PARTE PRIVADA
     private TreeSet<Ruta> ArbolRutas;
@@ -17,14 +16,30 @@ public class ControladorRuta {
     //Post: Te devuelve true en caso que se pueda crear una ruta del planeta idA al planeta idB, en caso contrario, devuelve false ya que no es posible crearla
     private boolean Disponibilidad_crear_ruta (int idA, int idB) throws Exception
     {
+    	if (idA == idB) return false;
 		Iterator<Conexion> it = Conexiones.iterator();
 		Conexion aux = new Conexion();
-		while( it.hasNext()){
+		while( it.hasNext() ){
 			aux = it.next();
 			if (aux.consultar_planetaA() == idA && aux.consultar_planetaB() == idB) return false; // ya existe esta ruta
 			if (aux.consultar_planetaA() == idB && aux.consultar_planetaB() == idA && aux.consultar_bidireccional()) return false; //hay una ruta de b->a que es bidireccional, eso implica que ya existe la ruta
 		}
 		return true; 
+    }
+    
+    //Pre: Cierto
+    //Post: Retorna el numero de rutas que hay el arbol de conexiones, donde las que son bidireccionales cuentan como dos
+    private int Numero_rutes_sumant_bidireccional() throws Exception
+    {
+    	int ret = 0;
+    	ret = Consultar_numero_rutes();
+		Iterator<Conexion> it = Conexiones.iterator();
+		Conexion aux = new Conexion();
+		while( it.hasNext() ){
+			aux = it.next();
+			if ( aux.consultar_bidireccional() ) ++ret;
+		}
+		return ret;
     }
     
     //Pre: Cierto
@@ -67,6 +82,10 @@ public class ControladorRuta {
     //Post: comprueva si existe la ruta con identificador "id"
     public boolean ExisteRuta(int id) throws Exception
     {
+    	if (id < 0) {
+    		throw new Exception("Error: El identificador de una ruta tiene que ser mayor o igual que 0\n");
+
+    	}
     	Iterator<Ruta> it = ArbolRutas.iterator();
     	while (it.hasNext()){
     		if (it.next().consultar_id() == id) return true;
@@ -78,6 +97,10 @@ public class ControladorRuta {
     //Post: comprueva si existe la conexion con identificador "id"
     public boolean ExisteConexion(int id) throws Exception
     {
+    	if (id < 0) {
+    		throw new Exception("Error: El identificador de una conexion tiene que ser mayor o igual que 0\n");
+
+    	}
     	Iterator<Conexion> it = Conexiones.iterator();
     	while (it.hasNext()){
     		if (it.next().consultar_id() == id) return true;
@@ -89,7 +112,9 @@ public class ControladorRuta {
     //post: retorna la conexion que tiene identificador=id
     public Conexion BuscarConexion(int id) throws Exception
     {
-    	if ( !ExisteConexion(id) ) throw new Exception("Error: No existe ninguna conexion con el identificador introducido");
+    	if ( !ExisteConexion(id) ) {
+    		throw new Exception("Error: No existe ninguna conexion con el identificador introducido\n");
+    	}
     	Iterator<Conexion> it = Conexiones.iterator();
     	boolean trobat = false;
     	Conexion res = null;
@@ -108,7 +133,7 @@ public class ControladorRuta {
     //post: retorna la ruta que tiene identificador=id
     public Ruta BuscarRuta(int id) throws Exception
     {
-    	if ( !ExisteRuta(id) ) throw new Exception("Error: No existe ninguna ruta con el identificador introducido");
+    	if ( !ExisteRuta(id) ) throw new Exception("Error: No existe ninguna ruta con el identificador introducido\n");
     	Iterator<Ruta> it = ArbolRutas.iterator();
     	boolean trobat = false;
     	Ruta res = null;
@@ -138,14 +163,18 @@ public class ControladorRuta {
     //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
     public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
+    	int numero_planetas = cp.Consultar_Size();
+    	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
+    		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
+    	}
         if(ExisteRuta(id)){
-            throw new Exception("Error: Ya existe una ruta con el mismo identificador");       
+            throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");       
         }
         if (!cp.ExistePlaneta(planetaA) ) { 
-            throw new Exception("Error: El Planeta con id = " + planetaA + " no existe");
+            throw new Exception("Error: El Planeta con id = " + planetaA + " no existe\n");
         }
         if (!cp.ExistePlaneta(planetaB) ) { 
-            throw new Exception("Error: El Planeta con id = " + planetaB + " no existe");
+            throw new Exception("Error: El Planeta con id = " + planetaB + " no existe\n");
         }
         if ( !Disponibilidad_crear_ruta(planetaA , planetaB) ) {
         	throw new Exception("La Ruta de " + planetaA + " a " + planetaB + " ja existeix \n");
@@ -160,11 +189,14 @@ public class ControladorRuta {
     //Post: Crea una ruta de forma automatica y la anade al arbol de rutas
     public void CrearRuta_automatica(ControladorPlaneta cp) throws Exception
     {
+    	int numero_planetas = cp.Consultar_Size();
+    	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
+    		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
+    	}
         Random aleatorio = new Random();
         int id = 0;
         while(ExisteRuta(id)) ++id; 
         int capacidad = aleatorio.nextInt(2147483647);
-        System.out.println( "La capacidad automatica es: capacidad = " + capacidad + "\n" );
         int distancia = aleatorio.nextInt(2147483647);
         while (distancia == 0) {
             distancia = aleatorio.nextInt(2147483647);
@@ -177,13 +209,21 @@ public class ControladorRuta {
     	aux = aleatorio.nextInt(2147483647);
         aux = aux%cp.Consultar_Size();
         Planeta planetaB = cp.Consultar_PlanetaX(aux);
-        
-        if ( !Disponibilidad_crear_ruta(planetaA.Consultar_id() , planetaB.Consultar_id()) ) {
-        	CrearRuta_automatica(cp);
+	        
+        while ( !Disponibilidad_crear_ruta(planetaA.Consultar_id() , planetaB.Consultar_id()) || planetaA.Consultar_id() == planetaB.Consultar_id() )
+        {
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+            planetaA = cp.Consultar_PlanetaX(aux);
+            
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+            planetaB = cp.Consultar_PlanetaX(aux);
         }
         
         boolean bidireccional;
         bidireccional = aleatorio.nextBoolean();
+        
         Ruta r = new Ruta(id,capacidad,distancia);
         Conexion c = new Conexion(id, planetaA.Consultar_id(), planetaB.Consultar_id(), bidireccional);
         ArbolRutas.add(r); 
@@ -194,7 +234,13 @@ public class ControladorRuta {
     //Post: Crea una ruta de forma automatica y la anade al arbol de rutas
     public void CrearRuta_automatica(ControladorPlaneta cp, int id) throws Exception
     {
-    	if (ExisteRuta(id)) throw new Exception("Error: Ya existe una ruta con el mismo identificador");
+    	int numero_planetas = cp.Consultar_Size();
+    	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
+    		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
+    	}
+    	if (ExisteRuta(id)) {
+    		throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");
+    	}
         Random aleatorio = new Random();
     	int capacidad = aleatorio.nextInt(2147483647);
         int distancia = aleatorio.nextInt(2147483647);
@@ -210,8 +256,15 @@ public class ControladorRuta {
         aux = aux%cp.Consultar_Size();
         Planeta planetaB = cp.Consultar_PlanetaX(aux);
         
-        if ( !Disponibilidad_crear_ruta(planetaA.Consultar_id() , planetaB.Consultar_id()) ) {
-        	CrearRuta_automatica(cp,id);
+        while ( !Disponibilidad_crear_ruta(planetaA.Consultar_id() , planetaB.Consultar_id()) || planetaA.Consultar_id() == planetaB.Consultar_id() )
+        {
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+            planetaA = cp.Consultar_PlanetaX(aux);
+            
+        	aux = aleatorio.nextInt(2147483647);
+            aux = aux%cp.Consultar_Size();
+            planetaB = cp.Consultar_PlanetaX(aux);
         }
         
         boolean bidireccional;
@@ -268,7 +321,7 @@ public class ControladorRuta {
     //Post: Retorna el tamano del arbol de rutas
     public int Consultar_numero_rutes()
     {
-    	return ArbolRutas.size();
+    	return Conexiones.size();
     }
     
     
@@ -362,7 +415,7 @@ public class ControladorRuta {
     public void ModificarCapacidadRuta(int id, int capacidad_nueva, ControladorPlaneta cp) throws Exception
     {
         if(ErrorTipografico(capacidad_nueva)){
-            throw new Exception("Error : La capacidad debe ser mayor o igual que 0");
+            throw new Exception("Error : La capacidad debe ser mayor o igual que 0\n");
         }
         int idb = ConsultarPlanetaBRuta(id); 
         int vp = cp.Consultar_Capacidad(idb);
@@ -378,7 +431,7 @@ public class ControladorRuta {
     public void ModificarDistanciaRuta(int id, int distancia_nueva)throws Exception
     {
         if(ErrorTipografico(distancia_nueva) || distancia_nueva == 0){
-            throw new Exception("Error : La distancia entre planeas debe ser mayor que 0");
+            throw new Exception("Error : La distancia entre planeas debe ser mayor que 0\n");
         }
         Ruta solicitada = BuscarRuta(id);
         solicitada.modificar_distancia(distancia_nueva);
@@ -386,12 +439,15 @@ public class ControladorRuta {
       
     //Pre: Existe una ruta con id = "id"
     //Post: EL id del planetaA de la ruta con id = "id" ha sido modificado por id_planetaA = "id_planetaA_nuevo"
-    public void ModificarPlanetaARuta(int id, int id_planetaA_nuevo)throws Exception
+    public void ModificarPlanetaARuta(int id, int id_planetaA_nuevo, ControladorPlaneta cp)throws Exception
     {
         if(ErrorTipografico(id_planetaA_nuevo)){
-            throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0");
+            throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0\n");
         }
-        
+        if (!cp.ExistePlaneta(id_planetaA_nuevo)) {
+            throw new Exception("Error : El planeta con id = " + id_planetaA_nuevo + " no existe \n");
+
+        }
         Conexion c = BuscarConexion(id);
         
         if ( !Disponibilidad_crear_ruta( id_planetaA_nuevo, c.consultar_planetaB() ) ) {
@@ -402,10 +458,14 @@ public class ControladorRuta {
     
     //Pre: Existe una ruta con id = "id"
     //Post: EL id del planetaB de la ruta con id = "id" ha sido modificado por id_planetaB = "id_planetaB_nuevo"
-    public void ModificarPlanetaBRuta(int id, int id_planetaB_nuevo)throws Exception
+    public void ModificarPlanetaBRuta(int id, int id_planetaB_nuevo, ControladorPlaneta cp)throws Exception
     {
         if(ErrorTipografico(id_planetaB_nuevo)){
-            throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0");
+            throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0\n");
+        }
+        if (!cp.ExistePlaneta(id_planetaB_nuevo)) {
+            throw new Exception("Error : El planeta con id = " + id_planetaB_nuevo + " no existe \n");
+
         }
         Conexion c = BuscarConexion(id);
         if ( !Disponibilidad_crear_ruta( c.consultar_planetaA(), id_planetaB_nuevo ) ) {
@@ -419,9 +479,12 @@ public class ControladorRuta {
     public void Invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
     {
     	Conexion c = BuscarConexion(id);
+    	Borrar_Conexion(id);//esta para que no vea esta ruta al momento de buscar
         if ( !Disponibilidad_crear_ruta( c.consultar_planetaB(), c.consultar_planetaA() ) ) {
-            throw new Exception("No se pueden invertir los planetas, ya que existe una ruta que los conecta");
+        	Conexiones.add(c); //anadimos otra vez la conexion
+            throw new Exception("No se pueden invertir los planetas, ya que existe una ruta que los conecta\n");
         }
+    	Conexiones.add(c);//anadimos otra vez la conexion
     	c.invertir_planetas();
     	if (c.consultar_bidireccional() == false) {
     		int idA = c.consultar_planetaA();
