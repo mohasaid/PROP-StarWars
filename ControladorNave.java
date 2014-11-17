@@ -27,6 +27,30 @@ public class ControladorNave{
 			Cdn = new ControladorDadesNave();
 		}
 		
+			public ArrayList<Integer> IdNaves(){
+				ArrayList<Integer> res = new ArrayList<Integer>();
+				Iterator<TipoNave1> it = listaNaves1.iterator();
+				while(it.hasNext()){
+						res.add(it.next().consultar_id());
+					}
+				Iterator<TipoNave2> it2 = listaNaves2.iterator();
+				while(it2.hasNext()){
+						res.add(it2.next().consultar_id());
+					}
+				Iterator<TipoNave3> it3 = listaNaves3.iterator();
+				while(it3.hasNext()){
+						res.add(it3.next().consultar_id());
+					}
+				Iterator<TipoNave4> it4 = listaNaves4.iterator();
+				while(it4.hasNext()){
+						res.add(it4.next().consultar_id());
+					}
+				Iterator<TipoNave5> it5 = listaNaves5.iterator();
+				while(it5.hasNext()){
+						res.add(it5.next().consultar_id());
+					}
+			}
+			
 				//Pre: cierto
 				//Post: devuelve la nave con identificador "id"
 		/**
