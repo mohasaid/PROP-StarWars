@@ -6,7 +6,6 @@ public class Galaxia {
 	
     private String nomGalaxia;
     private int[][] gal;
-    private Integer presupost;
     private Integer N;
     private List<Pair<Integer,Integer> > limits;
     
@@ -89,7 +88,6 @@ public class Galaxia {
         if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
         if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
         nomGalaxia = nom;
-        presupost = new Integer(-1);
         N = new Integer(n);
         limits = new ArrayList<Pair<Integer,Integer> >();
         gal = new int[n][n];
@@ -111,7 +109,6 @@ public class Galaxia {
         gal = new int[n][n]; 
         N = new Integer(n);
         limits = l;
-        presupost = new Integer(-1);
         inicialitzaMatriu();
     }
   
@@ -127,18 +124,6 @@ public class Galaxia {
     }
     
     /**
-     * Metodo para consultar el presupuesto de la galaxia
-     * @return El presupuesto de la galaxia
-     * @throws Exception
-     */
-    public Integer consultarPresupost() throws Exception
-    {
-    	if(presupost == -1) throw new Exception("Error: la galaxia no tiene un presupuesto asignado");
-        return presupost;
-    }
-    
-    
-    /**
      * Metodo para consultar el numero de coordenadas que dan forma a la galaxia
      * @return Numero de coordenadas que dan forma a la galaxia
      */
@@ -152,9 +137,8 @@ public class Galaxia {
      * @return Coordenadas que dan forma a la galaxia
      * @throws Exception 
      */
-    public List<Pair<Integer, Integer> > consultarValorLimits() throws Exception
+    public List<Pair<Integer, Integer> > consultarValorLimits()
     {
-    	if(limits.size() < 1) throw new Exception("La galaxia no tiene coordenadas que le den forma");
     	return limits;
     }
 
@@ -189,9 +173,8 @@ public class Galaxia {
      * Metodo para consultar si existe un planeta en la galaxia con identificador "idplaneta"
      * @param idplaneta
      * @return Cierto si existe el planeta con identificador "idplaneta" en la galaxia, falso en caso contrario
-     * @throws Exception
      */
-    public boolean existeixPlaneta(int idplaneta) throws Exception
+    public boolean existeixPlaneta(int idplaneta)
     {
     	for(int i = 0; i < N; ++i) {
     		for(int j = 0; j < N; ++j) {
@@ -264,17 +247,6 @@ public class Galaxia {
     }
     
     /**
-     * Metodo para modificar el presupuesto de la galaxia
-     * @param p
-     * @throws Exception
-     */
-    public void modificarPresupost(int p) throws Exception
-    {
-        if(p < 0) throw new Exception("Error: el presupuesto no puede ser negativo");
-        presupost = Integer.valueOf(p);
-    }
-    
-    /**
      * Metodo para modificar el limite maximo de la galaxia borrando la antigua forma que tenia esta
      * @param n
      * @throws Exception
@@ -297,15 +269,10 @@ public class Galaxia {
     public void modificarLimitsUsuari(List<Pair<Integer, Integer> > p) throws Exception
     {
     	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
+    	
     	limits = p;
     	gal = new int[N][N];
     	inicialitzaMatriu();
-    }
-    
-    public void modificarIDplaneta(int x, int y, int idnova) throws Exception
-    {
-    	if(existeixPlaneta(idnova)) throw new Exception("Error: ya existe un planeta con este identificador");
-    	gal[x][y] = idnova;
     }
     
     /**
@@ -347,10 +314,10 @@ public class Galaxia {
     				}
     			}
     		}
-    		if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
+			if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
 		    Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
-    		gal[tmp1][tmp2] = idPlaneta;
-    		return par;
+			gal[tmp1][tmp2] = idPlaneta;
+			return par;
     	}
     	else { // Galaxia sin limites
     		int rndX = randInt(0,N);
@@ -362,19 +329,15 @@ public class Galaxia {
     		return par;
     	}
     }
-     
-    /**
-     * Metodo para eliminar un planeta de la galaxia
-     * @param p
-     * @throws Exception
-     */
-    public void eliminarPLaneta(Planeta p) throws Exception
-    {
-    	if(!existeixPlaneta(p.Consultar_id())) throw new Exception("El planeta introducido no existe en la galaxia");
-        Pair<Integer, Integer> co = p.consultar_coordenades();
-        gal[co.consultarPrimero()][co.consultarSegundo()] = 0;
-    }
     
+    public int consultarIDplaneta(int x, int y) throws Exception
+    {
+    	if(existeixPlanetaCoordenades(x,y)) {
+    		return gal[x][y];
+    	}
+    	else throw new Exception("No hay ningun planeta en las coordenadas introducidas");
+    }
+     
     /**
      * Metodo para eliminar un paneta de la galaxia con el identificador "idPlaneta"
      * @param idPlaneta
@@ -400,7 +363,7 @@ public class Galaxia {
      */
     public void eliminarTotsPlanetes() throws Exception
     {
-    	if(!algunPlaneta()) throw new Exception("No hay planetas en la galaxia");
+    	if(!algunPlaneta()) throw new Exception("No hay planetas a borrar en la galaxia ");
         reiniciaMatriu(); // borra planetas pero no la forma
     }
   
@@ -410,7 +373,6 @@ public class Galaxia {
      */
 	public void eliminarContingutGalaxia() throws Exception
     {
-        presupost = Integer.valueOf(-1);
         limits = new ArrayList<Pair<Integer,Integer> >();
         // N = 0;
         gal = new int[N][N];
