@@ -5,23 +5,22 @@ import java.util.Queue;
 
 public class FordFulkersonBFS extends FordFulkerson {
 	private int path[]; // path como privado o la paso por la funcion
-	/*
 	    int path[] = new int[size];
 		Arrays.fill(path, -1);
-	 */
-	
+	 
 	public FordFulkersonBFS(){
 		g = new Grafo();
 		g_residual = new Grafo();
 		s = new Salida();
+		
 	}
-	public FordFulkersonBFS(Entrada e){
+	public FordFulkersonBFS(/*Entrada e){*/
 		g = e.Consultar_grafo();
 		g_residual = e.Consultar_grafo();
 		s = new Salida();
 	}
 	
-	public void Recorrido(int origen, int destino){
+	public void Ejecutar(int origen, int destino){
 		int V = g_residual.sizeGrafo();
 		
 		boolean[] visitados = new boolean[V];
@@ -45,9 +44,29 @@ public class FordFulkersonBFS extends FordFulkerson {
 			}
 		}
 	}
-	
+	public ArrayList<Integer> ConsultarCuellos(){	
+		return s.ConsultarCuellos();
+		}
+	public ArrayList<Pair<Arco,Integer>> ConsultarFlujos(){
+		return s.ConsultarFlujos();
+		}
+	public int size(){
+			return s.size();
+		}
+	public int sizeCambios(){
+			return s.size();
+		}
+	public void GenerarFlujos(Entrada e, ControladorRuta cr){
+			s.GenerarFlujos(e,cr);
+		}
+		//Cambiar:
+		public ArrayList<String> ConsultarCambios(){
+		return s.ConsultarCambios();
+		}
+		public abstract void Ejecutar();
 }
 
+}
 /*
 public static boolean bfs_Grafo(ArrayList<ArrayList<Pair<Arco, Integer> > > g, int or, int dest, int path[])
 {
