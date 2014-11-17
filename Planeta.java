@@ -5,7 +5,6 @@ import java.util.TreeSet;
 public class Planeta
 {
     private int idPlaneta; //Identificador del planeta
-    private int Capacidad; //No. de naves que pueden repostar
     private int Coste; //Precio del combustible del planeta.
     private Pair<Integer,Integer> Coordenadas; //Coordenadas del planeta en la galaxia
      
@@ -14,7 +13,6 @@ public class Planeta
     public Planeta() 
     {
         idPlaneta = -1; //No se le ha asignado un identificador 
-        Capacidad = -1; //No se le han asignado rutas ha este planeta por lo tanto no tiene capacidad
         Coste = -1;
         Coordenadas = new Pair<Integer,Integer>(-1, -1); //No se le han asignado coordenadas
     }
@@ -24,7 +22,6 @@ public class Planeta
     {
         if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo\n");
         idPlaneta = id;
-        Capacidad = 0; // Viene definida por las rutas por lo tanto no puede haber error
         Coste = k;
         Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
     }
@@ -34,13 +31,6 @@ public class Planeta
     {
         if(idPlaneta == -1) throw new Exception ("Error: El planeta no tiene una id asignada\n");
         else return idPlaneta;
-    }
-    //Pre: Cierto.
-    //Post: Retorna la Capacidad del planeta.
-    public int Consultar_Capacidad() throws Exception
-    {
-        if(Capacidad == -1) throw new Exception ("Error: El Planeta no tiene una Capacidad asignada\n"); 
-        return Capacidad;
     }
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
@@ -69,24 +59,11 @@ public class Planeta
         return Coordenadas.consultarSegundo();
     }
     //Pre: Cierto.
-    //Post: Modifica la id del planeta, idPlaneta = id.
-    public void Modificar_id(int id) throws Exception {
-    	if(id < 0) throw new Exception ("Error: Un identificador de un Planeta debe ser un entero positivo\n");
-    	else idPlaneta = id;
-    }
-    //Pre: Cierto.
     //Post: Modifica el coste Coste, Coste = k.
     public void Modificar_Coste(int k) throws Exception
     {
         if (k < 0) throw new Exception("Error: El Coste del Planeta no puede ser negativo\n");
         else Coste = k;
-    }
-    //Pre: Cierto.
-    //Post: Modifica la Capacidad, Capacidad = c.
-    public void modificarCapacidad(int c) throws Exception 
-    {
-    	if(c < 0) throw new Exception("Error: La capacidad no puede ser negativa\n");
-    	else Capacidad = c;
     }
     //Pre: Cierto.
     //Post: Modifica las Coordenadas. 
@@ -103,7 +80,6 @@ public class Planeta
     public void Borrar() throws Exception
     {
         idPlaneta = -1;
-        Capacidad = -1;
         Coste = -1;
     }
 }
