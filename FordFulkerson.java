@@ -37,6 +37,9 @@ public abstract class FordFulkerson extends MFP{
 		}
 		return max_flow;
 	}
+	public void Caminos(int idNave, int consumo){
+		super.Caminos(idNave, consumo);
+	}
 	public abstract void Recorrido(int origen, int destino);
 	
 }
