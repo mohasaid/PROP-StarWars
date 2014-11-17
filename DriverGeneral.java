@@ -54,7 +54,7 @@ public class DriverGeneral
         while (op != 0){
             switch(op)
             {
-                //case 1: DCNave.Executa(sc,cn,cp); break;  
+                case 1: DCNave.Executa(sc,cn,cp); break;  
                 case 2: Dnave.Executa(sc); break;
                 
                 case 3: DGalaxia.Executa(cn,cp,cr); break;
@@ -66,9 +66,9 @@ public class DriverGeneral
                 case 7:	DCP.Ejecuta(cr);break;
                 case 8: Dp.Ejecuta();break;
                 
-                case 9: De.Executa(en, cg, cr, cp);break;
+                case 9: Dc.Executa(c);break;
                 
-                case 10: Dc.Executa(c);break;
+                case 10: De.Executa(en, cg, cr, cp);break;
                 
                 default: System.out.println("Opcion incorrecta");                
             }
