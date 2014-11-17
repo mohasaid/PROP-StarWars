@@ -11,7 +11,7 @@ public class DriverControladorPlaneta {
             +   "                    DRIVER CONTROLADOR PLANETA                                     "
             +   "-----------------------------------------------------------------------------------"
             + "Opciones \n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, boolean F, boolean S)\n"
+            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)\n"
             + " 2: PlanetaAuto()\n"
             + " 3: PlanetaAuto2(int id)\n"
             + " 4: Consultar_Coste(int id)\n"
