@@ -991,6 +991,89 @@ public class ControladorNave{
 	        	Cdn.CerrarEscritura();
 	        }
 	    }
+	    
+	    public String consultarTODO() throws Exception {
+	    	String res = "";
+	        if(!listaNaves1.isEmpty()){    
+	            res = "";
+	            int iteracions = 0;
+	            for (TipoNave1 r : listaNaves1){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_origen() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        
+	        if(!listaNaves2.isEmpty()){
+	            int iteracions = 0;
+	            for (TipoNave2 r : listaNaves2){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        if(!listaNaves3.isEmpty()){
+	            int iteracions = 0;
+	            for (TipoNave3 r : listaNaves3){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        if(!listaNaves4.isEmpty()){
+	            int iteracions = 0;
+	            for (TipoNave4 r : listaNaves4){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        if(!listaNaves5.isEmpty()){       
+	            int iteracions = 0;
+	            for (TipoNave5 r : listaNaves5){  
+	                res += r.consultar_id() + ":";
+	                res += r.consultar_destino() + ":";
+	                res += r.consultar_tipo() + ":";
+	                res += r.consultar_consumo();
+	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
+	            }
+	        }
+	        return res;
+	    }
 	    public void BorraNavesDestinoOrigen(int id) throws Exception{
 			Iterator<TipoNave1> it = listaNaves1.iterator();
 			while(it.hasNext()){
