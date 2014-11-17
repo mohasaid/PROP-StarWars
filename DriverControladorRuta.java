@@ -8,9 +8,9 @@ public class DriverControladorRuta {
     public void opcions()
     {
     	System.out.print(
-                "-----------------------------------------------------------------------------------"
-              + "                               DRIVER CONTROLADOR RUTA                                         "
-              + "-----------------------------------------------------------------------------------"
+                "-----------------------------------------------------------------------------------\n"
+              + "                               DRIVER CONTROLADOR RUTA                                         \n"
+              + "-----------------------------------------------------------------------------------\n"
               + "\n\nCREACION RUTA \n"
               + " 0:  Salir de la gestion del driver\n"
               + " 1:  CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) \n"
@@ -40,7 +40,6 @@ public class DriverControladorRuta {
               + " 21: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
               + " 22: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
               + " 23: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
-              + " 24: Invertir_planetaA_planetaB(int id)\n"
               + " 25: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
               
               + " \nOPERACIONES PERA BORRAR RUTAS \n"
@@ -89,7 +88,6 @@ public class DriverControladorRuta {
 	            case 21: TestControladorModificarDistanciaRuta();break;
 	            case 22: TestControladorModificarPlanetaARuta();break;
 	            case 23: TestControladorModificarPlanetaBRuta();break;
-	            case 24: TestControladorInvertir_planetaA_planetaB();break;
 	            case 25: TestControladorModificarBidireccionalRuta();break;
 	            
 	              
@@ -458,16 +456,6 @@ public class DriverControladorRuta {
 		}
 	}
 	
-    public void TestControladorInvertir_planetaA_planetaB()
-    {
-		try {
-			cr.Invertir_planetaA_planetaB(cin.nextInt(), cp);
-		}
-		catch (Exception e){
-            System.out.print(e);
-		}
-    }
-    
     public void TestControladorBorrarRutaConexions_desdePlaneta()
     {
 		try {
