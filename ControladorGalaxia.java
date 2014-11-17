@@ -60,7 +60,6 @@ public class ControladorGalaxia
     {
     	String res = "";
     	res = g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia();
-    	if(g.consulta_nombreLimits() > 0) {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
 	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
 	    	res += ":";
@@ -69,7 +68,6 @@ public class ControladorGalaxia
 	    		res += it.next().consultarPrimero() + "," + it.next().consultarSegundo();
 	    	}
 	    	//res = res + ")";
-    	}
     	return res;
     }
     
@@ -80,16 +78,13 @@ public class ControladorGalaxia
      */
     public String consultarLimitsGalaxia() throws Exception
     {
-    	if(g.consulta_nombreLimits() > 0) {
-	    	String res = "";
-	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
-	    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
-	    	while(it.hasNext()) {
-	    		res += /*":"+ */it.next().consultarPrimero() + "," + it.next().consultarSegundo();
-	    	}
-	    	return res;
+    	String res = "";
+    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
+    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
+    	while(it.hasNext()) {
+    		res += /*":"+ */it.next().consultarPrimero() + "," + it.next().consultarSegundo();
     	}
-    	else throw new Exception("La galaxia no tiene forma");
+    	return res;
     }
     
     /**
@@ -178,18 +173,7 @@ public class ControladorGalaxia
     {
     	g.modificarLimitsUsuari(lp);
     }
-   /**
-    * Metodo para modificar el el identificador del planeta con las coordenadas "x" y "y"
-    * @param x
-    * @param y
-    * @param idPlaneta
- * @throws Exception 
-    */
-   public void modificarIDPlaneta(int x, int y, int idPlaneta) throws Exception 
-   {
-		  g.modificarIDplaneta(x, y, idPlaneta);
-   }
-   
+
     /**
      * Metodo para añadir un planeta en la galaxia en las coordenadas "x" y "y"
      * @param cp
@@ -299,14 +283,14 @@ public class ControladorGalaxia
      * @param cr
      * @throws Exception
      */
-    public void carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn, ControladorRuta cr) throws Exception
+    /*public void carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn, ControladorRuta cr) throws Exception
     {
 		g.eliminarContingutGalaxia(); // Empiezo borrando el contenido de la galaxia
 		
 		String result = "";
 		cdg.AbrirLectura(directori);
 		
-		while(!(result = cdg.cargar()).isEmpty()) {
+		while(!(result = cdg.carregar(directori)).isEmpty()) {
 			
 			Scanner cin = new Scanner(result);
 			cin.useDelimiter(":|,");
@@ -316,7 +300,6 @@ public class ControladorGalaxia
 					String nomG = info; // nombre
 					info = cin.next(); // limite siempre tendra
 					Integer N = Integer.parseInt(info);
-					info = cin.next();
 					info = cin.next();
 					if(info.contentEquals("null")) {
 						g = new Galaxia(nomG,N);
@@ -335,14 +318,65 @@ public class ControladorGalaxia
 						}
 						g = new Galaxia(nomG,N,lpa);
 					}
+				info = cin.next();
+				while(!(info.contentEquals("#@"))) {
+					Integer id = Integer.parseInt(info);
+					info = cin.next();
+					Integer coste = Integer.parseInt(info);
+					info = cin.next();
+					Integer c1 = Integer.parseInt(info);
+					info = cin.next();
+					Integer c2 = Integer.parseInt(info);
+					Pair<Integer, Integer> co = new Pair<Integer, Integer>(c1,c2);
+					Planeta a = new Planeta(id,coste,co);
+					cp.anadirPlaneta(a);
+					g.afegirPlaneta(id, c1, c2);
+					info = cin.next();
 				}
+				info = cin.next();
+				while(!(info.contentEquals("#@"))) {
+					if (Integer.parseInt(info) == 0) { //anadimos ruta
+			    	      info = cin.next();
+			    	      int id = Integer.parseInt(info);
+			    	      info = cin.next();
+			    	      int capacidad = Integer.parseInt(info);
+			    	      info = cin.next();
+			    	      int distancia = Integer.parseInt(info);
+			    	      Ruta r = new Ruta(id,capacidad,distancia);
+			    	      
+				    } 
+					else { //anadimos conexion
+						  info  = cin.next();
+				    	  int id = Integer.parseInt(info);
+				    	  info = cin.next();
+			    	      int ida = Integer.parseInt(info);
+			    	      info = cin.next();
+			    	      int idb = Integer.parseInt(info);
+			    	      info = cin.next();
+			    	      Boolean b = Boolean.parseBoolean(s);
+			    	      System.out.print("ida = " + ida + "idb = " + idb + "\n");
+			    	      Conexion c = new Conexion(id,ida,idb,b);
+			    	      cn.
+			    	      Conexiones.add(c);
+				     }
+				      s = sc.next();
+				}
+					
+					
+			}
+			while(cin.hasNext()) {
+				info = cin.next();
+				if(info.contentEquals("#@")) break;
+				cr.CargarRutas(directori);
+			}
+				
 				//cp.CargarPlanetas(path);
 				cr.CargarRutas(directori);
 				cn.CargarNaves(directori);
 				cin.close();
 			}
 			cdg.CerrarEscritura();
-    }
+    }*/
     
     /**
      * Metodo para guardar los elementos que forman la galaxia
@@ -360,11 +394,14 @@ public class ControladorGalaxia
     	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia() + ":" + consultarLimitsGalaxia();
     	cdg.guardar(directori,result);
     	
+    	System.out.println(result);
+    	
     	result = "#@";
     	if(cp.Consultar_Size() > 0) { // PLANETAS
     		String GP = cp.consultarTODO();
     		result += GP;
     		cdg.guardar(directori,result);
+    		System.out.println(result);
     	}
     	
     	result = "#@";
@@ -372,6 +409,7 @@ public class ControladorGalaxia
     		String GP1 = cr.consultarTODO();
     		result += GP1;
     		cdg.guardar(directori,result);
+    		System.out.println(result);
     	}
     	
     	result = "#@";
@@ -379,6 +417,7 @@ public class ControladorGalaxia
     		String GP2 = cn.consultarTODO();
     		result += GP2;
     		cdg.guardar(directori,result);
+    		System.out.println(result);
     	}
     	cdg.CerrarEscritura();
    	}
