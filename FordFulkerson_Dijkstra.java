@@ -22,8 +22,8 @@ import java.util.*;
 		public void Caminos(int idNave, int consumo){
 			super.Caminos(idNave, consumo);
 		}
-		public int Ejecutar(int origen, int destino){
-			return super.Ejecutar(origen,destino);
+		public void Ejecutar(){
+			return super.Ejecutar();
 		}
 		public void Recorrido(int origen, int destino){
 			int V = g_residual.sizeGrafo();
