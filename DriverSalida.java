@@ -39,7 +39,7 @@ public class DriverSalida{
             case 2: TestConsultarCaminos();break;
             case 3: TestConsultarCambios();break;
             case 4: TestAnadirCuello(sc);break;
-            case 5: TestAnadirFlujo(sc);break;
+            case 5: TestAnadirCamino(sc);break;
             case 6: TestAnadirCambio(sc);break;
             case 7: TestEliminarCuellos();break;
             case 8: TestEliminarCambios();break;
@@ -75,7 +75,7 @@ public class DriverSalida{
     }
     public static void TestConsultarCaminos(){
     	try{
-	    	ArrayList<string> C = s.ConsultarCaminos();
+	    	ArrayList<String> C = s.ConsultarCaminos();
 	    	Iterator<String> it = C.iterator();
 	    	while(it.hasNext()){
 	    		String aux = it.next();
@@ -116,7 +116,7 @@ public class DriverSalida{
     public static void TestAnadirCamino(Scanner sc){
     	try{
     		String s = sc.next();
-	    	s.AnadirFlujo(s);
+	    	s.AnadirCamino(s);
     	}
     	catch(Exception e){
     		System.out.print(e);
