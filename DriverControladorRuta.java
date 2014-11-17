@@ -471,7 +471,7 @@ public class DriverControladorRuta {
     public void TestControladorBorrarRutaConexions_desdePlaneta()
     {
 		try {
-			cr.BorrarRutaConexions( cin.nextInt(), cp );
+			cr.BorrarRutaConexions( cin.nextInt() );
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -490,7 +490,7 @@ public class DriverControladorRuta {
 	
 	public void  TestControladorBorrarRutaDesdePlaneta() throws Exception{
 		try {
-			cr.BorrarRutaConexions( cin.nextInt(), cp );
+			cr.BorrarRutaConexions( cin.nextInt());
 		}
 		catch (Exception e){
             System.out.print(e);
