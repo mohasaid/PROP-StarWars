@@ -370,7 +370,6 @@ public class DriverGalaxia {
         }
     }
    
-   // -> limites 1 1 1 2 1 3 1 4 1 5 1 6 2 6 3 6 4 6 5 6 5 5 5 4 5 3 5 2 5 1 4 1 3 1 2 1 1 1
    public void TestconsultarNau(Scanner cin, ControladorNave cn)
     {
 	    try{
