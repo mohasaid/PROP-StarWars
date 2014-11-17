@@ -436,15 +436,12 @@ public class DriverControladorGalaxia {
 			int idPlaneta = cin.nextInt();
 			Random rand = new Random();
 	    	int coste = rand.nextInt((Integer.MAX_VALUE - 0) + 1); 
-			Pair<Integer, Integer> pa = cGalaxia.afegirPlanetaAutomatic(idPlaneta);
-			/*
-			String pa1 = cGalaxia.afegirPlanetaAutomatic(idPlaneta);
-			Scanner c = new Scanner(pa1);
-			c.useDelimiter(",");
-			Integer a = Integer.parseInt(c.next());
-			Integer b = Integer.pasreInt(c.next()); 
-			Pair<Integer,Integer> pa = new Pair<Integer,Integer>(a,b);
-			 */
+			String a11 = cGalaxia.afegirPlanetaAutomatic(idPlaneta);
+			Scanner sc = new Scanner(a11);
+			sc.useDelimiter(",");
+			Integer a1 = sc.nextInt();
+			Integer a2 = sc.nextInt();
+			Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a1,a2);
 			Planeta a = new Planeta(idPlaneta, coste, pa);
 			cp.anadirPlaneta(a);
 		}
@@ -460,9 +457,13 @@ public class DriverControladorGalaxia {
 	    	int capacidad = rand.nextInt(Integer.MAX_VALUE-1);
 	        int idP = 1;
 	        while(cp.ExistePlaneta(idP)) ++idP;
-	        Pair<Integer, Integer> co_nuevas = cGalaxia.afegirPlanetaAutomatic(idP);
-	        Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(co_nuevas.consultarPrimero(),co_nuevas.consultarSegundo());
-	        Planeta p = new Planeta(idP, capacidad, Coo);
+	        String a11 = cGalaxia.afegirPlanetaAutomatic(idP);
+	        Scanner sc = new Scanner(a11);
+			sc.useDelimiter(",");
+			Integer a1 = sc.nextInt();
+			Integer a2 = sc.nextInt();
+			Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a1,a2);
+	        Planeta p = new Planeta(idP, capacidad, pa);
 	        cp.anadirPlaneta(p);
 		}
 		catch(Exception e) {
