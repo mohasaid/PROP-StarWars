@@ -499,13 +499,10 @@ public class ControladorRuta {
     
   //Pre: Existe una ruta con id = "id_planeta"
   //Post: Las rutas que tienen planetaA = "id_planeta" o planetaB = "id_planeta" han sido borrada del arbol de rutas y de conexiones
-  public void BorrarRutaConexions(int id_planeta, ControladorPlaneta cp) throws Exception
+  public void BorrarRutaConexions(int id_planeta) throws Exception
   {
 	  if (id_planeta < 0) {
 		  throw new Exception("La id del planeta tiene que ser mayor o igual que 0 \n");
-	  }
-	  if (!cp.ExistePlaneta(id_planeta)) {
-		  throw new Exception("El planeta no existe \n");
 	  }
 	  Iterator<Conexion> it = Conexiones.iterator();
 	  Conexion aux = new Conexion();
