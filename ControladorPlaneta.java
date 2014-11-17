@@ -85,7 +85,7 @@ public class ControladorPlaneta {
         if(id < 1) throw new Exception("El identificador ha de ser mayor que 0");
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(p);
-        cg.afegirPlaneta(id, Coo.consultarPrimero(), Coo.consultarSegundo());
+        //cg.afegirPlaneta(id, Coo.consultarPrimero(), Coo.consultarSegundo());
     }
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
@@ -204,21 +204,23 @@ public class ControladorPlaneta {
     	if(sc.hasNext()) s = sc.next();
     	int id, k, x, y; 
     	while(sc.hasNext()){
-    		id = Integer.parseInt(s);
-    		s = sc.next();
-    		k = Integer.parseInt(s);
-    		s = sc.next();
-    		x = Integer.parseInt(s);
-    		s = sc.next();
-    		y = Integer.parseInt(s);
-    		if(ExistePlaneta(id)) throw new Exception ("Error: El Planeta con identificador: " + id + " ya existe y no se cargara");
-    		else {
-    			Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-    			Planeta p = new Planeta(id,k,Coo);
-    			listaPlanetas.add(p);
-    			cg.afegirPlaneta(id, x, y);
+    		if(Integer.parseInt(s)==0) {
+    			id = Integer.parseInt(s);
+    			s = sc.next();
+    			k = Integer.parseInt(s);
+    			s = sc.next();
+    			x = Integer.parseInt(s);
+    			s = sc.next();
+    			y = Integer.parseInt(s);
+    			sc.next();
+    			if(ExistePlaneta(id)) throw new Exception ("Error: El Planeta con identificador: " + id + " ya existe y no se cargara");
+    			else {
+    				Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
+        			Planeta p = new Planeta(id,k,Coo);
+        			listaPlanetas.add(p);
+        			cg.afegirPlaneta(id, x, y);
+    			}
     		}
-    		sc.next();
     	}
     	cdp.CerrarLectura();
     }
