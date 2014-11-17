@@ -81,37 +81,37 @@ public class ControladorNave{
 						}
 						return null;
 				}
-				public ArrayList<Integer> PlanetasOrigen(int id) throws Exception{
+				public ArrayList<Integer> PlanetasOrigen() throws Exception{
 					ArrayList<Integer> planetas = new ArrayList<Integer>();
 					Iterator<TipoNave1> it = listaNaves1.iterator();
 					while(it.hasNext()){
 							TipoNave1 aux = it.next();
 							Integer p = new Integer(aux.consultar_origen());
-							planetas.add(p);
+							if(!planetas.contains(p)) planetas.add(p);
 						}
 					Iterator<TipoNave2> it2 = listaNaves2.iterator();
 					while(it2.hasNext()){
 							TipoNave2 aux = it2.next();
 							Integer p = new Integer(aux.consultar_origen());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					Iterator<TipoNave3> it3 = listaNaves3.iterator();
 					while(it3.hasNext()){
 							TipoNave3 aux = it3.next();
 							Integer p = new Integer(aux.consultar_origen());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					Iterator<TipoNave4> it4 = listaNaves4.iterator();
 					while(it4.hasNext()){
 							TipoNave4 aux = it4.next();
 							Integer p = new Integer(aux.consultar_origen());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					Iterator<TipoNave5> it5 = listaNaves5.iterator();
 					while(it5.hasNext()){
 							TipoNave5 aux = it5.next();
 							Integer p = new Integer(aux.consultar_origen());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					return planetas;				
 			}
@@ -121,31 +121,31 @@ public class ControladorNave{
 					while(it.hasNext()){
 							TipoNave1 aux = it.next();
 							Integer p = new Integer(aux.consultar_destino());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					Iterator<TipoNave2> it2 = listaNaves2.iterator();
 					while(it2.hasNext()){
 							TipoNave2 aux = it2.next();
 							Integer p = new Integer(aux.consultar_destino());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					Iterator<TipoNave3> it3 = listaNaves3.iterator();
 					while(it3.hasNext()){
 							TipoNave3 aux = it3.next();
 							Integer p = new Integer(aux.consultar_destino());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					Iterator<TipoNave4> it4 = listaNaves4.iterator();
 					while(it4.hasNext()){
 							TipoNave4 aux = it4.next();
 							Integer p = new Integer(aux.consultar_destino());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					Iterator<TipoNave5> it5 = listaNaves5.iterator();
 					while(it5.hasNext()){
 							TipoNave5 aux = it5.next();
 							Integer p = new Integer(aux.consultar_destino());
-							planetas.add(p);
+							if(!planetas.contains(p))planetas.add(p);
 						}
 					return planetas;				
 			}
@@ -996,6 +996,7 @@ public class ControladorNave{
 	    	String res = "";
 	        if(!listaNaves1.isEmpty()){    
 	            res = "";
+	            int iteracions = 0;
 	            for (TipoNave1 r : listaNaves1){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_origen() + ":";
@@ -1003,114 +1004,113 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
 	            }
 	        }
 	        
 	        if(!listaNaves2.isEmpty()){
+	            int iteracions = 0;
 	            for (TipoNave2 r : listaNaves2){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
 	            }
 	        }
 	        if(!listaNaves3.isEmpty()){
+	            int iteracions = 0;
 	            for (TipoNave3 r : listaNaves3){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
 	            }
 	        }
 	        if(!listaNaves4.isEmpty()){
+	            int iteracions = 0;
 	            for (TipoNave4 r : listaNaves4){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
 	            }
 	        }
 	        if(!listaNaves5.isEmpty()){       
+	            int iteracions = 0;
 	            for (TipoNave5 r : listaNaves5){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
+	                ++iteracions;
+	                if(iteracions == 100){
+	                    iteracions = 0;
+	                    res = "";
+	                }
 	            }
 	        }
 	        return res;
 	    }
+	    
 	    public void BorraNavesDestinoOrigen(int id) throws Exception{
-			Iterator<TipoNave1> it = listaNaves1.iterator();
-			while(it.hasNext()){
-					TipoNave1 aux = it.next();
-					if(aux.consultar_destino() == id || aux.consultar_origen() == id){
-						it.remove();
-					}
-				}
-			Iterator<TipoNave2> it2 = listaNaves2.iterator();
-			while(it2.hasNext()){
-				TipoNave2 aux = it2.next();
-				if(aux.consultar_destino()==id || aux.consultar_origen() == id){
-					it.remove();
-				}
-			}
-			Iterator<TipoNave3> it3 = listaNaves3.iterator();
-			while(it3.hasNext()){
-				TipoNave3 aux = it3.next();
-				if(aux.consultar_destino()==id || aux.consultar_origen() == id){
-					it.remove();
-				}
-			}
-			Iterator<TipoNave4> it4 = listaNaves4.iterator();
-			while(it4.hasNext()){
-				TipoNave4 aux = it4.next();
-				if(aux.consultar_destino()==id || aux.consultar_origen() == id){
-					it.remove();
-				}
-			}
-			Iterator<TipoNave5> it5 = listaNaves5.iterator();
-			while(it5.hasNext()){
-				TipoNave5 aux = it5.next();
-				if(aux.consultar_destino()==id || aux.consultar_origen() == id){
-					it.remove();
-				}
-			}
-		}
-			
-			public ArrayList<Integer> NavesDestino() throws Exception
-			{
-				ArrayList<Integer> planetas = new ArrayList<Integer>();
-				Iterator<TipoNave1> it = listaNaves1.iterator();
-				while(it.hasNext()){
-						TipoNave1 aux = it.next();
-						planetas.add(aux.consultar_destino());
-					}
-				Iterator<TipoNave2> it2 = listaNaves2.iterator();
-				while(it2.hasNext()){
-					TipoNave2 aux = it2.next();
-					planetas.add(aux.consultar_destino());
-				}
-				Iterator<TipoNave3> it3 = listaNaves3.iterator();
-				while(it3.hasNext()){
-					TipoNave3 aux = it3.next();
-					planetas.add(aux.consultar_destino());
-				}
-				Iterator<TipoNave4> it4 = listaNaves4.iterator();
-				while(it4.hasNext()){
-					TipoNave4 aux = it4.next();
-					planetas.add(aux.consultar_destino());
-				}
-				Iterator<TipoNave5> it5 = listaNaves5.iterator();
-				while(it5.hasNext()){
-					TipoNave5 aux = it5.next();
-					planetas.add(aux.consultar_destino());
-				}
-				return planetas;				
-			}
+	    	Iterator<TipoNave1> it = listaNaves1.iterator();
+	    		while(it.hasNext()){
+	    			TipoNave1 aux = it.next();
+	    			if(aux.consultar_destino() == id || aux.consultar_origen() == id){
+	    				it.remove();
+	    			}
+	    		}
+	    		Iterator<TipoNave2> it2 = listaNaves2.iterator();
+	    		while(it2.hasNext()){
+	    			TipoNave2 aux = it2.next();
+	    			if(aux.consultar_destino()==id || aux.consultar_origen() == id){
+	    				it.remove();
+	    			}
+	    		}
+	    		Iterator<TipoNave3> it3 = listaNaves3.iterator();
+	    		while(it3.hasNext()){
+	    			TipoNave3 aux = it3.next();
+	    			if(aux.consultar_destino()==id || aux.consultar_origen() == id){
+	    				it.remove();
+	    			}
+	    		}
+	    		Iterator<TipoNave4> it4 = listaNaves4.iterator();
+	    		while(it4.hasNext()){
+	    			TipoNave4 aux = it4.next();
+	    			if(aux.consultar_destino()==id || aux.consultar_origen() == id){
+	    				it.remove();
+	    			}
+	    		}
+	    		Iterator<TipoNave5> it5 = listaNaves5.iterator();
+	    		while(it5.hasNext()){
+	    			TipoNave5 aux = it5.next();
+	    			if(aux.consultar_destino()==id || aux.consultar_origen() == id){
+	    				it.remove();
+	    			}
+	    		}
+	    	}
 	    
 }
