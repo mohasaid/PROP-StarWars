@@ -1,3 +1,4 @@
+
 import java.util.*;
  
 public class DriverPlaneta {
@@ -10,7 +11,7 @@ public class DriverPlaneta {
             +   "                    DRIVER PLANETA                                     "
             +   "-----------------------------------------------------------------------------------"
             + "Opciones \n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, bool F, bool S)\n"
+            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)\n"
             + " 2: Consultar_id()\n"
             + " 4: Consultar_Coste()\n"
             + " 5: Consultar_Coordenadas()\n"
@@ -59,20 +60,6 @@ public class DriverPlaneta {
     		}
     		int y = sc.nextInt();
     		Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception("Error: Fuente tiene que ser un booleano\n");
-    		}
-    		int fu = sc.nextInt();
-    		while(!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception("Error: Sumidero tiene que ser un booleano\n");
-    		}
-    		int su = sc.nextInt();
-    		boolean F = false;
-    		boolean S = false;
-    		if(fu == 1) F = true;
-    		if(su == 1) S = true; 
     		p = new Planeta(id,k,Coo);
     	}
     	catch (Exception e) {
