@@ -1003,9 +1003,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                    iteracions = 0;
-	                    res = "";
-	                }
 	            }
 	        }
 	        
@@ -1016,9 +1013,6 @@ public class ControladorNave{
 	                res += r.consultar_tipo() + ":";
 	                res += r.consultar_consumo();
 	                res += "#";
-	                    iteracions = 0;
-	                    res = "";
-	                }
 	            }
 	        }
 	        if(!listaNaves3.isEmpty()){
@@ -1039,7 +1033,7 @@ public class ControladorNave{
 	                res += "#";
 	            }
 	        }
-	        if(!listaNaves5.isEmpty()){ 
+	        if(!listaNaves5.isEmpty()){       
 	            for (TipoNave5 r : listaNaves5){  
 	                res += r.consultar_id() + ":";
 	                res += r.consultar_destino() + ":";
