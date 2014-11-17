@@ -1,6 +1,6 @@
 import java.util.*;
 
-	public class FordFulkerson_Dijkstra extends FordFulkerson {
+public class FordFulkerson_Dijkstra extends FordFulkerson {
 
 		public FordFulkerson_Dijkstra(){
 			g = new Grafo();
@@ -16,13 +16,16 @@ import java.util.*;
 			super.Caminos(idNave, consumo);
 		}
 		public void Ejecutar(){
-			return super.Ejecutar();
+			super.Ejecutar();
 		}
 		public boolean Recorrido(int origen, int destino){
+			
 			int V = g_residual.sizeGrafo();
 			boolean[] visitados = new boolean[V];
 			Arrays.fill(visitados, false);
+					
 			dist[origen] = 0;
+			
 			PriorityQueue<Pair<Integer, Integer> > pq = new PriorityQueue<Pair<Integer, Integer> >(1, new PriorityQueueComparator()); // coste, nodo
 			Pair<Integer, Integer> pa = new Pair<Integer, Integer>(0, origen);
 			pq.add(pa);
@@ -43,37 +46,14 @@ import java.util.*;
 					}
 				}
 			}
+			if(dist[destino] != Integer.MAX_VALUE) return true;
+			else return false;
 		}
 }
-/*
-public static boolean dijkstra(ArrayList<ArrayList<Pair<Arco, Integer> > > g, int or, int dest, int path[], int dist[])
-{
-int V = g.size();
-boolean visitados[] = new boolean[V];
-Arrays.fill(visitados,false);
-dist[or] = 0;
-PriorityQueue<Pair<Integer, Integer> > pq = new PriorityQueue<Pair<Integer, Integer> >(1, new PriorityQueueComparator()); // coste, nodo
-Pair<Integer, Integer> pa = new Pair<Integer, Integer>(0, or);
-pq.add(pa);
-while(!pq.isEmpty()) {
-Pair<Integer, Integer> p = pq.poll();
-int actual = p.consultarSegundo();
-int size = g.get(actual).size();
-if(!visitados[actual]) {
-visitados[actual] = true;
-for(int i = 0; i < size; ++i) {
-int adj = g.get(actual).get(i).consultarSegundo();
-int coste = g.get(actual).get(i).consultarPrimero().ConsultarCoste();
-if(dist[adj] > dist[actual] + coste) {
-dist[adj] = dist[actual] + coste;
-path[adj] = actual;
-pq.add(new Pair<Integer,Integer>(dist[adj],adj));
-}
-}
-}
-}
-if(dist[dest] != Integer.MAX_VALUE) return true;
-else return false;
-}
-*/
 
+class PriorityQueueComparator implements Comparator<Pair<Integer, Integer>> 
+{
+	public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
+		return (int) (p2.consultarPrimero() - p1.consultarPrimero());
+	}
+}
