@@ -64,6 +64,17 @@ public class Galaxia {
     // CONSTRUCTORAS
     
     /**
+     * Metodo para contruir una galaxia vacia
+     */
+    public Galaxia()
+    {
+    	nomGalaxia = "";
+    	N = 0;
+    	limits = new ArrayList<Pair<Integer,Integer> >();
+    	gal = new int[0][0];
+    }
+    
+    /**
      * Metodo para construir una galaxia sin ningun tipo de limite/forma con un determinado nombre y limite maximo
      * @param nom
      * @param n
@@ -73,6 +84,7 @@ public class Galaxia {
     {
         if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
         if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
+        
         nomGalaxia = nom;
         N = new Integer(n);
         limits = new ArrayList<Pair<Integer,Integer> >();
@@ -91,6 +103,7 @@ public class Galaxia {
         if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
         if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
         if(l.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
+        
         nomGalaxia = nom;
         gal = new int[n][n]; 
         N = new Integer(n);
@@ -193,6 +206,7 @@ public class Galaxia {
     public boolean dintreLimitUsuari(int x, int y) throws Exception
 	{
 	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
+	     if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
 	         int min_first, max_second, min_x, max_y;
 	         min_first = max_second = min_x = max_y = 0;
 	         for(int i = 0; i < N; ++i) {
@@ -288,7 +302,7 @@ public class Galaxia {
     {
     	if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
     	
-    	if(limits.size() > 0) { // Galaxia con limites impuestos
+    	if(limits.size() > 0) {  // Galaxia con limites impuestos
     		int tmp1 = 0,tmp2 = 0;
     		boolean posible = false;
     		for(int i = 0; i < N && !posible; ++i) {
@@ -305,7 +319,7 @@ public class Galaxia {
 			gal[tmp1][tmp2] = idPlaneta;
 			return par;
     	}
-    	else { // Galaxia sin limites
+    	else { 	// Galaxia sin limites
     		int rndX = randInt(0,N);
     		int rndY = randInt(0,N);
     		boolean b = existeixPlanetaCoordenades(rndX, rndY);
@@ -316,6 +330,13 @@ public class Galaxia {
     	}
     }
     
+    /**
+     * Metodo para consultar el identificador de un planeta con unas determinadas coordenadas
+     * @param x
+     * @param y
+     * @return Devuelve el identificado del planeta con coordenadas "x" y "y"
+     * @throws Exception
+     */
     public int consultarIDplaneta(int x, int y) throws Exception
     {
     	if(existeixPlanetaCoordenades(x,y)) {
@@ -350,16 +371,6 @@ public class Galaxia {
     public void eliminarTotsPlanetes() throws Exception
     {
     	if(!algunPlaneta()) throw new Exception("No hay planetas a borrar en la galaxia ");
-        reiniciaMatriu(); // borra planetas pero no la forma
-    }
-  
-    /**
-     * Metodo para eliminar todo el contenido de la galaxia menos el limite maximo
-     * @throws Exception
-     */
-	public void eliminarContingutGalaxia() throws Exception
-    {
-        limits = new ArrayList<Pair<Integer,Integer> >();
-        gal = new int[N][N];
+        reiniciaMatriu();
     }
 }
