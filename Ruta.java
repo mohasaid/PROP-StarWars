@@ -10,7 +10,7 @@ public class Ruta {
        
     //Pre: Cierto
     //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
-    public static boolean ErrorTipografico(int i) {
+    private static boolean ErrorTipografico(int i) {
         return (i<0);
     }
        
@@ -25,7 +25,6 @@ public class Ruta {
         distancia = -1;
     }
        
-    
     //Pre: Cierto
     //Post: Crea una ruta con id = "i", capacidad = "c", distancia = "d"
     public Ruta(int i, int c, int d) throws Exception
