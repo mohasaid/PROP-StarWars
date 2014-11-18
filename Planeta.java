@@ -1,6 +1,4 @@
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.TreeSet;
   
 public class Planeta
 {
@@ -19,9 +17,10 @@ public class Planeta
     // Pre: Cierto.
     // Post: Crea un planeta con idPlaneta = id, Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
     public Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception
-    {	
-    	if (id < 0) throw new Exception ("Error: ID no valida");
+    {
         if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo\n");
+        if(id <= 0) throw new Exception("Error: el identificador del planeta no puede ser negativo o nulo");
+        
         idPlaneta = id;
         Coste = k;
         Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
@@ -42,24 +41,21 @@ public class Planeta
     }
     //Pre: Cierto.
     //Post: Retorna las Coordenadas del planeta.
-    public Pair<Integer,Integer> consultar_coordenades() throws Exception //No se como funciona en pairs
+    public Pair<Integer,Integer> consultar_coordenades()
     {
-    	if(Coordenadas == null) throw new Exception ("Error: El Planeta no tiene coordenadas\n");
         return Coordenadas;
     }
     //Pre: Cierto.
     //Post: Retorna la primera coordenada del planeta.
-    public int consultar_X() throws Exception 
+    public int consultar_X() 
     {
-        if(Coordenadas == null) throw new Exception ("Error: El Planeta no tiene coordenadas\n");
-    	return Coordenadas.consultarPrimero();
+        return Coordenadas.consultarPrimero();
     }
     
     //Pre: Cierto.
     //Post: Retorna la segunda coordenada del planeta.
-    public int consultar_Y() throws Exception 
+    public int consultar_Y() 
     {
-    	if(Coordenadas == null) throw new Exception ("Error: El Planeta no tiene coordenadas\n");
         return Coordenadas.consultarSegundo();
     }
     //Pre: Cierto.
@@ -67,25 +63,16 @@ public class Planeta
     public void Modificar_Coste(int k) throws Exception
     {
         if (k < 0) throw new Exception("Error: El Coste del Planeta no puede ser negativo\n");
-        else Coste = k;
+        Coste = k;
     }
+    
     //Pre: Cierto.
     //Post: Modifica las Coordenadas. 
     public void modificarCoordenades(int rndX, int rndY) throws Exception
     {
-    	if(rndX < -1 || rndY < -1) throw new Exception ("Error: Las Coordenadas no pueden ser negativas\n");
-    	else {
+    	if(rndX < 0 || rndY < 0) throw new Exception ("Error: Las Coordenadas no pueden ser negativas\n");
     		Coordenadas.ponPrimero(rndX);
     		Coordenadas.ponSegundo(rndY);
-    	}
-    }
-    //Pre: Cierto.
-    //Post: Se elimina el planeta.
-    public void Borrar() throws Exception
-    {
-        idPlaneta = -1;
-        Coste = -1;
-        Coordenadas = null;
     }
 }
 
