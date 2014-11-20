@@ -28,46 +28,21 @@ public class DriverControladorGalaxia {
 				+ "- Opcion 9: modificarLimit(int limitNou)                                                \n"
 				+ "- Opcion 10: modificarLimits(List<Pair<Integer, Integer> > lp)                           \n"
 				
-				+ "- Opcion 11: Consultar_Size()                                                    		\n"
-				+ "- Opcion 12: consultarPlanetas()                                                         \n"
-				+ "- Opcion 13: ConsultarPlaneta(int idPlaneta, ControladorPlaneta cp)            			\n"
-				+ "- Opcion 14: existeixPlaneta(idPlaneta)                                                  \n"
-				+ "- Opcion 15: existeixPlanetaCoordenades(int x, int y)                                    \n"
-				+ "- Opcion 16: algunPlaneta()                                                              \n"
-				+ "- Opcion 17: consultaIdplaneta(int x, int y)                                             \n"
-				+ "- Opcion 18: afegirPlaneta(int idPlaneta, int x, int y)                                  \n"
-				+ "- Opcion 19: afegirPlanetaAutomatic(int idPlaneta)                                       \n"
-				+ "- Opcion 20: afegirPlanetaIDAutomatic(int idP)                                           \n"
-				+ "- Opcion 21: eliminarPlaneta(int idPlaneta)                                              \n"
-				+ "- Opcion 22: eliminarPlanetes()                                                          \n"
+				+ "- Opcion 11: existeixPlaneta(idPlaneta)                                                  \n"
+				+ "- Opcion 12: existeixPlanetaCoordenades(int x, int y)                                    \n"
+				+ "- Opcion 13: modificarCoordenadas(int idPlaneta, int x, int y)							\n"		
+				+ "- Opcion 14: algunPlaneta()                                                              \n"
+				+ "- Opcion 15: consultaIdplaneta(int x, int y)                                             \n"
 				
-				+ "- Opcion 23: Consultar_numero_rutes()                                                    \n"
-				+ "- Opcion 24: Consultar_ids_rutas()                                                       \n"
-				+ "- Opcion 25: ConsultarRuta(int idRuta, ControladorRuta cr)                               \n"
-				+ "- Opcion 26: ExisteRuta(int idRuta)                                                      \n"
-				+ "- Opcion 27: CrearRuta(int idRuta, int capacidad, int distancia, int planetaA, int planetaB, "
-				+ "boolean bidireccional, ControladorPlaneta cp)                                            \n"
-				+ "- Opcion 28: CrearRuta_automatica(ControladorPlaneta cp)                                 \n"
-				+ "- Opcion 29: CrearRuta_automatica(ControladorPlaneta cp, int idRuta)                     \n"
-				+ "- Opcion 30: Borrar_Ruta(int idRuta)                                                     \n"
-				+ "- Opcion 31: BorrarRutas()                                                               \n"
+				+ "- Opcion 16: CrearPlaneta(int idPlaneta, int x, int y)                                  \n"
+				+ "- Opcion 17: CrearPlanetaAutomatic(int idPlaneta)                                       \n"
+				+ "- Opcion 18: CrearPlanetaIDAutomatic(int idP)                                           \n"
+				+ "- Opcion 19: eliminarPlaneta(int idPlaneta)                                              \n"
+				+ "- Opcion 20: eliminarPlanetes()                                                          \n"
 				
-				+ "- Opcion 32: cn.size()                                                                   \n"
-				+ "- Opcion 33: ConsultarNaves()                                                            \n"
-				+ "- Opcion 34: CrearTipoNave(int tipo, int consumo)                                        \n"
-				+ "- Opcion 35: CrearTipoNaveAuto()                                                         \n"
-				+ "- Opcion 36: ConsultarTipos()                                                            \n"
-				+ "- Opcion 37: ConsultarConsumoTipo(int tipo)                                              \n"
-				+ "- Opcion 38: CrearNave(int id, int t, int d, int o)                                      \n"
-				+ "- Opcion 39: CrearNaveAuto(int num_naves, ArrayList<Integer> ai)                         \n"
-				+ "- Opcion 40: EliminarNave(int idNave)                                                    \n"
-				+ "- Opcion 41: EliminarNaves()                                                             \n"
-				
-				+ "- Opcion 42: eliminarContingutGalaxia()                                                  \n"
-				
-				+ "/*- Opcion 43: carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn,"
+				+ "/*- Opcion 21: carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn,"
 				+ " ControladorRuta cr)*/                                                                     \n"
-				+ "- Opcion 44: guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr,"
+				+ "- Opcion 22: guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr,"
 				+ " ControladorNave cn)                                                                     \n");
       n = cin.nextInt();
       while(n != 0) {
@@ -86,44 +61,20 @@ public class DriverControladorGalaxia {
     	  	case 9: TestmodificarLimit(cin,cGalaxia); break; 
     	  	case 10: TestmodificarLimits(cin,cGalaxia); break;  
     	  	
-    	  	case 11: TestconsultarNumPlanetes(cp); break; 
-    	  	case 12: TestLlistaPlanetes(cp); break; 
-    	  	case 13: TestConsultarPlaneta(cin,cp,cGalaxia); break; 
-    	  	case 14: TestexisteixPlaneta(cin,cGalaxia); break; 
-    	  	case 15: TestexisteixPlanetaCoordenades(cin,cGalaxia); break; 
-    	  	case 16: TestAlgunPlaneta(cGalaxia); break; 
-    	  	case 17: TestconsultaIDplaneta(cin,cGalaxia); break; 
-    	  	case 18: TestafegirPlaneta(cp,cin,cGalaxia); break; 
-    	  	case 19: TestafegirPlanetaAutomatic(cp,cin,cGalaxia); break; 
-    	  	case 20: TestAfegirPlanetaNIDAuto(cp,cGalaxia); break; 
-    	  	case 21: TesteliminarPlaneta(cp,cr,cn,cGalaxia,cin); break; 
-    	  	case 22: TesteliminarPlanetes(cp,cr,cn,cGalaxia); break; 
+    	  	case 11: TestexisteixPlaneta(cin,cGalaxia); break; 
+    	  	case 12: TestexisteixPlanetaCoordenades(cin,cGalaxia); break;
+    	  	case 13: TestmodificarCoordenadas(cin, cp, cGalaxia); break;
+    	  	case 14: TestAlgunPlaneta(cGalaxia); break; 
+    	  	case 15: TestconsultaIDplaneta(cin,cGalaxia); break; 
     	  	
-    	  	case 23: TestconsultarNumRutes(cr); break; 
-    	  	case 24: TestLlistaRutes(cr); break; 
-    	  	case 25: TestconsultarRuta(cr,cin); break; 
-    	  	case 26: TestexisteixRuta(cr,cin); break; 
-    	  	case 27: TestCrearRuta(cr,cp,cin); break; 
-    	  	case 28: TestCrearRutaAuto(cr,cp); break; 
-    	  	case 29: TestCrearRutaAutoID(cin,cr,cp); break; 
-    	  	case 30: TestEliminarRuta(cr,cin); break; 
-    	  	case 31: TestEliminarRutes(cr); break; 
+    	  	case 16: TestafegirPlaneta(cp,cin,cGalaxia); break; 
+    	  	case 17: TestafegirPlanetaAutomatic(cp,cin,cGalaxia); break; 
+    	  	case 18: TestAfegirPlanetaNIDAuto(cp,cGalaxia); break; 
+    	  	case 19: TesteliminarPlaneta(cp,cGalaxia,cin); break; 
+    	  	case 20: TesteliminarPlanetes(cp,cGalaxia); break; 
     	  	
-    	  	case 32: TestConsultaNumNau(cn); break; 
-    	  	case 33: TestLListaNaus(cn); break; 
-    	  	case 34: TestCrearTipoNave(cin,cn); break; 
-    	  	case 35: TestCrearTipoNaveAuto(cin,cn); break; 
-    	  	case 36: TestConsultarTiposNave(cn); break; 
-    	  	case 37: TestConsultarConsumoTipoNave(cin,cn); break; 
-    	  	case 38: TestcrearNau(cin,cn); break; 
-    	  	case 39: TestCrearNaveAuto(cn,cin,cp); break; 
-    	  	case 40: TesteliminarNau(cin,cn); break; 
-    	  	case 41: TesteliminarTotesNaus(cn); break; 
-    	  	
-    	  	case 42: TesteliminarContingutGalaxia(cr,cp,cn,cGalaxia); break; 
-    	  	
-    	  	/*case 43: TestcarregarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;*/
-    	  	case 44: TestguardarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;
+    	  	/*case 21: TestcarregarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;*/
+    	  	case 22: TestguardarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;
     	  	
     	  	default: System.out.println("Opcion incorrecta");
     	  }
@@ -154,13 +105,17 @@ public class DriverControladorGalaxia {
             int pa_f, pa_s;
             
             pa_f = cin.nextInt();
+            if(pa_f > n1 || pa_f < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
             pa_s = cin.nextInt();
+            if(pa_s > n1 || pa_s < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
             
             Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_f,pa_s);
             pa1.add(primero);
             
             int l1 = cin.nextInt();
+            if(l1 > n1 || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
             int l2 = cin.nextInt();
+            if(l2 > n1 || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
             
             int limite1 = primero.consultarPrimero().intValue();
             int limite2 = primero.consultarSegundo().intValue();
@@ -177,7 +132,9 @@ public class DriverControladorGalaxia {
             	}
             	else throw new Exception("Las coordenadas no son secuenciales");
             	l1 = cin.nextInt();
+            	if(l1 > n1 || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
                 l2 = cin.nextInt();
+                if(l2 > n1 || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
                 if((l1 == limite1 && l2 == limite2)) trobat = true;
             }
 			cGalaxia.creaGalaxia2(n,n1,pa1);
@@ -219,58 +176,6 @@ public class DriverControladorGalaxia {
 			int y = cin.nextInt();
 			if(cGalaxia.dintreLimitUsuari(x, y)) System.out.println("Si que estan dintre del limit de l'usuari");
 			else System.out.println("No estan dintre del limit de l'usuari");
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestLlistaPlanetes(ControladorPlaneta cp) 
-	{
-		try {
-			ArrayList<Integer> ar = cp.consultarPlanetas();
-            System.out.print("Planetas existentes: ");
-            System.out.println(ar);
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestLlistaRutes(ControladorRuta cr) 
-	{
-		try {
-			 ArrayList<Integer> ar = cr.Consultar_ids_rutas();
-	         System.out.print("Rutas existentes: ");
-	         System.out.println(ar);
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestLListaNaus(ControladorNave cn) 
-	{
-		try{
-        	String res = "";
-            int i=0;
-            int n = cn.size();
-            while(i < n) {
-            	res += cn.ConsultarNaves(i);
-            	++i;
-            }
-            System.out.println(res);
-        }
-        catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestconsultarNumPlanetes(ControladorPlaneta cp) 
-	{
-		try {
-			int n = cp.Consultar_Size();
-			System.out.println(n);
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -339,36 +244,42 @@ public class DriverControladorGalaxia {
 	public void TestmodificarLimits(Scanner cin, ControladorGalaxia cGalaxia)  
 	{
 		try {
-			List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
-            int pa_f, pa_s;
-            
-            pa_f = cin.nextInt();
-            pa_s = cin.nextInt();
-            
-            Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_f,pa_s);
-            pa1.add(primero);
-            
-            int l1 = cin.nextInt();
-            int l2 = cin.nextInt();
-            
-            int limite1 = primero.consultarPrimero().intValue();
-            int limite2 = primero.consultarSegundo().intValue();
-            boolean trobat = false;
-            while(!trobat) {
-            	int size = pa1.size();
-            	int prim = pa1.get(size-1).consultarPrimero();
-            	int seg = pa1.get(size-1).consultarSegundo();
-            	if((((l1+1) == prim) || ((l1-1) == prim) || (l1 == prim)) && (((l2+1) == seg) || ((l2-1) == seg) || (l2 == seg))){
-	            	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(l1, l2);
-	            	pa1.add(pa);
-	            	
-	            	System.out.println(pa1);
-            	}
-            	else throw new Exception("Las coordenadas no son secuenciales");
-            	l1 = cin.nextInt();
-                l2 = cin.nextInt();
-                if((l1 == limite1 && l2 == limite2)) trobat = true;
-            }
+			 List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
+	            int pa_f, pa_s;
+	            
+	            pa_f = cin.nextInt();
+	            if(pa_f > cGalaxia.consultarLimit() || pa_f < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+	            pa_s = cin.nextInt();
+	            if(pa_s > cGalaxia.consultarLimit() || pa_s < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+	            
+	            Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_f,pa_s);
+	            pa1.add(primero);
+	            
+	            int l1 = cin.nextInt();
+	            if(l1 > cGalaxia.consultarLimit() || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+	            int l2 = cin.nextInt();
+	            if(l2 > cGalaxia.consultarLimit() || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+	            
+	            int limite1 = primero.consultarPrimero().intValue();
+	            int limite2 = primero.consultarSegundo().intValue();
+	            boolean trobat = false;
+	            while(!trobat) {
+	            	int size = pa1.size();
+	            	int prim = pa1.get(size-1).consultarPrimero();
+	            	int seg = pa1.get(size-1).consultarSegundo();
+	            	if((((l1+1) == prim) || ((l1-1) == prim) || (l1 == prim)) && (((l2+1) == seg) || ((l2-1) == seg) || (l2 == seg))){
+		            	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(l1, l2);
+		            	pa1.add(pa);
+		            	
+		            	System.out.println(pa1);
+	            	}
+	            	else throw new Exception("Las coordenadas no son secuenciales");
+	            	l1 = cin.nextInt();
+	            	if(l1 > cGalaxia.consultarLimit() || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+	                l2 = cin.nextInt();
+	                if(l2 > cGalaxia.consultarLimit() || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+	                if((l1 == limite1 && l2 == limite2)) trobat = true;
+	            }
             cGalaxia.modificarLimits(pa1);
 		}
 		catch(Exception e) {
@@ -434,19 +345,6 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TestConsultarPlaneta(Scanner cin, ControladorPlaneta cp, ControladorGalaxia cGalaxia) 
-	{
-		try {
-			int idPlaneta = cin.nextInt();
-			if(!cGalaxia.existeixPlaneta(idPlaneta)) System.out.println("No existe ningun planeta con ese identificador");
-	    	Planeta a = cp.BuscarPlaneta(idPlaneta);
-	    	System.out.println(idPlaneta + " " + a.Consultar_Coste() + " (" + a.consultar_X() + ", " + a.consultar_Y() + ")");
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
 	public void TestexisteixPlanetaCoordenades(Scanner cin, ControladorGalaxia cGalaxia)  
 	{
 		try {
@@ -454,6 +352,19 @@ public class DriverControladorGalaxia {
 			int y = cin.nextInt();
 			if(cGalaxia.existeixPlanetaCoordenades(x, y)) System.out.println("Existe un planeta en esas coordenadas");
 			else System.out.println("No existe ningun planeta en esas coordenadas");
+		}
+		catch(Exception e) {
+            System.out.println(e);
+        }
+	}
+	
+	public void TestmodificarCoordenadas(Scanner cin, ControladorPlaneta cp, ControladorGalaxia cGalaxia)
+	{
+		try {
+			int idPlaneta = cin.nextInt();
+			int x = cin.nextInt();
+			int y = cin.nextInt();
+			cGalaxia.modificarCoordenadas(cp, idPlaneta, x, y);
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -484,244 +395,25 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	public void TesteliminarPlaneta(ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn, ControladorGalaxia cGalaxia, Scanner cin) 
+	public void TesteliminarPlaneta(ControladorPlaneta cp, ControladorGalaxia cGalaxia, Scanner cin) 
 	{
 		try {
 			int idPlaneta = cin.nextInt();
 			cGalaxia.eliminarPlaneta(idPlaneta);
 			cp.BorraPla(idPlaneta);
-			cr.BorrarRutaConexions(idPlaneta);
-			cn.BorraNavesDestinoOrigen(idPlaneta);
 		}
 		catch(Exception e) {
             System.out.println(e);
         }
 	}
 	
-	public void TesteliminarPlanetes(ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn, ControladorGalaxia cGalaxia) 
+	public void TesteliminarPlanetes(ControladorPlaneta cp, ControladorGalaxia cGalaxia) 
 	{
 		try{
 	    	cGalaxia.eliminarPlanetes();
 	    	cp.BorrarTodos();
-	    	cr.BorrarRutas();
-	    	cn.EliminarNaves();
     	}
     	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestconsultarNumRutes(ControladorRuta cr) 
-	{
-		 int p = cr.Consultar_numero_rutes();
-	     System.out.println(p);
-	}
-	
-	public void TestconsultarRuta(ControladorRuta cr, Scanner cin) 
-	{
-		try {
-	    	int idRuta = cin.nextInt();
-	    	if(!cr.ExisteRuta(idRuta)) System.out.println("No existe ninguna ruta con ese identificador");
-	    	Ruta r = cr.BuscarRuta(idRuta);
-	    	Conexion c = cr.BuscarConexion(idRuta);
-	    	System.out.println(idRuta + " " + r.consultar_capacidad() + " " + r.consultar_distancia()
-	    						+ " " + c.consultar_planetaA() + " " + c.consultar_planetaB()
-	    						+ " " + c.consultar_bidireccional());
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestexisteixRuta(ControladorRuta cr, Scanner cin) 
-	{
-		try{
-	    	int idRuta = cin.nextInt();
-	    	boolean b = cr.ExisteRuta(idRuta);
-	    	if(b) System.out.println("La ruta con id: " + idRuta + " existe en la galaxia");
-	    	else System.out.println("La ruta con id: " + idRuta + " no existe en la galaxia");
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestCrearRuta(ControladorRuta cr, ControladorPlaneta cp, Scanner cin) 
-	{
-		try {
-			int idRuta = cin.nextInt();
-			int capacidad = cin.nextInt();
-			int distancia = cin.nextInt();
-			int planetaA = cin.nextInt();
-			int planetaB = cin.nextInt();
-			boolean bidireccional = cin.nextBoolean();
-			cr.CrearRuta(idRuta, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestCrearRutaAuto(ControladorRuta cr, ControladorPlaneta cp) 
-	{
-		try {
-        	cr.CrearRuta_automatica(cp);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	public void TestCrearRutaAutoID(Scanner cin, ControladorRuta cr, ControladorPlaneta cp) 
-	{
-		try {
-    		int id = cin.nextInt();
-    		cr.CrearRuta_automatica(cp, id);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestEliminarRuta(ControladorRuta cr, Scanner cin) 
-	{
-		try {
-			int idRuta = cin.nextInt();
-			cr.Borrar_Ruta(idRuta);
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestEliminarRutes(ControladorRuta cr) 
-	{
-		try{
-    		cr.BorrarRutas();
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestConsultaNumNau(ControladorNave cn) 
-	{
-		int p = cn.size();
-        System.out.println(p);
-	}
-	
-	public void TestafegirNau(ControladorNave cn, Scanner cin) 
-	{
-		try {
-			int idNau = cin.nextInt();
-			int t = cin.nextInt();
-			int d = cin.nextInt();
-			int o = cin.nextInt();
-			cn.CrearNave(idNau, t, d, o);
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestCrearTipoNave(Scanner cin, ControladorNave cn) 
-    {
-    	try {
-    		int tipo = cin.nextInt();
-    		int consumo = cin.nextInt();
-    		cn.CrearTipoNave(tipo, consumo);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-	
-	public void TestCrearTipoNaveAuto(Scanner cin, ControladorNave cn) 
-    {
-    	try {
-    		cn.CrearTipoNaveAuto();
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-	
-	public void TestConsultarTiposNave(ControladorNave cn) 
-    {
-    	try {
-    		System.out.println(cn.ConsultarTipos());
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-	
-	 public void TestConsultarConsumoTipoNave(Scanner cin, ControladorNave cn) 
-	 {
-    	try {
-    		int tipo = cin.nextInt();
-    		System.out.println(cn.ConsultarConsumoTipo(tipo));
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	 }
-	 
-	public void TestcrearNau(Scanner cin, ControladorNave cn)
-	{
-    	try{
-    		int id = cin.nextInt();
-    		int t = cin.nextInt();
-    		int d = cin.nextInt();
-    		int o = cin.nextInt();
-    		cn.CrearNave(id, t, d, o);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	    
-	public void TestCrearNaveAuto(ControladorNave cn, Scanner cin, ControladorPlaneta cp)
-	{
-    	try {
-    		int num_naves = cin.nextInt();
-    		ArrayList<Integer> ai = cp.consultarPlanetas();
-    		cn.CrearNaveAuto(num_naves, ai);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-    public void TesteliminarNau(Scanner cin, ControladorNave cn)
-    {
-    	try{
-	    	int idNave = cin.nextInt();
-	    	cn.EliminarNave(idNave);
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-    
-    public void TesteliminarTotesNaus(ControladorNave cn)
-    {
-    	try{
-    		cn.EliminarNaves();
-    	}
-    	catch(Exception e) {
-            System.out.println(e);
-        }
-    }
-	
-	public void TesteliminarContingutGalaxia(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn, ControladorGalaxia cGalaxia) 
-	{
-		try {
-			cGalaxia.eliminarContingutGalaxia();
-			cp.BorrarTodos();
-			cr.BorrarRutas();
-			cn.EliminarNaves();
-		}
-		catch(Exception e) {
             System.out.println(e);
         }
 	}
@@ -731,8 +423,7 @@ public class DriverControladorGalaxia {
 		try {
 			System.out.println("Introduce directorio");
 			String directori = cin.next();
-			//cGalaxia.carregarConjuntGalaxia(directori, cp, cn, cr);
-			// FALTA TEMPS
+			cGalaxia.carregarConjuntGalaxia(directori, cp, cn, cr);
 		}
 		catch(Exception e) {
             System.out.println(e);
