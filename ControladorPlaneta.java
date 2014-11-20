@@ -48,7 +48,6 @@ public class ControladorPlaneta {
     //Post: Retorna un Planeta con idedentificador "id".
     public Planeta BuscarPlaneta(int id) throws Exception
     {
-    	if(!ExistePlaneta(id)) throw new Exception ("Error: No existe ningun Planeta con esta id");
         Iterator<Planeta> it = listaPlanetas.iterator();
         Planeta p = new Planeta();
         while(it.hasNext()) {
@@ -71,7 +70,6 @@ public class ControladorPlaneta {
 		Integer a2 = sc.nextInt();
 		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
         Planeta p = new Planeta(idP, r1, co_nuevas);
-        p.modificarCoordenades(co_nuevas.consultarPrimero(), co_nuevas.consultarSegundo());
         listaPlanetas.add(p);
     }
     
@@ -190,7 +188,6 @@ public class ControladorPlaneta {
     
     public void BorrarTodos() throws Exception 
     {
-    	if(listaPlanetas.size() < 1) throw new Exception("No hay planetas");
     	listaPlanetas.clear();
     }
     
