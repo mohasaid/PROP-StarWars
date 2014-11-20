@@ -42,9 +42,10 @@ public class ControladorRuta {
 		return ret;
     }
     
+    /** DEBERIA SER PRIVATE **/
     //Pre: Cierto
     //Post: La conexion con id = "id" ha sido borrada del arbol de conexiones
-    public void Borrar_Conexion (int id) throws Exception
+    private void Borrar_Conexion (int id) throws Exception
     {
     	boolean found = false;
 		Iterator<Conexion> it = Conexiones.iterator();
@@ -58,9 +59,10 @@ public class ControladorRuta {
 		}
     }
     
+    /** DEBERIA SER PRIVATE **/
     //Pre: Cierto
     //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
-    public void Borrar_Ruta (int id) throws Exception
+    private void Borrar_Ruta (int id) throws Exception
     {
     	boolean found = false;
 		Iterator<Ruta> it = ArbolRutas.iterator();
@@ -73,18 +75,13 @@ public class ControladorRuta {
 			}
 		}
     }
-    
-    //PARTE PUBLICA
-      
-    //ALGORITMOS
-      
+
     //Pre:cierto
     //Post: comprueva si existe la ruta con identificador "id"
     public boolean ExisteRuta(int id) throws Exception
     {
     	if (id < 0) {
     		throw new Exception("Error: El identificador de una ruta tiene que ser mayor o igual que 0\n");
-
     	}
     	Iterator<Ruta> it = ArbolRutas.iterator();
     	while (it.hasNext()){
@@ -112,9 +109,6 @@ public class ControladorRuta {
     //post: retorna la conexion que tiene identificador=id
     public Conexion BuscarConexion(int id) throws Exception
     {
-    	if ( !ExisteConexion(id) ) {
-    		throw new Exception("Error: No existe ninguna conexion con el identificador introducido\n");
-    	}
     	Iterator<Conexion> it = Conexiones.iterator();
     	boolean trobat = false;
     	Conexion res = null;
@@ -133,7 +127,6 @@ public class ControladorRuta {
     //post: retorna la ruta que tiene identificador=id
     public Ruta BuscarRuta(int id) throws Exception
     {
-    	if ( !ExisteRuta(id) ) throw new Exception("Error: No existe ninguna ruta con el identificador introducido\n");
     	Iterator<Ruta> it = ArbolRutas.iterator();
     	boolean trobat = false;
     	Ruta res = null;
@@ -160,7 +153,7 @@ public class ControladorRuta {
     }
       
     //Pre: Cierto
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
     public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
     	int numero_planetas = cp.Consultar_Size();
@@ -337,14 +330,12 @@ public class ControladorRuta {
     public ArrayList<Integer> Consultar_ids_rutas() throws Exception
     {
     	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
-    	
 		Iterator<Conexion> it = Conexiones.iterator();
 		Conexion aux = new Conexion();
 		while(it.hasNext()){
 			aux = it.next();
 			ids_rutas.add( aux.consultar_id() );
 		}
-    	
     	return ids_rutas;
     }
       
@@ -470,6 +461,20 @@ public class ControladorRuta {
         c.modificar_planetaB(id_planetaB_nuevo);
     }
     
+    //Pre: La ruta con id = "id" tiene los atributos planetaA y planetaB inicializados
+    //Post: Los planetas que conecta la ruta con id = "id" se modifican por planetaA = planetaB y planetaB = planetaB
+    public void Invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
+    {
+    	Conexion c = BuscarConexion(id);
+    	Borrar_Conexion(id);//esta para que no vea esta ruta al momento de buscar
+        if ( !Disponibilidad_crear_ruta( c.consultar_planetaB(), c.consultar_planetaA() ) ) {
+        	Conexiones.add(c); //anadimos otra vez la conexion
+            throw new Exception("No se pueden invertir los planetas, ya que existe una ruta que los conecta\n");
+        }
+    	Conexiones.add(c);//anadimos otra vez la conexion
+    	c.invertir_planetas();
+    }
+      
     //Pre: Existe una ruta con id = "id"
     //Post: La bidireccionalidad de la ruta con id = "id" ha sido modificada tal que bidireccional = "bidireccional_nuevo"
     public void ModificarBidireccionalidadRuta(int id, boolean bidireccional_nuevo)throws Exception
@@ -495,7 +500,6 @@ public class ControladorRuta {
 	  while( it.hasNext() ) {
 		  aux = it.next();
 		  if(aux.consultar_planetaA() == id_planeta || aux.consultar_planetaB() == id_planeta){
-			  System.out.print("enrrem al borrar");
 			  it.remove();
 			  Borrar_Ruta( aux.consultar_id() );
 			  
@@ -505,11 +509,8 @@ public class ControladorRuta {
     
   //Pre: Existe una ruta con id = "id"
   //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
-  public void BorrarRuta(int id, ControladorPlaneta cp) throws Exception
+  public void BorrarRuta(int id) throws Exception
   {
-	  if (id < 0) {
-		  throw new Exception("La id de la ruta tiene que ser mayor o igual que 0 \n");
-	  } 
 	  Borrar_Ruta(id);
   	  Borrar_Conexion(id);
   }
@@ -517,7 +518,6 @@ public class ControladorRuta {
   //Pre: Cierto
   //Post: Borra todas las rutas del ArbolRutas y todas las conexiones de Conexiones
   void BorrarRutas() throws Exception{
-	  if(ArbolRutas.size() < 1) throw new Exception("No hay rutas");
 	  ArbolRutas.clear();
 	  Conexiones.clear();
   }
