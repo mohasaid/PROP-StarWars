@@ -24,8 +24,8 @@ public class DriverControladorGalaxia {
 	            + "- Opcion 6: consultarLimit()                                                             \n"
 	            + "- Opcion 7: dintreLimitUsuari(int x, int y)                                              \n"
 	            
-				+ "- Opcion 8: modificarNom(String nomNou)                                                 \n"
-				+ "- Opcion 9: modificarLimit(int limitNou)                                                \n"
+				+ "- Opcion 8: modificarNom(String nomNou)                                                  \n"
+				+ "- Opcion 9: modificarLimit(int limitNou)                                                 \n"
 				+ "- Opcion 10: modificarLimits(List<Pair<Integer, Integer> > lp)                           \n"
 				
 				+ "- Opcion 11: existeixPlaneta(idPlaneta)                                                  \n"
@@ -34,15 +34,17 @@ public class DriverControladorGalaxia {
 				+ "- Opcion 14: algunPlaneta()                                                              \n"
 				+ "- Opcion 15: consultaIdplaneta(int x, int y)                                             \n"
 				
-				+ "- Opcion 16: CrearPlaneta(int idPlaneta, int x, int y)                                  \n"
-				+ "- Opcion 17: CrearPlanetaAutomatic(int idPlaneta)                                       \n"
-				+ "- Opcion 18: CrearPlanetaIDAutomatic(int idP)                                           \n"
-				+ "- Opcion 19: eliminarPlaneta(int idPlaneta)                                              \n"
-				+ "- Opcion 20: eliminarPlanetes()                                                          \n"
+				+ "- Opcion 16: ConsultarPlaneta(idPlaneta)													\n"	
 				
-				+ "/*- Opcion 21: carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn,"
+				+ "- Opcion 17: CrearPlaneta(int idPlaneta, int x, int y)                                   \n"
+				+ "- Opcion 18: CrearPlanetaAutomatic(int idPlaneta)                                        \n"
+				+ "- Opcion 19: CrearPlanetaIDAutomatic(int idP)                                            \n"
+				+ "- Opcion 20: eliminarPlaneta(int idPlaneta)                                              \n"
+				+ "- Opcion 21: eliminarPlanetes()                                                          \n"
+				
+				+ "/*- Opcion 22: carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn,"
 				+ " ControladorRuta cr)*/                                                                     \n"
-				+ "- Opcion 22: guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr,"
+				+ "- Opcion 23: guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr,"
 				+ " ControladorNave cn)                                                                     \n");
       n = cin.nextInt();
       while(n != 0) {
@@ -67,14 +69,16 @@ public class DriverControladorGalaxia {
     	  	case 14: TestAlgunPlaneta(cGalaxia); break; 
     	  	case 15: TestconsultaIDplaneta(cin,cGalaxia); break; 
     	  	
-    	  	case 16: TestafegirPlaneta(cp,cin,cGalaxia); break; 
-    	  	case 17: TestafegirPlanetaAutomatic(cp,cin,cGalaxia); break; 
-    	  	case 18: TestAfegirPlanetaNIDAuto(cp,cGalaxia); break; 
-    	  	case 19: TesteliminarPlaneta(cp,cGalaxia,cin); break; 
-    	  	case 20: TesteliminarPlanetes(cp,cGalaxia); break; 
+    	  	case 16: TestConsultarPlaneta(cin,cp,cGalaxia); break;
     	  	
-    	  	/*case 21: TestcarregarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;*/
-    	  	case 22: TestguardarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;
+    	  	case 17: TestafegirPlaneta(cp,cin,cGalaxia); break; 
+    	  	case 18: TestafegirPlanetaAutomatic(cp,cin,cGalaxia); break; 
+    	  	case 19: TestAfegirPlanetaNIDAuto(cp,cGalaxia); break; 
+    	  	case 20: TesteliminarPlaneta(cp,cGalaxia,cin); break; 
+    	  	case 21: TesteliminarPlanetes(cp,cGalaxia); break; 
+    	  	
+    	  	/*case 22: TestcarregarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;*/
+    	  	case 23: TestguardarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;
     	  	
     	  	default: System.out.println("Opcion incorrecta");
     	  }
@@ -339,6 +343,19 @@ public class DriverControladorGalaxia {
 			Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a1,a2);
 	        Planeta p = new Planeta(idP, capacidad, pa);
 	        cp.anadirPlaneta(p);
+		}
+		catch(Exception e) {
+            System.out.println(e);
+        }
+	}
+	
+	public void TestConsultarPlaneta(Scanner cin, ControladorPlaneta cp, ControladorGalaxia cGalaxia) 
+	{
+		try {
+			int idPlaneta = cin.nextInt();
+			if(!cGalaxia.existeixPlaneta(idPlaneta)) throw new Exception("No existe ningun planeta con ese identificador");
+	    	Planeta a = cp.BuscarPlaneta(idPlaneta);
+	    	System.out.println(idPlaneta + " " + a.Consultar_Coste() + " (" + a.consultar_X() + ", " + a.consultar_Y() + ")");
 		}
 		catch(Exception e) {
             System.out.println(e);
