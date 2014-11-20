@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
+//import java.util.Random;
 
 public class Galaxia {
 	
@@ -54,12 +54,12 @@ public class Galaxia {
      * @param max
      * @return Un valor aleatorio entre "min" y "max"
      */
-    private int randInt(int min, int max)
+    /*private int randInt(int min, int max)
     {
     	Random rand = new Random();
     	int randomNum = rand.nextInt(max - min + 1) + min;
     	return randomNum;
-    }
+    }*/
     
     // CONSTRUCTORAS
     
@@ -283,6 +283,7 @@ public class Galaxia {
     public void afegirPlaneta(int idPlaneta, int x, int y) throws Exception
     {
     	if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
+    	if(N == 0) throw new Exception("No se puede añadir un planeta a una galaxia que no tiene limite definido");
     	boolean b = existeixPlanetaCoordenades(x,y);
     	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
     	if(limits.size() > 0) {
@@ -293,15 +294,15 @@ public class Galaxia {
     }	
    
     /**
-     * Metodo para anadir un planeta en la galaxia
+     * Metodo para anadir un planeta en la galaxia aleatoriamente
      * @param p
-     * @return Las coordenadas del planeta 
+     * @return Las coordenadas del planeta introducidas en la galaxia
      * @throws Exception
      */
     public Pair<Integer, Integer> afegirPlanetaAutomatic(int idPlaneta) throws Exception
     {
     	if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
-    	
+    	if(N == 0) throw new Exception("No se puede añadir un planeta a una galaxia que no tiene limite definido");
     	if(limits.size() > 0) {  // Galaxia con limites impuestos
     		int tmp1 = 0,tmp2 = 0;
     		boolean posible = false;
@@ -320,12 +321,28 @@ public class Galaxia {
 			return par;
     	}
     	else { 	// Galaxia sin limites
-    		int rndX = randInt(0,N);
+    		int tmp1 = 0,tmp2 = 0;
+    		boolean posible = false;
+    		for(int i = 0; i < N && !posible; ++i) {
+    			for(int j = 0; j < N && !posible; ++j) {
+    				if(gal[i][j] == 0) {
+    					posible = true;
+    					tmp1 = i;
+    					tmp2 = j;
+    				}
+    			}
+    				
+    		}
+    		/*int rndX = randInt(0,N);
     		int rndY = randInt(0,N);
     		boolean b = existeixPlanetaCoordenades(rndX, rndY);
     		if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
     		Pair<Integer, Integer> par = new Pair<Integer, Integer>(rndX, rndY);
     		gal[rndX][rndY] = idPlaneta;
+    		return par;*/
+    		if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
+    		Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
+    		gal[tmp1][tmp2] = idPlaneta;
     		return par;
     	}
     }
