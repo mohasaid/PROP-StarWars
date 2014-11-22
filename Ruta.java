@@ -5,6 +5,7 @@ public class Ruta {
     private int id;
     private int capacidad;
     private int distancia;
+    private boolean bidireccional;
        
     //PARTE PUBLICA
        
@@ -15,19 +16,10 @@ public class Ruta {
     }
        
     //CONSTRUCTORAS
-    
-    //Pre: Cierto
-    //Post: Retorna una ruta vacia
-    public Ruta()
-    {
-        id = -1;
-        capacidad = -1;
-        distancia = -1;
-    }
        
     //Pre: Cierto
     //Post: Crea una ruta con id = "i", capacidad = "c", distancia = "d"
-    public Ruta(int i, int c, int d) throws Exception
+    public Ruta(int i, int c, int d, boolean b) throws Exception
     {
         if(ErrorTipografico(i)){
             throw new Exception("Error: El identificador de una ruta debe ser mayor o igual que 0\n");
@@ -41,6 +33,7 @@ public class Ruta {
         id = i;
         capacidad = c;
         distancia = d;
+        bidireccional = b;
     }
             
     //CONSULTORAS
@@ -68,7 +61,14 @@ public class Ruta {
         if(distancia == -1) throw new Exception("Error: La ruta no tiene una asignado");
         return distancia;
     }
-             
+    
+    //Pre: Cierto
+    //Post: Retorna un valor booleano, el cual es cierto en el caso que la ruta sea bidireccional, en caso contrario, la ruta va solo del planetaA al planetaB
+    public boolean consultar_bidireccional() throws Exception
+    {
+        return bidireccional;
+    }
+    
     //MODIFICDORAS
           
     //Pre: Cierto
@@ -100,7 +100,16 @@ public class Ruta {
         }
         distancia = d;
     }
+    
+    //Pre: Cierto
+    //Post: La bidireccionalidad de la ruta ha sido modificada tal que bidireccional = "b"
+    public void modificar_bidireccional(boolean b) throws Exception
+    {
+        bidireccional = b;
+    } 
 }
+
+
 
 class OrdenRuta implements Comparator<Ruta>{
     public int compare(Ruta r1, Ruta r2) { 
