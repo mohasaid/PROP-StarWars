@@ -6,21 +6,21 @@ public class DriverGeneral
     {
         // menu telescopic
         System.out.println(
-         "OPCIONES \n"
-        + " Opcion 0: Salir gestion drivers                                 	\n"
-        + " Opcion 1: Driver Controlador nave                               	\n"
-        + " Opcion 2: Driver Nave                                           	\n"
-        + " Opcion 3: Driver Galaxia                    		    	\n"
-        + " Opcion 4: Driver Controlador Galaxia 			 	\n"
-        + " Opcion 5: Driver Controlador Ruta 					\n"
-        + " Opcion 6: Driver Ruta			 			\n"
-        + " Opcion 7: Driver Controlador Planeta				\n"
+          "OPCIONES \n"
+        + " Opcion 0: Salir gestion drivers                 \n"
+        + " Opcion 1: Driver Controlador nave               \n"
+        + " Opcion 2: Driver Nave                           \n"
+        + " Opcion 3: Driver Galaxia                    	\n"
+        + " Opcion 4: Driver Controlador Galaxia 			\n"
+        + " Opcion 5: Driver Controlador Ruta 				\n"
+        + " Opcion 6: Driver Ruta			 			    \n"
+        + " Opcion 7: Driver Controlador Planeta			\n"
         + " Opcion 8: Driver Planeta 						\n"
         + " Opcion 9:  Driver Conexion						\n"
         + " Opcion 10: Driver Entrada 						\n"
         + " Opcion 11: Driver Arco   						\n"
         + " Opcion 12: Driver Salida 						\n"
-        + " Opcion 13: Driver Controlador MFP					\n"
+        + " Opcion 13: Driver Controlador MFP				\n"
         
 		);
     }
@@ -51,15 +51,15 @@ public class DriverGeneral
        //Ruta (controlador ruta ya esta creado)
         DriverRuta DRuta = new DriverRuta();
         DriverControladorRuta DCRuta = new DriverControladorRuta(); 
-        Ruta r = new Ruta();
+        Ruta r;
         DriverPlaneta Dp = new DriverPlaneta();
         DriverControladorPlaneta DCP = new DriverControladorPlaneta();
         
-         DriverEntrada De = new DriverEntrada();
-	Entrada en = new Entrada();
+        DriverEntrada De = new DriverEntrada();
+        Entrada en = new Entrada();
          //Conexion
         DriverConexion Dc = new DriverConexion();
-        Conexion c = new Conexion();
+        Conexion c;
 
         int op= sc.nextInt();
         while (op != 0){
@@ -70,10 +70,10 @@ public class DriverGeneral
                 case 3: DGalaxia.Executa(sc,cn,cp,cr); break;
                 case 4: DCGalaxia.Executa(sc,cp, cr, cn,cg); break;
                 case 5: DCRuta.Executa(cr, cp, sc); break;
-                case 6: DRuta.Executa(sc); break;
+                case 6: DRuta.Executa(sc,r); break;
                 case 7:	DCP.Ejecuta(sc,cp,cr,cg);break;
                 case 8: Dp.Ejecuta(sc);break;
-                case 9: Dc.Executa(sc);break;
+                case 9: Dc.Executa(sc, c);break;
                 case 10: De.Executa(cg, cr, cp, cn, sc);break;
                 case 11: Darco.Executa(sc);break;
                 case 12: Dsalida.Executa(sc,cr,cg);break;
