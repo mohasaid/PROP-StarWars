@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class DriverRuta {
-	private Ruta r;
 
     public void opciones()
     {
@@ -30,21 +29,21 @@ public class DriverRuta {
     			);
     }
     
-    public void Executa(Scanner cin) throws Exception {
+    public void Executa(Scanner cin, Ruta r) throws Exception {
         int n;
         opciones();
         n = cin.nextInt();
         while(n != 0) {
             switch(n) {
-            case 1:  TestCrearRuta2(cin);break;
-            case 2:  TestConsultarIdRuta();break;
-            case 3:  TestConsultarCpacitatRuta();break;
-            case 4:  TestConsultarDistanciaRuta();break;
-            case 5:  TestConsultarBidireccionalitatRuta(cin);break;
-            case 6:  TestModificarIdRuta(cin);break;
-            case 7:  TestModificarCpacitatRuta(cin);break;
-            case 8:  TestModificarDistanciaRuta(cin);break;
-            case 9:  TestModificarBidireccionalitatRuta(cin);break;
+            case 1:  TestCrearRuta2(cin,r);break;
+            case 2:  TestConsultarIdRuta(r);break;
+            case 3:  TestConsultarCpacitatRuta(r);break;
+            case 4:  TestConsultarDistanciaRuta(r);break;
+            case 5:  TestConsultarBidireccionalitatRuta(cin,r);break;
+            case 6:  TestModificarIdRuta(cin,r);break;
+            case 7:  TestModificarCpacitatRuta(cin,r);break;
+            case 8:  TestModificarDistanciaRuta(cin,r);break;
+            case 9:  TestModificarBidireccionalitatRuta(cin,r);break;
             default: System.out.println("Opcion incorrecta");
             }
         opciones();
@@ -53,7 +52,7 @@ public class DriverRuta {
     }
 	
     
-	public void TestConsultarBidireccionalitatRuta(Scanner cin) throws Exception 
+	public void TestConsultarBidireccionalitatRuta(Scanner cin, Ruta r) throws Exception 
 	{
 		try {
 			if (r.consultar_bidireccional()) System.out.print("La ruta es bidireccional \n");
@@ -66,7 +65,7 @@ public class DriverRuta {
 	}
 
 	
-	public void TestModificarBidireccionalitatRuta(Scanner cin) throws Exception
+	public void TestModificarBidireccionalitatRuta(Scanner cin, Ruta r) throws Exception
 	{
 		try {
 			boolean b = cin.nextBoolean();
@@ -77,7 +76,7 @@ public class DriverRuta {
 		}
 	}
 	
-	public void TestCrearRuta2(Scanner cin) throws Exception
+	public void TestCrearRuta2(Scanner cin, Ruta r) throws Exception
 	{
 		try {
 			int id = cin.nextInt();
@@ -91,7 +90,7 @@ public class DriverRuta {
 		}
 	}
 	
-	public void TestConsultarIdRuta() throws Exception
+	public void TestConsultarIdRuta( Ruta r ) throws Exception
 	{
 		try {
 			System.out.println(r.consultar_id());
@@ -101,7 +100,7 @@ public class DriverRuta {
 		}
 	}
 	
-	public void TestConsultarCpacitatRuta() throws Exception
+	public void TestConsultarCpacitatRuta( Ruta r ) throws Exception
 	{
 		try {
 			System.out.println(r.consultar_capacidad());
@@ -111,7 +110,7 @@ public class DriverRuta {
 		}
 	}
 	
-	public void TestConsultarDistanciaRuta() throws Exception
+	public void TestConsultarDistanciaRuta( Ruta r ) throws Exception
 	{
 		try {
 			System.out.println(r.consultar_distancia());
@@ -121,7 +120,7 @@ public class DriverRuta {
 		}
 	}
 	
-	public void TestModificarIdRuta(Scanner cin) throws Exception 
+	public void TestModificarIdRuta(Scanner cin, Ruta r) throws Exception 
 	{
 		try {
 			r.modificar_id(cin.nextInt());
@@ -131,7 +130,7 @@ public class DriverRuta {
 		}
 	}
 	
-	public void TestModificarCpacitatRuta(Scanner cin) throws Exception 
+	public void TestModificarCpacitatRuta(Scanner cin, Ruta r) throws Exception 
 	{
 		try {
 			r.modificar_capacidad(cin.nextInt());
@@ -141,7 +140,7 @@ public class DriverRuta {
 		}
 	}
 	
-	public void TestModificarDistanciaRuta(Scanner cin) throws Exception 
+	public void TestModificarDistanciaRuta(Scanner cin, Ruta r) throws Exception 
 	{
 		try{ 
 			r.modificar_distancia(cin.nextInt());
