@@ -23,7 +23,7 @@ public class DriverConexion {
     			);
     }
     
-    public void Executa(Conexion c, Scanner cin) throws Exception {
+    public void Executa( Scanner cin, Conexion c) throws Exception {
         int n;
         opciones();
         n = cin.nextInt();
