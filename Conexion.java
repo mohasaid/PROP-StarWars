@@ -5,7 +5,6 @@ public class Conexion {
 	private int idruta;
 	private int planetaA;
 	private int planetaB;
-	private boolean bidireccional;
 	
 	
     //PARTE PUBLICA
@@ -19,19 +18,8 @@ public class Conexion {
     //CONSTRUCTORAS
     
     //Pre: Cierto
-    //Post: Retorna una conexion vacia
-    public Conexion()
-    {
-        idruta = -1;
-        planetaA = -1;
-        planetaB = -1;
-        bidireccional = false; //Por defecto una ruta es dirigida, no bidireccional
-
-    }
-    
-    //Pre: Cierto
-    //Post: Crea una conexion con idruta = "i", planetaA = "pA", planetaB = "pB" y bidireccional = "b"
-    public Conexion(int i, int pA, int pB, boolean b) throws Exception
+    //Post: Crea una conexion con idruta = "i", planetaA = "pA" y planetaB = "pB"
+    public Conexion(int i, int pA, int pB) throws Exception
     {
         if(ErrorTipografico(i)){
             throw new Exception("Error: El identificador de una ruta debe ser mayor o igual que 0\n");
@@ -45,7 +33,6 @@ public class Conexion {
         idruta = i;
         planetaA = pA;
         planetaB = pB;
-        bidireccional = b;
     }
     
     //CONSULTORAS
@@ -72,13 +59,6 @@ public class Conexion {
     {
         if(planetaB == -1) throw new Exception("Error: La ruta no tiene un planeta destino asignado");
         return planetaB;
-    }
-    
-    //Pre: Cierto
-    //Post: Retorna un valor booleano, el cual es cierto en el caso que la conexion sea bidireccional, en caso contrario, la conexion es solo del planetaA al planetaB
-    public boolean consultar_bidireccional() throws Exception
-    {
-        return bidireccional;
     }
     
     
@@ -120,13 +100,8 @@ public class Conexion {
         planetaB = idB;
     }
        
-    //Pre: Cierto
-    //Post: La bidireccionalidad de la ruta ha sido modificada tal que bidireccional = "b"
-    public void modificar_bidireccional(boolean b) throws Exception
-    {
-        bidireccional = b;
-    } 
 }
+
 
 class OrdenConexion implements Comparator<Conexion>{
     public int compare(Conexion c1, Conexion c2) { 
