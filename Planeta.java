@@ -2,41 +2,40 @@ import java.util.Comparator;
   
 public class Planeta
 {
-    private int idPlaneta; //Identificador del planeta
+    private String nombrePlaneta; //Identificador del planeta
     private int Coste; //Precio del combustible del planeta.
     private Pair<Integer,Integer> Coordenadas; //Coordenadas del planeta en la galaxia
-     
-    // Pre: Cierto.
-    // Post: Crea un planeta vacio.
-    public Planeta() 
+    
+    private boolean alfa_numeric(String nom)
     {
-        idPlaneta = -1; //No se le ha asignado un identificador 
-        Coste = -1;
-        Coordenadas = new Pair<Integer,Integer>(-1, -1); //No se le han asignado coordenadas
+        if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
+        for(int i = 0; i < nom.length(); ++i) {
+            char c = nom.charAt(i);
+            if(!Character.isLetterOrDigit(c)) return false;
+        }
+        return true;
     }
+    
     // Pre: Cierto.
-    // Post: Crea un planeta con idPlaneta = id, Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
-    public Planeta(int id, int k, Pair<Integer,Integer> Coo) throws Exception
+    // Post: Crea un planeta con nombrePlaneta = n , Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
+    public Planeta(String n, int k, Pair<Integer,Integer> Coo) throws Exception
     {
-        if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo\n");
-        if(id <= 0) throw new Exception("Error: el identificador del planeta no puede ser negativo o nulo");
-        
-        idPlaneta = id;
+        if(!alfa_numeric(n)) throw new Exception ("Error: El nombre de un Planeta tiene que ser alfanumerico\n");
+    	if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo\n");
+        nombrePlaneta = n;
         Coste = k;
         Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
     }
     //Pre: Cierto.
     //Post: Retorna la id del planeta
-    public int Consultar_id() throws Exception
+    public String Consultar_nombre()
     {
-        if(idPlaneta == -1) throw new Exception ("Error: El planeta no tiene una id asignada\n");
-        else return idPlaneta;
+        return nombrePlaneta;
     }
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
-    public int Consultar_Coste() throws Exception
+    public int Consultar_Coste() 
     {
-        if(Coste == -1) throw new Exception ("Error: Al Planeta no se le ha asignado ningun Coste\n");
         return Coste;
     }
     //Pre: Cierto.
@@ -77,14 +76,10 @@ public class Planeta
 }
 
 class OrdenPlaneta implements Comparator<Planeta>{
-    public int compare(Planeta p1, Planeta p2) {
-        try {
-			if(p2.Consultar_id() < (p1.Consultar_id())) return 1;
-			else return -1;
-		} 
-        catch (Exception e) {
-        	System.out.print(e);
-		}
-		return 0;
-    }
+	 public int compare(Planeta a, Planeta b) {
+	     String s1, s2;
+	     s1 = a.Consultar_nombre();
+	     s2 = b.Consultar_nombre();
+		 return s1.compareTo(s2);
+	 }
 } 
