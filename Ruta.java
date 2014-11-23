@@ -40,31 +40,28 @@ public class Ruta {
        
     //Pre: Cierto
     //Post: Retorna un entero que representa el identificador de la ruta
-    public int consultar_id() throws Exception
+    public int consultar_id()
     {
-        if(id == -1) throw new Exception("Error: La ruta no tiene un id asignado");
         return id;
     }
        
     //Pre: Cierto
     //Post: Retorna un entero que representa la capacidad de la ruta
-    public int consultar_capacidad() throws Exception
+    public int consultar_capacidad()
     {
-        if(capacidad == -1) throw new Exception("Error: La ruta no tiene una capacidad asignada");
         return capacidad;
     }
        
     //Pre: Cierto
     //Post: Retorna un entero que representa la distancia de la ruta
-    public int consultar_distancia() throws Exception
+    public int consultar_distancia()
     {
-        if(distancia == -1) throw new Exception("Error: La ruta no tiene una asignado");
         return distancia;
     }
     
     //Pre: Cierto
     //Post: Retorna un valor booleano, el cual es cierto en el caso que la ruta sea bidireccional, en caso contrario, la ruta va solo del planetaA al planetaB
-    public boolean consultar_bidireccional() throws Exception
+    public boolean consultar_bidireccional()
     {
         return bidireccional;
     }
@@ -108,8 +105,6 @@ public class Ruta {
         bidireccional = b;
     } 
 }
-
-
 
 class OrdenRuta implements Comparator<Ruta>{
     public int compare(Ruta r1, Ruta r2) { 
