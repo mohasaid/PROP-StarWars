@@ -1,6 +1,7 @@
 import java.util.*;
 	
 public class DriverConexion {
+	private Conexion c;
     public void opciones()
     {
     	System.out.print(
@@ -9,7 +10,7 @@ public class DriverConexion {
                 +   "-----------------------------------------------------------------------------------\n"
                 + "\n\nCREACION CONEXION\n"
                 + " 0: Salir de la gestion del driver \n"
-                + " 1: Conexion(int i, int pA, int pB, boolean b) \n"
+                + " 1: Conexion(int i, int pA, int pB) \n"
                 
                 + "\n\nOPERACIONES DE CONSULTA DE CONEXION\n"
                 + " 2: consultar_id() \n"
@@ -23,19 +24,19 @@ public class DriverConexion {
     			);
     }
     
-    public void Executa( Scanner cin, Conexion c) throws Exception {
+    public void Executa( Scanner cin ) throws Exception {
         int n;
         opciones();
         n = cin.nextInt();
         while(n != 0) {
             switch(n) {
-            case 1:  TestCrearConnexio2(cin, c);break;
-            case 2:  TestConsultarIdConnexio(c);break;
-            case 3:  TestConsultarPlanetaAConnexio(c);break;
-            case 4:  TestConsultarPlanetaBConnexio(c);break;
-            case 5:  TestModificarIdConnexio(cin,c);break;
-            case 6:  TestModificarPlanetaAConnexio(cin,c);break;
-            case 7: TestModificarPlanetaBConnexio(cin,c);break;
+            case 1:  TestCrearConnexio2(cin);break;
+            case 2:  TestConsultarIdConnexio();break;
+            case 3:  TestConsultarPlanetaAConnexio();break;
+            case 4:  TestConsultarPlanetaBConnexio();break;
+            case 5:  TestModificarIdConnexio(cin);break;
+            case 6:  TestModificarPlanetaAConnexio(cin);break;
+            case 7: TestModificarPlanetaBConnexio(cin);break;
             default: System.out.println("Opcion incorrecta");
             }
         opciones();
@@ -43,7 +44,7 @@ public class DriverConexion {
         }
     }
     
-	public void  TestCrearConnexio2(Scanner cin, Conexion c) throws Exception
+	public void  TestCrearConnexio2(Scanner cin) throws Exception
 	{
 		try {
 			int id = cin.nextInt();
@@ -56,7 +57,7 @@ public class DriverConexion {
 		}
 	}
 	
-	public void TestConsultarIdConnexio(Conexion c) throws Exception
+	public void TestConsultarIdConnexio() throws Exception
 	{
 		try {
 			System.out.println(c.consultar_id());
@@ -67,7 +68,7 @@ public class DriverConexion {
 	}
 	
 	
-	public void TestConsultarPlanetaAConnexio(Conexion c) throws Exception
+	public void TestConsultarPlanetaAConnexio() throws Exception
 	{
 		try {
 			System.out.println(c.consultar_planetaA());
@@ -77,7 +78,7 @@ public class DriverConexion {
 		}
 	}
 	
-	public void TestConsultarPlanetaBConnexio(Conexion c) throws Exception
+	public void TestConsultarPlanetaBConnexio() throws Exception
 	{
 		try {
 			System.out.println(c.consultar_planetaB());
@@ -88,7 +89,7 @@ public class DriverConexion {
 	}
 		
 	
-	public void TestModificarIdConnexio(Scanner cin, Conexion c) throws Exception 
+	public void TestModificarIdConnexio(Scanner cin) throws Exception 
 	{
 		try {
 			c.modificar_id(cin.nextInt());
@@ -99,7 +100,7 @@ public class DriverConexion {
 	}
 	
 	
-	public void TestModificarPlanetaAConnexio(Scanner cin, Conexion c) throws Exception 
+	public void TestModificarPlanetaAConnexio(Scanner cin) throws Exception 
 	{
 		try {
 			c.modificar_planetaA(cin.nextInt());
@@ -109,7 +110,7 @@ public class DriverConexion {
 		}
 	}
 	
-	public void TestModificarPlanetaBConnexio(Scanner cin, Conexion c) throws Exception 
+	public void TestModificarPlanetaBConnexio(Scanner cin) throws Exception 
 	{
 		try {
 			c.modificar_planetaB(cin.nextInt());
