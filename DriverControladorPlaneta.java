@@ -16,13 +16,12 @@ public class DriverControladorPlaneta {
             + " 5: Consultar_Coordenadas(int id)\n"
             + " 6: consultar_X(int id)\n"
             + " 7: consultar_Y(int id)\n"
-            + " 8: consultarRutasConecta(int id)\n"
-            + " 9: Consultar_listaPlanetas()\n"
-            + " 10: Modificar_Coste(int id, int k)\n"
-            + " 11: modificarCoordenades(int id, int x, int y)\n"
-            + " 12: Borrar(Planeta p)\n"
-            + " 13: CargarPlanetas()\n"
-            + " 14: GuardarPlanetas()\n");
+            + " 8: Consultar_listaPlanetas()\n"
+            + " 9: Modificar_Coste(int id, int k)\n"
+            + " 10: modificarCoordenades(int id, int x, int y)\n"
+            + " 11: Borrar(Planeta p)\n"
+            + " 12: CargarPlanetas()\n"
+            + " 13: GuardarPlanetas()\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
@@ -33,24 +32,21 @@ public class DriverControladorPlaneta {
                 case 5: TestConsultarCoordenadas(sc, contp);break;
                 case 6: TestConsultarCoordenadaX(sc, contp);break;
                 case 7: TestConsultarCoordenadaY(sc, contp);break;
-                case 8: TestConsultarRutasConecta(sc, contp, contr);break;
-                case 9: TestConsultarlistaPlaneta(contp);break;
-                case 10: TestModificarCoste(sc, contp);break;
+                case 8: TestConsultarlistaPlaneta(contp);break;
+                case 9: TestModificarCoste(sc, contp);break;
+                case 10: TestModificarCoordenadas(sc,contp,cg);break;
                 case 11: TestBorrar(sc, contp, contr, cg);break;
                 case 12: TestCargar(sc,contp, cg);break;
                 case 13: TestGuardar(sc,contp);break;
             }
+            
             n = sc.nextInt();
         }
     }
     public static void TestCrearPlaneta(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
         try {
             String s;
-            while(!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identifcador del Planeta debe ser un entero\n");
-            }
-            int id = sc.nextInt();
+            String id = sc.next();
             while(!sc.hasNextInt()) {
                 s = sc.nextLine();
                 throw new Exception("Error: El Coste tiene que ser un entero\n");
@@ -84,11 +80,7 @@ public class DriverControladorPlaneta {
     public static void TestCrearPlanetaAuto2(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
         try{
         	String s;
-            while(!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identifcador del Planeta debe ser un entero\n");
-            }
-            int id = sc.nextInt();
+            String id = sc.next();
             contp.PlanetaAuto(id,cg);       
         }  
         catch (Exception e) {
@@ -98,11 +90,7 @@ public class DriverControladorPlaneta {
     public static void TestConsultarCoste(Scanner sc, ControladorPlaneta contp) {
         try {
             String s;
-            while (!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identificador de un Planeta es un entero\n");
-            }
-            int id = sc.nextInt();
+            String id = sc.next();
             System.out.print("El Coste del Planeta es: " + contp.Consultar_Coste(id) + "\n");    
         }
         catch (Exception e) {
@@ -112,11 +100,7 @@ public class DriverControladorPlaneta {
     public static void TestConsultarCoordenadas(Scanner sc, ControladorPlaneta contp) {
         try {
             String s;
-            while (!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identificador de un Planeta es un entero\n");
-            }
-            int id = sc.nextInt();
+            String id = sc.next();
             Pair<Integer,Integer> Coo = contp.Consultar_Coordenadas(id);
             System.out.print(Coo);     
         }
@@ -127,11 +111,7 @@ public class DriverControladorPlaneta {
     public static void TestConsultarCoordenadaX(Scanner sc, ControladorPlaneta contp) {
         try {
             String s;
-            while (!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identificador de un Planeta es un entero\n");
-            }
-            int id = sc.nextInt();
+            String id = sc.next();
             System.out.print("La Coordenada X del Planeta es: " + contp.consultar_X(id) + "\n");    
         }
         catch (Exception e) {
@@ -141,26 +121,8 @@ public class DriverControladorPlaneta {
     public static void TestConsultarCoordenadaY(Scanner sc, ControladorPlaneta contp) {
         try {
             String s;
-            while (!sc.hasNextInt()) {
-                s = sc.nextLine();
-                throw new Exception("Error: El identificador de un Planeta es un entero\n");
-            }
-            int id = sc.nextInt();
+            String id = sc.next();
             System.out.print("La Coordenada Y del Planeta es: " + contp.consultar_Y(id) + "\n");    
-        }
-        catch (Exception e) {
-            System.out.print(e);
-        }          
-    }
-    public static void TestConsultarRutasConecta(Scanner sc, ControladorPlaneta contp, ControladorRuta cr) {
-        try {
-        	String s;
-        	while (!sc.hasNextInt()) {
-        		s = sc.nextLine();
-        		throw new Exception ("Error: El identificador de un Planeta es un entero\n");
-        	}
-        	int id = sc.nextInt();
-        	contp.consultarRutasConecta(id,cr);
         }
         catch (Exception e) {
             System.out.print(e);
@@ -178,11 +140,7 @@ public class DriverControladorPlaneta {
     public static void TestModificarCoste(Scanner sc, ControladorPlaneta contp){
     	try {
     		String s;
-    		while (!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
-    		}
-    		int id = sc.nextInt();
+    		String id = sc.next();
     		while (!sc.hasNextInt()) {
     			s = sc.nextLine();
     			throw new Exception("Error: el Coste de un Planeta tiene es un entero\n");
@@ -194,14 +152,30 @@ public class DriverControladorPlaneta {
     		System.out.print(e);
     	}
     }
+    public static void TestModificarCoordenadas(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
+    	try{
+    		String s;
+    		String id = sc.next();
+    		while(!sc.hasNextInt()){
+    			s = sc.nextLine();
+    			throw new Exception("Error: La Coordenada X de un Planeta tiene que ser un entero\n");
+    		}
+    		int x = sc.nextInt();
+    		while(!sc.hasNextInt()){
+    			s = sc.nextLine();
+    			throw new Exception("Error: La Coordenada Y de un Planeta tiene que ser un entero\n");
+    		}
+    		int y = sc.nextInt();
+    		contp.Modificar_Coordenadas(id, x, y, cg);
+    	}
+    	catch (Exception e){
+    		System.out.print(e);
+    	}
+    }
     public static void TestBorrar(Scanner sc, ControladorPlaneta contp, ControladorRuta contr, ControladorGalaxia cg) {
     	try {
     		String s;
-    		while (!sc.hasNextInt()) {
-    			s = sc.nextLine();
-    			throw new Exception("Error: el identificador de un Planeta es un entero\n");
-    		}
-    		int id = sc.nextInt();
+    		String id = sc.next();
     		contp.Borrar(id, contr);
     	}
     	catch (Exception e){
