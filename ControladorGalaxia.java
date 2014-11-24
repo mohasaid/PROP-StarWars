@@ -6,6 +6,7 @@ public class ControladorGalaxia
 {
     private Galaxia g;
     private ControladorDadesGalaxia cdg;
+    private Iterator<Pair<Integer, Integer>> itp;
  
     //CONSTRUCTORAS
  
@@ -13,22 +14,31 @@ public class ControladorGalaxia
      * Metodo para crear el controlador de la galaxia, un controlador de datos y una galaxia con nombre y limite
      * @throws Exception 
      */
-    public ControladorGalaxia(String nom,int n) throws Exception 
+    public ControladorGalaxia() throws Exception 
     {
     	cdg = new ControladorDadesGalaxia();
-    	g = new Galaxia(nom,n); 
     }
     
     /**
-     * Metodo para crear el controlador de la galaxia, un controlador de datos y una galaxia con nombre, limite y forma
+     * Metodo para crear una galaxia con nombre y limite maximo
+     * @param nom
+     * @param n
+     * @throws Exception
+     */
+    public void creaGalaxia(String nom,int n) throws Exception
+    {
+        g = new Galaxia(nom,n); 
+    }
+    
+    /**
+     * Metodo para crear una galaxia con nombre, limite maximo, y una forma determinada
      * @param nom
      * @param n
      * @param l
      * @throws Exception
      */
-    public ControladorGalaxia(String nom, int n, List<Pair<Integer, Integer> > l) throws Exception
+    public void creaGalaxia2(String nom, int n, List<Pair<Integer, Integer> > l) throws Exception
     {
-    	cdg = new ControladorDadesGalaxia();
     	g = new Galaxia(nom,n,l);
     }
    
@@ -44,42 +54,33 @@ public class ControladorGalaxia
     }
     
     /**
-     * Metodo para consultar los elementos de la galaxia
-     * @return El nombre de la galaxia, el presupuesto, el limite maximo y el conjunto de coordenadas que dan forma a esta
-     * @throws Exception
-     */
-    public String consultarElementsGalaxia() throws Exception
-    {
-    	String res = "";
-    	res = g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia();
-    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
-    	if(lp.size() > 0) {
-    		Iterator<Pair<Integer, Integer> > it = lp.iterator();
-    		while(it.hasNext()) {
-    			Pair<Integer, Integer> a = it.next();
-    			res += ":" + a.consultarPrimero() + "," + a.consultarSegundo();
-    		}
-    	}
-    	else res += ""; // anado null
-    	
-    	return res;
-    }
-    
-    /**
      * Metodo para consultar las coordenadas que dan forma a la galaxia
      * @return
      * @throws Exception
      */
-    public String consultarLimitsGalaxia() throws Exception
+    public String consultarLimitsGalaxia(int i) throws Exception
     {
     	String res = "";
     	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
-    	Iterator<Pair<Integer, Integer> > it = lp.iterator();
-    	while(it.hasNext()) {
-    		Pair<Integer, Integer> a = it.next();
-    		res += ":" + a.consultarPrimero() + "," + a.consultarSegundo();
+    	if(i == 0) {
+    		itp = lp.iterator();
+    	}
+    	int j = 0;
+    	while(itp.hasNext() && j < 100) {
+    		Pair<Integer, Integer> a = itp.next();
+    		res += "(" + a.consultarPrimero() + "," + a.consultarSegundo() + "), ";
+    		++j;
     	}
     	return res;
+    }
+    
+    /**
+     * Metodo para consultar el numero de coordenadas que dan forma a la galaxia
+     * @return Numero de coordenadas que dan forma a la galxia
+     */
+    public int consultarNombreLimits()
+    {
+    	return g.consulta_nombreLimits();
     }
     
     /**
@@ -411,10 +412,24 @@ public class ControladorGalaxia
     	cdg.AbrirEscritura(directori);
 
     	String result = "";
-    	result += g.consultarNomGalaxia() + ":" + g.consultarLimitGalaxia() + ":" + consultarLimitsGalaxia();
-    	cdg.guardar(directori,result);
+    	result += g.consultarNomGalaxia();
+    	result += "#" + g.consultarLimitGalaxia();
+    	result += "#";
+    	int i = 0;
+    	int n = g.consulta_nombreLimits();
+    	if(n != 0) {
+	    	while(i < n) {
+	    		result += consultarLimitsGalaxia(i);
+	    		i += 100;
+	        	cdg.guardar(directori,result);
+	        	result = "";
+	    	}
+    	}
+    	else {
+    		cdg.guardar(directori,result);
+    	}
     	
-    	System.out.println(result);
+    	/*System.out.println(result);
     	
     	result = "#@";
     	if(cp.Consultar_Size() > 0) {
@@ -438,7 +453,7 @@ public class ControladorGalaxia
     		result += GP2;
     		cdg.guardar(directori,result);
     		System.out.println(result);
-    	}
+    	}*/
     	cdg.CerrarEscritura();
    	}
 }
