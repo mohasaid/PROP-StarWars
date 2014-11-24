@@ -1,16 +1,19 @@
 import java.util.*;
 
-
 public class ControladorPlaneta {
+	
     private TreeSet<Planeta> listaPlanetas;
     private ControladorDadesPlaneta cdp;
+    private static int id = 0;
+    private final String nomG = "Planeta";
     
     private int randInt(int min, int max)
     {
     	Random rand = new Random();
     	int randomNum = rand.nextInt((max - min) + 1) + min;
     	return randomNum;
-    } 
+    }
+    
     private boolean alfa_numeric(String nom)
     {
         if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
@@ -53,6 +56,7 @@ public class ControladorPlaneta {
     		if(p.Consultar_nombre() == idPlaneta) it.remove();
     	}
     }
+    
     //Pre: Cierto.
     //Post: Retorna un Planeta con idedentificador "id".
     public Planeta BuscarPlaneta(String id) throws Exception
@@ -70,72 +74,116 @@ public class ControladorPlaneta {
     public void PlanetaAuto(ControladorGalaxia cg) throws Exception 
     {
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
-        int idP = 1;
-        while(ExistePlaneta(Integer.toString(idP))) ++idP;
-        String a11 = cg.afegirPlanetaAutomatic(idP);
-        String n = Integer.toString(idP);
+    	
+		String seg = Integer.toString(id);
+		String f = nomG + seg;
+		while(listaPlanetas.contains(f)) {
+			++id;
+			seg = Integer.toString(id);
+			f = nomG + seg;
+		}
+    	
+        String a11 = cg.afegirPlanetaAutomatic();
+        
 		Scanner sc = new Scanner(a11);
 		sc.useDelimiter(",");
 		Integer a1 = sc.nextInt();
 		Integer a2 = sc.nextInt();
 		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
-        Planeta p = new Planeta(n, r1, co_nuevas);
+		
+        Planeta p = new Planeta(f, r1, co_nuevas);
         listaPlanetas.add(p);
         sc.close();
     }
     
     public void PlanetaAuto(String id, ControladorGalaxia cg) throws Exception 
     {
-    	if(ExistePlaneta(id)) throw new Exception("Error: Existe un planeta con ese nombre\n");
+    	if(ExistePlaneta(id)) throw new Exception("Error: Existe un planeta con ese nombre");
+    	
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
-    	String a11 = cg.afegirPlanetaAutomatic(id);
+    	
+    	String a11 = cg.afegirPlanetaAutomatic();
 		Scanner sc = new Scanner(a11);
 		sc.useDelimiter(",");
 		Integer a1 = sc.nextInt();
 		Integer a2 = sc.nextInt();
 		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
+		
         Planeta p = new Planeta(id, r1, co_nuevas);
         listaPlanetas.add(p);
+        sc.close();
     }
+    
     //Pre: Cierto.
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Fuente = F y Sumidero = S.
-    public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception {
-        if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe\n");
-        if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico\n");
+    public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
+    {
+        if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
+        if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
+        
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(p);
-        //cg.afegirPlaneta(id, Coo.consultarPrimero(), Coo.consultarSegundo());
+        cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
     }
+    
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
     public int Consultar_Coste(String id) throws Exception 
     {
         return BuscarPlaneta(id).Consultar_Coste();
     }
+    
+    /**
+     * Metodo para consultar un nombre fijo
+     * @return El nombre nomG que es Planeta
+     */
+    /*public String consultar_NomG()
+    {
+    	return nomG;
+    }
+    */
+    /**
+     * Metodo para consultar el id general
+     * @return id
+     */
+    /*public int consultar_ID()
+    {
+    	return id;
+    }
+    
+    public void incrementar_ID()
+    {
+    	++id;
+    }*/
+    
     //Pre: Cierto.
     //Post: Retorna las Coordenadas del planeta.
     public Pair<Integer,Integer> Consultar_Coordenadas(String id) throws Exception
     {
         return BuscarPlaneta(id).consultar_coordenades();
     }
+    
     //Pre: Cierto.
     //Post: Retorna la coordenada X del planeta.
     public int consultar_X(String id) throws Exception
     {
         return BuscarPlaneta(id).consultar_X();
     }
+    
     //Pre: Cierto.
     //Post: Retorna la coordenada Y del planeta.
     public int consultar_Y(String id) throws Exception
     {
         return BuscarPlaneta(id).consultar_Y();
     }
+    
     //Pre: Cierto.
     //Post: Retorna el tamanio de listaPlanetas.
     public int Consultar_Size() 
     {
         return listaPlanetas.size();
     }
+    
     //Pre: Cierto.
     //Post: Retorna listaPlanetas.
     public String Consultar_listaPlanetas() throws Exception
@@ -144,7 +192,7 @@ public class ControladorPlaneta {
     	Iterator<Planeta> it = listaPlanetas.iterator();
     	res = "";
     	while (it.hasNext()) {
-    			res += " - " + it.next().Consultar_nombre();
+    			res += "-" + it.next().Consultar_nombre();
     	}
     	res += "\n";
         return res;
@@ -164,6 +212,7 @@ public class ControladorPlaneta {
     //Post: Consulta el elemento X de la listaPlanetas en caso de que exista
     public Planeta Consultar_PlanetaX(int x) throws Exception {
         if (listaPlanetas.isEmpty()) throw new Exception("Error: No existe ningun planeta");
+        
         Iterator<Planeta> it = listaPlanetas.iterator();
         int n = 0;
         Planeta a = null;
@@ -175,18 +224,24 @@ public class ControladorPlaneta {
         return a;
     }
     
+    /** MODIFICAR**/
     //Pre: Cierto.
     //Post: Retorna todas las rutas que conectan con el Planeta id.
-    public void consultarRutasConecta(int id, ControladorRuta cr) throws Exception{
-    	System.out.println("Las Rutas que entran en el Planeta son: " + cr.Consultar_entrades_planeta(id));
-    	System.out.println("Las Rutas que salen del Planeta son: " + cr.Consultar_sortides_planeta(id));
-    }
+    /*public ArrayList<Integer> consultarRutasConecta(String id, ControladorRuta cr) throws Exception
+    {
+    	ArrayList<Integer> en = cr.Consultar_entrades_planeta(id);
+    	ArrayList<Integer> so = cr.Consultar_sortides_planeta(id);
+    	en.addAll(so);
+    	return en;
+    }*/
+    
     //Pre: Cierto.
     //Post: Modifica el coste del planeta.
     public void Modificar_Coste(String id, int k) throws Exception 
     {
         BuscarPlaneta(id).Modificar_Coste(k);
     }
+    
     
     //Pre: Cierto.
     //Post: Borra el planeta.
@@ -216,7 +271,7 @@ public class ControladorPlaneta {
     	int k, x, y; 
     	while(sc.hasNext()){
     		if(Integer.parseInt(s)==0) {
-    			id = ?¿?¿?¿?¿?;
+    			id = sc.next();
     			s = sc.next();
     			k = Integer.parseInt(s);
     			s = sc.next();
@@ -229,7 +284,7 @@ public class ControladorPlaneta {
     				Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
         			Planeta p = new Planeta(id,k,Coo);
         			listaPlanetas.add(p);
-        			cg.afegirPlaneta(id, x, y);
+        			cg.afegirPlaneta(x, y);
     			}
     		}
     	}
