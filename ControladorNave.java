@@ -525,6 +525,7 @@ public class ControladorNave{
 				public void CargarNaves(String path) throws Exception {
 			        String res; 
 			        Cdn.AbrirLectura(path);
+			        EliminarNaves();
 					int i=0;
 					FileReader fr = new FileReader(path);
         				BufferedReader br = new BufferedReader(fr);
@@ -541,10 +542,6 @@ public class ControladorNave{
 			                    int tipo = Integer.parseInt(s);
 			                    s = sc.next();
 			                    int consumo = Integer.parseInt(s);
-			                    if(ExisteNave(id)){
-			                    	System.out.println("Ya existe una nave con identificador: "+id+". Esta, no se cargará");
-			                    }
-			                    else{
 			                    	Nave aux;
 			                    if(tipo == 1){
 			                    	if(!TipoNave1.EstaDefinido()){
@@ -581,7 +578,6 @@ public class ControladorNave{
 			                    	}
 			                    	aux = new TipoNave5(id,destino,origen);
 			                    	listaNaves.add(aux);
-			                    }
 			                    }
 					 s = sc.next();
 			            }
