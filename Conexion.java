@@ -6,12 +6,11 @@ public class Conexion {
 	private String planetaA;
 	private String planetaB;
 	
-	
     //PARTE PUBLICA
 	
     //Pre: Cierto
     //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
-    public static boolean ErrorTipografico(int i) {
+    private static boolean ErrorTipografico(int i) {
         return (i<0);
     }
     
@@ -49,28 +48,24 @@ public class Conexion {
     
     //Pre: Cierto
     //Post: Retorna un entero que representa el identificador de la conexion
-    public int consultar_id() throws Exception
+    public int consultar_id()
     {
-        if(idruta == -1) throw new Exception("Error: La ruta no tiene un id asignado");
         return idruta;
     }
     
     //Pre: Cierto
     //Post: Retorna un string que representa el identificador del planetaA de la conexion  
-    public String consultar_planetaA() throws Exception
+    public String consultar_planetaA()
     {
-        if(planetaA == null) throw new Exception("Error: La ruta no tiene un planeta origen asignado");
         return planetaA;
     }
        
     //Pre: Cierto
     //Post: Retorna un string que representa el identificador del planetaB de la conexion
-    public String consultar_planetaB() throws Exception
+    public String consultar_planetaB()
     {
-        if(planetaB == null) throw new Exception("Error: La ruta no tiene un planeta destino asignado");
         return planetaB;
     }
-    
     
     //MODIFICADORAS
     
@@ -114,13 +109,7 @@ public class Conexion {
 
 class OrdenConexion implements Comparator<Conexion>{
     public int compare(Conexion c1, Conexion c2) { 
-        try { 
             if(c2.consultar_id() < c1.consultar_id()) return 1; 
             else return -1; 
-            } 
-        catch (Exception e) { 
-            System.out.print(e); 
-            } 
-        return 0; 
     } 
 }
