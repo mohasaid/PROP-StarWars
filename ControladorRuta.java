@@ -634,7 +634,7 @@ public class ControladorRuta {
             res += 1 + ":"; //quiere decir que se trata de una conexion
             res += c.consultar_id() + ":";
             res += c.consultar_planetaA() + ":";
-            res += c.consultar_planetaB() + ":";
+            res += c.consultar_planetaB() + "";
             res += "#";
             System.out.println(res);
             ++iteracions;
