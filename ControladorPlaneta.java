@@ -42,7 +42,7 @@ public class ControladorPlaneta {
     {
         Iterator<Planeta> it = listaPlanetas.iterator();
         while(it.hasNext()) {
-            if (it.next().Consultar_nombre() == idP) return true;
+            if(it.next().Consultar_nombre().compareTo(idP) == 0) return true;
         }
         return false;
     }
@@ -53,7 +53,7 @@ public class ControladorPlaneta {
     	Planeta p = null;
     	while(it.hasNext()) {
     		p = it.next();
-    		if(p.Consultar_nombre() == idPlaneta) it.remove();
+    		if(p.Consultar_nombre().compareTo(idPlaneta) == 0) it.remove();
     	}
     }
     
@@ -65,7 +65,7 @@ public class ControladorPlaneta {
         Planeta p;
         while(it.hasNext()) {
         	p = it.next();
-            if (p.Consultar_nombre() == id) return p;
+            if (p.Consultar_nombre().compareTo(id) == 0) return p;
         }
 		return null;   
     }
@@ -241,13 +241,6 @@ public class ControladorPlaneta {
     {
         BuscarPlaneta(id).Modificar_Coste(k);
     }
-    //Pre: Cierto.
-    //Post: Modifica las coordenadas del Planeta
-    public void Modificar_Coordenadas(String id, int x, int y, ControladorGalaxia cg) {
-    	Planeta p = BuscarPlaneta(id);
-    	cg.modificarCoordeanades(id, p.consultar_X(), p.consultar_Y(), x, y);
-    	p.modificarCoordenades(x, y);
-    }
     
     //Pre: Cierto.
     //Post: Borra el planeta.
@@ -266,9 +259,9 @@ public class ControladorPlaneta {
     //Pre: Cierto.
     //Post: 
     public void CargarPlanetas (String path, ControladorGalaxia cg) throws Exception {
-    	String res;
+    	String res = null;
     	cdp.AbrirLectura(path);
-    	res = cdp.cargar(path);
+    	//res = cdp.cargar(path);
     	Scanner sc = new Scanner(res);
     	sc.useDelimiter("#|:");
     	String s = "";
