@@ -1,14 +1,12 @@
-import java.util.*;
+import java.util.Comparator;
 
-//TIPO 3
+
+//TIPO 3:
 
 public class TipoNave3 extends Nave{
-	public static int consumo;
-	public static boolean definido = false;
+	private static int consumo;
+	private static boolean definido = false;
 
-	public static boolean ErrorTipografico(int i) {  
-        	return (i<=0);
-	} 
 	//pre:cierto
 	//post: el tipo de nave 3 queda definido pasando a tener consumo c asignado
 	/**
@@ -24,29 +22,6 @@ public class TipoNave3 extends Nave{
 			definido = true;
 	}
 	//pre: cierto
-	//post: crea una nave de tipo 3 vacía
-	/**
-	 * metodo que crea una nave de tipo 3 vacía
-	 */
-	public TipoNave3(){
-		ident = -1;
-		destino =-1;
-		origen = -1;
-	}
-	//pre:cierto;
-	//Post: Crea una nave de tipo 3 a partir de una sin tipo
-	/**
-	 * metodo que crea una nave de tipo 3 a partir de una nave sin tipo
-	 * @param n
-	 * @throws Exception
-	 */
-	public TipoNave3(Nave n) throws Exception{
-		ident = n.consultar_id();
-		destino = n.consultar_destino();
-		origen = n.consultar_origen();
-	}
-
-	//pre: cierto
 	//post: crea una nave de tipo 3 inicializada
 	/**
 	 * metodo que crea una nave de tipo 3 con identificador, destino y origen
@@ -55,15 +30,15 @@ public class TipoNave3 extends Nave{
 	 * @param o
 	 * @throws Exception
 	 */
-	public TipoNave3(int id,int d, int o) throws Exception{
+	public TipoNave3(int id,String d,String o) throws Exception{
 		if(ErrorTipograficoID(id)){
 			throw new Exception("Error: El identificador del tipo debe ser mayor o igual que 0\n");
 		}
-		if(ErrorTipografico(d)){
-			throw new Exception("Error: El identificador del planeta destino debe ser mayor o igual que 0\n");
+		if(!alfa_numeric(d)){
+			throw new Exception("Error: El identificador del planeta destino ha de ser alfa numerico\n");	
 		}
-		if(ErrorTipograficoID(o)){
-			throw new Exception("Error: El identificador del planeta origen debe ser mayor o igual que 0\n");
+		if(!alfa_numeric(o)){
+			throw new Exception("Error: El identificador del planeta destino ha de ser alfa numerico\n");	
 		}
 		if(!definido){
 			throw new Exception("Error: el tipo de nave 3 no ha sido definido\n");
@@ -72,24 +47,22 @@ public class TipoNave3 extends Nave{
 		destino = d;
 		origen = o;
 	}
-	
 	//Pre:cierto
-		//Post devuelve el estado del tipo de nave.
+	//Post devuelve el estado del tipo de nave.
 	/**
 	 * metodo que crea consulta si el tipo 3 está definido
 	 */
-		public boolean EstaDefinido(){
-			return definido;
-		}
-		
+	public static boolean EstaDefinido(){
+		return definido;
+	}
 	//pre: cierto
 	//post: retorna el nombre que identifica al tipo
-		/**
-		 * metodo que consulta el tipo de una nave
-		 * @throws Exception
-		 */
-	public int consultar_tipo() throws Exception{
-		return 1;
+	/**
+	 * metodo que consulta el tipo de una nave
+	 * @throws Exception
+	 */
+	public int consultar_tipo(){
+		return 3;
 	}
 
 	//pre: cierto
@@ -98,15 +71,17 @@ public class TipoNave3 extends Nave{
 	 * metodo que consulta el consumo asociado al tipo de nave 3
 	 * @throws Exception
 	 */
-	public int consultar_consumo() throws Exception{
-		if(consumo == 0){
-		throw new Exception("Error: El tipo de nave no tiene un consumo asociado\n");	
-	}
+	public static int consultar_consumo(){
 		return consumo;
 	}
 
 	//pre: cierto
 	//post: modifica el consumo asociado al tipo de nave
+	/**
+	 * metodo que modifica el consumo asociado al tipo de nave 3
+	 * @param c
+	 * @throws Exception
+	 */
 	public static void modificar_consumo(int c) throws Exception{
 		if(ErrorTipografico(c)){
 			throw new Exception("Error: El consumo debe de ser superior a 0\n");	
@@ -115,15 +90,5 @@ public class TipoNave3 extends Nave{
 	}
 }
 
-class OrdenTipoNave3 implements Comparator<TipoNave3>{
-    public int compare(TipoNave3 n1, TipoNave3 n2){
-        try{
-            if(n2.consultar_id() < n1.consultar_id()) return 1;
-            else return -1;
-        }
-        catch(Exception e){
-            System.out.print(e);
-        }
-        return 0;
-    }
-}
+
+
