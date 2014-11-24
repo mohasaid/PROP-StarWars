@@ -108,13 +108,7 @@ public class Ruta {
 
 class OrdenRuta implements Comparator<Ruta>{
     public int compare(Ruta r1, Ruta r2) { 
-        try { 
             if(r2.consultar_id() < r1.consultar_id()) return 1; 
             else return -1; 
-            } 
-        catch (Exception e) { 
-            System.out.print(e); 
-            } 
-        return 0; 
     } 
 }
