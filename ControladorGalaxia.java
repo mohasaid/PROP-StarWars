@@ -10,37 +10,28 @@ public class ControladorGalaxia
     //CONSTRUCTORAS
  
     /**
-     * Metodo para crear el controlador de la galaxia, un controlador de datos y una galaxia vacia
+     * Metodo para crear el controlador de la galaxia, un controlador de datos y una galaxia con nombre y limite
+     * @throws Exception 
      */
-    public ControladorGalaxia() 
+    public ControladorGalaxia(String nom,int n) throws Exception 
     {
     	cdg = new ControladorDadesGalaxia();
-    	g = new  Galaxia();
+    	g = new Galaxia(nom,n); 
     }
     
     /**
-     * Metodo para crear una galaxia con nombre y limite maximo
-     * @param nom
-     * @param n
-     * @throws Exception
-     */
-    public void creaGalaxia(String nom,int n) throws Exception
-    {
-        g = new Galaxia(nom,n); 
-    }
-    
-    /**
-     * Metodo para crear una galaxia con nombre, limite maximo, y una forma determinada
+     * Metodo para crear el controlador de la galaxia, un controlador de datos y una galaxia con nombre, limite y forma
      * @param nom
      * @param n
      * @param l
      * @throws Exception
      */
-    public void creaGalaxia2(String nom, int n, List<Pair<Integer, Integer> > l) throws Exception
+    public ControladorGalaxia(String nom, int n, List<Pair<Integer, Integer> > l) throws Exception
     {
+    	cdg = new ControladorDadesGalaxia();
     	g = new Galaxia(nom,n,l);
     }
- 
+   
     //CONSULTORES
     
     /**
@@ -102,35 +93,12 @@ public class ControladorGalaxia
     }
  
     /**
-     * Metodo para consultar si existe un planeta con un identificador determinado en la galaxia
-     * @param idplaneta
-     * @return Cierto si existe un planeta en la galaxia con identificador "idplaneta", falso en caso contrario
-     * @throws Exception
-     */
-    public boolean existeixPlaneta(int idplaneta) throws Exception
-    {
-        return g.existeixPlaneta(idplaneta);
-    }
-    
-    /**
      * Metodo para consultar si la galaxia tiene algun planeta
      * @return Cierto si existe algun planeta en la galaxia, falso en caso contrario
      */
     public boolean algunPlaneta() 
     {
     	return g.algunPlaneta();
-    }
-    
-    /**
-     * Metodo para consultar el id de un planeta situado en las coordenadas "x" y "y"
-     * @param x
-     * @param y
-     * @return Identificador del planeta en las coordenadas "x" y "y", en caso de que exista
-     * @throws Exception
-     */
-    public int consultaIdplaneta(int x, int y) throws Exception
-    {
-    	return g.consultarIDplaneta(x, y);
     }
     
     /**
@@ -197,14 +165,15 @@ public class ControladorGalaxia
      * @param y
      * @throws Exception
      */
-    public void modificarCoordenadas(ControladorPlaneta cp, int idPlaneta, int x, int y) throws Exception
+    // ya no esta, comprobar en controlador
+    public void modificarCoordenadas(ControladorPlaneta cp, String idPlaneta, int x, int y) throws Exception
     {
-    	if(!g.existeixPlaneta(idPlaneta)) throw new Exception("No existe ningun planeta con este identificador");
+    	if(!cp.ExistePlaneta(idPlaneta)) throw new Exception("No existe ningun planeta con este identificador");
     	Planeta a = cp.BuscarPlaneta(idPlaneta);
-    	if(!g.dintreLimitUsuari(x, y)) throw new Exception("Las coordenadas no estan dentro del limite que da forma a la galaxia");
-    	if(g.existeixPlanetaCoordenades(x, y)) throw new Exception("Ya existe un planeta en estas coordenadas");
-    	eliminarPlaneta(idPlaneta);
-    	afegirPlaneta(idPlaneta, x, y);
+    	//if(!g.dintreLimitUsuari(x, y)) throw new Exception("Las coordenadas no estan dentro del limite que da forma a la galaxia");
+    	//if(g.existeixPlanetaCoordenades(x, y)) throw new Exception("Ya existe un planeta en estas coordenadas");
+    	afegirPlaneta(x, y); // comprueba lo de arriba
+    	eliminarPlaneta(x, y);
     	a.modificarCoordenades(x, y);
     	cp.BorraPla(idPlaneta);
     	cp.anadirPlaneta(a);
@@ -218,10 +187,10 @@ public class ControladorGalaxia
      * @param y
      * @throws Exception
      */
-    public void afegirPlaneta(int idPlaneta, int x, int y) throws Exception
+    // meter en controlador del planeta
+    public void afegirPlaneta(int x, int y) throws Exception
     {
-    	if(g.consultarLimitGalaxia() == 0) throw new Exception("No se puede añadir un planeta a una galaxia que no tiene limite definido");
-    	g.afegirPlaneta(idPlaneta,x,y);
+    	g.afegirPlaneta(x,y);
     }
     
     /**
@@ -231,11 +200,11 @@ public class ControladorGalaxia
      * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
      * @throws Exception
      */
-    public String afegirPlanetaAutomatic(int idPlaneta) throws Exception
+    // meter en controlador del planeta
+    public String afegirPlanetaAutomatic() throws Exception
     {
-    	if(g.consultarLimitGalaxia() == 0) throw new Exception("No se puede añadir un planeta a una galaxia que no tiene limite definido");
     	String res = "";
-    	Pair<Integer, Integer> p = g.afegirPlanetaAutomatic(idPlaneta);
+    	Pair<Integer, Integer> p = g.afegirPlanetaAutomatic();
     	res = p.consultarPrimero() + "," + p.consultarSegundo();
     	return res;
     }
@@ -246,9 +215,9 @@ public class ControladorGalaxia
      * @param cp
      * @throws Exception
      */
-    public void eliminarPlaneta(int idPlaneta) throws Exception
+    public void eliminarPlaneta(int x, int y) throws Exception
     {
-	    g.eliminarPlaneta(idPlaneta);
+	    g.eliminarPlaneta(x,y);
     }
     
     /**
@@ -264,14 +233,18 @@ public class ControladorGalaxia
      * Metodo para transformar los elementos de la galaxia en un grafo
      * @throws Exception
      */
-    public ArrayList<ArrayList<Pair<Arco,Integer> > > convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception 
+    // CAMBIAR A ENTRADA - Y STRING DE PLANETA
+    /*public Entrada convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception 
     {
     	ArrayList<ArrayList<Pair<Arco,Integer> > > resultado = new ArrayList<ArrayList<Pair<Arco,Integer> > >();
+    	
     	ArrayList<Pair<Arco, Integer> > ap = new ArrayList<Pair<Arco, Integer> >();
-    	ArrayList<Integer> pl = cp.consultarPlanetas();
+    	
+    	ArrayList<String> pl = cp.consultarPlanetas();
     	ArrayList<Conexion> ac = cr.Consultar_Conexiones();
+    	
     	for(int i = 0; i < ac.size(); ++i) { // anado las conexiones bidireccionales
-    		if(ac.get(i).consultar_bidireccional()) {
+    		if(ac.get(i).consultar_id()) {
     			int idRuta = ac.get(i).consultar_id();
     			int Pa = ac.get(i).consultar_planetaA();
     			int Pb = ac.get(i).consultar_planetaB();
@@ -279,8 +252,9 @@ public class ControladorGalaxia
     			ac.add(c);
     		}
     	}
+    	
     	for(int i = 0; i < pl.size(); ++i) { // planetas
-    		int id = pl.get(i);
+    		String id = pl.get(i);
     		for(int j = 0; j < ac.size(); ++j) {
     			if(ac.get(j).consultar_planetaA() == id) {
     				int ru = ac.get(j).consultar_id();
@@ -294,7 +268,8 @@ public class ControladorGalaxia
     		}
     		resultado.add(ap);
     	}
-    	ArrayList<Integer> destinos = cn.PlanetasDestino();
+    	
+    	ArrayList<Integer> destinos = cn.PlanetasDestino(); // PENULTIMO NODO - ORIGEN GENERAL
 		ArrayList<Pair<Arco, Integer> > tmp = new ArrayList<Pair<Arco, Integer> >();
     	for(int i = 0; i < destinos.size(); ++i) {
     		Arco c = new Arco(Integer.MAX_VALUE,-1);
@@ -302,7 +277,8 @@ public class ControladorGalaxia
     		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,t);
     		tmp.add(pac);
     	}
-    	resultado.add(tmp); // ULTIMO NODO VIRTUAL - DESTINO, id = -1
+    	
+    	resultado.add(tmp); // ULTIMO NODO VIRTUAL - DESTINO GENERAL
     	ArrayList<Pair<Arco, Integer> > tmp1 = new ArrayList<Pair<Arco, Integer> >();
     	ArrayList<Integer> origenes = cn.PlanetasOrigen();
     	for(int i = 0; i < origenes.size(); ++i) {
@@ -311,9 +287,12 @@ public class ControladorGalaxia
     		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,t);
     		tmp.add(pac);
     	}
-    	resultado.add(tmp1); // ULTIMO NODO VIRTUAL - ORIGEN, id = -2
-    	return resultado;
-    }
+    	
+    	resultado.add(tmp1); // ULTIMO NODO VIRTUAL - ORIGEN
+    	Entrada ent = new Entrada(resultado);
+    	// return new Entrada(resultado); 
+    	return ent;
+    }*/
     	
     
     /**
