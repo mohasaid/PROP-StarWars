@@ -1,14 +1,11 @@
 import java.util.Scanner;
 
-
-
 public class DriverArco{
     public void Executa(Scanner sc) {
         int op;
         Arco a = new Arco();
-
         
-                		System.out.print("Opciones: \n\n"
+        		System.out.print("Opciones: \n\n"
 		     +"--------------------------------------------------------------------\n"
       	     +"-                    OPCIONES                                      -\n"
    	         +"-           [opcion   Operacion(Atributos)                         -\n"
@@ -18,11 +15,9 @@ public class DriverArco{
              +"-   1   TestArco(int id, int capacidad,int idRuta)                 -\n"
              +"-   2   TestConsultarCapacidad()                                   -\n"
              +"-   3   TestConsultarCoste()                                       -\n"
-             +"-   4   TestConsultarIdRuta()                                      -\n"
-             +"-   5  TestModificarCapacidad(int NuevaCapacidad)                 -\n"
-             +"-   6  TestModificarCoste(int NuevoCoste)                         -\n"
-             +"-   7  TestModificarIdRuta(int NuevoIDRuta)                       -\n"
-             +"-                                                                  -\n"
+             +"-   4  TestModificarCapacidad(int NuevaCapacidad)                  -\n"
+             +"-   5  TestModificarCoste(int NuevoCoste)                          -\n"
+             +"-                                                                   -\n"
              +"--------------------------------------------------------------------\n");
 
         op = sc.nextInt(); 
@@ -32,10 +27,8 @@ public class DriverArco{
             case 1: TestArco(sc,a);break;
             case 2: TestConsultarCapacidad(a);break;
             case 3: TestConsultarCoste(a);break;
-            case 4: TestConsultarIdRuta(a);break;
-            case 5: TestModificarCapacidad(sc,a);break;
-            case 6: TestModificarCoste(sc,a);break;
-            case 7: TestModificarIdRuta(sc,a);break;
+            case 4: TestModificarCapacidad(sc,a);break;
+            case 5: TestModificarCoste(sc,a);break;
             default: System.out.println("Opción incorrecta");
             }
     op = sc.nextInt(); 
@@ -76,16 +69,9 @@ public class DriverArco{
     	}
     	 catch (Exception e){
              System.out.print(e);
-     }
+    	 }
 	}
-	public static void TestConsultarIdRuta(Arco a){
-			try{
-		    	System.out.println(a.ConsultarIdRuta());
-	    	}
-	    	 catch (Exception e){
-	             System.out.print(e);
-	     }
-	}
+
 	//MODIFICADORAS
 	public static void TestModificarCapacidad(Scanner sc, Arco a){
 		try{
@@ -98,7 +84,7 @@ public class DriverArco{
     	}
     	 catch (Exception e){
              System.out.print(e);
-     }
+    	 }
 	}
 
 	public static void TestModificarCoste(Scanner sc, Arco a){
@@ -112,20 +98,7 @@ public class DriverArco{
     	}
     	 catch (Exception e){
              System.out.print(e);
-     }
-	}
-	public static void TestModificarIdRuta(Scanner sc, Arco a){
-		try{
-			while(!sc.hasNextInt()){
-	            String s = sc.nextLine();
-	            throw new Exception("Error: El identificador de la ruta original debe ser un entero mayor que 0\n");
-	        }
-	    	int idr = sc.nextInt();
-	    	a.ModificarIdRuta(idr);
-    	}
-    	 catch (Exception e){
-             System.out.print(e);
-     }
+    	 }
 	}
 }
     
