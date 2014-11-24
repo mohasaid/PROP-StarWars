@@ -12,9 +12,19 @@ public class ControladorRuta {
     	return (i<0);
     }
     
+    private static boolean alfa_numeric(String nom)
+    {
+        if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
+        for(int i = 0; i < nom.length(); ++i) {
+            char c = nom.charAt(i);
+            if(!Character.isLetterOrDigit(c)) return false;
+        }
+        return true;
+    }
+    
     //Pre: Cierto
     //Post: Te devuelve true en caso que se pueda crear una ruta del planeta idA al planeta idB, en caso contrario, devuelve false ya que no es posible crearla
-    private boolean Disponibilidad_crear_ruta (int idA, int idB) throws Exception
+    private boolean Disponibilidad_crear_ruta (String idA, String idB) throws Exception
     {
     	if (idA == idB) return false;
 		Iterator<Conexion> it = Conexiones.iterator();
@@ -156,7 +166,7 @@ public class ControladorRuta {
       
     //Pre: Cierto
     //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬ ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€š ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
-    public void CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
+    public void CrearRuta(int id, int capacidad, int distancia, String planetaA, String planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
     	int numero_planetas = cp.Consultar_Size();
     	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
@@ -205,7 +215,7 @@ public class ControladorRuta {
         aux = aux%cp.Consultar_Size();
         Planeta planetaB = cp.Consultar_PlanetaX(aux);
 	        
-        while ( !Disponibilidad_crear_ruta(planetaA.Consultar_id() , planetaB.Consultar_id()) || planetaA.Consultar_id() == planetaB.Consultar_id() )
+        while ( !Disponibilidad_crear_ruta(planetaA.Consultar_nombre() , planetaB.Consultar_nombre()) || planetaA.Consultar_nombre() == planetaB.Consultar_nombre() )
         {
         	aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
@@ -220,7 +230,7 @@ public class ControladorRuta {
         bidireccional = aleatorio.nextBoolean();
         
         Ruta r = new Ruta(id,capacidad,distancia, bidireccional);
-        Conexion c = new Conexion(id, planetaA.Consultar_id(), planetaB.Consultar_id());
+        Conexion c = new Conexion(id, planetaA.Consultar_nombre(), planetaB.Consultar_nombre());
         ArbolRutas.add(r); 
         Conexiones.add(c);
     }
@@ -251,7 +261,7 @@ public class ControladorRuta {
         aux = aux%cp.Consultar_Size();
         Planeta planetaB = cp.Consultar_PlanetaX(aux);
         
-        while ( !Disponibilidad_crear_ruta(planetaA.Consultar_id() , planetaB.Consultar_id()) || planetaA.Consultar_id() == planetaB.Consultar_id() )
+        while ( !Disponibilidad_crear_ruta(planetaA.Consultar_nombre() , planetaB.Consultar_nombre()) || planetaA.Consultar_nombre() == planetaB.Consultar_nombre() )
         {
         	aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
@@ -265,7 +275,7 @@ public class ControladorRuta {
         boolean bidireccional;
         bidireccional = aleatorio.nextBoolean();
         Ruta r = new Ruta(id,capacidad, distancia, bidireccional);
-        Conexion c = new Conexion(id, planetaA.Consultar_id(), planetaB.Consultar_id());
+        Conexion c = new Conexion(id, planetaA.Consultar_nombre(), planetaB.Consultar_nombre());
         ArbolRutas.add(r); 
         Conexiones.add(c);
     }
@@ -289,23 +299,23 @@ public class ControladorRuta {
     }
     
     //Pre: Cierto
-    //Post: Retorna la id del planetaA de la ruta con id = "id"
-    public int ConsultarPlanetaARuta(int id) throws Exception
+    //Post: Retorna el nombre del planetaA de la ruta con id = "id"
+    public String ConsultarPlanetaARuta(int id) throws Exception
     {
     	Conexion c = BuscarConexion(id);
         return c.consultar_planetaA();
     }
       
     //Pre: Cierto
-    //Post: Retorna la id del planetaB de la ruta con id = "id"
-    public int ConsultarPlanetaBRuta(int id) throws Exception
+    //Post: Retorna el nombre del planetaB de la ruta con id = "id"
+    public String ConsultarPlanetaBRuta(int id) throws Exception
     {
     	Conexion c = BuscarConexion(id);
         return c.consultar_planetaB();
     }
       
     //Pre: Cierto
-    //Post: Retorna un valor booleano de si la ruta con id = "id" es bidireccional o no
+    //Post: Retorna un valor booleano True si la ruta con id = "id" es bidireccional, en caso contraro retorna false
     public boolean ConsultarBidireccionalidadRuta(int id) throws Exception
     {
     	Ruta r = BuscarRuta(id);
@@ -341,9 +351,9 @@ public class ControladorRuta {
     	return ids_rutas;
     }
       
-    //Pre: Cierto
+    //Pre:  Cierto
     //Post: Retorna un arraylist que contiene todos los ids de las rutas que le entran al planeta con id = "id_planeta"
-    public ArrayList<Integer> Consultar_entrades_planeta(int id_planeta) throws Exception
+    public ArrayList<Integer> Consultar_entrades_planeta(String id_planeta) throws Exception
     {
     	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
     	
@@ -359,7 +369,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: Retorna un arraylist que contiene todos los ids de las rutas que le salen al planeta con id = "id_planeta"
-    public ArrayList<Integer> Consultar_sortides_planeta(int id_planeta) throws Exception
+    public ArrayList<Integer> Consultar_sortides_planeta(String id_planeta) throws Exception
     {
     	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
     	
@@ -428,9 +438,9 @@ public class ControladorRuta {
       
     //Pre: Existe una ruta con id = "id"
     //Post: EL id del planetaA de la ruta con id = "id" ha sido modificado por id_planetaA = "id_planetaA_nuevo"
-    public void ModificarPlanetaARuta(int id, int id_planetaA_nuevo, ControladorPlaneta cp)throws Exception
+    public void ModificarPlanetaARuta(int id, String id_planetaA_nuevo, ControladorPlaneta cp)throws Exception
     {
-        if(ErrorTipografico(id_planetaA_nuevo)){
+        if(!alfa_numeric(id_planetaA_nuevo)){
             throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0\n");
         }
         if (!cp.ExistePlaneta(id_planetaA_nuevo)) {
@@ -447,9 +457,9 @@ public class ControladorRuta {
     
     //Pre: Existe una ruta con id = "id"
     //Post: EL id del planetaB de la ruta con id = "id" ha sido modificado por id_planetaB = "id_planetaB_nuevo"
-    public void ModificarPlanetaBRuta(int id, int id_planetaB_nuevo, ControladorPlaneta cp)throws Exception
+    public void ModificarPlanetaBRuta(int id, String id_planetaB_nuevo, ControladorPlaneta cp)throws Exception
     {
-        if(ErrorTipografico(id_planetaB_nuevo)){
+        if(!alfa_numeric(id_planetaB_nuevo)){
             throw new Exception("Error : El identificador de un planeta debe ser mayor o igual que 0\n");
         }
         if (!cp.ExistePlaneta(id_planetaB_nuevo)) {
@@ -495,10 +505,10 @@ public class ControladorRuta {
     
   //Pre: Existe una ruta con id = "id_planeta"
   //Post: Las rutas que tienen planetaA = "id_planeta" o planetaB = "id_planeta" han sido borrada del arbol de rutas y de conexiones
-  public void BorrarRutaConexions(int id_planeta) throws Exception
+  public void BorrarRutaConexions(String id_planeta) throws Exception
   {
-	  if (id_planeta < 0) {
-		  throw new Exception("La id del planeta tiene que ser mayor o igual que 0 \n");
+	  if (!alfa_numeric(id_planeta)) {
+		  throw new Exception("El id del planeta tiene que ser alfanumerico \n");
 	  }
 	  Iterator<Conexion> it = Conexiones.iterator();
 	  Conexion aux;
@@ -553,9 +563,9 @@ public class ControladorRuta {
 		      s = sc.next();
 	    	  int id = Integer.parseInt(s);
     	      s = sc.next();
-    	      int ida = Integer.parseInt(s);
+    	      String ida = s;
     	      s = sc.next();
-    	      int idb = Integer.parseInt(s);
+    	      String idb = s;
     	      Conexion c = new Conexion(id,ida,idb);
     	      Conexiones.add(c);
 	      }
