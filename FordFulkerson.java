@@ -5,6 +5,9 @@ public abstract class FordFulkerson extends MFP{
 	protected int dist[];
 
 	public void Ejecutar(){
+		// CONSULTAR TIEMPO
+		long t = System.currentTimeMillis();
+		
 		int size = g.sizeGrafo();
 		g_residual = g;
 		
@@ -20,17 +23,16 @@ public abstract class FordFulkerson extends MFP{
 		int u,v;
 		int max_flow = 0;
 		String res = "Buscamos camino de " + origen + " hacia " + destino + " para poder aumentar flujo";
-		s.AnadirCambio(res); // en salida[0] = buscar camino
 		while(Recorrido(origen,destino)) {
 			int pathflow = Integer.MAX_VALUE;
-			res = "Empezamos en nodo " + destino + " y mientras sea diferente de " + origen + ".";
+			res += "Empezamos en nodo " + destino + " y mientras sea diferente de " + origen + ".";
 			for(v = destino; v != origen; v = path[v]) {
 				u = path[v];
 				res += "Buscamos menor capacidad residual valor entre los nodos del camino. ";
 				pathflow = Math.min(pathflow, g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
 				res += "La menor capacidad residual ha resultado ser " + pathflow + ".";
 			}
-			res += "Actualizamos la capacidad residual entre los arcos del camino. ";
+			res += "Actualizamos la capacidad residual entre los arcos del camino: ";
 			for(v = destino; v != origen; v = path[v]) {
 				u = path[v];
 				res += "Actualizamos la capacidad residual entre los arcos " + u + " y " + v + ".";
@@ -43,11 +45,15 @@ public abstract class FordFulkerson extends MFP{
 			}
 			res += " Actualizamos flujo de ruta al flujo general.";
 			max_flow += pathflow;
-			s.AnadirCambio(res); // salida[i] = iteracion i-1
+			s.AnadirCambio(res); // salida[i] = iteracion i
+			res = "";
 		}
 		res = "Llegados a este punto hemos encontrado el flujo maximo, cuyo valor es " + max_flow + ".";
-		s.AnadirCambio(res);
+		s.AnadirCambio(res); // size -1 tenemos el valor de max_flow
 		s.AnadirMax_flow(max_flow);
+		// ANADIR TIEMPO EN LA SALIDA
+		long tiempo = System.currentTimeMillis() - t;
+		s.AnadirTiempo(tiempo);
 	}
 	
 	public void Caminos(int idNave, int consumo){
