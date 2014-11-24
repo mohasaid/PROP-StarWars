@@ -11,7 +11,7 @@ public class DriverControladorNave{
                 +"-                       [opcion   Operacion(Atributos)]                           -\n"
                 +"-----------------------------------------------------------------------------------\n"
                 +"-                                                                                 -\n"
-                +"-   1   TestCrearNave(int idNave, int idTipo, int idDestino, int idOrigen)        -\n"
+                +"-   1   TestCrearNave(int idTipo, int idDestino, int idOrigen)                    -\n"
                 +"-   2   TestCrearNaveAuto()                                                       -\n"
                 +"-   3   TestCrearTipo(int idtipo, int consumo)                                    -\n"
                 +"-   4   TestCrearTipoAuto()                                                       -\n"
@@ -24,7 +24,6 @@ public class DriverControladorNave{
                 +"-   11  TestConsultarTipos()                                                      -\n"
                 +"-   12  TestConsultarTipoNave(int idTipo)                                         -\n"
                 +"-   13  TestConsultarConsumoTipo(int idTipo)                                      -\n"
-                +"-   14  TestModificaID(int idNave, int Nuevoid)                                   -\n"
                 +"-   15  TestModificaTipo(int idNave, int NuevoidTipo)                             -\n"
                 +"-   16  TestModificaDestino(int idNave,int NuevoDestino)                          -\n"
                 +"-   17  TestModificaOrigen(int idNave,int NuevoOrigen)                            -\n"
@@ -52,7 +51,6 @@ public class DriverControladorNave{
             case 11: TestConsultarTipos(cn);break;
             case 12: TestConsultarTipoNave(sc,cn);break;
             case 13: TestConsultarConsumoTipo(sc,cn);break;
-            case 14: TestModificaID(sc,cn);break;
             case 15: TestModificaTipo(sc,cn);break;
             case 16: TestModificaDestino(sc,cn);break;
             case 17: TestModificaOrigen(sc,cn);break;
@@ -66,13 +64,8 @@ public class DriverControladorNave{
     n = sc.nextInt();
     }
    }
-            public static void TestCrearNave(Scanner sc, ControladorNave cn, ControladorPlaneta cp){
+            public static void TestCrearNave(Scanner sc, ControladorNave cn/*, ControladorPlaneta cp*/){
                 try{
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El identificador debe ser un entero\n");
-                    }
-                    int id = sc.nextInt();
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador del tipo de nave debe ser un entero\n");
@@ -82,12 +75,12 @@ public class DriverControladorNave{
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador del planeta destino debe ser un entero\n");
                     }
-                    int destID = sc.nextInt();
+                    String destID = sc.next();
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
                         throw new Exception("Error: El identificador del planeta origen debe ser un entero\n");
                     }
-                    int origID = sc.nextInt();
+                    String origID = sc.next();
                     
                     if(!cp.ExistePlaneta(destID)){
                     	throw new Exception("Error: No existe ningun planeta con identificador: "+ destID+"\n");
@@ -96,7 +89,7 @@ public class DriverControladorNave{
                     	throw new Exception("Error: No existe ningun planeta con identificador: "+ origID +"\n");
                     }
                     
-                     cn.CrearNave(id,tipoID,destID,origID);
+                     cn.CrearNave(tipoID,destID,origID);
                 }  
                 catch (Exception e){
                         System.out.print(e);
@@ -110,7 +103,6 @@ public class DriverControladorNave{
                         throw new Exception("Error: El numero de naves a crear debe ser un entero\n");
                     }
                 	int i = sc.nextInt(); //Numero de naves que se quieren crear
-                	
                     cn.CrearNaveAuto(i, cp.consultarPlanetas());
                 }
                 catch (Exception e){
@@ -152,8 +144,8 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    int dest = cn.ConsultarPlanetaDestino(id);
-                    int orig = cn.ConsultarPlanetaOrigen(id);
+                    String dest = cn.ConsultarPlanetaDestino(id);
+                    String orig = cn.ConsultarPlanetaOrigen(id);
                     int tipo = cn.ConsultarTipo(id);
                     int cons = cn.ConsultarConsumo(id);
                     System.out.print("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", origen: " + orig + ", destino: " + dest + "\n");
@@ -242,28 +234,7 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
-            public static void TestModificaID(Scanner sc,ControladorNave cn){
-                try{
-                	
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El identificador debe ser un entero\n");
-                    }
-                    int id = sc.nextInt();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El nuevo identificador debe ser un entero\n");
-                    }
-                    int id2 = sc.nextInt();
-                    if(cn.ExisteNave(id2)){
-                    	throw new Exception("Error: ya existe una nave con el identificador introducido");
-                    }
-                    cn.ModificaID( id, id2);
-                }
-                catch (Exception e){
-                    System.out.print(e);
-                }
-            }
+           
             public static void TestModificaTipo(Scanner sc,ControladorNave cn){
                 try{
                     while(!sc.hasNextInt()){
@@ -293,7 +264,7 @@ public class DriverControladorNave{
                         String s = sc.nextLine();
                         throw new Exception("Error: El nuevo identificador debe ser un entero\n");
                     }
-                    int destID = sc.nextInt();
+                    String destID = sc.next();
                     cn.ModificaDestino(id, destID);
                 }
                 catch (Exception e){
@@ -311,7 +282,7 @@ public class DriverControladorNave{
                         String s = sc.nextLine();
                         throw new Exception("Error: El nuevo identificador debe ser un entero\n");
                     }
-                    int origID = sc.nextInt();
+                    String origID = sc.next();
                     cn.ModificaDestino(id, origID);
                 }
                 catch (Exception e){
@@ -357,7 +328,7 @@ public class DriverControladorNave{
                    while(i < n){
                 	   String s = cn.ConsultarNaves(i);
                 	   if((i+100)>cn.size()){
-                		   if (s.length() > 0 && s.charAt(s.length()-1)==',') {
+                		   if (s.length() > 0 && s.charAt(s.length()-1)==' ') {
                      	      s= s.substring(0, s.length()-1);  
                 		   }
                 	   }
