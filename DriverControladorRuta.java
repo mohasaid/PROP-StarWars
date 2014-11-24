@@ -51,6 +51,7 @@ public class DriverControladorRuta {
     }
     
     public void Executa(ControladorRuta cr, ControladorPlaneta cp, Scanner cin) throws Exception {
+        System.out.println(cp.Consultar_Size());
         int n;
         opcions();
         n = cin.nextInt();
@@ -190,17 +191,11 @@ public class DriverControladorRuta {
 	{
 		try {
 			int id = cin.nextInt();
-			
 			int capacidad = cin.nextInt();
-			
 			int distancia = cin.nextInt();
-			
 			String planetaA = cin.next();
-			
 			String planetaB = cin.next();
-			
 			boolean bidireccional = cin.nextBoolean();
-			
 			cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
 		}
 		catch (Exception e){
