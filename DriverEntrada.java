@@ -11,10 +11,10 @@ public class DriverEntrada {
                 +   "                               DRIVER ENTRADA                                      \n"
                 +   "-----------------------------------------------------------------------------------\n"
                 +   " 0: Salir de la gestion del driver \n"
-                +   " 1: Entrada() \n"
-                +   " 2: Entrada(ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) \n"
                 
-                +   " 3: Consultar_grafo() \n"    
+                +   " 1: Entrada(ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) \n"
+                
+                +   " 2: Consultar_grafo() \n"    
     			);
     }
     
@@ -24,24 +24,13 @@ public class DriverEntrada {
         int op = cin.nextInt();
         while(op != 0) {
             switch(op) {
-            case 1:  TestCrearEntradaVacia();break;
-            case 2:  TestCrearEntrada2(cin);break;
-            case 3:  TestConsultarGrafo();break;
+            case 1:  TestCrearEntrada2(cin);break;
+            case 2:  TestConsultarGrafo();break;
             default: System.out.println("Opcio incorrecte");
             }
         opciones();
         op = cin.nextInt();
         }
-    }
-    
-    public void TestCrearEntradaVacia()
-    {
-		try {
-			e = new Entrada();
-		}
-		catch (Exception e){
-            System.out.print(e);
-		}
     }
     
     public void TestCrearEntrada2(Scanner cin)
