@@ -176,10 +176,10 @@ public class ControladorRuta {
         if(ExisteRuta(id)){
             throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");       
         }
-        if (!cp.ExistePlaneta(planetaA) ) { 
+        if ( !cp.ExistePlaneta(planetaA) ) { 
             throw new Exception("Error: El Planeta con id = " + planetaA + " no existe\n");
         }
-        if (!cp.ExistePlaneta(planetaB) ) { 
+        if ( !cp.ExistePlaneta(planetaB) ) { 
             throw new Exception("Error: El Planeta con id = " + planetaB + " no existe\n");
         }
         if ( !Disponibilidad_crear_ruta(planetaA , planetaB) ) {
