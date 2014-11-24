@@ -1,4 +1,3 @@
-
 import java.util.*;
  
 public class DriverPlaneta {
@@ -11,27 +10,25 @@ public class DriverPlaneta {
             +   "                    DRIVER PLANETA                                     "
             +   "-----------------------------------------------------------------------------------"
             + "Opciones \n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)\n"
+            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, bool F, bool S)\n"
             + " 2: Consultar_id()\n"
-            + " 3: Consultar_Coste()\n"
-            + " 4: Consultar_Coordenadas()\n"
-            + " 5: consultar_X( )\n"
-            + " 6: consultar_Y( )\n"
-            + " 7: Modificar_Coste(int k)\n"
-            + " 8: modificarCoordenades(int x, int y)\n"
-            + " 9: Borrar()\n");
+            + " 4: Consultar_Coste()\n"
+            + " 5: Consultar_Coordenadas()\n"
+            + " 6: consultar_X( )\n"
+            + " 7: consultar_Y( )\n"
+            + " 8: Modificar_Coste(int k)\n"
+            + " 9: modificarCoordenades(int x, int y)\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
                 case 1: TestCrearP(sc);break;
                 case 2: TestCId();break;
-                case 3: TestCCoste();break;
-                case 4: TestCCoordenadas();break;
-                case 5: TestCCoordenadaX();break;
-                case 6: TestCCoordenadaY();break;
-                case 7: TestMCoste(sc);break;
-                case 8: TestMCoordenadas(sc);break;
-                case 9: TestB();break;
+                case 4: TestCCoste();break;
+                case 5: TestCCoordenadas();break;
+                case 6: TestCCoordenadaX();break;
+                case 7: TestCCoordenadaY();break;
+                case 8: TestMCoste(sc);break;
+                case 9: TestMCoordenadas(sc);break;
             }
             n = sc.nextInt();
         }
@@ -39,11 +36,7 @@ public class DriverPlaneta {
     public void TestCrearP(Scanner sc) {
     	try {
     		String s;
-    		while(!sc.hasNextInt()){
-    			s = sc.nextLine();
-    			throw new Exception ("Error: El identificador de un Planeta tiene que ser un entero\n");
-    		}
-    		int id = sc.nextInt();
+    		String id = sc.next();
     		while(!sc.hasNextInt()){
     			s = sc.nextLine();
     			throw new Exception ("Error: El Coste de un Planeta tiene que ser un entero\n");
@@ -69,7 +62,7 @@ public class DriverPlaneta {
     
     public void TestCId( ) {
     	try {
-    		int id = p.Consultar_id();
+    		String id = p.Consultar_nombre();
     		System.out.print("El identificador del Planeta es: " + id + "\n");
     	}
     	catch (Exception e) {
@@ -140,14 +133,6 @@ public class DriverPlaneta {
     		}
     		int ynew = sc.nextInt();
     		p.modificarCoordenades(xnew,ynew);
-    	}
-    	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestB( ) {
-    	try {
-    		p.Borrar();
     	}
     	catch (Exception e) {
     		System.out.print(e);
