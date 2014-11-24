@@ -7,13 +7,11 @@ public class DriverControladorRuta {
                 "-----------------------------------------------------------------------------------\n"
               + "                               DRIVER CONTROLADOR RUTA                                         \n"
               + "-----------------------------------------------------------------------------------\n"
-              + "\n\nCREACION RUTA \n"
               + " 0:  Salir de la gestion del driver\n"
               + " 1:  CrearRuta(int id, int capacidad, int distancia, int planetaA, int planetaB, boolean bidireccional, ControladorPlaneta cp) \n"
               + " 2:  CrearRuta_automatica(ControladorPlaneta cp)\n"
               + " 3:  CrearRuta_automatica(ControladorPlaneta cp, int id)\n"
               
-              + "\n\nOPERACIONES DE CONSULTA DE RUTA \n"
               + " 4:  ConsultarCapacidadRuta(int id) \n"       
               + " 5:  ConsultarDistanciaRuta(int id) \n"       
               + " 6:  ConsultarPlanetaARuta(int id) \n"       
@@ -29,8 +27,7 @@ public class DriverControladorRuta {
               + " 16: BuscarConexion(int id)\n"
               + " 17: BuscarRuta(int id)\n"
               + " 18: Consultar_Conexiones()\n"
-
-              + "\n\nOPERACIONES MODIFICADORAS DE RUTA \n"
+              
               + " 19: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
               + " 20: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
               + " 21: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
@@ -38,12 +35,10 @@ public class DriverControladorRuta {
               + " 23: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
               + " 25: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
               
-              + " \nOPERACIONES PERA BORRAR RUTAS \n"
               + " 26: BorrarRutaConexions(int id_planeta)\n"
               + " 27: BorrarRuta(int id) \n"
               + " 28: Borrar_Rutas() \n"
               
-              + " \nOPERACIONES CARGAR/GUARDAR \n"
               + " 29: Cargar_Rutas() \n"
               + " 30: Guardar_Rutas() \n"
 
