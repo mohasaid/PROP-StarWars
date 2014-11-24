@@ -1,9 +1,12 @@
 import java.util.*;
+
 public class Salida{
-private ArrayList<Integer> CuellosB;
-private ArrayList<String> Caminos;
-private ArrayList<String> Cambios;
-private int max_flow;
+	private ArrayList<Integer> CuellosB; 
+	private ArrayList<String> Caminos;
+	private ArrayList<String> Cambios;
+	private long tiempo;
+	private int max_flow;
+	
 	//CREADORA
 
 	public Salida(){
@@ -11,6 +14,7 @@ private int max_flow;
 		Caminos = new ArrayList<String>();
 		Cambios = new ArrayList<String>();
 		max_flow = 0;
+		tiempo = 0;
 	}
 
 	// CONSULTORAS
@@ -26,6 +30,11 @@ private int max_flow;
 	public int ConsultarMax_flow(){
 		return max_flow;
 	}
+	public long consultarTiempo()
+	{
+		return tiempo;
+	}
+	
 	//Pre:cierto
 	//Post: devuelve la suma del numero de elementos en Flujos, y cuellosB
 	public int size(){
@@ -38,6 +47,7 @@ private int max_flow;
 	}
 	//MODIFICADORAS
 	public void AnadirCuello(Arco c){
+		
 		int id = c.ConsultarIdRuta();
 		if(!CuellosB.contains(id))CuellosB.add(id);
 	}
@@ -50,6 +60,11 @@ private int max_flow;
 	public void AnadirMax_flow(int x){
 		max_flow = x;
 	}
+	public void AnadirTiempo(long t)
+	{
+		tiempo = t;
+	}
+	
 	public void EliminarCuellos(){
 		CuellosB.clear();
 	}
