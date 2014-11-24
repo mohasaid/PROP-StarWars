@@ -3,8 +3,8 @@ import java.util.Comparator;
 public class Conexion {
     //PARTE PRIVADA
 	private int idruta;
-	private int planetaA;
-	private int planetaB;
+	private String planetaA;
+	private String planetaB;
 	
 	
     //PARTE PUBLICA
@@ -14,18 +14,28 @@ public class Conexion {
     public static boolean ErrorTipografico(int i) {
         return (i<0);
     }
+    
+    private static boolean alfa_numeric(String nom)
+    {
+        if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
+        for(int i = 0; i < nom.length(); ++i) {
+            char c = nom.charAt(i);
+            if(!Character.isLetterOrDigit(c)) return false;
+        }
+        return true;
+    }
 	
     //CONSTRUCTORAS
     
     //Pre: Cierto
     //Post: Crea una conexion con idruta = "i", planetaA = "pA" y planetaB = "pB"
-    public Conexion(int i, int pA, int pB) throws Exception
+    public Conexion(int i, String pA, String pB) throws Exception
     {
         if(ErrorTipografico(i)){
             throw new Exception("Error: El identificador de una ruta debe ser mayor o igual que 0\n");
         }
-        if(ErrorTipografico(pA) || ErrorTipografico(pB)){
-            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
+        if(!alfa_numeric(pA) || !alfa_numeric(pB)){
+            throw new Exception("Error: El nombre del planeta no es alfanumerico\n");
         }
         if (pA == pB) {
             throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
@@ -46,18 +56,18 @@ public class Conexion {
     }
     
     //Pre: Cierto
-    //Post: Retorna un entero que representa el identificador del planetaA de la conexion  
-    public int consultar_planetaA() throws Exception
+    //Post: Retorna un string que representa el identificador del planetaA de la conexion  
+    public String consultar_planetaA() throws Exception
     {
-        if(planetaA == -1) throw new Exception("Error: La ruta no tiene un planeta origen asignado");
+        if(planetaA == null) throw new Exception("Error: La ruta no tiene un planeta origen asignado");
         return planetaA;
     }
        
     //Pre: Cierto
-    //Post: Retorna un entero que representa el identificador del planetaB de la conexion
-    public int consultar_planetaB() throws Exception
+    //Post: Retorna un string que representa el identificador del planetaB de la conexion
+    public String consultar_planetaB() throws Exception
     {
-        if(planetaB == -1) throw new Exception("Error: La ruta no tiene un planeta destino asignado");
+        if(planetaB == null) throw new Exception("Error: La ruta no tiene un planeta destino asignado");
         return planetaB;
     }
     
@@ -76,10 +86,10 @@ public class Conexion {
     
     //Pre: Cierto
     //Post: El id del planetaA de la conexion se ha modificado por planetaA = "idA"
-    public void modificar_planetaA(int idA) throws Exception
+    public void modificar_planetaA(String idA) throws Exception
     {
-        if( ErrorTipografico(idA) ){
-            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
+        if( !alfa_numeric(idA) ){
+            throw new Exception("Error: El nombre del planeta no es alfanumerico\n");
         }
         if (idA == planetaB) {
             throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
@@ -89,17 +99,16 @@ public class Conexion {
        
     //Pre: Cierto
     //Post: El id del planetaB de la conexion se ha modificado por planetaB = "idB"
-    public void modificar_planetaB(int idB) throws Exception
+    public void modificar_planetaB(String idB) throws Exception
     {
-        if( ErrorTipografico(idB) ){
-            throw new Exception("Error: El identificador de un planeta debe ser mayor o igual que 0\n");
+        if( !alfa_numeric(idB) ){
+            throw new Exception("Error: El nombre del planeta no es alfanumerico\n");
         }
         if (idB == planetaA) {
             throw new Exception("Error: El identificador del planetaA no puede ser igual al del planetaB\n");
         }
         planetaB = idB;
     }
-       
 }
 
 
