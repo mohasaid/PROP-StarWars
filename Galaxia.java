@@ -9,12 +9,18 @@ public class Galaxia {
     private Integer N;
     private List<Pair<Integer,Integer> > limits;
     
+    /*
+     * gal[i][j] = -1 ocupada por limite
+     * gal[i][j] = 0 libre
+     * gal[i][j] = 1 ocupada por algun planeta
+     */
+    
     /**
      * Metodo que dice si el nombre es alfanumerico
      * @param nom
      * @return Cierto si "nom" contiene caracteres alfanumericos y un tamano menor a 20 caracteres, falso en caso contrario
      */
-    private boolean alfa_numeric(String nom)
+    private static boolean alfa_numeric(String nom)
     {
         if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
         for(int i = 0; i < nom.length(); ++i) {
@@ -37,7 +43,7 @@ public class Galaxia {
 	 }
     
 	/**
-	 * Metodo para marcar el limite que forma la galaxia
+	 * Metodo para marcar el limite que da forma la galaxia
 	 */
     private void inicialitzaMatriu()
     {
@@ -48,32 +54,7 @@ public class Galaxia {
     	}
     }
     
-    /**
-     * Metodo para devolver un numero aleatorio en un rango delimitado por [min..max]
-     * @param min
-     * @param max
-     * @return Un valor aleatorio entre "min" y "max"
-     */
-    /*private int randInt(int min, int max)
-    {
-    	Random rand = new Random();
-    	int randomNum = rand.nextInt(max - min + 1) + min;
-    	return randomNum;
-    }*/
-    
     // CONSTRUCTORAS
-    
-    /**
-     * Metodo para contruir una galaxia vacia
-     */
-    public Galaxia()
-    {
-    	nomGalaxia = "";
-    	N = 0;
-    	limits = new ArrayList<Pair<Integer,Integer> >();
-    	gal = new int[0][0];
-    }
-    
     /**
      * Metodo para construir una galaxia sin ningun tipo de limite/forma con un determinado nombre y limite maximo
      * @param nom
@@ -169,23 +150,8 @@ public class Galaxia {
     }
         
     /**
-     * Metodo para consultar si existe un planeta en la galaxia con identificador "idplaneta"
-     * @param idplaneta
-     * @return Cierto si existe el planeta con identificador "idplaneta" en la galaxia, falso en caso contrario
-     */
-    public boolean existeixPlaneta(int idplaneta)
-    {
-    	for(int i = 0; i < N; ++i) {
-    		for(int j = 0; j < N; ++j) {
-    			if(gal[i][j] == idplaneta) return true;
-    		}
-    	}
-    	return false;
-    }
-    
-    /**
      * Metodo para consultar si existe algun planeta en la galaxia
-     * @return
+     * @return Cierto si existe algun planeta, falso en caso contrario
      */
     public boolean algunPlaneta() {
     	for(int i = 0; i < N; ++i) {
@@ -200,36 +166,37 @@ public class Galaxia {
      * Metodo que indica si unas ciertas coordenadas estan dentro del limite formado en la galaxia
      * @param x
      * @param y
-     * @return Cierto si "x" y "y" estan dentro del limite formado en la galaxia, falso en caso contrario
+     * @return Cierto si "x" y "y" estan dentro del limite que da forma a la galaxia, falso en caso contrario
      * @throws Exception
      */
     public boolean dintreLimitUsuari(int x, int y) throws Exception
 	{
 	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
 	     if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
-	         int min_first, max_second, min_x, max_y;
-	         min_first = max_second = min_x = max_y = 0;
-	         for(int i = 0; i < N; ++i) {
-	         	if(gal[x][i] == -1) {
-	         		min_first = i;
-	         		break;
-	         	}
-	         }
-	         for(int i = min_first + 1; i < N; ++i) {
-	         	if(gal[x][i] == -1) max_second = i;
-	         }
-	         for(int i = 0; i < N; ++i) {
-	         	if(gal[i][y] == -1) {
-	         		min_x = i;
-	             	break;
-	         	}
-	         }
-	         for(int i = min_x + 1; i < N; ++i) {
-	         	if(gal[i][y] == -1) max_y = i;
-	         }
-	         
-	         if((min_first < y  &&  y < max_second) && (min_x < x && x < max_y)) return true;
-	         else return false;
+	     
+         int min_first, max_second, min_x, max_y;
+         min_first = max_second = min_x = max_y = 0;
+         for(int i = 0; i < N; ++i) {
+         	if(gal[x][i] == -1) {
+         		min_first = i;
+         		break;
+         	}
+         }
+         for(int i = min_first + 1; i < N; ++i) {
+         	if(gal[x][i] == -1) max_second = i;
+         }
+         for(int i = 0; i < N; ++i) {
+         	if(gal[i][y] == -1) {
+         		min_x = i;
+             	break;
+         	}
+         }
+         for(int i = min_x + 1; i < N; ++i) {
+         	if(gal[i][y] == -1) max_y = i;
+         }
+         
+         if((min_first < y  &&  y < max_second) && (min_x < x && x < max_y)) return true;
+         else return false;
 	 }
 
   
@@ -268,6 +235,7 @@ public class Galaxia {
      */
     public void modificarLimitsUsuari(List<Pair<Integer, Integer> > p) throws Exception
     {
+    	if(algunPlaneta()) throw new Exception("Error: no se puede modificar la forma de una galaxia que contiene planetas");
     	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
     	
     	limits = p;
@@ -280,17 +248,17 @@ public class Galaxia {
      * @param p
      * @throws Exception
      */
-    public void afegirPlaneta(int idPlaneta, int x, int y) throws Exception
+    public void afegirPlaneta(int x, int y) throws Exception
     {
-    	if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
-    	if(N == 0) throw new Exception("No se puede añadir un planeta a una galaxia que no tiene limite definido");
+    	// comprobar que existe antes de añadir
+    	// if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
     	boolean b = existeixPlanetaCoordenades(x,y);
     	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
     	if(limits.size() > 0) {
     		boolean c = dintreLimitUsuari(x,y);
     		if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
     	}
-    	gal[x][y] = idPlaneta;
+    	gal[x][y] = 1; // pongo un planeta en x,y
     }	
    
     /**
@@ -299,13 +267,14 @@ public class Galaxia {
      * @return Las coordenadas del planeta introducidas en la galaxia
      * @throws Exception
      */
-    public Pair<Integer, Integer> afegirPlanetaAutomatic(int idPlaneta) throws Exception
+    public Pair<Integer, Integer> afegirPlanetaAutomatic() throws Exception
     {
-    	if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
-    	if(N == 0) throw new Exception("No se puede añadir un planeta a una galaxia que no tiene limite definido");
+    	// comprobar que existe antes de añadir
+    	// if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
+    	int tmp1, tmp2;
+    	tmp1 = tmp2 = 0;
+    	boolean posible = false;
     	if(limits.size() > 0) {  // Galaxia con limites impuestos
-    		int tmp1 = 0,tmp2 = 0;
-    		boolean posible = false;
     		for(int i = 0; i < N && !posible; ++i) {
     			for(int j = 0; j < N && !posible; ++j) {
     				if(dintreLimitUsuari(i,j) && (gal[i][j] == 0)) {
@@ -315,14 +284,8 @@ public class Galaxia {
     				}
     			}
     		}
-			if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
-		    Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
-			gal[tmp1][tmp2] = idPlaneta;
-			return par;
     	}
     	else { 	// Galaxia sin limites
-    		int tmp1 = 0,tmp2 = 0;
-    		boolean posible = false;
     		for(int i = 0; i < N && !posible; ++i) {
     			for(int j = 0; j < N && !posible; ++j) {
     				if(gal[i][j] == 0) {
@@ -333,61 +296,31 @@ public class Galaxia {
     			}
     				
     		}
-    		/*int rndX = randInt(0,N);
-    		int rndY = randInt(0,N);
-    		boolean b = existeixPlanetaCoordenades(rndX, rndY);
-    		if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
-    		Pair<Integer, Integer> par = new Pair<Integer, Integer>(rndX, rndY);
-    		gal[rndX][rndY] = idPlaneta;
-    		return par;*/
-    		if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
-    		Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
-    		gal[tmp1][tmp2] = idPlaneta;
-    		return par;
     	}
+ 		if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
+		Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
+		gal[tmp1][tmp2] = 1;
+		return par;
     }
     
     /**
-     * Metodo para consultar el identificador de un planeta con unas determinadas coordenadas
+     * Metodo para eliminar el planeta situado en las coordenadas "x" y "y"
      * @param x
      * @param y
-     * @return Devuelve el identificado del planeta con coordenadas "x" y "y"
-     * @throws Exception
-     */
-    public int consultarIDplaneta(int x, int y) throws Exception
-    {
-    	if(existeixPlanetaCoordenades(x,y)) {
-    		return gal[x][y];
-    	}
-    	else throw new Exception("No hay ningun planeta en las coordenadas introducidas");
-    }
-     
-    /**
-     * Metodo para eliminar un paneta de la galaxia con el identificador "idPlaneta"
-     * @param idPlaneta
      * @throws Exception 
      */
-    public void eliminarPlaneta(int idPlaneta) throws Exception
+    public void eliminarPlaneta(int x, int y) throws Exception
     {
-    	boolean esta = false;
-    	for(int i = 0; i < N; ++i) {
-    		for(int j = 0; j < N; ++j) {
-    			if(gal[i][j] == idPlaneta) {
-    				gal[i][j] = 0;
-    				esta = true;
-    			}
-    		}
-    	}
-    	if(!esta) throw new Exception("El planeta introducido no existe en la galaxia");
+    	if(existeixPlanetaCoordenades(x,y)) gal[x][y] = 0;
+    	else throw new Exception("No existe ningun planeta en las coordenadas introducidas");
+    	// el else puede que sobre, lo comprobare antes de entrar aqui
     }
     
     /**
      * Metodo para eliminar todos los planetas de la galaxia
-     * @throws Exception
      */
-    public void eliminarTotsPlanetes() throws Exception
+    public void eliminarTotsPlanetes()
     {
-    	if(!algunPlaneta()) throw new Exception("No hay planetas a borrar en la galaxia ");
         reiniciaMatriu();
     }
 }
