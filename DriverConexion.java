@@ -10,7 +10,7 @@ public class DriverConexion {
                 +   "-----------------------------------------------------------------------------------\n"
                 + "\n\nCREACION CONEXION\n"
                 + " 0: Salir de la gestion del driver \n"
-                + " 1: Conexion(int i, int pA, int pB) \n"
+                + " 1: Conexion(int i, String pA, String pB) \n"
                 
                 + "\n\nOPERACIONES DE CONSULTA DE CONEXION\n"
                 + " 2: consultar_id() \n"
@@ -18,9 +18,9 @@ public class DriverConexion {
                 + " 4: consultar_planetaB() \n"       
                 
                 + "\n\nOPERACIONES MODIFICADORAS DE CONEXION\n"
-                + " 5:  modificar_id() \n"    
-                + " 6:  modificar_planetaA() \n"       
-                + " 7:  modificar_planetaB() \n"       
+                + " 5:  modificar_id(int id_nuevo) \n"    
+                + " 6:  modificar_planetaA(String idA) \n"       
+                + " 7:  modificar_planetaB(String idB) \n"       
     			);
     }
     
@@ -48,8 +48,8 @@ public class DriverConexion {
 	{
 		try {
 			int id = cin.nextInt();
-			int planetaA = cin.nextInt();
-			int planetaB = cin.nextInt();
+			String planetaA = cin.next();
+			String planetaB = cin.next();
 			c =  new Conexion(id, planetaA, planetaB);
 		}
 		catch (Exception e){
@@ -103,7 +103,7 @@ public class DriverConexion {
 	public void TestModificarPlanetaAConnexio(Scanner cin) throws Exception 
 	{
 		try {
-			c.modificar_planetaA(cin.nextInt());
+			c.modificar_planetaA(cin.next());
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -113,7 +113,7 @@ public class DriverConexion {
 	public void TestModificarPlanetaBConnexio(Scanner cin) throws Exception 
 	{
 		try {
-			c.modificar_planetaB(cin.nextInt());
+			c.modificar_planetaB(cin.next());
 		}
 		catch (Exception e){
             System.out.print(e);
