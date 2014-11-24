@@ -5,27 +5,22 @@ public class DriverRuta {
     public void opciones()
     {
     	System.out.print(
-                "-----------------------------------------------------------------------------------\n"
-                +   "                               DRIVER RUTA                                      \n"
+                "-----------------------------------------------------------------------------------	\n"
+                +   "                               DRIVER RUTA                                      	\n"
                 +   "-----------------------------------------------------------------------------------\n"
-                + "\n\nCREACION RUTA\n"
-                + " 0: Salir de la gestion del driver \n"
-                + " 1: CrearRuta(int id, int capacidad, int distancia, boolean bidireccional) \n"
                 
-                + "\n\nOPERACIONES DE CONSULTA DE RUTA\n"
-                + " 2: consultar_id() \n"    
-                + " 3: consultar_capacidad() \n"       
-                + " 4: consultar_distancia() \n"       
-                + " 5: consultar_bidireccional() \n"       
-
+                + " 0: Salir de la gestion del driver 													\n"
+                + " 1: CrearRuta(int id, int capacidad, int distancia, boolean bidireccional) 			\n"
                 
-                + "\n\nOPERACIONES MODIFICADORAS DE RUTA\n"
-                + " 6: modificar_id() \n"    
-                + " 7: modificar_capacidad() \n"       
-                + " 8: modificar_distancia() \n" 
-                + " 9: modificar_bidireccional() \n"       
+                + " 2: consultar_id() 																	\n"    
+                + " 3: consultar_capacidad() 															\n"       
+                + " 4: consultar_distancia() 															\n"       
+                + " 5: consultar_bidireccional() 														\n"       
 
-
+                + " 6: modificar_id() 																	\n"    
+                + " 7: modificar_capacidad() 															\n"       
+                + " 8: modificar_distancia() 															\n" 
+                + " 9: modificar_bidireccional() 														\n"       
     			);
     }
     
