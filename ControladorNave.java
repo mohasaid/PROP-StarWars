@@ -523,10 +523,9 @@ public class ControladorNave{
 				 * @throws Exception
 				 */
 				public void CargarNaves(String path) throws Exception {
-			        String res; 
+				EliminarNaves();			        
+				String res; 
 			        Cdn.AbrirLectura(path);
-			        EliminarNaves();
-					int i=0;
 					FileReader fr = new FileReader(path);
         				BufferedReader br = new BufferedReader(fr);
 					while((res=Cdn.cargar(path,100,br))!=""){
@@ -578,7 +577,7 @@ public class ControladorNave{
 			                    	}
 			                    	aux = new TipoNave5(id,destino,origen);
 			                    	listaNaves.add(aux);
-			                    }
+			               		}
 					 s = sc.next();
 			            }
 				}
@@ -644,7 +643,7 @@ public class ControladorNave{
 			    	Iterator<Nave> it = listaNaves.iterator();
 			    		while(it.hasNext()){
 			    			Nave aux = it.next();
-			    			if(aux.consultar_destino() == id || aux.consultar_origen() == id){
+			    			if(aux.consultar_destino().compareTo(id) == 0 || aux.consultar_origen().compareTo(id) == 0){
 			    				it.remove();
 			    			}
 			    		}
