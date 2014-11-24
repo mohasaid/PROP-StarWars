@@ -1,61 +1,33 @@
 import java.util.*;
 
-public class Nave {
+public abstract class Nave {
 
 	protected int ident;
-	protected int destino;
-	protected int origen;
+	protected String destino;
+	protected String origen;
  
 	protected static boolean ErrorTipograficoID(int i) {  
         	return (i<0);
 	} 
-
-	//pre: cierto
-	//post: El resultado es una nave vacía
-	/**
-	 * metodo que crea una nave vacía
-	 */
-	public Nave(){
-		ident = -1;
-		destino = -1;
-		origen = -1;
-	}
-
-	
-	//pre: El planeta destino d existe en la galaxia y el identificador id no está un uso
-	//post: El resultado es una Nave sin tipo
-	/**
-	 * metodo que crea una nave con identificador, destino y origen.
-	 * @param id
-	 * @param d
-	 * @param o
-	 * @throws Exception
-	 */
-	public Nave(int id, int d, int o) throws Exception {
-		if(ErrorTipograficoID(id)){
-		        throw new Exception("Error : El identificador de una nave debe ser mayor o igual que 0\n"); 
-		}
-		if(ErrorTipograficoID(d)){
-	        throw new Exception("Error : El identificador del planeta destino debe ser mayor o igual que 0\n"); 
-	}	
-		if(ErrorTipograficoID(o)){
-	        throw new Exception("Error : El identificador del planeta origen debe ser mayor o igual que 0\n"); 
-	}	
-		ident = id;
-		destino = d;
-		origen= o;
-	}
-
+	protected static boolean ErrorTipografico(int i) {  
+    	return (i<=0);
+	} 
+    protected boolean alfa_numeric(String nom)
+    {
+        if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
+        for(int i = 0; i < nom.length(); ++i) {
+            char c = nom.charAt(i);
+            if(!Character.isLetterOrDigit(c)) return false;
+        }
+        return true;
+    }
 	//pre: cierto
 	//post: retorna un entero que representa el identificador de la nave
 	/**
 	 * metodo que consulta el identificador de una nave
 	 * @throws Exception
 	 */
-	public int consultar_id() throws Exception{
-		if(ident == -1){
-			throw new Exception("Error: La nave no tiene un id asignado\n");
-		}
+	public int consultar_id(){
 		return ident;
 	}
 
@@ -64,7 +36,7 @@ public class Nave {
 	 /** metodo que consulta el destino de una nave
 	 * @throws Exception
 	 */
-	public int consultar_destino(){
+	public String consultar_destino(){
 
 		return destino;
 	
@@ -74,30 +46,19 @@ public class Nave {
 	/** metodo que consulta el origen de una nave
 	 * @throws Exception
 	 */
-	public int consultar_origen(){
+	public String consultar_origen(){
 		return origen;
 	}
-	//pre: cierto
-	//post: la id se ha modificado por el entero id
-	/** metodo que modifica el identificador de una nave
-	 * @param id
-	 * @throws Exception
-	 */
-	public void modificar_id(int id) throws Exception{
-		if(ErrorTipograficoID(id)) {  
-		        throw new Exception("Error : El identificador de una nave debe ser mayor o igual que 0\n"); 
-        	}  	
-		ident = id;
-	}
+
 	//pre: El planeta destino idD existe en la galaxia
 	//post: se ha modificado el destino de la nave por idD
 	/** metodo que modifica el destino de una nave
 	 * @param idD
 	 * @throws Exception
 	 */
-	public void modificar_destino(int idD) throws Exception {
-		if(ErrorTipograficoID(idD)){
-			throw new Exception("Error: El identificador del planeta destino ha de ser mayor o igual que 0\n");	
+	public void modificar_destino(String idD) throws Exception {
+		if(!alfa_numeric(idD)){
+			throw new Exception("Error: El identificador del planeta origen ha de ser alfa numerico\n");	
 	}
 		destino = idD;
 	}
@@ -107,24 +68,19 @@ public class Nave {
 	 * @param idO
 	 * @throws Exception
 	 */
-	public void modificar_origen(int idO) throws Exception {
-		if(ErrorTipograficoID(idO)){
-			throw new Exception("Error: El identificador del planeta origen ha de ser mayor o igual que 0\n");	
-	}
+	public void modificar_origen(String idO) throws Exception {
+		if(!alfa_numeric(idO)){
+			throw new Exception("Error: El identificador del planeta destino ha de ser alfa numerico\n");	
+		}
 		origen = idO;
 	}
+	public abstract int consultar_tipo();
 
 }
-class OrdenNave implements Comparator<Nave>{
+class OrdenTipoNave implements Comparator<Nave>{
     public int compare(Nave n1, Nave n2){
-        try{
             if(n2.consultar_id() < n1.consultar_id()) return 1;
             else return -1;
-        }
-        catch(Exception e){
-            System.out.print(e);
-        }
-        return 0;
     }
 }
 
