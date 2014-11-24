@@ -8,16 +8,13 @@ public class DriverConexion {
                 "-----------------------------------------------------------------------------------\n"
                 +   "                               DRIVER CONEXION                                     \n"
                 +   "-----------------------------------------------------------------------------------\n"
-                + "\n\nCREACION CONEXION\n"
                 + " 0: Salir de la gestion del driver \n"
                 + " 1: Conexion(int i, String pA, String pB) \n"
                 
-                + "\n\nOPERACIONES DE CONSULTA DE CONEXION\n"
                 + " 2: consultar_id() \n"
                 + " 3: consultar_planetaA() \n"       
                 + " 4: consultar_planetaB() \n"       
                 
-                + "\n\nOPERACIONES MODIFICADORAS DE CONEXION\n"
                 + " 5:  modificar_id(int id_nuevo) \n"    
                 + " 6:  modificar_planetaA(String idA) \n"       
                 + " 7:  modificar_planetaB(String idB) \n"       
@@ -88,7 +85,6 @@ public class DriverConexion {
 		}
 	}
 		
-	
 	public void TestModificarIdConnexio(Scanner cin) throws Exception 
 	{
 		try {
@@ -98,7 +94,6 @@ public class DriverConexion {
             System.out.print(e);
 		}
 	}
-	
 	
 	public void TestModificarPlanetaAConnexio(Scanner cin) throws Exception 
 	{
@@ -121,4 +116,3 @@ public class DriverConexion {
 	}
 		
 }
-
