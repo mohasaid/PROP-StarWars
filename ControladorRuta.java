@@ -24,7 +24,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: Te devuelve true en caso que se pueda crear una ruta del planeta idA al planeta idB, en caso contrario, devuelve false ya que no es posible crearla
-    private boolean Disponibilidad_crear_ruta (String idA, String idB) throws Exception
+    private boolean Disponibilidad_crear_ruta (String idA, String idB)
     {
     	if (idA == idB) return false;
 		Iterator<Conexion> it = Conexiones.iterator();
@@ -43,7 +43,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: Retorna el numero de rutas que hay el arbol de conexiones, donde las que son bidireccionales cuentan como dos
-    private int Numero_rutes_sumant_bidireccional() throws Exception
+    private int Numero_rutes_sumant_bidireccional() 
     {
     	int ret = 0;
     	ret = Consultar_numero_rutes();
@@ -58,7 +58,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: La conexion con id = "id" ha sido borrada del arbol de conexiones
-    private void Borrar_Conexion (int id) throws Exception
+    private void Borrar_Conexion (int id)
     {
     	boolean found = false;
 		Iterator<Conexion> it = Conexiones.iterator();
@@ -74,7 +74,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
-    private void Borrar_Ruta (int id) throws Exception
+    private void Borrar_Ruta (int id)
     {
     	boolean found = false;
 		Iterator<Ruta> it = ArbolRutas.iterator();
@@ -108,7 +108,6 @@ public class ControladorRuta {
     {
     	if (id < 0) {
     		throw new Exception("Error: El identificador de una conexion tiene que ser mayor o igual que 0\n");
-
     	}
     	Iterator<Conexion> it = Conexiones.iterator();
     	while (it.hasNext()){
@@ -119,7 +118,7 @@ public class ControladorRuta {
     
     //pre: cierto
     //post: retorna la conexion que tiene identificador=id
-    public Conexion BuscarConexion(int id) throws Exception
+    public Conexion BuscarConexion(int id)
     {
     	Iterator<Conexion> it = Conexiones.iterator();
     	boolean trobat = false;
@@ -137,7 +136,7 @@ public class ControladorRuta {
       
     //pre: cierto
     //post: retorna la ruta que tiene identificador=id
-    public Ruta BuscarRuta(int id) throws Exception
+    public Ruta BuscarRuta(int id)
     {
     	Iterator<Ruta> it = ArbolRutas.iterator();
     	boolean trobat = false;
@@ -165,7 +164,7 @@ public class ControladorRuta {
     }
       
     //Pre: Cierto
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬ ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€š ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬ ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€š ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¾Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡Ãƒâ€šÃ‚Â¬ÃƒÆ’Ã¢â‚¬Â¦Ãƒâ€šÃ‚Â¡ÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬Ãƒâ€¦Ã‚Â¡ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â±ade al arbol de rutas
     public void CrearRuta(int id, int capacidad, int distancia, String planetaA, String planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
     { 
     	int numero_planetas = cp.Consultar_Size();
@@ -339,7 +338,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: Retorna un arraylist que contiene todos los ids de las rutas presentes
-    public ArrayList<Integer> Consultar_ids_rutas() throws Exception
+    public ArrayList<Integer> Consultar_ids_rutas()
     {
     	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
 		Iterator<Conexion> it = Conexiones.iterator();
@@ -353,7 +352,7 @@ public class ControladorRuta {
       
     //Pre:  Cierto
     //Post: Retorna un arraylist que contiene todos los ids de las rutas que le entran al planeta con id = "id_planeta"
-    public ArrayList<Integer> Consultar_entrades_planeta(String id_planeta) throws Exception
+    public ArrayList<Integer> Consultar_entrades_planeta(String id_planeta)
     {
     	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
     	
@@ -369,7 +368,7 @@ public class ControladorRuta {
     
     //Pre: Cierto
     //Post: Retorna un arraylist que contiene todos los ids de las rutas que le salen al planeta con id = "id_planeta"
-    public ArrayList<Integer> Consultar_sortides_planeta(String id_planeta) throws Exception
+    public ArrayList<Integer> Consultar_sortides_planeta(String id_planeta)
     {
     	ArrayList<Integer> ids_rutas = new ArrayList<Integer>();
     	
@@ -420,7 +419,6 @@ public class ControladorRuta {
         if(ErrorTipografico(capacidad_nueva)){
             throw new Exception("Error : La capacidad debe ser mayor o igual que 0\n");
         }
-        
         Ruta solicitada = BuscarRuta(id);
         solicitada.modificar_capacidad(capacidad_nueva);
     }
@@ -473,25 +471,9 @@ public class ControladorRuta {
         c.modificar_planetaB(id_planetaB_nuevo);
     }
     
-    /*
-    //Pre: La ruta con id = "id" tiene los atributos planetaA y planetaB inicializados
-    //Post: Los planetas que conecta la ruta con id = "id" se modifican por planetaA = planetaB y planetaB = planetaB
-    public void Invertir_planetaA_planetaB(int id, ControladorPlaneta cp) throws Exception
-    {
-    	Conexion c = BuscarConexion(id);
-    	Borrar_Conexion(id);//esta para que no vea esta ruta al momento de buscar
-        if ( !Disponibilidad_crear_ruta( c.consultar_planetaB(), c.consultar_planetaA() ) ) {
-        	Conexiones.add(c); //anadimos otra vez la conexion
-            throw new Exception("No se pueden invertir los planetas, ya que existe una ruta que los conecta\n");
-        }
-    	Conexiones.add(c);//anadimos otra vez la conexion
-    	c.invertir_planetas();
-    }
-    */
-      
     //Pre: Existe una ruta con id = "id"
     //Post: La bidireccionalidad de la ruta con id = "id" ha sido modificada tal que bidireccional = "bidireccional_nuevo"
-    public void ModificarBidireccionalidadRuta(int id, boolean bidireccional_nuevo)throws Exception
+    public void ModificarBidireccionalidadRuta(int id, boolean bidireccional_nuevo) throws Exception
     {
         Ruta r = BuscarRuta(id);
         Conexion c = BuscarConexion(id);
@@ -524,7 +506,7 @@ public class ControladorRuta {
     
   //Pre: Existe una ruta con id = "id"
   //Post: La ruta con id = "id" ha sido borrada del arbol de rutas
-  public void BorrarRuta(int id) throws Exception
+  public void BorrarRuta(int id)
   {
 	  Borrar_Ruta(id);
   	  Borrar_Conexion(id);
@@ -532,14 +514,16 @@ public class ControladorRuta {
   
   //Pre: Cierto
   //Post: Borra todas las rutas del ArbolRutas y todas las conexiones de Conexiones
-  void BorrarRutas() throws Exception{
+  void BorrarRutas()
+  {
 	  ArbolRutas.clear();
 	  Conexiones.clear();
   }
   
   //Pre: Cierto.
   //Post: Carga todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
-  public void CargarRutas (String path) throws Exception {
+  public void CargarRutas (String path) throws Exception 
+  {
 	  String res;
       Cdr.AbrirLectura(path);
       res = Cdr.cargar(path);
@@ -577,7 +561,8 @@ public class ControladorRuta {
   
   //Pre: Cierto.
   //Post: retorna un string que contiene todas las rutas y conexiones, separados por '#'
-  public String consultarTODO() throws Exception {
+  public String consultarTODO() throws Exception 
+  {
 	  String res = "";
 	  	//Guardamos todas la rutas
 	    if(!ArbolRutas.isEmpty()){
