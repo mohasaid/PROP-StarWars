@@ -1,4 +1,5 @@
 import java.util.*;
+import java.io.*;
 
 public class ControladorNave{
 	private TreeSet<Nave> listaNaves;
@@ -524,12 +525,15 @@ public class ControladorNave{
 				public void CargarNaves(String path) throws Exception {
 			        String res; 
 			        Cdn.AbrirLectura(path);
-			        	res = Cdn.cargar(path);
+					int i=0;
+					FileReader fr = new FileReader(path);
+        				BufferedReader br = new BufferedReader(fr);
+					while((res=Cdn.cargar(path,100,br))!=""){
 			            Scanner sc = new Scanner(res);
 			            sc.useDelimiter("#|:");
 			            String s="";
+				    if(sc.hasNext()) s = sc.next();
 			            while (sc.hasNext()) {
-			            		s = sc.next();
 			                    int id = Integer.parseInt(s);
 			                    String origen = sc.next();
 			                    String destino = sc.next();
@@ -578,9 +582,10 @@ public class ControladorNave{
 			                    	aux = new TipoNave5(id,destino,origen);
 			                    	listaNaves.add(aux);
 			                    }
-			                    
 			                    }
+					 s = sc.next();
 			            }
+				}
 			        Cdn.CerrarLectura();
 			    }
 				/**
