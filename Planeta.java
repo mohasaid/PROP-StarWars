@@ -77,9 +77,6 @@ public class Planeta
 
 class OrdenPlaneta implements Comparator<Planeta>{
 	 public int compare(Planeta a, Planeta b) {
-	     String s1, s2;
-	     s1 = a.Consultar_nombre();
-	     s2 = b.Consultar_nombre();
-		 return s1.compareTo(s2);
+		 return a.Consultar_nombre().compareTo(b.Consultar_nombre());
 	 }
 } 
