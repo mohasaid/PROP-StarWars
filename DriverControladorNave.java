@@ -64,7 +64,7 @@ public class DriverControladorNave{
     n = sc.nextInt();
     }
    }
-            public static void TestCrearNave(Scanner sc, ControladorNave cn/*, ControladorPlaneta cp*/){
+            public static void TestCrearNave(Scanner sc, ControladorNave cn, ControladorPlaneta cp){
                 try{
                     while(!sc.hasNextInt()){
                         String s = sc.nextLine();
