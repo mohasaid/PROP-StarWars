@@ -241,7 +241,13 @@ public class ControladorPlaneta {
     {
         BuscarPlaneta(id).Modificar_Coste(k);
     }
-    
+    //Pre: Cierto.
+    //Post: Modifica las coordenadas del Planeta
+    public void Modificar_Coordenadas(String id, int x, int y, ControladorGalaxia cg) {
+    	Planeta p = BuscarPlaneta(id);
+    	cg.modificarCoordeanades(id, p.consultar_X(), p.consultar_Y(), x, y);
+    	p.modificarCoordenades(x, y);
+    }
     
     //Pre: Cierto.
     //Post: Borra el planeta.
