@@ -275,6 +275,7 @@ public class DriverGalaxia {
 	    	
 	    	Planeta a = new Planeta(idPlaneta,coste, co);
 	    	if(cp.ExistePlaneta(idPlaneta)) throw new Exception("Ya hay un planeta con este identificador");
+	    	
 	    	g.afegirPlaneta(x, y); // saca excepcion si existe uno en esas coordenadas o si no hay limite en galaxia
 	    	cp.anadirPlaneta(a); // saca excepcion si existe
     	}
@@ -315,6 +316,7 @@ public class DriverGalaxia {
 	    	String idPlaneta = cin.next();
 	    	Random rand = new Random();
 	    	int randomNum = rand.nextInt(Integer.MAX_VALUE);
+	    	
 	    	if(cp.ExistePlaneta(idPlaneta)) throw new Exception("Ya hay un planeta con este identificador");
 	    	
 	    	Pair<Integer, Integer> par = g.afegirPlanetaAutomatic(); // saca excepcion si no se puede crear
