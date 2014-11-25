@@ -7,7 +7,7 @@ public class ControladorPlaneta {
     private TreeSet<Planeta> listaPlanetas;
     private ControladorDadesPlaneta cdp;
     private static int id = 0;
-    private final String nomG = "Planeta";
+    private static final String nomG = "Planeta";
     
     private int randInt(int min, int max)
     {
@@ -44,7 +44,7 @@ public class ControladorPlaneta {
     {
         Iterator<Planeta> it = listaPlanetas.iterator();
         while(it.hasNext()) {
-            if (it.next().Consultar_nombre() == idP) return true;
+            if(it.next().Consultar_nombre().compareTo(idP) == 0) return true;
         }
         return false;
     }
@@ -55,7 +55,7 @@ public class ControladorPlaneta {
     	Planeta p = null;
     	while(it.hasNext()) {
     		p = it.next();
-    		if(p.Consultar_nombre() == idPlaneta) it.remove();
+    		if(p.Consultar_nombre().compareTo(idPlaneta) == 0) it.remove();
     	}
     }
     
@@ -67,7 +67,7 @@ public class ControladorPlaneta {
         Planeta p;
         while(it.hasNext()) {
         	p = it.next();
-            if (p.Consultar_nombre() == id) return p;
+            if (p.Consultar_nombre().compareTo(id) == 0) return p;
         }
 		return null;   
     }
@@ -134,29 +134,6 @@ public class ControladorPlaneta {
     {
         return BuscarPlaneta(id).Consultar_Coste();
     }
-    
-    /**
-     * Metodo para consultar un nombre fijo
-     * @return El nombre nomG que es Planeta
-     */
-    /*public String consultar_NomG()
-    {
-    	return nomG;
-    }
-    */
-    /**
-     * Metodo para consultar el id general
-     * @return id
-     */
-    /*public int consultar_ID()
-    {
-    	return id;
-    }
-    
-    public void incrementar_ID()
-    {
-    	++id;
-    }*/
     
     //Pre: Cierto.
     //Post: Retorna las Coordenadas del planeta.
@@ -226,29 +203,11 @@ public class ControladorPlaneta {
         return a;
     }
     
-    /** MODIFICAR**/
-    //Pre: Cierto.
-    //Post: Retorna todas las rutas que conectan con el Planeta id.
-    /*public ArrayList<Integer> consultarRutasConecta(String id, ControladorRuta cr) throws Exception
-    {
-    	ArrayList<Integer> en = cr.Consultar_entrades_planeta(id);
-    	ArrayList<Integer> so = cr.Consultar_sortides_planeta(id);
-    	en.addAll(so);
-    	return en;
-    }*/
-    
     //Pre: Cierto.
     //Post: Modifica el coste del planeta.
     public void Modificar_Coste(String id, int k) throws Exception 
     {
         BuscarPlaneta(id).Modificar_Coste(k);
-    }
-    //Pre: Cierto.
-    //Post: Modifica las coordenadas del Planeta
-    public void Modificar_Coordenadas(String id, int x, int y, ControladorGalaxia cg) {
-    	Planeta p = BuscarPlaneta(id);
-    	cg.modificarCoordeanades(id, p.consultar_X(), p.consultar_Y(), x, y);
-    	p.modificarCoordenades(x, y);
     }
     
     //Pre: Cierto.
@@ -265,10 +224,12 @@ public class ControladorPlaneta {
     	listaPlanetas.clear();
     }
     
-    //Pre: Cierto.
+  //Pre: Cierto.
     //Post: 
-    public void CargarPlanetas (String path, ControladorGalaxia cg) throws Exception {
+    public void CargarPlanetas (String path, ControladorGalaxia cg) throws Exception 
+    {
     	BorrarTodos();
+    	
     	String res, s, id;
     	cdp.AbrirLectura(path);
     	FileReader file = new FileReader(path);
@@ -290,13 +251,10 @@ public class ControladorPlaneta {
     				s = sc.next();
     				y = Integer.parseInt(s);
     				sc.next();
-    				if(ExistePlaneta(id)) throw new Exception ("Error: El Planeta con identificador: " + id + " ya existe y no se cargara");
-    				else {
-    					Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-    					Planeta p = new Planeta(id,k,Coo);
-    					listaPlanetas.add(p);
-    					cg.afegirPlaneta(x, y);
-    				}	
+					Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
+					Planeta p = new Planeta(id,k,Coo);
+					listaPlanetas.add(p);
+					cg.afegirPlaneta(x, y);
     			}
     		}
     	}
@@ -305,7 +263,8 @@ public class ControladorPlaneta {
     
     //Pre: Cierto.
     //Post: 
-    public void GuardarPlanetas (String path) throws Exception {
+    public void GuardarPlanetas (String path) throws Exception 
+    {
     	String res ="";
     	int iter = 0;
     	if(!listaPlanetas.isEmpty()){
@@ -330,6 +289,7 @@ public class ControladorPlaneta {
     		cdp.CerrarEscritura();
     	}
     }
+    
     
     public String consultarTODO() throws Exception {
     	String res ="";
