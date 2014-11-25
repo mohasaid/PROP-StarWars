@@ -55,9 +55,9 @@ public class DriverGalaxia {
 	private static void opcions()
     {
     	 System.out.print(
-	              "---------------------------------------------------------------------------------------- \n"
+	              "----------------------------------------------------------------------------- 			\n"
 	            + "                               DRIVER GALAXIA                                    	    \n"
-	            + "---------------------------------------------------------------------------------------- \n"
+	            + "----------------------------------------------------------------------------- 			\n"
 	            
 	            + "- Opcion 0: Salir de la gestion del driver                                        	    \n"
 	            
@@ -226,7 +226,7 @@ public class DriverGalaxia {
     	try {
     		System.out.println("Introduce identificador planeta");
 	    	String idPlaneta = cin.next();
-	    	if(!cp.ExistePlaneta(idPlaneta)) System.out.println("No existe ningun planeta con ese identificador");
+	    	if(!cp.ExistePlaneta(idPlaneta)) throw new Exception("No existe ningun planeta con ese identificador");
 	    	Planeta a = cp.BuscarPlaneta(idPlaneta); // no saca excecpion
 	    	System.out.println(idPlaneta + " " + a.Consultar_Coste() + " (" + a.consultar_X() + ", " + a.consultar_Y() + ")");
     	}
