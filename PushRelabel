@@ -1,68 +1,101 @@
+import java.util.ArrayList;
 
-public class PushRelabel {
-	  public static int[][] Matrix(Grafo g) {
-		int f[][] = new int[g.sizeGrafo()][g.sizeGrafo()];
+public class PushRelabel{
+
+private Grafo G;
+private Grafo Residual;
+	
+	public void Grafo(Grafo f) {
+		G = f;
+		Residual = f;
 		int v;
-		for(int i = 0; i < g.sizeGrafo(); ++i) {
-			for(int j = 0; j < g.sizeGrafo(i); ++j) {
-				v = g.consultaPair(i, j).consultarSegundo();
-				f[i][v] = g.consultaPair(i, j).consultarPrimero().ConsultarCapacidad();
-			}
-		}
-		return f;
-	}
-	public static int Push_Relabel(Grafo G, int s, int t) {
-		int g[][] = Matrix(G);
-		int n = g.length;
-		int h[] = new int[n];
-		h[s] = n-1;
-		int maxh[] = new int[n];
-		int e[] = new int[n];
-		int f[][] = new int[n][n];
-		for (int i = 0; i < n; ++i) {
-			f[s][i] = g[s][i];
-			f[i][s] = -f[s][i];
-			e[i] = g[s][i];
-		}
-		for (int sz = 0;;) {
-			if (sz == 0) {
-				for (int i = 0; i < n; ++i){
-					if (i != s && i != t && e[i] > 0) {
-						if (sz != 0 && h[i] > h[maxh[0]]) sz = 0;
-				        	maxh[sz++] = i;
-					}
+		Arco a = new Arco(0,0);
+		Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,0);
+		for(int i = 0; i < Residual.sizeGrafo(); ++i) {
+			for (int j = 0; j < Residual.sizeGrafo(i); ++j) {
+				v = Residual.consultarSeg(i, j);
+				if(!Residual.ExisteV(v, i)) {
+					p.ponSegundo(i);
+					Residual.consultarCosteDestinos(v).add(p);
 				}
 			}
-		      	if (sz == 0) break;
-		      	while (sz != 0) {
-		        	int i = maxh[sz - 1];
-			        boolean pushed = false;
-			        for (int j = 0; j < n && e[i] != 0; ++j) {
-			        	if (h[i] == h[j] + 1 && g[i][j] - f[i][j] > 0) {
-			            		int df = Math.min(g[i][j] - f[i][j], e[i]);
-			            		f[i][j] += df;
-			            		f[j][i] -= df;
-			            		e[i] -= df;
-			            		e[j] += df;
-			            		if (e[i] == 0) --sz;
+		}
+	}
+	public Grafo ConsultarResidual() {
+		return Residual;
+	}
+	
+	public void Inicializar(int altura[], int exceso[], int flujo[][], int s) {
+		int n = G.sizeGrafo(); //Inicializar
+		altura[s] = n-1;
+		int aux;
+		for (int i = 0; i < n; ++i) {
+			if(G.ExisteV(s, i)) aux = G.consultaPairUn(s, i).consultarPrimero().ConsultarCapacidad();
+			else aux = 0;
+			flujo[s][i] = aux;
+			flujo[i][s] = -flujo[s][i];			//EVITA BUCLE INFINITO (ESTUDIAR A FONDO)
+			exceso[i] = aux;					//Inicializar
+		}
+	}
+	public void Push(int flujo[][], int exceso[], int aux, int i, int j){
+		int df = Math.min(aux - flujo[i][j], exceso[i]); //push
+		flujo[i][j] += df;
+		flujo[j][i] -= df;
+		exceso[i] -= df;
+		exceso[j] += df;
+	}
+	public void Relabel(ArrayList<Integer> LNP, int altura[], int flujo[][],int i, int n) {
+		altura[i] = Integer.MAX_VALUE; //relabel
+      	int aux;
+		for (int j = 0; j < n; ++j){
+      			if(G.ExisteV(i, j)) aux = G.consultaPairUn(i, j).consultarPrimero().ConsultarCapacidad();
+      			else aux = 0;
+      			if (altura[i] > altura[j] + 1 && aux - flujo[i][j] > 0) {
+        			altura[i] = altura[j] + 1;
+        		}
+  		}
+      	if (altura[i] > altura[LNP.get(0)]) LNP.clear();
+	}
+	
+	public int Push_Relabel(int s, int t) {
+		int n = G.sizeGrafo(); 
+		int altura[] = new int[n];  
+		ArrayList<Integer> LNP = new ArrayList<Integer>();
+		int exceso[] = new int[n];
+		int flujo[][] = new int[n][n]; 			
+		Inicializar(altura, exceso, flujo, s);
+		int aux;
+		boolean ENA = true; 														//Existen Nodos Activos
+		boolean pushed;
+		while (ENA) {
+			if (LNP.isEmpty()) {													//Poner en la lista de nodos a tratar
+				for (int i = 0; i < n; ++i){
+					if (i != s && i != t && exceso[i] > 0) {
+						if (!LNP.isEmpty() && altura[i] > altura[LNP.get(0)]) ENA = false;
+				        LNP.add(i);
+				        ENA = true;
+					}
+				}
+			}																		//Poner en la ista de nodos a tratar
+		    if (LNP.isEmpty()) ENA = false;
+		    pushed = false;
+		    while (!LNP.isEmpty()) {
+		        	int i = LNP.get(LNP.size() - 1);
+			        pushed = false;
+			        for (int j = 0; j < n && exceso[i] != 0; ++j) {
+			        	if(G.ExisteV(i, j)) aux = G.consultaPairUn(i, j).consultarPrimero().ConsultarCapacidad();
+			        	else aux = 0;
+			        	if (altura[i] == altura[j] + 1 && aux - flujo[i][j] > 0) {
+			            		Push(flujo, exceso, aux, i, j);									//push
+			            		if (exceso[i] == 0) LNP.remove(LNP.size()-1);
 	            				pushed = true;
 		          		}
 			        }
 			        if (!pushed) {
-			        	h[i] = Integer.MAX_VALUE;
-			          	for (int j = 0; j < n; ++j){
-			            		if (h[i] > h[j] + 1 && g[i][j] - f[i][j] > 0) h[i] = h[j] + 1;
-		          		}
-			          	if (h[i] > h[maxh[0]]) {
-			            		sz = 0;
-			            		break;
-			          	}
+			        Relabel(LNP, altura, flujo, i, n);							  //relabel
 			        }
 		      	}
 	    	}
-
-	    	int flow = 0;
-    		for (int i = 0; i < n; i++) flow += f[s][i];
-	    	return flow;
+	    return exceso[t];
 	}
 }
