@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 import java.util.List;
-//import java.util.Random;
 
 public class Galaxia {
 	
@@ -224,7 +223,7 @@ public class Galaxia {
         if(n < 10) throw new Exception("Error: el limite de una galaxia tiene que ser mayor que 10");
         
         N = Integer.valueOf(n);
-        gal = new int[N][N];
+        //gal = new int[N][N];
         limits = new ArrayList<Pair<Integer,Integer> >(); // Pierde la forma que tenia
     }
     
@@ -239,7 +238,7 @@ public class Galaxia {
     	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
     	
     	limits = p;
-    	gal = new int[N][N];
+    	// gal = new int[N][N];
     	inicialitzaMatriu();
     }
     
