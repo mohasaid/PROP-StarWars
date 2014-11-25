@@ -1,5 +1,13 @@
 import java.util.*;
 
+/*
+ * En realidad galaxia no tiene que añadir nada en controlador de planeta, pero para probar de manera correcta el funcionamiento 
+ * de galaxia es necesario usarlo. Aclarar que es el controlador de planeta el que añade las cosas a galaxia. Esto es asi porque
+ * galaxia no guarda informacion respecto los planetas, solo donde estan situados en ella. Consecuencia de esto es la 
+ * redefinicion de los metodos de crear planeta.
+ * 
+ */
+
 public class DriverGalaxia {
     
 	public DriverGalaxia() {};
@@ -29,7 +37,6 @@ public class DriverGalaxia {
  	            
  	            case 11: TestexisteixPlanetaCoordenades(g,cin); break;
  	            case 12: TestconsultarPlaneta(g,cin,cp); break;
- 	          
  	            case 13: TestalgunPlaneta(g); break;
  	           
  	            case 14: TestCrearafegirPlaneta(g,cin,cp);break;
@@ -69,7 +76,6 @@ public class DriverGalaxia {
  				
 				+ "- Opcion 11: existeixPlanetaCoordenades(int x, int y) 				    				\n"
 				+ "- Opcion 12: consultarPlaneta(int idPlaneta)                    							\n"
-				
 	            + "- Opcion 13: algunPlaneta()																\n"
 				
 				+ "- Opcion 14: CrearPlaneta(idPlaneta, x, y)  												\n"
@@ -182,13 +188,15 @@ public class DriverGalaxia {
 			int x = cin.nextInt();
 			System.out.println("Introduce segunda coordenada");
 			int y = cin.nextInt();
+			
 			if(g.consulta_nombreLimits() > 0) {
 				b = g.dintreLimitUsuari(x, y); // saca excepcion si es mayor que N o menor que 0
 				if(b) System.out.println("Si que esta dins el limit");
 				else System.out.println("No esta dins el limit");
 			}
+			
 			else {
-				if(g.consultarLimitGalaxia() > x && g.consultarLimitGalaxia() > y) System.out.println("Si que esta dins el limit");
+				if((g.consultarLimitGalaxia() > x && x > 0) && (g.consultarLimitGalaxia() > y && y > 0)) System.out.println("Si que esta dins el limit");
 				else System.out.println("No esta dins el limit");
 			}
 		} 
@@ -269,7 +277,6 @@ public class DriverGalaxia {
 	    	if(cp.ExistePlaneta(idPlaneta)) throw new Exception("Ya hay un planeta con este identificador");
 	    	g.afegirPlaneta(x, y); // saca excepcion si existe uno en esas coordenadas o si no hay limite en galaxia
 	    	cp.anadirPlaneta(a); // saca excepcion si existe
-
     	}
     	catch(Exception e) {
             System.out.println(e);
@@ -305,8 +312,7 @@ public class DriverGalaxia {
     {	
     	try {
     		System.out.println("Introduce identificador planeta");
-	    	String idPlaneta = cin.next()
-	    			;
+	    	String idPlaneta = cin.next();
 	    	Random rand = new Random();
 	    	int randomNum = rand.nextInt(Integer.MAX_VALUE);
 	    	if(cp.ExistePlaneta(idPlaneta)) throw new Exception("Ya hay un planeta con este identificador");
@@ -355,7 +361,7 @@ public class DriverGalaxia {
     	try {
 	    	List<Pair<Integer, Integer> > lp = g.consultarValorLimits(); // no saca excepcion
 	    	if(lp.size() < 1) throw new Exception("La galaxia no tiene forma");
-	    	System.out.print("Coordenadas que dan forma a la galaxia:");
+	    	System.out.print("Coordenadas que dan forma a la galaxia: ");
 	    	System.out.println(lp);
     	}
     	catch(Exception e) {
