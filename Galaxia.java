@@ -223,7 +223,6 @@ public class Galaxia {
         if(n < 10) throw new Exception("Error: el limite de una galaxia tiene que ser mayor que 10");
         
         N = Integer.valueOf(n);
-        //gal = new int[N][N];
         limits = new ArrayList<Pair<Integer,Integer> >(); // Pierde la forma que tenia
     }
     
@@ -238,7 +237,6 @@ public class Galaxia {
     	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
     	
     	limits = p;
-    	// gal = new int[N][N];
     	inicialitzaMatriu();
     }
     
@@ -249,8 +247,6 @@ public class Galaxia {
      */
     public void afegirPlaneta(int x, int y) throws Exception
     {
-    	// comprobar que existe antes de añadir
-    	// if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
     	boolean b = existeixPlanetaCoordenades(x,y);
     	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
     	if(limits.size() > 0) {
@@ -268,8 +264,6 @@ public class Galaxia {
      */
     public Pair<Integer, Integer> afegirPlanetaAutomatic() throws Exception
     {
-    	// comprobar que existe antes de añadir
-    	// if(existeixPlaneta(idPlaneta)) throw new Exception("Error: ya existe un planeta con este identificador");
     	int tmp1, tmp2;
     	tmp1 = tmp2 = 0;
     	boolean posible = false;
