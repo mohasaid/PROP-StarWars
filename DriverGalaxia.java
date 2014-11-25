@@ -348,8 +348,10 @@ public class DriverGalaxia {
     private static void TesteliminarTotsPlanetes(Galaxia g, ControladorPlaneta cp)
     {
     	try{
-	    	g.eliminarTotsPlanetes();
-	    	cp.BorrarTodos(); // no saca excepcion si no hay planetas
+    		if(g.algunPlaneta()) {
+		    	g.eliminarTotsPlanetes();
+		    	cp.BorrarTodos(); // no saca excepcion si no hay planetas
+    		}
     	}
     	catch(Exception e) {
             System.out.println(e);
