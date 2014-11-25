@@ -92,8 +92,9 @@ public class DriverGalaxia {
         try{
             String n = cin.next();
             int n1 = cin.nextInt();
+            Galaxia g1 = new Galaxia(n,n1);
             creado = true;
-            return new Galaxia(n,n1);
+            return g1;
         }
         catch(Exception e) {
             System.out.println(e);
@@ -141,8 +142,9 @@ public class DriverGalaxia {
                 if(l2 > n1 || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
                 if((l1 == limite1 && l2 == limite2)) trobat = true;
             }
+            Galaxia g1 = new Galaxia(n,n1,pa1);
             creado = true;
-            return new Galaxia(n,n1,pa1);
+            return g1;
         }
         catch(Exception e) {
             System.out.println(e);
