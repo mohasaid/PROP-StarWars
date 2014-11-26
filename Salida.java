@@ -46,10 +46,8 @@ public class Salida{
 		return Cambios.size();
 	}
 	//MODIFICADORAS
-	public void AnadirCuello(Arco c){
-		
-		int id = c.ConsultarIdRuta();
-		if(!CuellosB.contains(id))CuellosB.add(id);
+	public void AnadirCuello(int  idr){
+		if(!CuellosB.contains(r)) CuellosB.add(idr);
 	}
 	public void AnadirCamino(String s){
 		if(!Caminos.contains(s))Caminos.add(s);
