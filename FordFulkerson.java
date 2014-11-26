@@ -54,7 +54,7 @@ public class FordFulkerson extends MFP{
 		s.AnadirTiempo(tiempo);
 	}
 	
-	public void Caminos(Nave n, int consumo, boolean b, ControladorPlaneta cp,Salida s){
+	public void Caminos(Nave n, int consumo, boolean b, ControladorPlaneta cp,Salida s) throws Exception{
 		super.Caminos(n, consumo,b,cp,s);
 	}
 }
