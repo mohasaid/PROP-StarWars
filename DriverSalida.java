@@ -7,8 +7,6 @@ public class DriverSalida{
 	private static Entrada e;
     public void Executa(Scanner sc, ControladorRuta cr, ControladorGalaxia cg) {
         int op;
-        s = new Salida();
-        e = new Entrada();
 
         
                 		System.out.print("Opciones: \n\n"
@@ -95,9 +93,7 @@ public class DriverSalida{
 	            throw new Exception("Error: El identificador debe ser un entero\n");
 	        }
 	    	int id = sc.nextInt();
-	    	Arco aux = new Arco();
-	    	aux.ModificarIdRuta(id);
-	    	s.AnadirCuello(aux); 
+	    	s.AnadirCuello(id); 
     	}
     	catch(Exception e){
     		System.out.println(e);
