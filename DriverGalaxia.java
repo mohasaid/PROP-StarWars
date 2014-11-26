@@ -1,8 +1,8 @@
 import java.util.*;
 
 /*
- * En realidad galaxia no tiene que añadir nada en controlador de planeta, pero para probar de manera correcta el funcionamiento 
- * de galaxia es necesario usarlo. Aclarar que es el controlador de planeta el que añade las cosas a galaxia. Esto es asi porque
+ * En realidad galaxia no tiene que anadir nada en controlador de planeta, pero para probar de manera correcta el funcionamiento 
+ * de galaxia es necesario usarlo. Aclarar que es el controlador de planeta el que anade las cosas a galaxia. Esto es asi porque
  * galaxia no guarda informacion respecto los planetas, solo donde estan situados en ella. Consecuencia de esto es la 
  * redefinicion de los metodos de crear planeta.
  * 
