@@ -47,7 +47,7 @@ public class Salida{
 	}
 	//MODIFICADORAS
 	public void AnadirCuello(int  idr){
-		if(!CuellosB.contains(r)) CuellosB.add(idr);
+		if(!CuellosB.contains(idr)) CuellosB.add(idr);
 	}
 	public void AnadirCamino(String s){
 		if(!Caminos.contains(s))Caminos.add(s);
