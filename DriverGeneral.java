@@ -21,7 +21,6 @@ public class DriverGeneral
         + " Opcion 11: Driver Arco   						\n"
         + " Opcion 12: Driver Salida 						\n"
         + " Opcion 13: Driver Controlador MFP				\n"
-        
 		);
     }
       
@@ -37,7 +36,6 @@ public class DriverGeneral
         //Arco
         DriverArco Darco = new DriverArco();
         //Salida
-        
         DriverSalida Dsalida = new DriverSalida();
         //ControladorMFP
         DriverControladorMFP dMFP = new DriverControladorMFP();
@@ -54,28 +52,30 @@ public class DriverGeneral
         DriverPlaneta Dp = new DriverPlaneta();
         DriverControladorPlaneta DCP = new DriverControladorPlaneta();
         
+        //Entrada
         DriverEntrada De = new DriverEntrada();
+        Entrada e = null;
+        
          //Conexion
         DriverConexion Dc = new DriverConexion();
 
-        
         int op= sc.nextInt();
         while (op != 0){
             switch(op)
             {
                 case 1: DCNave.Executa(sc,cn,cp); break;  
                 case 2: Dnave.Executa(sc); break;
-                //case 3: DGalaxia.Executa(sc,cn,cp,cr); break;
+                case 3: DGalaxia.Executa(sc); break;
                 case 4: DCGalaxia.Executa(sc,cp, cr, cn,cg); break;
                 case 5: DCRuta.Executa(cr, cp, sc); break;
                 case 6: DRuta.Executa(sc); break;
                 case 7:	DCP.Ejecuta(sc,cp,cr,cg);break;
                 case 8: Dp.Ejecuta(sc);break;
                 case 9: Dc.Executa(sc);break;
-                case 10: De.Executa(cg, cr, cp, cn, sc);break;
+                case 10: De.Executa();break;
                 case 11: Darco.Executa(sc);break;
                 case 12: Dsalida.Executa(sc,cr,cg);break;
-                case 13: dMFP.Executa(sc,cMFP,cg,cr,cp,cn);break;
+                case 13: dMFP.Executa(sc,e,cMFP,cg,cr,cp,cn);break;
                 default: System.out.println("Opcion incorrecta");                
             }
             opciones();
