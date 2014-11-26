@@ -41,7 +41,7 @@ public class DriverControladorGalaxia {
 				
 				+ "- Opcion 15: CrearPlaneta(String idPlaneta, int x, int y)                                \n"
 				+ "- Opcion 16: CrearPlanetaAutomatic(String idPlaneta)                                     \n"
-				+ "- Opcion 17: CrearPlanetaIDAutomatic(String idP)                                         \n"
+				+ "- Opcion 17: CrearPlanetaIDAutomatic()                                         			\n"
 				+ "- Opcion 18: eliminarPlaneta(String idPlaneta)                                           \n"
 				+ "- Opcion 19: eliminarPlanetes()                                                          \n"
 				
