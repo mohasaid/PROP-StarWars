@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class ControladorMFP{
+	private MFP alg;
 	private Entrada e;
 	private Salida s;
-	private MFP alg;
 	private Recorrido r;
 	private FuncionesCoste fc;
 	private boolean FuncionElegida;
@@ -14,7 +14,9 @@ public class ControladorMFP{
 	//CREADORA
 	public ControladorMFP(){
 		FuncionElegida = false;
-		
+	}
+	public void AnadirEntrada(Entrada e1){
+		e = e1;
 	}
 	//Seleccion/Ejecucion del algoritmo
 	public void SeleccionarAlgoritmo(int i, ControladorNave cn) throws Exception{
