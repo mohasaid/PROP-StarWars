@@ -5,9 +5,8 @@ public class FordFulkerson extends MFP{
 	
 	public FordFulkerson(Entrada e){
 		g_residual = e.Consultar_grafo();
-		s = new Salida();
 	}
-	public void Ejecutar(Recorrido r){
+	public void Ejecutar(Recorrido r,Salida s){
 		// CONSULTAR TIEMPO
 		long t = System.currentTimeMillis();
 		
