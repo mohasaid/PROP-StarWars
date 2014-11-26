@@ -3,6 +3,7 @@ import java.util.*;
 public class ControladorMFP{
 	private Entrada e;
 	private MFP alg;
+	private Recorrido r;
 	private FuncionesCoste fc;
 	private boolean FuncionElegida;
 	private Iterator<Integer> itCB;
@@ -11,76 +12,47 @@ public class ControladorMFP{
 	
 	//CREADORA
 	public ControladorMFP(){
-		e = new Entrada();
 		FuncionElegida = false;
 		
 	}
 	//Seleccion/Ejecucion del algoritmo
-	public void SeleccionarAlgoritmo(int i,ControladorRuta cr,ControladorPlaneta cp,ControladorNave cn) throws Exception{
+	public void SeleccionarAlgoritmo(int i, ControladorNave cn) throws Exception{
 		if(!FuncionElegida){
 			throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
 		}
-		if(i==1){
-			alg = new FordFulkersonBFS(e);
-		}
-		if(i==2){
-			alg = new FordFulkerson_Dijkstra(e);
+		if(i==1||i==2){
+			alg = new FordFulkerson(e);
+			if(i==1)r = new BFS();
+			else if(i==2)r = new Dijkstra();
+			alg.Ejecutar(r);
 		}
 		if(i==3){
 			//alg = new PushRelabel(e);
 		}
-
-		alg.Ejecutar();
-		ArrayList<Integer> aux = cn.IdNaves();
-		Iterator<Integer> it = aux.iterator();
+		//Calculo del camino de nada nave 
+		ArrayList<Nave> aux = cn.CNaves();
+		Iterator<Nave> it = aux.iterator();
 		while(it.hasNext()){
-			int id = it.next();
-			int cons =  cn.ConsultarConsumo(id);
-			alg.Caminos(id,cons);
+			Nave n = it.next();
+			int cons = cn.ConsultarConsumo(n.consultar_id());
+			alg.Caminos(n,cons,(fc instanceof FuncionPrecio));
 		}
+		//Calculo de los cuellos de botella
+		//alg.consultarCalcular_cuellos_botellas();
 	}
 	
-	//Entrada
-	public void InitEntrada(ControladorGalaxia cg) throws Exception{
-		e = new Entrada(cg);
-	}
 	//Funciones de coste
-	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp) throws Exception{
-		if(x==1){
-			fc = new FuncionFlujo();
-			for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
-				for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
-					e.Consultar_grafo().consultarPrim(i,j).ModificarCoste(fc.CalcularCoste());
-				}
-			}
-		}
-		if(x==2){
-			fc = new FuncionDistancia();
-			for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
-				for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
-					Arco aux = e.Consultar_grafo().consultarPrim(i,j);
-					Ruta r = cr.BuscarRuta(aux.ConsultarIdRuta());
-					fc.ModificarRuta(r);
-					e.Consultar_grafo().consultarPrim(i,j).ModificarCoste(fc.CalcularCoste());
-				}
-			}
-		}
-		if(x==3){
-			fc = new FuncionPrecio();
-			for(int i=0; i < e.Consultar_grafo().sizeGrafo();++i){
-				for(int j=0; j<e.Consultar_grafo().sizeGrafo(i);++j){
-					Arco aux = e.Consultar_grafo().consultarPrim(i,j);
-					Ruta r = cr.BuscarRuta(aux.ConsultarIdRuta());
-					Planeta p = cp.Consultar_PlanetaX(e.Consultar_grafo().consultarSeg(i,j));
-					fc.ModificarRuta(r);
-					fc.ModificarPlaneta(p);
-					e.Consultar_grafo().consultarPrim(i,j).ModificarCoste(fc.CalcularCoste());
-				}
-			}
-		}
+	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception{
+		if(x==1) fc = new FuncionFlujo();
+		if(x==2) fc = new FuncionDistancia();
+		if(x==3) fc = new FuncionPrecio();
 		FuncionElegida=true;
+		e = cg.transformaGrafo(cr,cp,cn,fc);
 	}
 
+	
+	
+	
 //OPERACIONES SALIDA
 	public void Inicializar1(){
 		itF = (alg.ConsultarCaminos()).iterator();
@@ -89,6 +61,7 @@ public class ControladorMFP{
 	public void Inicializar2(){
 		itC = (alg.ConsultarCambios()).iterator();
 	}
+	
 	//Pre:cierto
 	//Post: devuelve el numero de elementos que conforman la salida incluyendo numero de rutas, numero de cuellos de botella y el coste
 	//Pre:cierto
