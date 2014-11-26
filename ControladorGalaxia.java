@@ -213,9 +213,7 @@ public class ControladorGalaxia
      */
     public Entrada transformaGrafo(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn,  FuncionesCoste fc) throws Exception 
     {
-    	ArrayList<ArrayList<Pair<Arco,Integer> > > resultado = new ArrayList<ArrayList<Pair<Arco,Integer> > >();
-    	
-    	ArrayList<Pair<Arco, Integer> > ap = new ArrayList<Pair<Arco, Integer> >();
+    	Grafo g = new Grafo();
     	
     	ArrayList<String> pl = cp.consultarPlanetas();
     	ArrayList<Conexion> ac = cr.Consultar_Conexiones();
@@ -232,6 +230,7 @@ public class ControladorGalaxia
     	
     	for(int i = 0; i < pl.size(); ++i) {
     		String idPlaneta = pl.get(i);
+    		ArrayList<Pair<Arco, Integer> > ara = new ArrayList<Pair<Arco, Integer> >();
     		for(int j = 0; j < ac.size(); ++j) {
     			if(ac.get(j).consultar_planetaA().compareTo(idPlaneta) == 0) {
     				int rut = ac.get(j).consultar_id();
@@ -259,15 +258,15 @@ public class ControladorGalaxia
     					fc.ModificarPlaneta(a);
     					arc.ModificarCoste(fc.CalcularCoste());
     				}
-    				ap.get(i).ponPrimero(arc);
-    				ap.get(i).ponSegundo(tmp);
+    				Pair<Arco, Integer> paira = new Pair<Arco, Integer>(arc,tmp);
+    				ara.add(paira);
     			}
     		}
-    		resultado.add(ap);
+    		g.ponG(ara);
     	}
     	
-    	ArrayList<String> origenes = cn.PlanetasOrigen();
-    	ArrayList<Pair<Arco, Integer> > tmp1 = new ArrayList<Pair<Arco, Integer> >();
+    	ArrayList<String> origenes = cn.PlanetasOrigen(); // Penultimo Nodo virtual - origen general, size - 2
+    	ArrayList<Pair<Arco, Integer> > apai = new ArrayList<Pair<Arco, Integer> >();
     	for(int i = 0; i < origenes.size(); ++i) {
     		String o = origenes.get(i);
     		int tmp2 = 0;
@@ -280,12 +279,12 @@ public class ControladorGalaxia
     		Arco c = new Arco(Integer.MAX_VALUE);
     		c.ModificarCoste(0);
     		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,tmp2);
-    		tmp1.add(pac);
+    		apai.add(pac);
     	}
-    	resultado.add(tmp1); // PENULTIMO NODO VIRTUAL - ORIGEN GENERAL, SIZE - 2
+    	g.ponG(apai);
     	
-    	ArrayList<String> destinos = cn.PlanetasDestino();
-		ArrayList<Pair<Arco, Integer> > tmp = new ArrayList<Pair<Arco, Integer> >();
+    	ArrayList<String> destinos = cn.PlanetasDestino(); // Ultimo nodo virtual - destino general, size - 1
+    	ArrayList<Pair<Arco, Integer> > apai1 = new ArrayList<Pair<Arco, Integer> >();
     	for(int i = 0; i < destinos.size(); ++i) {
     		String d = destinos.get(i);
     		int tmp3 = 0;
@@ -297,16 +296,15 @@ public class ControladorGalaxia
     		}
     		Arco c = new Arco(Integer.MAX_VALUE);
     		c.ModificarCoste(0);
-    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,tmp3);
-    		tmp.add(pac);
+    		Pair<Arco, Integer> pac1 = new Pair<Arco,Integer>(c,tmp3);
+    		apai1.add(pac1);
     	}
-    	resultado.add(tmp); // ULTIMO  NODO VIRTUAL - DESTINO GENERAL, SIZE - 1
+    	g.ponG(apai1);
     	
-    	Entrada ent = new Entrada(resultado);
+    	Entrada ent = new Entrada(g);
     	return ent;
     }
     	
-    
     /**
      * Metodo para cargar los elementos que forman la galaxia
      * @param directori
