@@ -2,63 +2,62 @@ import java.util.*;
 
 public class DriverEntrada {
 	private Entrada e;
-    private Scanner cin = new Scanner(System.in);
 
-    public void opciones()
+	public void opciones()
     {
     	System.out.print(
     				"-----------------------------------------------------------------------------------\n"
                 +   "                               DRIVER ENTRADA                                      \n"
                 +   "-----------------------------------------------------------------------------------\n"
-                +   " 0: Salir de la gestion del driver \n"
+                +   " 0: Salir de la gestion del driver 												\n"
                 
-                +   " 1: Entrada(ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) \n"
+                +   " 1: Entrada() 																		\n"
                 
-                +   " 2: Consultar_grafo() \n"    
+                +   " 2: Consultar_grafo() 																\n"    
     			);
     }
     
-    public void Executa(Entrada en, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception {
-        e = en;
+    public void Executa() 
+    {
+    	Scanner cin = new Scanner(System.in);
         opciones();
         int op = cin.nextInt();
         while(op != 0) {
             switch(op) {
-            case 1:  TestCrearEntrada2(cin);break;
-            case 2:  TestConsultarGrafo();break;
-            default: System.out.println("Opcio incorrecte");
+	            case 1:  TestCrearEntrada2(cin);break;
+	            case 2:  TestConsultarGrafo();break;
+	            default: System.out.println("Opcion incorrecta");
             }
         opciones();
         op = cin.nextInt();
         }
     }
     
+    // 6 2 16 0 1 13 0 2 2 10 0 2 12 0 3 2 4 0 1 14 0 4 2 9 0 2 20 0 5 2 7 0 3 4 0 5 0
+    
+    // 4 2 10 2 2 5 3 3 1 10 2 4 1 5 3 4 0
+    
     public void TestCrearEntrada2(Scanner cin)
     {
 		try {
-			ArrayList<ArrayList<Pair<Arco, Integer>>> aap = new ArrayList<ArrayList<Pair<Arco, Integer>>>();
+			Grafo g1 = new Grafo();
 			int n_planetes = cin.nextInt();
 			int c1, c2, c3;
 			for(int i = 0; i < n_planetes; ++i) {
-				System.out.println("LEYENDO " + i);
-				System.out.println("Introduce numero de vertices que se conectan con el vertice " + i);
 				int si = cin.nextInt();
-				ArrayList<Pair<Arco, Integer> > rp = new ArrayList<Pair<Arco, Integer> >();
+				ArrayList<Pair<Arco, Integer> > res = new ArrayList<Pair<Arco, Integer>>();
 				for(int j = 0; j < si; ++j) {
-					System.out.println("Introduce capacidad:");
 					c1 = cin.nextInt(); // capacidad
-					System.out.println("Introduce coste:");
 					c2 = cin.nextInt(); // coste
-					System.out.println("Introduce destino:");
 					c3 = cin.nextInt();
-					Arco c = new Arco(c1,c2);
+					Arco c = new Arco(c1);
+					c.ModificarCoste(c2);
 					Pair<Arco, Integer> pa = new Pair<Arco, Integer>(c,c3);
-					rp.add(pa);
+					res.add(pa);
 				}
-				aap.add(rp);
+				g1.ponG(res);
 			}
-			e = new Entrada(aap);
-			cin.close();
+			e = new Entrada(g1);
 		}
 		catch (Exception e){
             System.out.print(e);
