@@ -3,10 +3,6 @@ import java.util.*;
 public abstract class FuncionesCoste{
 	protected Ruta r;
 	protected Planeta p;
-	public FuncionesCoste(){
-		r = new Ruta();
-		p = new Planeta();
-	}
 	public void ModificarRuta(Ruta r1){
 		r = r1;
 	}
