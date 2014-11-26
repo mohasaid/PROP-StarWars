@@ -2,6 +2,7 @@ import java.util.*;
 
 public class ControladorMFP{
 	private Entrada e;
+	private Salida s;
 	private MFP alg;
 	private Recorrido r;
 	private FuncionesCoste fc;
