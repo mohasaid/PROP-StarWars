@@ -5,7 +5,7 @@ public abstract class MFP{
 	protected Grafo g_residual;
 
 	public abstract void Ejecutar(Recorrido r, Salida s);
-
+	
 	public void bfs (int origen, int destino, int path[])
 	{
 		int V = g_residual.sizeGrafo();
@@ -29,7 +29,7 @@ public abstract class MFP{
 		}		
 	}
 	
-	public void Calcular_cuellos_botellas (ControladorRuta cr, ControladorPlaneta cp) throws Exception
+	public void Calcular_cuellos_botellas (ControladorRuta cr, ControladorPlaneta cp, Salida s) throws Exception
 	{
 		int path[] = new int[g_residual.sizeGrafo()];
 		int V = g_residual.sizeGrafo();
@@ -73,7 +73,7 @@ public abstract class MFP{
 		return it.next();
 	}
 	
-	public void Caminos(Nave n, int consumo, boolean b, ControladorPlaneta cp) throws Exception{
+	public void Caminos(Nave n, int consumo, boolean b, ControladorPlaneta cp, Salida s) throws Exception{
 		
 		//Codigo caminos
 		String ori = n.consultar_origen();
