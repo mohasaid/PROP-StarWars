@@ -11,11 +11,11 @@ public class ControladorNave{
 		listaNaves = new TreeSet<Nave>(new OrdenTipoNave());
 		Cdn = new ControladorDadesNave();
 	}
-	public ArrayList<Integer> IdNaves() throws Exception{
-		ArrayList<Integer> res = new ArrayList<Integer>();
+	public ArrayList<Nave> CNaves() throws Exception{
+		ArrayList<Nave> res = new ArrayList<Nave>();
 		Iterator<Nave> it = listaNaves.iterator();
 		while(it.hasNext()){
-				res.add(it.next().consultar_id());
+				res.add(it.next());
 			}
 		return res;
 	}
