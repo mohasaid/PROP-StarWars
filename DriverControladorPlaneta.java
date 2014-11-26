@@ -2,8 +2,8 @@ import java.util.*;
  
 public class DriverControladorPlaneta {
 	private ControladorPlaneta contp;
-	public void Ejecuta(ControladorPlaneta cp, ControladorRuta contr, ControladorGalaxia cg) {
-		Scanner sc = new Scanner(System.in);
+	
+	public void Ejecuta(Scanner sc, ControladorPlaneta cp, ControladorRuta contr, ControladorGalaxia cg) {
         int n;
             System.out.print(
             "-----------------------------------------------------------------------------------"
@@ -39,6 +39,7 @@ public class DriverControladorPlaneta {
                 case 11: TestBorrar(sc, contp, contr, cg);break;
                 case 12: TestCargar(sc,contp, cg);break;
                 case 13: TestGuardar(sc,contp);break;
+                default: System.out.println("Opcion incorrecta");
             }
             
             n = sc.nextInt();
@@ -167,7 +168,7 @@ public class DriverControladorPlaneta {
     			throw new Exception("Error: La Coordenada Y de un Planeta tiene que ser un entero\n");
     		}
     		int y = sc.nextInt();
-    		contp.Modificar_Coordenadas(id, x, y, cg);
+    		contp.modificar_coordenadas(id, x, y, cg);
     	}
     	catch (Exception e){
     		System.out.print(e);
