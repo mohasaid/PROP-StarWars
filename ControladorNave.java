@@ -158,7 +158,7 @@ public class ControladorNave{
 			 */
 			public void CrearNaveAuto(int i,ArrayList<String> lp) throws Exception{
 				if(NingunTipo()){
-					throw new Exception("Error: No hay ningún tipo definido\n);
+					throw new Exception("Error: No hay ningún tipo definido\n");
 				}
 				while(i>0){
 					int t = TipoRandom();
