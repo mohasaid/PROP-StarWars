@@ -1,112 +1,111 @@
 import java.util.*;
 
+public class ControladorMFP{
+	private Entrada e;
+	private MFP alg;
+	private Recorrido r;
+	private FuncionesCoste fc;
+	private boolean FuncionElegida;
+	private Iterator<Integer> itCB;
+	private Iterator<String> itF;
+	private Iterator<String> itC;
+	
+	//CREADORA
+	public ControladorMFP(){
+		FuncionElegida = false;
+		
+	}
+	//Seleccion/Ejecucion del algoritmo
+	public void SeleccionarAlgoritmo(int i, ControladorNave cn) throws Exception{
+		if(!FuncionElegida){
+			throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
+		}
+		if(i==1||i==2){
+			alg = new FordFulkerson(e);
+			if(i==1)r = new BFS();
+			else if(i==2)r = new Dijkstra();
+			alg.Ejecutar(r,s);
+		}
+		if(i==3){
+			//alg = new PushRelabel();
+			//alg.Grafo(e.Consultar_grafo());
+		}
+		//Calculo del camino de nada nave 
+		ArrayList<Nave> aux = cn.CNaves();
+		Iterator<Nave> it = aux.iterator();
+		while(it.hasNext()){
+			Nave n = it.next();
+			int cons = cn.ConsultarConsumo(n.consultar_id());
+			alg.Caminos(n,cons,(fc instanceof FuncionPrecio));
+		}
+		//Calculo de los cuellos de botella
+		//alg.consultarCalcular_cuellos_botellas();
+	}
+	
+	//Funciones de coste
+	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception{
+		if(x==1) fc = new FuncionFlujo();
+		if(x==2) fc = new FuncionDistancia();
+		if(x==3) fc = new FuncionPrecio();
+		FuncionElegida=true;
+		e = cg.transformaGrafo(cr,cp,cn,fc);
+	}
 
-public abstract class MFP{
-	protected Grafo g_residual;
-	public abstract void Ejecutar(Recorrido r, Salida s);
 	
-/*
-	public void bfs (int origen, int destino, 	int path[])
-	{
-		int V = g.sizeGrafo();
-		boolean[] visitados = new boolean[V];
-		Arrays.fill(visitados,false);
-		visitados[origen] = true;
-		Queue<Integer> q1 = new LinkedList<Integer>();
-		q1.add(origen);
-		while(!q1.isEmpty()) {
-			int actual = q1.poll().intValue();
-			int size = g.sizeGrafo(actual);
-			for(int i = 0; i < size; ++i) {
-				int adj = g.consultarSeg(actual, i);
-				int cap = g.consultarPrim(actual, i).ConsultarCapacidad();
-				if(cap != 0 && !visitados[adj]) {
-					path[adj] = actual;
-					visitados[adj] = true;
-					q1.add(adj);
-				}
-			}
-		}		
+	
+	
+//OPERACIONES SALIDA
+	public void Inicializar1(){
+		itF = (alg.ConsultarCaminos()).iterator();
+		itCB = (alg.ConsultarCuellos()).iterator();
+	}
+	public void Inicializar2(){
+		itC = (alg.ConsultarCambios()).iterator();
 	}
 	
-	public void Calcular_cuellos_botellas ()
-	{
-		int path[] = new int[g_residual.sizeGrafo()];
-		int V = g_residual.sizeGrafo();
-		int origen = V-1;
-		boolean[] visitados = new boolean[V];
-		Arrays.fill(visitados,false);
-		visitados[ origen ] = true;
-		Queue<Integer> q1 = new LinkedList<Integer>();
-		q1.add(origen);
-		while(!q1.isEmpty()) {
-			int actual = q1.poll().intValue();
-			int size = g.sizeGrafo(actual);
-			for(int i = 0; i < size; ++i) {
-				int adj = g.consultarSeg(actual, i);
-				int cap = g.consultarPrim(actual, i).ConsultarCapacidad();
-				if(cap != 0 && !visitados[adj]) {
-					path[adj] = actual;
-					visitados[adj] = true;
-					q1.add(adj);
-				}
-				if (cap == 0) //tenemos cuello de botella
-				{
-					Arco c = g.consultarPrim(actual, adj);
-					s.AnadirCuello(c);
-				}
-			}
-		}
-	}
-	*/
-	public void Caminos(Nave n, int consumo, boolean b){
-		
-		//Codigo caminos
-		/*
-		int origen = n.consultar_origen();
-		int destino = n.consultar_destino();
-		int path[] = new int[g.sizeGrafo()];
-		Arrays.fill(path,-1);
-		bfs(origen,destino,path);
-		
-		Stack<Integer> st = new Stack<Integer>();
-		while(destino != -1) {
-			st.push(destino);
-			destino = path[destino];
-		}
-		
+	//Pre:cierto
+	//Post: devuelve el numero de elementos que conforman la salida incluyendo numero de rutas, numero de cuellos de botella y el coste
+	//Pre:cierto
+	//Post: devuelve un string que contiene: flujos de cada ruta, los cuellos de botella y el coste
+	public String ConsultarSalida(int i){
 		String res = "";
-		if (st.size() >= 0) res = "" + st.pop();
-		while (st.size() >= 0) // el cami es separa per una ','
-		{
-			res = ", " + st.pop();
+		int j=0;
+		if(i==0){
+			Inicializar1();
+			res += "Camino que ha de recorrer cada nave:\n";
 		}
-		
-		if (b)
-		{
-			res = "#"; //marca cuando hay el consumo
-			consumo = 0;
-			while(destino != -1) {
-				st.push(destino);
-				destino = path[destino];
-			}
-			int act = origen;
-			int sig = st.pop();
-			boolean trobat = false;
-			
-			while (!trobat){
-				consumo += g.consultaPairUn(act, sig).consultarPrimero().ConsultarCapacidad()*g.consultaPairUn(act, sig).consultarPrimero().ConsultarCoste();
-				if (sig == destino) trobat = false;
-				if (!trobat) {
-					act = sig;
-					sig = st.pop();
-				}
-				
-			}
-			res = "" + consumo;
+		while(itF.hasNext() && j<100){
+			String aux = itF.next();
+			res += aux+"\n";
+			if(!itF.hasNext() && itCB.hasNext()) res += "Cuellos de botella:\n";
+		}
+		while(itCB.hasNext() && j<100){
+			res += itCB.next()+"\n";
+			++j;
 		}
 		return res;
-		*/
+	}
+	public int size(){
+		return alg.size();
+	}
+	public int sizeCambios(){
+		return alg.sizeCambios();
+	}
+	
+	//Pre:cierto
+	//Post:devuelve un string que contiene los cambios que se han ido produciendo en el grafo durante la ejecución del algoritmo.
+	public String ConsultarCambios(int i){
+		String res = "";
+		int j=0;
+		if(i==0){
+			Inicializar2();
+			res += "Pasos realizados en el algoritmo:\n";
+		}
+		while(itC.hasNext() && j<100){
+			res += itC.next()+"\n";
+			++j;
+		}
+		return res;
 	}
 	
 }
