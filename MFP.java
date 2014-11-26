@@ -4,7 +4,6 @@ import java.util.*;
 public abstract class MFP{
 	protected Salida s;
 	protected Grafo g_residual;
-	protected Grafo g;
 	
 	public ArrayList<Integer> ConsultarCuellos(){
 		return s.ConsultarCuellos();
@@ -18,16 +17,14 @@ public abstract class MFP{
 	public int sizeCambios(){
 		return s.size();
 	}
+	
 	//Cambiar:
 	public ArrayList<String> ConsultarCambios(){
 		return s.ConsultarCambios();
 	}
-	public abstract void Ejecutar();
-	public abstract boolean Recorrido(int origen,int destino);
-	public void Caminos(int idNave, int consumo){
-		//Codigo caminos
-	}
+	public abstract void Ejecutar(Recorrido r);
 	
+/*
 	public void bfs (int origen, int destino, 	int path[])
 	{
 		int V = g.sizeGrafo();
@@ -80,9 +77,11 @@ public abstract class MFP{
 			}
 		}
 	}
-	
-	public String Caminos(Nave n, int consumo, boolean b){
+	*/
+	public void Caminos(Nave n, int consumo, boolean b){
+		
 		//Codigo caminos
+		/*
 		int origen = n.consultar_origen();
 		int destino = n.consultar_destino();
 		int path[] = new int[g.sizeGrafo()];
@@ -126,5 +125,7 @@ public abstract class MFP{
 			res = "" + consumo;
 		}
 		return res;
+		*/
 	}
+	
 }
