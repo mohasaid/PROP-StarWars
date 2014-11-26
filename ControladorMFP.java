@@ -27,7 +27,8 @@ public class ControladorMFP{
 			alg.Ejecutar(r);
 		}
 		if(i==3){
-			//alg = new PushRelabel(e);
+			alg = new PushRelabel();
+			alg.Grafo(e.Consultar_grafo());
 		}
 		//Calculo del camino de nada nave 
 		ArrayList<Nave> aux = cn.CNaves();
