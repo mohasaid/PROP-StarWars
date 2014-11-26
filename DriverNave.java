@@ -12,21 +12,21 @@ public class DriverNave{
         
                 		System.out.print("Opciones: \n\n"
  +"!!) Ya que la implementación de las clases TipoNave es identica y para reducir el codigo se prueba TipoNave1\n\n"
-		     +"---------------------------------------------------------------------------------\n"
+		     +"-------------------------------------------------------------------------\n"
       	     +"-                                 OPCIONES                                      -\n"
-   	         +"-                     [opcion   Operacion(Atributos)]                           -\n"
+   	         +"-                     [opcion   Operacion(Atributos)]                       -\n"
              +"---------------------------------------------------------------------------------\n"
              +"-                                                                               -\n"
              +"-   0   Salir del DriverNave                                                    -\n"
-             +"-   1   TestDefinirTipo1(int consumo)                                            -\n"
-             +"-   2   TestCrearNaveTipo1(int idDestino, int idOrigen)                          -\n" 
+             +"-   1   TestDefinirTipo1(int consumo)                                           -\n"
+             +"-   2   TestCrearNaveTipo1(String idDestino, String idOrigen)                   -\n" 
              +"-   3   TestConsultarID()                                                       -\n" 
              +"-   4   TestConsultarDestino()                                                  -\n" 
              +"-   5   TestConsultarOrigen()                                                   -\n" 
              +"-   6   TestConsultarIDTipo()                                                   -\n"
              +"-   7   TestConsultarConsumo()                                                  -\n"
              +"-   8   TestConsultarNave()                                                     -\n"  
-             +"-   9  TestModificarDestino(int NuevoDestino)                                  -\n" 
+             +"-   9  TestModificarDestino(int NuevoDestino)                                   -\n" 
              +"-   10  TestModificarOrigen(int NuevoOrigen)                                    -\n" 
              +"-   11  TestModificarConsumo(int NuevoConsumo)                                  -\n" 
              +"---------------------------------------------------------------------------------\n");
@@ -68,9 +68,6 @@ public class DriverNave{
     
     public static void TestCrearNaveTipo1(Scanner sc){
     	try{
-	        int id = sc.nextInt();
-	        String dest = sc.next();
-	        String orig = sc.next();
     		if(creado){
     			throw new Exception("Error: ya se ha creado una nave");
     		}
@@ -78,8 +75,11 @@ public class DriverNave{
 	            String s = sc.nextLine();
 	            throw new Exception("Error: El identificador debe ser un entero\n");
 	        }
-	        creado = true;
+		int id = sc.nextInt();
+		String dest= sc.next();
+		String orig= sc.next();
 	        n = new TipoNave1(id,dest,orig);
+		creado = true;
     	}
     	 catch (Exception e){
              System.out.print(e);
