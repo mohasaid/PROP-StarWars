@@ -27,12 +27,13 @@ public class DriverControladorRuta {
               + " 16: BuscarConexion(int id)\n"
               + " 17: BuscarRuta(int id)\n"
               + " 18: Consultar_Conexiones()\n"
+              + " 19: Consultar_id_ruta(String planetaA, String planetaB) \n"
               
-              + " 19: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
-              + " 20: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
-              + " 21: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
-              + " 22: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
-              + " 23: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
+              + " 20: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
+              + " 21: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
+              + " 22: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
+              + " 23: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
+              + " 24: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
               + " 25: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
               
               + " 26: BorrarRutaConexions(int id_planeta)\n"
@@ -71,12 +72,13 @@ public class DriverControladorRuta {
 	            case 16:  TestControladorBuscarConexion(cin,cr);break;
 	            case 17:  TestControladorBuscarRuta(cin,cr);break;
 	            case 18:  TestControladorConsultarConexiones(cr);break;
+	            case 19:  TestConsultaridruta(cin, cr);break;
 	            
-	            case 19: TestControladorModificarIdRuta(cin,cr,cp);break;
-	            case 20: TestControladorModificarCpacitatRuta(cin,cr);break;
-	            case 21: TestControladorModificarDistanciaRuta(cin,cr);break;
-	            case 22: TestControladorModificarPlanetaARuta(cin,cr,cp);break;
-	            case 23: TestControladorModificarPlanetaBRuta(cin,cr,cp);break;
+	            case 20: TestControladorModificarIdRuta(cin,cr,cp);break;
+	            case 21: TestControladorModificarCpacitatRuta(cin,cr);break;
+	            case 22: TestControladorModificarDistanciaRuta(cin,cr);break;
+	            case 23: TestControladorModificarPlanetaARuta(cin,cr,cp);break;
+	            case 24: TestControladorModificarPlanetaBRuta(cin,cr,cp);break;
 	            case 25: TestControladorModificarBidireccionalRuta(cin,cr);break;
 	            
 	              
@@ -91,6 +93,17 @@ public class DriverControladorRuta {
             opcions();
             n = cin.nextInt();
         }
+    }
+    
+    
+    public void TestConsultaridruta(Scanner cin, ControladorRuta cr)
+    {
+    	try {
+    		cr.Consultar_id_ruta( cin.next(), cin.next() );
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
     }
     
     public void  TestControladorGuardarRutas(Scanner cin, ControladorRuta cr)
