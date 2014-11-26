@@ -5,6 +5,8 @@ public class Grafo {
 	// i = id nodo origen , [i][j].second = destino nodo i, [i][j].first.first = capacidad , [i][j].first.second = coste
 	private ArrayList<ArrayList<Pair<Arco,Integer> > > g;
 	
+	// private ArrayList<Nodo> g;
+	
 	/**
 	 * Creadora vacia de un grafo
 	 */
@@ -111,9 +113,20 @@ public class Grafo {
      * @param i
      * @param p
      */
-    public void ponGeneral(int u, int i, Pair<Arco,Integer> p) {
+    public void ponGeneral(int u, int i, Pair<Arco,Integer> p) 
+    {
     	g.get(u).get(i).ponPrimero(p.consultarPrimero());
     	g.get(u).get(i).ponSegundo(p.consultarSegundo());
+    }
+    
+    /**
+     * Metodo para añadir una arista y destino 
+     * @param i
+     * @param p
+     */
+    public void ponG(ArrayList<Pair<Arco,Integer> > p)
+    {
+    	g.add(p);
     }
     
     /**
@@ -164,6 +177,19 @@ public class Grafo {
     public ArrayList<ArrayList<Pair<Arco, Integer> > > consultarGrafo()
     {
     	return g;
+    }
+    
+    /**
+     * Metodo para consultar si existe el nodo destino v
+     * @param u
+     * @param v
+     * @return
+     */
+    public boolean ExisteV(int u, int v) {
+		for(int i = 0; i < sizeGrafo(u); ++i) {
+			if(consultarSeg(u,i) == v) return true;
+		}
+		return false;
     }
     
     /**
