@@ -1,29 +1,28 @@
 import java.util.*;
 
-public abstract class FordFulkerson extends MFP{
+public class FordFulkerson extends MFP{
 	protected int path[];
-	protected int dist[];
-
-	public void Ejecutar(){
+	
+	public FordFulkerson(Entrada e){
+		g_residual = e.Consultar_grafo();
+		s = new Salida();
+	}
+	public void Ejecutar(Recorrido r){
 		// CONSULTAR TIEMPO
 		long t = System.currentTimeMillis();
 		
-		int size = g.sizeGrafo();
-		g_residual = g;
+		int size = g_residual.sizeGrafo();
 		
 		int origen = size-1;
 		int destino = size-2;
 		
 		int path[] = new int[size];
 		Arrays.fill(path, -1);
-		
-		int dist[] = new int[size];
-		Arrays.fill(dist, Integer.MAX_VALUE);
-		
+
 		int u,v;
 		int max_flow = 0;
 		String res = "Buscamos camino de " + origen + " hacia " + destino + " para poder aumentar flujo";
-		while(Recorrido(origen,destino)) {
+		while(r.Recorrido(g_residual,origen,destino,path)) {
 			int pathflow = Integer.MAX_VALUE;
 			res += "Empezamos en nodo " + destino + " y mientras sea diferente de " + origen + ".";
 			for(v = destino; v != origen; v = path[v]) {
@@ -56,10 +55,8 @@ public abstract class FordFulkerson extends MFP{
 		s.AnadirTiempo(tiempo);
 	}
 	
-	public void Caminos(int idNave, int consumo){
-		super.Caminos(idNave, consumo);
+	public void Caminos(Nave n, int consumo, boolean b){
+		super.Caminos(n, consumo,b);
 	}
-	public abstract boolean Recorrido(int origen, int destino);
-	
 }
 
