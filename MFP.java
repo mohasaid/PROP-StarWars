@@ -2,28 +2,9 @@ import java.util.*;
 
 
 public abstract class MFP{
-	protected Salida s;
 	protected Grafo g_residual;
-	
-	public ArrayList<Integer> ConsultarCuellos(){
-		return s.ConsultarCuellos();
-	}
-	public ArrayList<String> ConsultarCaminos(){
-		return s.ConsultarCaminos();
-	}
-	public int size(){
-		return s.size();
-	}
-	public int sizeCambios(){
-		return s.size();
-	}
-	
-	//Cambiar:
-	public ArrayList<String> ConsultarCambios(){
-		return s.ConsultarCambios();
-	}
-	public abstract void Ejecutar(Recorrido r);
-	
+
+	public abstract void Ejecutar(Recorrido r, Salida s);
 
 	public void bfs (int origen, int destino, int path[])
 	{
