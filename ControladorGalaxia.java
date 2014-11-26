@@ -1,12 +1,15 @@
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
  
 public class ControladorGalaxia
 {
     private Galaxia g;
     private ControladorDadesGalaxia cdg;
-    private Iterator<Pair<Integer, Integer>> itp;
+    private Iterator<Pair<Integer, Integer> > itp;
  
     //CONSTRUCTORAS
  
@@ -55,16 +58,14 @@ public class ControladorGalaxia
     
     /**
      * Metodo para consultar las coordenadas que dan forma a la galaxia
-     * @return
+     * @return Las coordenadas que dan forma a la galaxia
      * @throws Exception
      */
     public String consultarLimitsGalaxia(int i) throws Exception
     {
     	String res = "";
     	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
-    	if(i == 0) {
-    		itp = lp.iterator();
-    	}
+    	if(i == 0) itp = lp.iterator();
     	int j = 0;
     	while(itp.hasNext() && j < 100) {
     		Pair<Integer, Integer> a = itp.next();
@@ -159,28 +160,6 @@ public class ControladorGalaxia
     }
 
     /**
-     * Metodo para modificar las coordenadas de un planeta
-     * @param cp
-     * @param idPlaneta
-     * @param x
-     * @param y
-     * @throws Exception
-     */
-    // ya no esta, comprobar en controlador
-    public void modificarCoordenadas(ControladorPlaneta cp, String idPlaneta, int x, int y) throws Exception
-    {
-    	if(!cp.ExistePlaneta(idPlaneta)) throw new Exception("No existe ningun planeta con este identificador");
-    	Planeta a = cp.BuscarPlaneta(idPlaneta);
-    	//if(!g.dintreLimitUsuari(x, y)) throw new Exception("Las coordenadas no estan dentro del limite que da forma a la galaxia");
-    	//if(g.existeixPlanetaCoordenades(x, y)) throw new Exception("Ya existe un planeta en estas coordenadas");
-    	afegirPlaneta(x, y); // comprueba lo de arriba
-    	eliminarPlaneta(x, y);
-    	a.modificarCoordenades(x, y);
-    	cp.BorraPla(idPlaneta);
-    	cp.anadirPlaneta(a);
-    }
-    
-    /**
      * Metodo para añadir un planeta en la galaxia en las coordenadas "x" y "y"
      * @param cp
      * @param idPlaneta
@@ -188,7 +167,6 @@ public class ControladorGalaxia
      * @param y
      * @throws Exception
      */
-    // meter en controlador del planeta
     public void afegirPlaneta(int x, int y) throws Exception
     {
     	g.afegirPlaneta(x,y);
@@ -201,7 +179,6 @@ public class ControladorGalaxia
      * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
      * @throws Exception
      */
-    // meter en controlador del planeta
     public String afegirPlanetaAutomatic() throws Exception
     {
     	String res = "";
@@ -225,7 +202,7 @@ public class ControladorGalaxia
      * Metodo para eliminar todos los plaentas de una galaxia
      * @throws Exception
      */
-    public void eliminarPlanetes() throws Exception 
+    public void eliminarPlanetes()
     {
     	g.eliminarTotsPlanetes();
     }
@@ -234,8 +211,7 @@ public class ControladorGalaxia
      * Metodo para transformar los elementos de la galaxia en un grafo
      * @throws Exception
      */
-    // CAMBIAR A ENTRADA - Y STRING DE PLANETA
-    /*public Entrada convierteRutasYPlanetas(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception 
+    public Entrada transformaGrafo(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn,  FuncionesCoste fc) throws Exception 
     {
     	ArrayList<ArrayList<Pair<Arco,Integer> > > resultado = new ArrayList<ArrayList<Pair<Arco,Integer> > >();
     	
@@ -245,55 +221,90 @@ public class ControladorGalaxia
     	ArrayList<Conexion> ac = cr.Consultar_Conexiones();
     	
     	for(int i = 0; i < ac.size(); ++i) { // anado las conexiones bidireccionales
-    		if(ac.get(i).consultar_id()) {
-    			int idRuta = ac.get(i).consultar_id();
-    			int Pa = ac.get(i).consultar_planetaA();
-    			int Pb = ac.get(i).consultar_planetaB();
-    			Conexion c = new Conexion(idRuta,Pb,Pa,true);
+    		Ruta r = cr.BuscarRuta(ac.get(i).consultar_id());
+    		if(r.consultar_bidireccional()) {
+    			String pA = ac.get(i).consultar_planetaA();
+    			String pB = ac.get(i).consultar_planetaB();
+    			Conexion c = new Conexion(r.consultar_id(),pB,pA);
     			ac.add(c);
     		}
     	}
     	
-    	for(int i = 0; i < pl.size(); ++i) { // planetas
-    		String id = pl.get(i);
+    	for(int i = 0; i < pl.size(); ++i) {
+    		String idPlaneta = pl.get(i);
     		for(int j = 0; j < ac.size(); ++j) {
-    			if(ac.get(j).consultar_planetaA() == id) {
-    				int ru = ac.get(j).consultar_id();
-    				Ruta r = cr.BuscarRuta(ru);
-    				int idRuta = r.consultar_id();
+    			if(ac.get(j).consultar_planetaA().compareTo(idPlaneta) == 0) {
+    				int rut = ac.get(j).consultar_id();
+    				String pb = ac.get(j).consultar_planetaB();
+    				int tmp = 0;
+    				for(int k = 0; k < pl.size() ; ++k) {
+    					if(pl.get(k).compareTo(pb) == 0) {
+    						tmp = k;
+    						break;
+    					}
+    				}
+    				Ruta r = cr.BuscarRuta(rut);
     				int cap = r.consultar_capacidad();
-    				Arco arc = new Arco(cap,idRuta);
+    				Arco arc = new Arco(cap);
+    				if(fc instanceof FuncionFlujo) {
+    					arc.ModificarCoste(fc.CalcularCoste());
+    				}
+    				else if(fc instanceof FuncionDistancia) {
+    					fc.ModificarRuta(r);
+    					arc.ModificarCoste(fc.CalcularCoste());
+    				}
+    				else if(fc instanceof FuncionPrecio) {
+    					fc.ModificarRuta(r);
+    					Planeta a = cp.BuscarPlaneta(idPlaneta);
+    					fc.ModificarPlaneta(a);
+    					arc.ModificarCoste(fc.CalcularCoste());
+    				}
     				ap.get(i).ponPrimero(arc);
-    				ap.get(i).ponSegundo(ac.get(j).consultar_planetaB());
+    				ap.get(i).ponSegundo(tmp);
     			}
     		}
     		resultado.add(ap);
     	}
     	
-    	ArrayList<Integer> destinos = cn.PlanetasDestino(); // PENULTIMO NODO - ORIGEN GENERAL
+    	ArrayList<String> origenes = cn.PlanetasOrigen();
+    	ArrayList<Pair<Arco, Integer> > tmp1 = new ArrayList<Pair<Arco, Integer> >();
+    	for(int i = 0; i < origenes.size(); ++i) {
+    		String o = origenes.get(i);
+    		int tmp2 = 0;
+    		for(int j = 0; j < pl.size(); ++j) {
+    			if(pl.get(j).compareTo(o) == 0) {
+    				tmp2 = j;
+    				break;
+    			}
+    		}
+    		Arco c = new Arco(Integer.MAX_VALUE);
+    		c.ModificarCoste(0);
+    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,tmp2);
+    		tmp1.add(pac);
+    	}
+    	resultado.add(tmp1); // PENULTIMO NODO VIRTUAL - ORIGEN GENERAL, SIZE - 2
+    	
+    	ArrayList<String> destinos = cn.PlanetasDestino();
 		ArrayList<Pair<Arco, Integer> > tmp = new ArrayList<Pair<Arco, Integer> >();
     	for(int i = 0; i < destinos.size(); ++i) {
-    		Arco c = new Arco(Integer.MAX_VALUE,-1);
-    		int t = destinos.get(i);
-    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,t);
+    		String d = destinos.get(i);
+    		int tmp3 = 0;
+    		for(int j = 0; j < pl.size(); ++j) {
+    			if(pl.get(j).compareTo(d) == 0) {
+    				tmp3 = j;
+    				break;
+    			}
+    		}
+    		Arco c = new Arco(Integer.MAX_VALUE);
+    		c.ModificarCoste(0);
+    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,tmp3);
     		tmp.add(pac);
     	}
+    	resultado.add(tmp); // ULTIMO  NODO VIRTUAL - DESTINO GENERAL, SIZE - 1
     	
-    	resultado.add(tmp); // ULTIMO NODO VIRTUAL - DESTINO GENERAL
-    	ArrayList<Pair<Arco, Integer> > tmp1 = new ArrayList<Pair<Arco, Integer> >();
-    	ArrayList<Integer> origenes = cn.PlanetasOrigen();
-    	for(int i = 0; i < origenes.size(); ++i) {
-    		Arco c = new Arco(Integer.MAX_VALUE,-2);
-    		int t = origenes.get(i);
-    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,t);
-    		tmp.add(pac);
-    	}
-    	
-    	resultado.add(tmp1); // ULTIMO NODO VIRTUAL - ORIGEN
     	Entrada ent = new Entrada(resultado);
-    	// return new Entrada(resultado); 
     	return ent;
-    }*/
+    }
     	
     
     /**
@@ -304,100 +315,49 @@ public class ControladorGalaxia
      * @param cr
      * @throws Exception
      */
-    /*public void carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn, ControladorRuta cr) throws Exception
+    public void carregarConjuntGalaxia(String directori) throws Exception
     {
-		g.eliminarContingutGalaxia(); // Empiezo borrando el contenido de la galaxia
+		g.eliminarTotsPlanetes(); // borro los planetas, el resto lo sobreescribo
 		
-		String result = "";
+		String result;
 		cdg.AbrirLectura(directori);
+		FileReader fr = new FileReader(directori);
+		BufferedReader br = new BufferedReader(fr);
+		boolean first = true;
+		boolean tiene = false;
+		String nomG = "";
+		int N = 0;
+		List<Pair<Integer, Integer> > lpa = new ArrayList<Pair<Integer,Integer> >();
 		
-		while(!(result = cdg.carregar(directori)).isEmpty()) {
-			
+		while((result = cdg.cargar(directori,100,br))!= "") {
 			Scanner cin = new Scanner(result);
-			cin.useDelimiter(":|,");
-			String info;
+			cin.useDelimiter("#|:");
+			String info = "";
+			if(cin.hasNext()) info = cin.next();
 			while(cin.hasNext()) {
-				info = cin.next();
-					String nomG = info; // nombre
+				if(first) {
+					nomG = info; // nombre
 					info = cin.next(); // limite siempre tendra
-					Integer N = Integer.parseInt(info);
-					info = cin.next();
-					if(info.contentEquals("null")) {
-						g = new Galaxia(nomG,N);
-						break; // no tiene limites
-					}
-					else {
-						List<Pair<Integer, Integer> > lpa = new ArrayList<Pair<Integer,Integer> >();
-						while(cin.hasNext()) {
-							String a1 = cin.next();
-							if(a1.contentEquals("@#")) break; // ya hemos leido todos los pairs
-							Integer a = Integer.parseInt(info);
-							info = cin.next();
-							Integer b = Integer.parseInt(info);
-							Pair<Integer,Integer> paird = new Pair<Integer,Integer>(a,b);
-							lpa.add(paird);
-						}
-						g = new Galaxia(nomG,N,lpa);
-					}
-				info = cin.next();
-				while(!(info.contentEquals("#@"))) {
-					Integer id = Integer.parseInt(info);
-					info = cin.next();
-					Integer coste = Integer.parseInt(info);
-					info = cin.next();
-					Integer c1 = Integer.parseInt(info);
-					info = cin.next();
-					Integer c2 = Integer.parseInt(info);
-					Pair<Integer, Integer> co = new Pair<Integer, Integer>(c1,c2);
-					Planeta a = new Planeta(id,coste,co);
-					cp.anadirPlaneta(a);
-					g.afegirPlaneta(id, c1, c2);
-					info = cin.next();
+					N = Integer.parseInt(info);
+					first = false;
 				}
-				info = cin.next();
-				while(!(info.contentEquals("#@"))) {
-					if (Integer.parseInt(info) == 0) { //anadimos ruta
-			    	      info = cin.next();
-			    	      int id = Integer.parseInt(info);
-			    	      info = cin.next();
-			    	      int capacidad = Integer.parseInt(info);
-			    	      info = cin.next();
-			    	      int distancia = Integer.parseInt(info);
-			    	      Ruta r = new Ruta(id,capacidad,distancia);
-			    	      
-				    } 
-					else { //anadimos conexion
-						  info  = cin.next();
-				    	  int id = Integer.parseInt(info);
-				    	  info = cin.next();
-			    	      int ida = Integer.parseInt(info);
-			    	      info = cin.next();
-			    	      int idb = Integer.parseInt(info);
-			    	      info = cin.next();
-			    	      Boolean b = Boolean.parseBoolean(s);
-			    	      System.out.print("ida = " + ida + "idb = " + idb + "\n");
-			    	      Conexion c = new Conexion(id,ida,idb,b);
-			    	      cn.
-			    	      Conexiones.add(c);
-				     }
-				      s = sc.next();
+				if(!cin.hasNext()) break;
+				tiene = true;
+				while(cin.hasNext()) {
+					info = cin.next();
+					Integer a = Integer.parseInt(info);
+					info = cin.next();
+					Integer b = Integer.parseInt(info);
+					Pair<Integer,Integer> paird = new Pair<Integer,Integer>(a,b);
+					lpa.add(paird);
 				}
-				// EN DRIVER, CARGO GALAXIA, Y LUEGO CADA CONTROLADOR CARGA LO SUYO
-					
 			}
-			while(cin.hasNext()) {
-				info = cin.next();
-				if(info.contentEquals("#@")) break;
-				cr.CargarRutas(directori);
-			}
-				
-				//cp.CargarPlanetas(path);
-				cr.CargarRutas(directori);
-				cn.CargarNaves(directori);
-				cin.close();
-			}
-			cdg.CerrarEscritura();
-    }*/
+			cin.close();
+		}
+		if(tiene) g = new Galaxia(nomG,N,lpa);
+		else g = new Galaxia(nomG,N);
+		cdg.CerrarEscritura();
+    }
     
     /**
      * Metodo para guardar los elementos que forman la galaxia
@@ -407,10 +367,9 @@ public class ControladorGalaxia
      * @param cn
      * @throws Exception
      */
-    public void guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn) throws Exception
+    public void guardarConjuntGalaxia(String directori) throws Exception
     {
     	cdg.AbrirEscritura(directori);
-
     	String result = "";
     	result += g.consultarNomGalaxia();
     	result += "#" + g.consultarLimitGalaxia();
@@ -428,32 +387,6 @@ public class ControladorGalaxia
     	else {
     		cdg.guardar(directori,result);
     	}
-    	
-    	/*System.out.println(result);
-    	
-    	result = "#@";
-    	if(cp.Consultar_Size() > 0) {
-    		String GP = cp.consultarTODO();
-    		result += GP;
-    		cdg.guardar(directori,result);
-    		System.out.println(result);
-    	}
-    	
-    	result = "#@";
-    	if(cr.Consultar_numero_rutes() > 0) {
-    		String GP1 = cr.consultarTODO();
-    		result += GP1;
-    		cdg.guardar(directori,result);
-    		System.out.println(result);
-    	}
-    	
-    	result = "#@";
-    	if(cn.size() > 0) {
-    		String GP2 = cn.consultarTODO();
-    		result += GP2;
-    		cdg.guardar(directori,result);
-    		System.out.println(result);
-    	}*/
     	cdg.CerrarEscritura();
    	}
 }
