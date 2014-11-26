@@ -3,8 +3,13 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
+/*
+ * Para no tener que ir a controlador de planeta a crear el planeta y luego volver a galaxia, se le da la posibilidad de crear
+ * aqui los planetas.
+ */
 
 public class DriverControladorGalaxia {
+	private static boolean creado = false;
 	
 	public void Executa(Scanner cin, ControladorPlaneta cp, ControladorRuta cr, ControladorNave cn, ControladorGalaxia cGalaxia)
 	{
@@ -19,31 +24,28 @@ public class DriverControladorGalaxia {
 	            + "- Opcion 2: creaGalaxia2(String nom, int n, List<Pair<Integer, Integer> > l) 			\n"
 	            
 	            + "- Opcion 3: consultar_nom()										   						\n"     
-	            + "- Opcion 4: consultarElementsGalaxia() 							   						\n"
-	            + "- Opcion 5: consultarLimitsGalaxia()                                                     \n"
-	            + "- Opcion 6: consultarLimit()                                                             \n"
-	            + "- Opcion 7: dintreLimitUsuari(int x, int y)                                              \n"
+	            + "- Opcion 4: consultarLimitsGalaxia()                                                     \n"
+	            + "- Opcion 5: consultarLimit()                                                             \n"
+	            + "- Opcion 6: dintreLimitUsuari(int x, int y)                                              \n"
 	            
-				+ "- Opcion 8: modificarNom(String nomNou)                                                  \n"
-				+ "- Opcion 9: modificarLimit(int limitNou)                                                 \n"
-				+ "- Opcion 10: modificarLimits(List<Pair<Integer, Integer> > lp)                           \n"
+				+ "- Opcion 7: modificarNom(String nomNou)                                                  \n"
+				+ "- Opcion 8: modificarLimit(int limitNou)                                                 \n"
+				+ "- Opcion 9: modificarLimits(List<Pair<Integer, Integer> > lp)                           	\n"
 				
-				+ "- Opcion 11: existeixPlanetaCoordenades(int x, int y)                                    \n"
-				+ "- Opcion 12: modificarCoordenadas(int idPlaneta, int x, int y)							\n"		
-				+ "- Opcion 13: algunPlaneta()                                                              \n"
+				+ "- Opcion 10: existeixPlanetaCoordenades(int x, int y)                                    \n"
+				+ "- Opcion 11: modificarCoordenadas(String idPlaneta, int x, int y)						\n"		
+				+ "- Opcion 12: algunPlaneta()                                                              \n"
 				
-				+ "- Opcion 14: ConsultarPlaneta(idPlaneta)													\n"	
+				+ "- Opcion 13: ConsultarPlaneta(idPlaneta)													\n"	
 				
-				+ "- Opcion 15: CrearPlaneta(int idPlaneta, int x, int y)                                   \n"
-				+ "- Opcion 16: CrearPlanetaAutomatic(int idPlaneta)                                        \n"
-				+ "- Opcion 17: CrearPlanetaIDAutomatic(int idP)                                            \n"
-				+ "- Opcion 18: eliminarPlaneta(int idPlaneta)                                              \n"
-				+ "- Opcion 19: eliminarPlanetes()                                                          \n"
+				+ "- Opcion 14: CrearPlaneta(String idPlaneta, int x, int y)                                \n"
+				+ "- Opcion 15: CrearPlanetaAutomatic(String idPlaneta)                                     \n"
+				+ "- Opcion 16: CrearPlanetaIDAutomatic(String idP)                                         \n"
+				+ "- Opcion 17: eliminarPlaneta(String idPlaneta)                                           \n"
+				+ "- Opcion 18: eliminarPlanetes()                                                          \n"
 				
-				+ "/*- Opcion 20: carregarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorNave cn,"
-				+ " ControladorRuta cr)*/                                                                     \n"
-				+ "- Opcion 21: guardarConjuntGalaxia(String directori, ControladorPlaneta cp, ControladorRuta cr,"
-				+ " ControladorNave cn)                                                                     \n");
+				+ "- Opcion 21: carregarConjuntGalaxia(String directori)                                    \n"
+				+ "- Opcion 22: guardarConjuntGalaxia(String directori)                                     \n");
       n = cin.nextInt();
       while(n != 0) {
     	  switch(n) {
@@ -52,29 +54,28 @@ public class DriverControladorGalaxia {
     	  	case 2: TestCrearGalaxia2(cin,cGalaxia); break; 
     	  	
     	  	case 3: TestConsultarNom(cGalaxia); break; 
-    	  	case 4: TestConsultarElementsGalaxia(cGalaxia); break; 
-    	  	case 5: TestConsultarLimitsGalaxia(cGalaxia); break; 
-    	  	case 6: TestConsultarLimit(cGalaxia); break; 
-    	  	case 7: TestdintreLimitUsuari(cin,cGalaxia); break;  
+    	  	case 4: TestConsultarLimitsGalaxia(cGalaxia); break; 
+    	  	case 5: TestConsultarLimit(cGalaxia); break; 
+    	  	case 6: TestdintreLimitUsuari(cin,cGalaxia); break;  
     	  	
-    	  	case 8: TestmodificarNom(cin,cGalaxia); break; 
-    	  	case 9: TestmodificarLimit(cin,cGalaxia); break; 
-    	  	case 10: TestmodificarLimits(cin,cGalaxia); break;  
+    	  	case 7: TestmodificarNom(cin,cGalaxia); break; 
+    	  	case 8: TestmodificarLimit(cin,cGalaxia); break; 
+    	  	case 9: TestmodificarLimits(cin,cGalaxia); break;  
     	  	
-    	  	case 11: TestexisteixPlanetaCoordenades(cin,cGalaxia); break;
-    	  	case 12: TestmodificarCoordenadas(cin, cp, cGalaxia); break;
-    	  	case 13: TestAlgunPlaneta(cGalaxia); break; 
+    	  	case 10: TestexisteixPlanetaCoordenades(cin,cGalaxia); break;
+    	  	case 11: TestmodificarCoordenadas(cin, cp, cGalaxia); break;
+    	  	case 12: TestAlgunPlaneta(cGalaxia); break; 
     	  	
-    	  	case 14: TestConsultarPlaneta(cin,cp,cGalaxia); break;
+    	  	case 13: TestConsultarPlaneta(cin,cp,cGalaxia); break;
     	  	
-    	  	case 15: TestafegirPlaneta(cp,cin,cGalaxia); break; 
-    	  	case 16: TestafegirPlanetaAutomatic(cp,cin,cGalaxia); break; 
-    	  	case 17: TestAfegirPlanetaNIDAuto(cp,cGalaxia); break; 
-    	  	case 18: TesteliminarPlaneta(cp,cGalaxia,cin); break; 
-    	  	case 19: TesteliminarPlanetes(cp,cGalaxia); break; 
+    	  	case 14: TestafegirPlaneta(cp,cin,cGalaxia); break; 
+    	  	case 15: TestafegirPlanetaAutomatic(cp,cin,cGalaxia); break; 
+    	  	case 16: TestAfegirPlanetaNIDAuto(cp,cGalaxia); break; 
+    	  	case 17: TesteliminarPlaneta(cp,cGalaxia,cin); break; 
+    	  	case 18: TesteliminarPlanetes(cp,cGalaxia); break; 
     	  	
-    	  	/*case 20: TestcarregarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;*/
-    	  	case 21: TestguardarConjuntGalaxia(cr,cp,cn,cGalaxia,cin); break;
+    	  	case 19: TestcarregarConjuntGalaxia(cGalaxia,cp,cin); break;
+    	  	case 20: TestguardarConjuntGalaxia(cGalaxia,cin); break;
     	  	
     	  	default: System.out.println("Opcion incorrecta");
     	  }
@@ -82,14 +83,13 @@ public class DriverControladorGalaxia {
       }
 	}
 	
-	
 	public void TestCrearGalaxia(Scanner cin, ControladorGalaxia cGalaxia) 
 	{
 		try {
 			String n = cin.next();
 			int l = cin.nextInt();
-			cGalaxia = new ControladorGalaxia(n,l);
-			//cGalaxia.creaGalaxia(n, l);
+			cGalaxia.creaGalaxia(n, l);
+			creado = true;
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -128,8 +128,6 @@ public class DriverControladorGalaxia {
             	if((((l1+1) == prim) || ((l1-1) == prim) || (l1 == prim)) && (((l2+1) == seg) || ((l2-1) == seg) || (l2 == seg))){
 	            	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(l1, l2);
 	            	pa1.add(pa);
-	            	
-	            	System.out.println(pa1);
             	}
             	else throw new Exception("Las coordenadas no son secuenciales");
             	l1 = cin.nextInt();
@@ -138,8 +136,8 @@ public class DriverControladorGalaxia {
                 if(l2 > n1 || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
                 if((l1 == limite1 && l2 == limite2)) trobat = true;
             }
-            cGalaxia = new ControladorGalaxia(n,n1,pa1);
-			//cGalaxia.creaGalaxia2(n,n1,pa1);
+			cGalaxia.creaGalaxia2(n,n1,pa1);
+			creado = true;
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -149,23 +147,8 @@ public class DriverControladorGalaxia {
 	public void TestConsultarNom(ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			System.out.println(cGalaxia.consultar_nom());
-		}
-		catch(Exception e) {
-            System.out.println(e);
-        }
-	}
-	
-	public void TestConsultarElementsGalaxia(ControladorGalaxia cGalaxia)
-	{
-		try {
-			String res = cGalaxia.consultarElementsGalaxia();
-			Scanner scan = new Scanner(res);
-			scan.useDelimiter(":");
-			while(scan.hasNext()) {
-				System.out.println(scan.next());
-			}
-			scan.close();
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -175,6 +158,7 @@ public class DriverControladorGalaxia {
 	public void TestdintreLimitUsuari(Scanner cin, ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			int x = cin.nextInt();
 			int y = cin.nextInt();
 			if(cGalaxia.dintreLimitUsuari(x, y)) System.out.println("Si que estan dintre del limit de l'usuari");
@@ -188,6 +172,7 @@ public class DriverControladorGalaxia {
 	public void TestConsultarLimit(ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			System.out.println(cGalaxia.consultarLimit());
 		}
 		catch(Exception e) {
@@ -198,13 +183,14 @@ public class DriverControladorGalaxia {
 	public void TestConsultarLimitsGalaxia(ControladorGalaxia cGalaxia) 
 	{
 		try {
-			String res = cGalaxia.consultarLimitsGalaxia();
-			Scanner scan = new Scanner(res);
-			scan.useDelimiter(":");
-			while(scan.hasNext()) {
-				System.out.println(scan.next());
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
+			int n = cGalaxia.consultarNombreLimits();
+			int i = 0;
+			while(i < n) {
+				String res = cGalaxia.consultarLimitsGalaxia(i);
+				System.out.print(res);
+				i += 100;
 			}
-			scan.close();
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -214,6 +200,7 @@ public class DriverControladorGalaxia {
 	public void TestmodificarNom(Scanner cin, ControladorGalaxia cGalaxia)
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String n = cin.next();
 			cGalaxia.modificarNom(n);
 		}
@@ -225,6 +212,7 @@ public class DriverControladorGalaxia {
 	public void TestmodificarLimit(Scanner cin, ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			int l = cin.nextInt();
 			cGalaxia.modificarLimit(l);
 		}
@@ -236,7 +224,8 @@ public class DriverControladorGalaxia {
 	public void TestmodificarLimits(Scanner cin, ControladorGalaxia cGalaxia)  
 	{
 		try {
-			 List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
+			List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
 	            int pa_f, pa_s;
 	            
 	            pa_f = cin.nextInt();
@@ -262,8 +251,6 @@ public class DriverControladorGalaxia {
 	            	if((((l1+1) == prim) || ((l1-1) == prim) || (l1 == prim)) && (((l2+1) == seg) || ((l2-1) == seg) || (l2 == seg))){
 		            	Pair<Integer, Integer> pa = new Pair<Integer, Integer>(l1, l2);
 		            	pa1.add(pa);
-		            	
-		            	System.out.println(pa1);
 	            	}
 	            	else throw new Exception("Las coordenadas no son secuenciales");
 	            	l1 = cin.nextInt();
@@ -282,6 +269,7 @@ public class DriverControladorGalaxia {
 	public void TestafegirPlaneta(ControladorPlaneta cp, Scanner cin, ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			int coste = cin.nextInt();
 			int x = cin.nextInt();
@@ -299,16 +287,19 @@ public class DriverControladorGalaxia {
 	public void TestafegirPlanetaAutomatic(ControladorPlaneta cp, Scanner cin, ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			Random rand = new Random();
 	    	int coste = rand.nextInt((Integer.MAX_VALUE - 0) + 1); 
-			String a11 = cGalaxia.afegirPlanetaAutomatic();
+	    	
+	    	String a11 = cGalaxia.afegirPlanetaAutomatic();
 			Scanner sc = new Scanner(a11);
 			sc.useDelimiter(",");
 			Integer a1 = sc.nextInt();
 			Integer a2 = sc.nextInt();
 			Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a1,a2);
 			Planeta a = new Planeta(idPlaneta, coste, pa);
+			
 			cp.anadirPlaneta(a);
 			sc.close();
 		}
@@ -320,6 +311,7 @@ public class DriverControladorGalaxia {
 	public void TestAfegirPlanetaNIDAuto(ControladorPlaneta cp, ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			Random rand = new Random();
 	    	int capacidad = rand.nextInt(Integer.MAX_VALUE-1);
 	    	String nom = "Planeta";
@@ -350,6 +342,7 @@ public class DriverControladorGalaxia {
 	public void TestConsultarPlaneta(Scanner cin, ControladorPlaneta cp, ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			if(!cp.ExistePlaneta(idPlaneta)) throw new Exception("No existe ningun planeta con ese identificador");
 	    	Planeta a = cp.BuscarPlaneta(idPlaneta);
@@ -363,6 +356,7 @@ public class DriverControladorGalaxia {
 	public void TestexisteixPlanetaCoordenades(Scanner cin, ControladorGalaxia cGalaxia)  
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			int x = cin.nextInt();
 			int y = cin.nextInt();
 			if(cGalaxia.existeixPlanetaCoordenades(x, y)) System.out.println("Existe un planeta en esas coordenadas");
@@ -376,10 +370,11 @@ public class DriverControladorGalaxia {
 	public void TestmodificarCoordenadas(Scanner cin, ControladorPlaneta cp, ControladorGalaxia cGalaxia)
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			int x = cin.nextInt();
 			int y = cin.nextInt();
-			cGalaxia.modificarCoordenadas(cp, idPlaneta, x, y);
+			cp.modificar_coordenadas(idPlaneta, x, y, cGalaxia);
 		}
 		catch(Exception e) {
             System.out.println(e);
@@ -389,6 +384,7 @@ public class DriverControladorGalaxia {
 	public void TestAlgunPlaneta(ControladorGalaxia cGalaxia) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			if(cGalaxia.algunPlaneta()) System.out.println("Si que hay algun planeta");
 			else System.out.println("No hay ningun planeta");
 		}
@@ -400,6 +396,7 @@ public class DriverControladorGalaxia {
 	public void TesteliminarPlaneta(ControladorPlaneta cp, ControladorGalaxia cGalaxia, Scanner cin) 
 	{
 		try {
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			if(!cp.ExistePlaneta(idPlaneta)) throw new Exception("El planeta introducido no existe");
 			Planeta a = cp.BuscarPlaneta(idPlaneta);
@@ -414,6 +411,7 @@ public class DriverControladorGalaxia {
 	public void TesteliminarPlanetes(ControladorPlaneta cp, ControladorGalaxia cGalaxia) 
 	{
 		try{
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 	    	cGalaxia.eliminarPlanetes();
 	    	cp.BorrarTodos();
     	}
@@ -422,24 +420,24 @@ public class DriverControladorGalaxia {
         }
 	}
 	
-	/*public void TestcarregarConjuntGalaxia(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn, ControladorGalaxia cGalaxia, Scanner cin)
+	public void TestcarregarConjuntGalaxia(ControladorGalaxia cGalaxia, ControladorPlaneta cp, Scanner cin)
 	{
 		try {
-			System.out.println("Introduce directorio");
 			String directori = cin.next();
-			cGalaxia.carregarConjuntGalaxia(directori, cp, cn, cr);
+			cGalaxia.carregarConjuntGalaxia(directori);
+			//cp.CargarPlanetas(directori, cGalaxia);
 		}
 		catch(Exception e) {
             System.out.println(e);
         }
-	}*/
+	}
 	
-	public void TestguardarConjuntGalaxia(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn, ControladorGalaxia cGalaxia, Scanner cin)
+	public void TestguardarConjuntGalaxia(ControladorGalaxia cGalaxia, Scanner cin)
 	{
 		try {
-			System.out.println("Introduce directorio");
+			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String directori = cin.next();
-			cGalaxia.guardarConjuntGalaxia(directori,cp,cr,cn);
+			cGalaxia.guardarConjuntGalaxia(directori);
 		}
 		catch(Exception e) {
             System.out.println(e);
