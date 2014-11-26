@@ -157,6 +157,9 @@ public class ControladorNave{
 			 * @throws Exception
 			 */
 			public void CrearNaveAuto(int i,ArrayList<String> lp) throws Exception{
+				if(!ExisteTipo(t)){
+					throw new Exception("Error: No existe ningun tipo de nave con el identificador introducido\n");
+				}
 				while(i>0){
 					int t = TipoRandom();
 					while(ExisteNave(idn)) ++idn;
