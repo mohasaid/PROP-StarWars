@@ -75,14 +75,14 @@ public class DriverGalaxia {
  				+ "- Opcion 10: modificarLimitsUsuari(List<Pair<Integer, Integer> > p) 						\n"
  				
 				+ "- Opcion 11: existeixPlanetaCoordenades(int x, int y) 				    				\n"
-				+ "- Opcion 12: consultarPlaneta(int idPlaneta)                    							\n"
+				+ "- Opcion 12: consultarPlaneta(String idPlaneta)                    						\n"
 	            + "- Opcion 13: algunPlaneta()																\n"
 				
-				+ "- Opcion 14: CrearPlaneta(idPlaneta, x, y)  												\n"
-				+ "- Opcion 15: CrearPlanetaAutomatic(int idPlaneta) 							    		\n"
+				+ "- Opcion 14: CrearPlaneta(String, x, y)  												\n"
+				+ "- Opcion 15: CrearPlanetaAutomatic(String idPlaneta) 							    	\n"
 				+ "- Opcion 16: PlanetaAuto()  																\n"
 				
-            	+ "- Opcion 17: eliminarPLaneta(int idPlaneta)  						    				\n"
+            	+ "- Opcion 17: eliminarPLaneta(String idPlaneta)  						    				\n"
             	+ "- Opcion 18: eliminarTotsPlanetes() 										    			\n"
 	            );
     }
