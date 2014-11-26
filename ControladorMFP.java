@@ -19,7 +19,7 @@ public class ControladorMFP{
 		e = e1;
 	}
 	//Seleccion/Ejecucion del algoritmo
-	public void SeleccionarAlgoritmo(int i, ControladorNave cn) throws Exception{
+	public void SeleccionarAlgoritmo(int i, ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp) throws Exception{
 		if(!FuncionElegida){
 			throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
 		}
@@ -39,10 +39,10 @@ public class ControladorMFP{
 		while(it.hasNext()){
 			Nave n = it.next();
 			int cons = cn.ConsultarConsumo(n.consultar_id());
-			alg.Caminos(n,cons,(fc instanceof FuncionPrecio));
+			alg.Caminos(n,cons,(fc instanceof FuncionPrecio),cp,s);
 		}
 		//Calculo de los cuellos de botella
-		//alg.consultarCalcular_cuellos_botellas();
+		alg.Calcular_cuellos_botellas(cr,cp,s);
 	}
 	
 	//Funciones de coste
