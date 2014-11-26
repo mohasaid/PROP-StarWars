@@ -160,7 +160,7 @@ public class ControladorGalaxia
     }
 
     /**
-     * Metodo para añadir un planeta en la galaxia en las coordenadas "x" y "y"
+     * Metodo para anadir un planeta en la galaxia en las coordenadas "x" y "y"
      * @param cp
      * @param idPlaneta
      * @param x
@@ -173,7 +173,7 @@ public class ControladorGalaxia
     }
     
     /**
-     * Metodo para añadir un planeta creado automaticamente
+     * Metodo para anadir un planeta creado automaticamente
      * @param cp
      * @param idPlaneta
      * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
