@@ -3,8 +3,9 @@ import java.util.Scanner;
 
 
 public class DriverControladorMFP{
-    public void Executa(Scanner sc, ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) {
+    public void Executa(Scanner sc,Entrada e, ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) {
         int op;
+        cMFP.AnadirEntrada(e);
 
         
                 		System.out.print("Opciones: \n\n"
