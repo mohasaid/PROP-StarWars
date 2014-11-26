@@ -1,13 +1,11 @@
-import java.util.ArrayList;
-
 public class Entrada {
 	private Grafo g;
 	
     //Pre: Cierto
     //Post: Crea una entrada con el grafo inicializado a partir de de la lista de nodos y otra de arcos
-    public Entrada(ArrayList<ArrayList<Pair<Arco, Integer>>> aap) throws Exception
+    public Entrada(Grafo f1) throws Exception
     {
-    	g = new Grafo(aap);
+    	g = f1;
     }
     
     //Pre: Cierto
@@ -16,4 +14,6 @@ public class Entrada {
     {
     	return g;
     }
+    
+    
 }
