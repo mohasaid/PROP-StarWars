@@ -57,11 +57,11 @@ public class ControladorMFP{
 	
 //OPERACIONES SALIDA
 	public void Inicializar1(){
-		itF = (alg.ConsultarCaminos()).iterator();
-		itCB = (alg.ConsultarCuellos()).iterator();
+		itF = (s.ConsultarCaminos()).iterator();
+		itCB = (s.ConsultarCuellos()).iterator();
 	}
 	public void Inicializar2(){
-		itC = (alg.ConsultarCambios()).iterator();
+		itC = (s.ConsultarCambios()).iterator();
 	}
 	
 	//Pre:cierto
@@ -87,10 +87,10 @@ public class ControladorMFP{
 		return res;
 	}
 	public int size(){
-		return alg.size();
+		return s.size();
 	}
 	public int sizeCambios(){
-		return alg.sizeCambios();
+		return s.sizeCambios();
 	}
 	
 	//Pre:cierto
