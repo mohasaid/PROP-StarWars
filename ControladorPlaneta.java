@@ -3,7 +3,6 @@ import java.io.FileReader;
 import java.util.*;
 
 public class ControladorPlaneta {
-	
     private TreeSet<Planeta> listaPlanetas;
     private ControladorDadesPlaneta cdp;
     private static int id = 0;
@@ -171,7 +170,7 @@ public class ControladorPlaneta {
     	Iterator<Planeta> it = listaPlanetas.iterator();
     	res = "";
     	while (it.hasNext()) {
-    			res += "-" + it.next().Consultar_nombre();
+    		res += "-" + it.next().Consultar_nombre();
     	}
     	res += "\n";
         return res;
@@ -210,6 +209,24 @@ public class ControladorPlaneta {
         BuscarPlaneta(id).Modificar_Coste(k);
     }
     
+    /**
+     * Metodo para modificar las coordenadas de un planeta
+     * @param id
+     * @param x
+     * @param y
+     * @param cg
+     * @throws Exception
+     */
+    public void modificar_coordenadas(String id, int x, int y, ControladorGalaxia cg) throws Exception
+    {
+    	Planeta a = BuscarPlaneta(id);
+    	int c1 = a.consultar_X();
+    	int c2 = a.consultar_Y();
+    	cg.afegirPlaneta(x, y); // saca excepcion si hay algo o no se puede
+    	cg.eliminarPlaneta(c1, c2);
+    	a.modificarCoordenades(x, y);
+    }
+    
     //Pre: Cierto.
     //Post: Borra el planeta.
     public void Borrar(String id, ControladorRuta cr) throws Exception 
@@ -242,20 +259,18 @@ public class ControladorPlaneta {
     		s = "";
     		if(sc.hasNext()) s = sc.next();
     		while(sc.hasNext()){
-    			if(Integer.parseInt(s)==0) {
-    				id = sc.next();
-    				s = sc.next();
-    				k = Integer.parseInt(s);
-    				s = sc.next();
-    				x = Integer.parseInt(s);
-    				s = sc.next();
-    				y = Integer.parseInt(s);
-    				sc.next();
-					Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-					Planeta p = new Planeta(id,k,Coo);
-					listaPlanetas.add(p);
-					cg.afegirPlaneta(x, y);
-    			}
+				id = sc.next();
+				s = sc.next();
+				k = Integer.parseInt(s);
+				s = sc.next();
+				x = Integer.parseInt(s);
+				s = sc.next();
+				y = Integer.parseInt(s);
+				sc.next();
+				Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
+				Planeta p = new Planeta(id,k,Coo);
+				listaPlanetas.add(p);
+				cg.afegirPlaneta(x, y);
     		}
     	}
     	cdp.CerrarLectura();
