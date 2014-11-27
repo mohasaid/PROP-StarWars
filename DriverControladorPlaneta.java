@@ -1,9 +1,8 @@
 import java.util.*;
  
 public class DriverControladorPlaneta {
-	private ControladorPlaneta contp;
 	
-	public void Ejecuta(Scanner sc, ControladorPlaneta cp, ControladorRuta contr, ControladorGalaxia cg) {
+	public void Ejecuta(Scanner sc, ControladorPlaneta contp, ControladorRuta contr, ControladorGalaxia cg) {
         int n;
             System.out.print(
             "-----------------------------------------------------------------------------------"
