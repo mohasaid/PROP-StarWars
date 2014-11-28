@@ -5,6 +5,7 @@ public class Planeta
     private String nombrePlaneta; //Identificador del planeta
     private int Coste; //Precio del combustible del planeta.
     private Pair<Integer,Integer> Coordenadas; //Coordenadas del planeta en la galaxia
+    private boolean Asignado;
     
     private boolean alfa_numeric(String nom)
     {
@@ -25,6 +26,7 @@ public class Planeta
         nombrePlaneta = n;
         Coste = k;
         Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
+        Asignado = false;
     }
     //Pre: Cierto.
     //Post: Retorna la id del planeta
@@ -58,6 +60,11 @@ public class Planeta
         return Coordenadas.consultarSegundo();
     }
     //Pre: Cierto.
+    //Post: Retrona Asignado
+    public boolean Consultar_Asignado() {
+    	return Asignado;
+    }
+    //Pre: Cierto.
     //Post: Modifica el coste Coste, Coste = k.
     public void Modificar_Coste(int k) throws Exception
     {
@@ -72,6 +79,11 @@ public class Planeta
     	if(rndX < 0 || rndY < 0) throw new Exception ("Error: Las Coordenadas no pueden ser negativas");
     	Coordenadas.ponPrimero(rndX);
     	Coordenadas.ponSegundo(rndY);
+    }
+    //Pre: Cierto.
+    //Post: Modifica Asignado
+    public void Modificar_Asignado(boolean A){
+    	Asignado = A;
     }
 }
 
