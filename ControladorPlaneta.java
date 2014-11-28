@@ -116,17 +116,26 @@ public class ControladorPlaneta {
     }
     
     //Pre: Cierto.
-    //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Fuente = F y Sumidero = S.
-    public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
+    //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo.
+    public void Planeta(String id, int k, Pair<Integer,Integer> Coo) throws Exception 
     {
         if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
         
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(p);
-        cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
     }
-    
+    //Pre: Cierto.
+    //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Asiganado = A.
+    public void Planeta(String id, int k, Pair<Integer,Integer> Coo, boolean A, ControladorGalaxia cg) throws Exception 
+    {
+        if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
+        if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
+        
+        Planeta p = new Planeta (id, k, Coo, A);
+        listaPlanetas.add(p);
+        if(A) cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
+    }
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
     public int Consultar_Coste(String id) throws Exception 
@@ -154,7 +163,11 @@ public class ControladorPlaneta {
     {
         return BuscarPlaneta(id).consultar_Y();
     }
-    
+    //Pre: Cierto.
+    //Post: Retorna Asignado.
+    public boolean Consultar_Asiganado(String id) throws Exception {
+    	return BuscarPlaneta(id).Consultar_Asignado();
+    }
     //Pre: Cierto.
     //Post: Retorna el tamanio de listaPlanetas.
     public int Consultar_Size() 
@@ -222,9 +235,24 @@ public class ControladorPlaneta {
     	Planeta a = BuscarPlaneta(id);
     	int c1 = a.consultar_X();
     	int c2 = a.consultar_Y();
-    	cg.afegirPlaneta(x, y); // saca excepcion si hay algo o no se puede
-    	cg.eliminarPlaneta(c1, c2);
+    	if(a.Consultar_Asignado()) {
+    		cg.afegirPlaneta(x, y); // saca excepcion si hay algo o no se puede
+    		cg.eliminarPlaneta(c1, c2);
+    	}
     	a.modificarCoordenades(x, y);
+    }
+    //Pre: Cierto.
+    //Post: Modifica Asignado del planeta id.
+    public void Modificar_Asignado(String id, boolean A, ControladorGalaxia cg) throws Exception {
+    	Planeta p = BuscarPlaneta(id);
+    	if(p.Consultar_Asignado() && !A) {
+    		cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
+    		p.Modificar_Asignado(A);
+    	}
+    	else if(!p.Consultar_Asignado() && A) {
+    		cg.afegirPlaneta(p.consultar_X(), p.consultar_Y());
+    		p.Modificar_Asignado(A);
+    	}
     }
     
     //Pre: Cierto.
@@ -239,7 +267,7 @@ public class ControladorPlaneta {
         	if(p.Consultar_nombre().equals(id)) {
         		found = true; 
         		cr.BorrarRutaConexions(id);
-        		cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
+        		if(p.Consultar_Asignado()) cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
         		listaPlanetas.remove(it);
         	}
         }
@@ -262,7 +290,8 @@ public class ControladorPlaneta {
     	FileReader file = new FileReader(path);
     	BufferedReader buffer = new BufferedReader(file);
     	Scanner sc;
-    	int k, x, y; 
+    	int k, x, y;
+    	boolean A;
     	while((res = cdp.cargar(path,100,buffer))!= "") {
     		sc = new Scanner(res);
     		sc.useDelimiter("#|:");
@@ -276,9 +305,11 @@ public class ControladorPlaneta {
 				x = Integer.parseInt(s);
 				s = sc.next();
 				y = Integer.parseInt(s);
+				s = sc.next();
+				A = Boolean.parseBoolean(s);
 				sc.next();
 				Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-				Planeta p = new Planeta(id,k,Coo);
+				Planeta p = new Planeta(id,k,Coo, A);
 				listaPlanetas.add(p);
 				cg.afegirPlaneta(x, y);
     		}
@@ -299,7 +330,8 @@ public class ControladorPlaneta {
     			res +=p.Consultar_nombre()+":";
     			res +=p.Consultar_Coste()+":";
     			res +=p.consultar_X()+":";
-    			res +=p.consultar_Y();
+    			res +=p.consultar_Y()+":";
+    			res +=p.Consultar_Asignado()+":";
     			res +="#";
     			++iter;
     			if(iter == 100){
@@ -322,7 +354,8 @@ public class ControladorPlaneta {
 			res +=p.Consultar_nombre()+":";
 			res +=p.Consultar_Coste()+":";
 			res +=p.consultar_X()+":";
-			res +=p.consultar_Y();
+			res +=p.consultar_Y()+":";
+			res +=p.Consultar_Asignado()+":"; 
 			res +="#";
 		}
     	return res;
