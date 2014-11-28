@@ -105,6 +105,16 @@ public class DriverPlaneta {
     		System.out.print(e);
     	}
     }
+    public void TestCAsignado() {
+    	try{
+    		boolean b = p.Consultar_Asignado();
+    		if(b) System.out.print("El Planeta esta Asignado a la Galaxia\n");
+    		else System.out.print("El Planeta NO esta Asignado a la Galaxia\n");
+    	}
+    	catch (Exception e){
+    		System.out.print(e);
+    	}
+    }
     public void TestMCoste (Scanner sc  ) {
     	try {
     		String s;
@@ -135,6 +145,20 @@ public class DriverPlaneta {
     		p.modificarCoordenades(xnew,ynew);
     	}
     	catch (Exception e) {
+    		System.out.print(e);
+    	}
+    }
+    public void TestMAsignado(Scanner sc) {
+    	try {
+    		String s;
+    		while(!sc.hasNextBoolean()) {
+    			s = sc.nextLine();
+    			throw new Exception ("Error: Un Planeta se indica se esta asginado a la Galaxia a traves de un boolean\n");
+    		}
+    		boolean A = sc.nextBoolean();
+    		p.Modificar_Asignado(A);
+    	}
+    	catch (Exception e){
     		System.out.print(e);
     	}
     }
