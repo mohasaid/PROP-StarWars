@@ -28,6 +28,17 @@ public class Planeta
         Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
         Asignado = false;
     }
+    // Pre: Cierto.
+    // Post: Crea un planeta con nombrePlaneta = n , Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
+    public Planeta(String n, int k, Pair<Integer,Integer> Coo, boolean A) throws Exception
+    {
+        if(!alfa_numeric(n)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico y contener menos de 20 caracteres");
+    	if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
+        nombrePlaneta = n;
+        Coste = k;
+        Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
+        Asignado = A;
+    }
     //Pre: Cierto.
     //Post: Retorna la id del planeta
     public String Consultar_nombre()
