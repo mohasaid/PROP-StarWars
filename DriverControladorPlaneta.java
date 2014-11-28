@@ -16,12 +16,14 @@ public class DriverControladorPlaneta {
             + " 5: Consultar_Coordenadas(String id)\n"
             + " 6: consultar_X(String id)\n"
             + " 7: consultar_Y(String id)\n"
-            + " 8: Consultar_listaPlanetas()\n"
+            + " 8: Consultar_Asignado(String id)\n"
+            + " 9: Consultar_listaPlanetas()\n"
             + " 9: Modificar_Coste(String id, int k)\n"
-            + " 10: modificarCoordenades(String id, int x, int y)\n"
-            + " 11: Borrar(String id)\n"
-            + " 12: CargarPlanetas()\n"
-            + " 13: GuardarPlanetas()\n");
+            + " 11: modificarCoordenades(String id, int x, int y)\n"
+            + " 12: Modificar_Asignado(String id, boolean A)\n"
+            + " 13: Borrar(String id)\n"
+            + " 14: CargarPlanetas()\n"
+            + " 15: GuardarPlanetas()\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
@@ -32,12 +34,14 @@ public class DriverControladorPlaneta {
                 case 5: TestConsultarCoordenadas(sc, contp);break;
                 case 6: TestConsultarCoordenadaX(sc, contp);break;
                 case 7: TestConsultarCoordenadaY(sc, contp);break;
-                case 8: TestConsultarlistaPlaneta(contp);break;
-                case 9: TestModificarCoste(sc, contp);break;
-                case 10: TestModificarCoordenadas(sc,contp,cg);break;
-                case 11: TestBorrar(sc, contp, contr, cg);break;
-                case 12: TestCargar(sc,contp, cg);break;
-                case 13: TestGuardar(sc,contp);break;
+                case 8: TestConsultarAsignado(sc,contp);break;
+                case 9: TestConsultarlistaPlaneta(contp);break;
+                case 10: TestModificarCoste(sc, contp);break;
+                case 11: TestModificarCoordenadas(sc,contp,cg);break;
+                case 12: TestModificarAsignado(sc,contp,cg);break;
+                case 13: TestBorrar(sc, contp, contr, cg);break;
+                case 14: TestCargar(sc,contp, cg);break;
+                case 15: TestGuardar(sc,contp);break;
                 default: System.out.println("Opcion incorrecta");
             }
             
@@ -64,7 +68,7 @@ public class DriverControladorPlaneta {
             }
             int y = sc.nextInt();
             Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-            contp.Planeta(id,k,Coo, cg);
+            contp.Planeta(id,k,Coo);
         }
         catch (Exception e){
             System.out.print(e);
@@ -80,7 +84,6 @@ public class DriverControladorPlaneta {
     }
     public static void TestCrearPlanetaAuto2(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
         try{
-        	String s;
             String id = sc.next();
             contp.PlanetaAuto(id,cg);       
         }  
@@ -90,7 +93,6 @@ public class DriverControladorPlaneta {
     } 
     public static void TestConsultarCoste(Scanner sc, ControladorPlaneta contp) {
         try {
-            String s;
             String id = sc.next();
             System.out.print("El Coste del Planeta es: " + contp.Consultar_Coste(id) + "\n");    
         }
@@ -100,7 +102,6 @@ public class DriverControladorPlaneta {
     }
     public static void TestConsultarCoordenadas(Scanner sc, ControladorPlaneta contp) {
         try {
-            String s;
             String id = sc.next();
             Pair<Integer,Integer> Coo = contp.Consultar_Coordenadas(id);
             System.out.print(Coo);     
@@ -111,7 +112,6 @@ public class DriverControladorPlaneta {
     }
     public static void TestConsultarCoordenadaX(Scanner sc, ControladorPlaneta contp) {
         try {
-            String s;
             String id = sc.next();
             System.out.print("La Coordenada X del Planeta es: " + contp.consultar_X(id) + "\n");    
         }
@@ -121,13 +121,22 @@ public class DriverControladorPlaneta {
     }
     public static void TestConsultarCoordenadaY(Scanner sc, ControladorPlaneta contp) {
         try {
-            String s;
             String id = sc.next();
             System.out.print("La Coordenada Y del Planeta es: " + contp.consultar_Y(id) + "\n");    
         }
         catch (Exception e) {
             System.out.print(e);
         }          
+    }
+    public static void TestConsultarAsignado(Scanner sc, ControladorPlaneta contp) {
+    	try {
+    		String id = sc.next();
+    		if(contp.Consultar_Asiganado(id)) System.out.print("El Planeta esta Asignado");
+    		else System.out.print("El Planeta NO esta asignado");
+    	}
+    	catch (Exception e) {
+    		System.out.print(e);
+    	}
     }
     public static void TestConsultarlistaPlaneta(ControladorPlaneta contp) {
         try {
@@ -170,6 +179,21 @@ public class DriverControladorPlaneta {
     		contp.modificar_coordenadas(id, x, y, cg);
     	}
     	catch (Exception e){
+    		System.out.print(e);
+    	}
+    }
+    public static void TestModificarAsignado(Scanner sc, ControladorPlaneta contp, ControladorGalaxia cg) {
+    	try{
+    		String s;
+    		String id = sc.next();
+    		while(!sc.hasNextBoolean()) {
+    			s = sc.nextLine();
+    			throw new Exception("Error: Para indicar si un Planeta esta asignado o no a la Galaxia se utiliza un boolean\n");
+    		}
+    		boolean A = sc.nextBoolean();
+    		contp.Modificar_Asignado(id, A, cg);
+    	}
+    	catch (Exception e) {
     		System.out.print(e);
     	}
     }
