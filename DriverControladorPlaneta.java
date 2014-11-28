@@ -9,17 +9,17 @@ public class DriverControladorPlaneta {
             +   "                    DRIVER CONTROLADOR PLANETA                                     "
             +   "-----------------------------------------------------------------------------------"
             + "Opciones \n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)\n"
+            + " 1: Planeta(String id, int k, Pair<Integer,Integer> Coo)\n"
             + " 2: PlanetaAuto()\n"
-            + " 3: PlanetaAuto2(int id)\n"
-            + " 4: Consultar_Coste(int id)\n"
-            + " 5: Consultar_Coordenadas(int id)\n"
-            + " 6: consultar_X(int id)\n"
-            + " 7: consultar_Y(int id)\n"
+            + " 3: PlanetaAuto2(String id)\n"
+            + " 4: Consultar_Coste(String id)\n"
+            + " 5: Consultar_Coordenadas(String id)\n"
+            + " 6: consultar_X(String id)\n"
+            + " 7: consultar_Y(String id)\n"
             + " 8: Consultar_listaPlanetas()\n"
-            + " 9: Modificar_Coste(int id, int k)\n"
-            + " 10: modificarCoordenades(int id, int x, int y)\n"
-            + " 11: Borrar(Planeta p)\n"
+            + " 9: Modificar_Coste(String id, int k)\n"
+            + " 10: modificarCoordenades(String id, int x, int y)\n"
+            + " 11: Borrar(String id)\n"
             + " 12: CargarPlanetas()\n"
             + " 13: GuardarPlanetas()\n");
         n = sc.nextInt();
@@ -177,7 +177,7 @@ public class DriverControladorPlaneta {
     	try {
     		String s;
     		String id = sc.next();
-    		contp.Borrar(id, contr);
+    		contp.Borrar(id, contr, cg);
     	}
     	catch (Exception e){
     		System.out.print(e);
