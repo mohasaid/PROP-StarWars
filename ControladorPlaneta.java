@@ -229,11 +229,21 @@ public class ControladorPlaneta {
     
     //Pre: Cierto.
     //Post: Borra el planeta.
-    public void Borrar(String id, ControladorRuta cr) throws Exception 
+    public void Borrar(String id, ControladorRuta cr, ControladorGalaxia cg) throws Exception 
     {
-        Planeta p = BuscarPlaneta(id);
-        listaPlanetas.remove(p);
-        cr.BorrarRutaConexions(id);
+        Iterator<Planeta> it = listaPlanetas.iterator();
+        boolean found = false;
+        Planeta p;
+        while (!found && it.hasNext()) {
+        	p = it.next();
+        	if(p.Consultar_nombre().equals(id)) {
+        		found = true; 
+        		cr.BorrarRutaConexions(id);
+        		cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
+        		listaPlanetas.remove(it);
+        	}
+        }
+       
     }
     
     public void BorrarTodos() throws Exception 
