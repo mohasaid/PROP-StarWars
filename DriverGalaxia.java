@@ -13,7 +13,7 @@ public class DriverGalaxia {
     
 	public DriverGalaxia() {};
 	
-    public static void Executa(Scanner cin)
+    public void Executa(Scanner cin)
     {
     	 opcions();
     	 Galaxia g = null;
