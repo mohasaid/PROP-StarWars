@@ -1,46 +1,146 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Nodo {
-    private int id;
-    private boolean Yavin_IV;
-    private boolean Hoth;
+	
+	private List<Pair<Arco, Integer> > a;
      
     //CREADORA
      
-    //Pre: Cierto
-    //Post: Retorna un Nodo vacio
+    /**
+     * Metodo para crear un nodo vacio
+     */
     public Nodo()
     {
-        id = -1;
+        a = new ArrayList<Pair<Arco,Integer> >();
     }
      
-    //Pre: Cierto
-    //Post: Retorna un Nodo con id = "ident", Yavin_IV = "es_Yavin" y Hoth = "es_Hoth"
-    public Nodo (int ident, boolean es_Yavin, boolean es_Hoth)
+    /**
+     * Metodo para crear un nodo con una lista de adyacencia "p"
+     * @param p
+     */
+    public Nodo(List<Pair<Arco,Integer> > p)
     {
-        id = ident;
-        Yavin_IV = es_Yavin;
-        Hoth = es_Hoth;
+        a = p;
     }
-     
-    //Consultoras
     
-    //Pre: Cierto
-    //Post: Retorna un entero que contiene la id del Nodo
-    public int consultar_id ()
+    // CONSULTORAS
+    
+    /**
+     * Metodo para consultar el arco que une el nodo actual con el i-esimo de la lista de adyacencia
+     * @param i
+     * @return El arco que une el nodo con el i-esimo de su lista de adyacencia
+     */
+    public Arco consultarArco(int i)
     {
-        return id;
+    	return a.get(i).consultarPrimero();
     }
-     
-    //Pre: Cierto
-    //Post: Retorna un valor booleano. Si retorna cierto, este Nodo representa el planeta Yavin, en caso contrario, representa cualquier otro planeta
-    public boolean consultar_es_Yavin()
+    
+    /**
+     * Metodo para consultar el identificador del i-esimo nodo al que esta conectado
+     * @param i
+     * @return Identificador del i-esimo nodo al que esta conectado
+     */
+    public int consultarDestino(int i)
     {
-        return Yavin_IV;
+    	return a.get(i).consultarSegundo();
     }
-     
-    //Pre: Cierto
-    //Post: Retorna un valor booleano. Si retorna cierto, este Nodo representa el planeta Hoth, en caso contrario, representa cualquier otro planeta
-    public boolean consultar_es_Hoth()
+    
+    /**
+     * Metodo para consultar el arco que une el nodo actual con el nodo "u"
+     * @param u
+     * @return El arco que une al nodo "u"
+     */
+    public Arco consultarArcoDet(int u)
     {
-        return Hoth;
+    	for(int i = 0; i < a.size(); ++i) {
+    		if(a.get(i).consultarSegundo() == u) return a.get(i).consultarPrimero();
+    	}
+		return null;
     }
+    
+    /**
+     * Metodo para consultar la adyacencia i-esima
+     * @param i
+     * @return Pair i-esimo
+     */
+    public Pair<Arco, Integer> consultarI(int i)
+    {
+    	return a.get(i);
+    }
+    
+    /**
+     * Metodo para consultar la adyacencia con el nodo u
+     * @param u
+     * @return Pair que une con el nodo u
+     */
+    public Pair<Arco, Integer> consultarIU(int u)
+    {
+    	for(int i = 0; i < a.size(); ++i) {
+    		if(a.get(i).consultarSegundo() == u) return a.get(i);
+    	}
+    	return null;
+    }
+    
+    /**
+     * Metodo para consultar el numero de adyacencias del nodo
+     * @return Numero de adyacencias del nodo
+     */
+    public int size()
+    {
+    	return a.size();
+    }
+    
+    /**
+     * Metodo para consultar el conjunto de adyacencias
+     * @return Conjunto de adyacencias
+     */
+    public List<Pair<Arco, Integer> > consultarNodo()
+    {
+    	return a;
+    }
+    
+    // MODIFICADORAS
+    
+    /**
+     * Metodo para modificar el arco de la i-esima adyacencia
+     * @param i
+     * @param p
+     */
+    public void anadirArcoI(int i, Arco p)
+    {
+    	a.get(i).ponPrimero(p);
+    }
+    
+    /**
+     * Metodo para modificar el destino de la i-esima adyacencia
+     * @param i
+     * @param u
+     */
+    public void anadirDestinoI(int i, int u)
+    {
+    	a.get(i).ponSegundo(u);
+    }
+    
+    /**
+     * Metodo para modificar el arco de la adyacencia con el nodo u
+     * @param u
+     * @param p
+     */
+    public void anadirArco(int u, Arco p)
+    {
+    	for(int i = 0; i < a.size(); ++i) {
+    		if(a.get(i).consultarSegundo() == u) a.get(i).ponPrimero(p);
+    	}
+    }
+    
+    /**
+     * Metodo para anadir una adyacencia
+     * @param p
+     */
+    public void anadirPair(Pair<Arco, Integer> p)
+    {
+    	a.add(p);
+    }
+    
 }
