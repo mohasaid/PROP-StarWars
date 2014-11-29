@@ -15,38 +15,39 @@ public class DriverControladorGalaxia {
 	{
         int n;
         System.out.print(
-	              "---------------------------------------------------------------------------------------- \n"
-	            + "                               DRIVER CONTROLADOR GALAXIA                                \n"
-	            + "---------------------------------------------------------------------------------------- \n"
-	            + "- Opcion 0: Salir de la gestion del driver                                        	    \n"
+	              "----------------------------------------------------------------------------------------\n"
+	            + "-                               DRIVER CONTROLADOR GALAXIA                             -\n"
+	            + "----------------------------------------------------------------------------------------\n"
+	            + "- Opcion 0: Salir de la gestion del driver                                        	  -\n"
 	            
-	            + "- Opcion 1: creaGalaxia(String nom,int n)   												\n"      
-	            + "- Opcion 2: creaGalaxia2(String nom, int n, List<Pair<Integer, Integer> > l) 			\n"
+	            + "- Opcion 1: creaGalaxia(String nom,int n)   											  -\n"      
+	            + "- Opcion 2: creaGalaxia2(String nom, int n, List<Pair<Integer, Integer> > l) 		  -\n"
 	            
-	            + "- Opcion 3: consultar_nom()										   						\n"     
-	            + "- Opcion 4: consultarLimitsGalaxia()                                                     \n"
-	            + "- Opcion 5: consultarNombreLimits() 														\n"	
-	            + "- Opcion 6: consultarLimit()                                                             \n"
-	            + "- Opcion 7: dintreLimitUsuari(int x, int y)                                              \n"
+	            + "- Opcion 3: consultar_nom()										   					  -\n"     
+	            + "- Opcion 4: consultarLimitsGalaxia()                                                   -\n"
+	            + "- Opcion 5: consultarNombreLimits() 													  -\n"	
+	            + "- Opcion 6: consultarLimit()                                                           -\n"
+	            + "- Opcion 7: dintreLimitUsuari(int x, int y)                                            -\n"
 	            
-				+ "- Opcion 8: modificarNom(String nomNou)                                                  \n"
-				+ "- Opcion 9: modificarLimit(int limitNou)                                                 \n"
-				+ "- Opcion 10: modificarLimits(List<Pair<Integer, Integer> > lp)                           \n"
+				+ "- Opcion 8: modificarNom(String nomNou)                                                -\n"
+				+ "- Opcion 9: modificarLimit(int limitNou)                                               -\n"
+				+ "- Opcion 10: modificarLimits(List<Pair<Integer, Integer> > lp)                         -\n"
 				
-				+ "- Opcion 11: existeixPlanetaCoordenades(int x, int y)                                    \n"
-				+ "- Opcion 12: modificarCoordenadas(String idPlaneta, int x, int y)						\n"		
-				+ "- Opcion 13: algunPlaneta()                                                              \n"
+				+ "- Opcion 11: existeixPlanetaCoordenades(int x, int y)                                  -\n"
+				+ "- Opcion 12: modificarCoordenadas(String idPlaneta, int x, int y)					  -\n"		
+				+ "- Opcion 13: algunPlaneta()                                                            -\n"
 				
-				+ "- Opcion 14: ConsultarPlaneta(idPlaneta)													\n"	
+				+ "- Opcion 14: ConsultarPlaneta(idPlaneta)												  -\n"	
 				
-				+ "- Opcion 15: CrearPlaneta(String idPlaneta, int x, int y)                                \n"
-				+ "- Opcion 16: CrearPlanetaAutomatic(String idPlaneta)                                     \n"
-				+ "- Opcion 17: CrearPlanetaIDAutomatic()                                         			\n"
-				+ "- Opcion 18: eliminarPlaneta(String idPlaneta)                                           \n"
-				+ "- Opcion 19: eliminarPlanetes()                                                          \n"
+				+ "- Opcion 15: CrearPlaneta(String idPlaneta, int x, int y)                              -\n"
+				+ "- Opcion 16: CrearPlanetaAutomatic(String idPlaneta)                                   -\n"
+				+ "- Opcion 17: CrearPlanetaIDAutomatic()                                         	      -\n"
+				+ "- Opcion 18: eliminarPlaneta(String idPlaneta)                                         -\n"
+				+ "- Opcion 19: eliminarPlanetes()                                                        -\n"
 				
-				+ "- Opcion 20: carregarConjuntGalaxia(String directori)                                    \n"
-				+ "- Opcion 21: guardarConjuntGalaxia(String directori)                                     \n");
+				+ "- Opcion 20: carregarConjuntGalaxia(String directori)                                  -\n"
+				+ "- Opcion 21: guardarConjuntGalaxia(String directori)                                   -\n"
+				+ "----------------------------------------------------------------------------------------\n");
       n = cin.nextInt();
       while(n != 0) {
     	  switch(n) {
