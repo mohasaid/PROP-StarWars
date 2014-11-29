@@ -365,20 +365,6 @@ public class ControladorRuta {
     
     //MODIFICADORAS    
     
-    //Pre: Existe una ruta con id = "id_original"
-    //Post: La ruta con id = "id_original" se le ha modificado por id = "id_nuevo"
-    public void ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) throws Exception
-    {
-        if(ErrorTipografico(id_nuevo)){
-            throw new Exception("Error : El identificador de una ruta debe ser mayor o igual que 0\n");
-        }
-        if (ExisteRuta(id_nuevo)) {
-        	throw new Exception("Ja existeix una ruta amb id = " + id_nuevo + " \n");
-        }
-        BuscarRuta(id_original).modificar_id(id_nuevo);
-        BuscarConexion(id_original).modificar_id(id_nuevo);
-    }
-      
     //Pre: Existe una ruta con id = "id"
     //Post: La capacidad de la ruta con id = "id" ha sido modificada por capacidad = "capacidad_nueva"
     public void ModificarCapacidadRuta(int id, int capacidad_nueva) throws Exception
