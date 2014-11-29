@@ -2,57 +2,44 @@ import java.util.*;
 import java.io.*;
 
 public class ControladorNave{
-	private TreeSet<Nave> listaNaves;
+	private TST<Nave> listaNaves;
 	private static int idn=0;
 	private Iterator<Nave> itc;
+	private ArrayList<Nave> ln;
 	ControladorDadesNave Cdn;
 	
 	public ControladorNave(){
-		listaNaves = new TreeSet<Nave>(new OrdenTipoNave());
+		listaNaves = new TST<Nave>();
 		Cdn = new ControladorDadesNave();
 	}
 	public ArrayList<Nave> CNaves() throws Exception{
-		ArrayList<Nave> res = new ArrayList<Nave>();
-		Iterator<Nave> it = listaNaves.iterator();
-		while(it.hasNext()){
-				res.add(it.next());
-			}
-		return res;
+		return listaNaves.MostrarElementos();
 	}
 	public Nave BuscarNave(int id) throws Exception{
-		Iterator<Nave> it = listaNaves.iterator();
-		boolean found = false;
-		while(it.hasNext() && !found){
-			Nave aux = it.next();
-			if(aux.consultar_id() == id){
-				found = true;
-				return aux;
-			}
-		}
-			if(!found){
-				throw new Exception("Error: No existe ninguna nave con el identificador introducido\n");
-			}
-			return null;
-		}
+		 String id2 = Integer.toString(id);
+			return listaNaves.buscar(id2);
+	}
 	public ArrayList<String> PlanetasOrigen() throws Exception{
+		ArrayList<String> ln = listaNaves.MostrarContenido();
 		ArrayList<String> planetas = new ArrayList<String>();
-		Iterator<Nave> it = listaNaves.iterator();
+		Iterator<String> it = ln.iterator();
 		while(it.hasNext()){
-				Nave aux = it.next();
-				String p = aux.consultar_origen();
-				if(!planetas.contains(p)) planetas.add(p);
-			}
+			String aux = it.next();
+			String p = listaNaves.buscar(aux).consultar_origen();
+			if(!planetas.contains(p)) planetas.add(p);
+		}
 		return planetas;				
 	}
 	public ArrayList<String> PlanetasDestino() throws Exception{
+		ArrayList<String> ln = listaNaves.MostrarContenido();
 		ArrayList<String> planetas = new ArrayList<String>();
-		Iterator<Nave> it = listaNaves.iterator();
+		Iterator<String> it = ln.iterator();
 		while(it.hasNext()){
-				Nave aux = it.next();
-				String p = aux.consultar_destino();
-				if(!planetas.contains(p)) planetas.add(p);
-			}
-		return planetas;				
+			String aux = it.next();
+			String p = listaNaves.buscar(aux).consultar_destino();
+			if(!planetas.contains(p)) planetas.add(p);
+		}
+		return planetas;						
 	}
 	public boolean ExisteTipo(int id) throws Exception{
 		if (id==1){
@@ -73,11 +60,8 @@ public class ControladorNave{
 		else throw new Exception("Error; el identificador del tipo tiene que estar entre 1 y 5\n");
 	} 
 	public boolean ExisteNave(int id) throws Exception{
-		Iterator<Nave> it = listaNaves.iterator();
-		while(it.hasNext()){
-			if(it.next().consultar_id() == id) return true;
-		}
-		return false;
+		String id2 = Integer.toString(id);
+		return listaNaves.contains(id2);
 	}
 	private int TipoNoDefinido(){
 		if(!TipoNave1.EstaDefinido())return 1;
@@ -128,23 +112,23 @@ public class ControladorNave{
 					Nave n;
 					if(t==1){
 					 n = new TipoNave1(idn,d,o);
-					 listaNaves.add(n);
+					 listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==2){
 						n = new TipoNave2(idn,d,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==3){
 						n = new TipoNave3(idn,d,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==4){
 						n = new TipoNave4(idn,d,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==5){
 						n = new TipoNave5(idn,d,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					
 					
@@ -166,6 +150,9 @@ public class ControladorNave{
 					if(NingunTipo()){
 						throw new Exception("Error: No existe ningun tipo de nave\n");
 					}
+					if(lp.isEmpty()){
+						
+					}
 					int d = (int)(Math.random()*lp.size())+0;
 					String dest = lp.get(d);
 					int or = (int)(Math.random()*lp.size())+0;
@@ -173,23 +160,23 @@ public class ControladorNave{
 					Nave n;
 					if(t==1){
 					 n = new TipoNave1(idn,dest,o);
-					 listaNaves.add(n);
+					 listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==2){
 						n = new TipoNave2(idn,dest,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==3){
 						n = new TipoNave3(idn,dest,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==4){
 						n = new TipoNave4(idn,dest,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					else if(t==5){
 						n = new TipoNave5(idn,dest,o);
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					--i;
 				}
@@ -286,19 +273,8 @@ public class ControladorNave{
 			 * @throws Exception
 			 */
 			public int ConsultarTipo(int id) throws Exception{
-				Iterator<Nave> it = listaNaves.iterator();
-				boolean found = false;
-				while(it.hasNext() && !found){
-					Nave aux = it.next();
-					if(aux.consultar_id() == id){
-						found = true;
-						return aux.consultar_tipo();
-						}
-				}
-				if(!found){
-					throw new Exception("Error: No existe ninguna nave con el identificador introducido\n");
-				}
-				return 0;
+				String id2 = Integer.toString(id);
+				return listaNaves.buscar(id2).consultar_tipo();
 			}
 			//Pre: cierto
 			//Post: retorna el consumo asociado a una nave
@@ -379,23 +355,23 @@ public class ControladorNave{
 					Nave n;
 					if(idtipo==1){
 						n = new TipoNave1(id, aux.consultar_destino(), aux.consultar_origen());
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					if(idtipo==2){
 						n = new TipoNave2(id, aux.consultar_destino(), aux.consultar_origen());
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					if(idtipo==3){
 						n = new TipoNave3(id, aux.consultar_destino(), aux.consultar_origen());
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					if(idtipo==4){
 						n = new TipoNave4(id, aux.consultar_destino(), aux.consultar_origen());
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					if(idtipo==5){
 						n = new TipoNave5(id, aux.consultar_destino(), aux.consultar_origen());
-						listaNaves.add(n);
+						listaNaves.add(Integer.toString(n.consultar_id()),n);
 					}
 					
 					
@@ -449,19 +425,8 @@ public class ControladorNave{
 				 * @throws Exception
 				 */
 				public void EliminarNave(int id) throws Exception{
-					boolean found = false;
-					Iterator<Nave> it = listaNaves.iterator();
-					Nave aux;
-					while(!found && it.hasNext()){
-						aux = it.next();
-						if(aux.consultar_id()==id){
-							it.remove();
-							found = true;
-						}
-					}
-							if(!found){
-							throw new Exception("Error: No existe ningun tipo de nave con el identificador introducido\n");
-							}
+					String id2 = Integer.toString(id);
+					listaNaves.eliminar(id2);
 				}
 				//Pre:cierto
 				//Post: elimina todas las naves
@@ -470,6 +435,7 @@ public class ControladorNave{
 				 */
 				public void EliminarNaves(){
 					listaNaves.clear();
+					idn=0;
 				}
 				//Pre:cierto
 				//Post: devulve un string conteniendo los identificadores de los tipos de naves que han sido definidos
@@ -494,7 +460,8 @@ public class ControladorNave{
 					return listaNaves.size();
 				}
 				private void Inicializar(){
-					itc = listaNaves.iterator();
+					ln = listaNaves.MostrarElementos();
+					itc = ln.iterator();
 				}
 				//Post: Devuelve parte de las naves que se encuentran en el sistema
 				/**
@@ -509,13 +476,14 @@ public class ControladorNave{
 					int j=0;
 					String res="";
 					while(itc.hasNext() && j<100){
-						Nave n = itc.next();
-						int id = n.consultar_id();
-						int t = ConsultarTipo(id);
+						Nave aux = itc.next();
+						int id = aux.consultar_id();
+						int t = aux.consultar_tipo();
 						res += t+"."+id;
 						++j;
 						if(itc.hasNext()) res += " ";
 					}
+					if(i+100 >= size()) ln.clear();
 					return res; 
 				}
 				//Pre: cierto
@@ -537,7 +505,7 @@ public class ControladorNave{
 			            String s="";
 				    if(sc.hasNext()) s = sc.next();
 			            while (sc.hasNext()) {
-			                    int id = Integer.parseInt(s);
+			                    String id = s;
 			                    String origen = sc.next();
 			                    String destino = sc.next();
 			                    s = sc.next();
@@ -549,37 +517,37 @@ public class ControladorNave{
 			                    	if(!TipoNave1.EstaDefinido()){
 			                    		TipoNave1.DefinirTipo(consumo);
 			                    	}
-			                    	aux = new TipoNave1(id,destino,origen);
-			                    	listaNaves.add(aux);
+			                    	aux = new TipoNave1( Integer.parseInt(id),destino,origen);
+			                    	listaNaves.add(id,aux);
 			                    }
 			                    
 			                    else if(tipo == 2){
 			                    	if(!TipoNave2.EstaDefinido()){
 			                    		TipoNave2.DefinirTipo(consumo);
 			                    	}
-			                    	aux = new TipoNave2(id,destino,origen);
-			                    	listaNaves.add(aux);
+			                    	aux = new TipoNave2(Integer.parseInt(id),destino,origen);
+			                    	listaNaves.add(id,aux);
 			                    }
 			                    else if(tipo == 3){
 			                    	if(!TipoNave3.EstaDefinido()){
 			                    		TipoNave3.DefinirTipo(consumo);
 			                    	}
-			                    	aux = new TipoNave3(id,destino,origen);
-			                    	listaNaves.add(aux);
+			                    	aux = new TipoNave3(Integer.parseInt(id),destino,origen);
+			                    	listaNaves.add(id,aux);
 			                    }
 			                    else if(tipo == 4){
 			                    	if(!TipoNave4.EstaDefinido()){
 			                    		TipoNave4.DefinirTipo(consumo);
 			                    	}
-			                    	aux = new TipoNave4(id,destino,origen);
-			                    	listaNaves.add(aux);
+			                    	aux = new TipoNave4(Integer.parseInt(id),destino,origen);
+			                    	listaNaves.add(id,aux);
 			                    }
 			                    else if(tipo == 5){
 			                    	if(!TipoNave5.EstaDefinido()){
 			                    		TipoNave5.DefinirTipo(consumo);
 			                    	}
-			                    	aux = new TipoNave5(id,destino,origen);
-			                    	listaNaves.add(aux);
+			                    	aux = new TipoNave5(Integer.parseInt(id),destino,origen);
+			                    	listaNaves.add(id,aux);
 			               		}
 					 s = sc.next();
 			            }
@@ -599,7 +567,7 @@ public class ControladorNave{
 			            Cdn.AbrirEscritura(path);        
 			            res = "";
 			            int iteracions = 0;
-			            for (Nave r : listaNaves){  
+			            for (Nave r : listaNaves.MostrarElementos()){  
 			            	int id = r.consultar_id();
 			                res +=  id + ":";
 			                res += r.consultar_origen() + ":";
@@ -620,7 +588,7 @@ public class ControladorNave{
 			        	Cdn.CerrarEscritura();
 			        }
 			    }
-			    
+			    /*
 			    public String consultarTODO() throws Exception {
 			    	String res = "";
 			        if(!listaNaves.isEmpty()){    
@@ -642,14 +610,10 @@ public class ControladorNave{
 			        }
 			        return res;
 			    }
+			    */
 			    public void BorraNavesDestinoOrigen(String id) throws Exception{
-			    	Iterator<Nave> it = listaNaves.iterator();
-			    		while(it.hasNext()){
-			    			Nave aux = it.next();
-			    			if(aux.consultar_destino().compareTo(id) == 0 || aux.consultar_origen().compareTo(id) == 0){
-			    				it.remove();
-			    			}
-			    		}
+			    	for(Nave n: listaNaves.MostrarElementos()){
+			    		if(n.consultar_destino().compareTo(id) == 0 || n.consultar_origen().compareTo(id) == 0) EliminarNave(n.consultar_id());
 			    	}
-			    
+			    }
 }
