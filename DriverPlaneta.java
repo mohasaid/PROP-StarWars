@@ -10,29 +10,25 @@ public class DriverPlaneta {
             +   "                    DRIVER PLANETA                                     "
             +   "-----------------------------------------------------------------------------------"
             + "Opciones \n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, bool F, bool S)\n"
-            + " 2: Consultar_id()\n"
-            + " 4: Consultar_Coste()\n"
-            + " 5: Consultar_Coordenadas()\n"
-            + " 6: consultar_X( )\n"
-            + " 7: consultar_Y( )\n"
-            + " 8: Consultar_Asignado()\n"
-            + " 9: Modificar_Coste(int k)\n"
-            + " 10: modificarCoordenades(int x, int y)\n"
-            + " 11: Modificar_Asignado(boolean A)\n");
+            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)\n"
+            + " 2: Consultar_nombre()\n"
+            + " 3: Consultar_Coste()\n"
+            + " 4: Consultar_Coordenadas()\n"
+            + " 5: consultar_X( )\n"
+            + " 6: consultar_Y( )\n"
+            + " 7: Modificar_Coste(int k)\n"
+            + " 8: modificarCoordenades(int x, int y)\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
                 case 1: TestCrearP(sc);break;
                 case 2: TestCId();break;
-                case 4: TestCCoste();break;
-                case 5: TestCCoordenadas();break;
-                case 6: TestCCoordenadaX();break;
-                case 7: TestCCoordenadaY();break;
-                case 8: TestCAsignado();break;
-                case 9: TestMCoste(sc);break;
-                case 10: TestMCoordenadas(sc);break;
-                case 11: TestMAsignado(sc);break;
+                case 3: TestCCoste();break;
+                case 4: TestCCoordenadas();break;
+                case 5: TestCCoordenadaX();break;
+                case 6: TestCCoordenadaY();break;
+                case 7: TestMCoste(sc);break;
+                case 8: TestMCoordenadas(sc);break;
             }
             n = sc.nextInt();
         }
@@ -109,16 +105,6 @@ public class DriverPlaneta {
     		System.out.print(e);
     	}
     }
-    public void TestCAsignado() {
-    	try{
-    		boolean b = p.Consultar_Asignado();
-    		if(b) System.out.print("El Planeta esta Asignado a la Galaxia\n");
-    		else System.out.print("El Planeta NO esta Asignado a la Galaxia\n");
-    	}
-    	catch (Exception e){
-    		System.out.print(e);
-    	}
-    }
     public void TestMCoste (Scanner sc  ) {
     	try {
     		String s;
@@ -149,20 +135,6 @@ public class DriverPlaneta {
     		p.modificarCoordenades(xnew,ynew);
     	}
     	catch (Exception e) {
-    		System.out.print(e);
-    	}
-    }
-    public void TestMAsignado(Scanner sc) {
-    	try {
-    		String s;
-    		while(!sc.hasNextBoolean()) {
-    			s = sc.nextLine();
-    			throw new Exception ("Error: Un Planeta se indica se esta asginado a la Galaxia a traves de un boolean\n");
-    		}
-    		boolean A = sc.nextBoolean();
-    		p.Modificar_Asignado(A);
-    	}
-    	catch (Exception e){
     		System.out.print(e);
     	}
     }
