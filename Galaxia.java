@@ -7,13 +7,7 @@ public class Galaxia {
     private int[][] gal;
     private Integer N;
     private List<Pair<Integer,Integer> > limits;
-    
-    /*
-     * gal[i][j] = -1 ocupada por limite
-     * gal[i][j] = 0 libre
-     * gal[i][j] = 1 ocupada por algun planeta
-     */
-    
+
     /**
      * Metodo que dice si el nombre es alfanumerico
      * @param nom
@@ -222,7 +216,8 @@ public class Galaxia {
         if(algunPlaneta()) throw new Exception("Error: no se puede modificar el limite de una galaxia que contiene planetas");
         if(n < 10) throw new Exception("Error: el limite de una galaxia tiene que ser mayor que 10");
         
-        N = Integer.valueOf(n);
+        gal = new int[n][n]; 
+        N = new Integer(n);
         limits = new ArrayList<Pair<Integer,Integer> >(); // Pierde la forma que tenia
     }
     
@@ -306,7 +301,6 @@ public class Galaxia {
     {
     	if(existeixPlanetaCoordenades(x,y)) gal[x][y] = 0;
     	else throw new Exception("No existe ningun planeta en las coordenadas introducidas");
-    	// el else puede que sobre, lo comprobare antes de entrar aqui
     }
     
     /**
