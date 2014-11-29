@@ -67,38 +67,37 @@ public class ControladorPlaneta {
 			seg = Integer.toString(id);
 			f = nomG + seg;
 		}
-    	
+		
         String a11 = cg.afegirPlanetaAutomatic();
-        
-		Scanner sc = new Scanner(a11);
-		sc.useDelimiter(",");
-		Integer a1 = sc.nextInt();
-		Integer a2 = sc.nextInt();
+
+        Scanner scan = new Scanner(a11);
+		scan.useDelimiter(",");
+		Integer a1 = scan.nextInt();
+		Integer a2 = scan.nextInt();
 		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
 		
         Planeta p = new Planeta(f, r1, co_nuevas);
         listaPlanetas.add(f,p);
-        sc.close();
+        scan.close();
     }
     
     public void PlanetaAuto(String id, ControladorGalaxia cg) throws Exception 
     {
     	if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
     	if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
-    	// si no scao la excepcion anterior, habria inconsistencia entre galaxia y controlador planeta
     	
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
     	
     	String a11 = cg.afegirPlanetaAutomatic();
-		Scanner sc = new Scanner(a11);
-		sc.useDelimiter(",");
-		Integer a1 = sc.nextInt();
-		Integer a2 = sc.nextInt();
+		Scanner scan = new Scanner(a11);
+		scan.useDelimiter(",");
+		Integer a1 = scan.nextInt();
+		Integer a2 = scan.nextInt();
 		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
 		
         Planeta p = new Planeta(id, r1, co_nuevas);
         listaPlanetas.add(id,p);
-        sc.close();
+        scan.close();
     }
     
     //Pre: Cierto.
@@ -107,7 +106,6 @@ public class ControladorPlaneta {
     {
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
         if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
-    	// si no scao la excepcion anterior, habria inconsistencia entre galaxia y controlador planeta
         
         cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
         Planeta p = new Planeta (id, k, Coo);
