@@ -99,7 +99,7 @@ public class DriverControladorRuta {
     public void TestConsultaridruta(Scanner cin, ControladorRuta cr)
     {
     	try {
-    		cr.Consultar_id_ruta( cin.next(), cin.next() );
+    		System.out.print(cr.Consultar_id_ruta( cin.next(), cin.next() ) );
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -179,9 +179,11 @@ public class DriverControladorRuta {
 		}
     }
     
-    public void escriu_id_conexions(TreeSet<Conexion> C) throws Exception 
+    public void escriu_id_conexions(TST<Conexion> C) throws Exception 
     {
-		Iterator<Conexion> it = C.iterator();
+    	ArrayList<Conexion> c = C.MostrarElementos();
+
+		Iterator<Conexion> it = c.iterator();
 		Conexion aux;
 		while(it.hasNext()){
 			aux = it.next();
@@ -296,7 +298,7 @@ public class DriverControladorRuta {
     public void TestConsultar_arbre_conexions(ControladorRuta cr)
     {
 		try {
-			TreeSet<Conexion> C = cr.Consultar_arbre_conexions();
+			TST<Conexion> C = cr.Consultar_arbre_conexions();
 			escriu_id_conexions(C);
 		}
 		catch (Exception e){
