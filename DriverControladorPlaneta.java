@@ -5,9 +5,9 @@ public class DriverControladorPlaneta {
 	public void Ejecuta(Scanner sc, ControladorPlaneta contp, ControladorRuta contr, ControladorGalaxia cg) {
         int n;
             System.out.print(
-            "-----------------------------------------------------------------------------------"
-            +   "                    DRIVER CONTROLADOR PLANETA                                     "
-            +   "-----------------------------------------------------------------------------------"
+            "----------------------------------------------------------------------------------- \n"
+            +   "                    DRIVER CONTROLADOR PLANETA                                     \n"
+            +   "-----------------------------------------------------------------------------------\n"
             + "Opciones \n"
             + " 1: Planeta(String id, int k, Pair<Integer,Integer> Coo)\n"
             + " 2: PlanetaAuto()\n"
