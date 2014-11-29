@@ -69,7 +69,7 @@ public class ControladorGalaxia
     	int j = 0;
     	while(itp.hasNext() && j < 100) {
     		Pair<Integer, Integer> a = itp.next();
-    		res += "(" + a.consultarPrimero() + "," + a.consultarSegundo() + "), ";
+    		res += "#" + a.consultarPrimero() + "," + a.consultarSegundo();
     		++j;
     	}
     	return res;
@@ -315,7 +315,7 @@ public class ControladorGalaxia
      */
     public void carregarConjuntGalaxia(String directori) throws Exception
     {
-		g.eliminarTotsPlanetes(); // borro los planetas, el resto lo sobreescribo
+		//g.eliminarTotsPlanetes(); // borro los planetas, el resto lo sobreescribo
 		
 		String result;
 		cdg.AbrirLectura(directori);
@@ -326,10 +326,9 @@ public class ControladorGalaxia
 		String nomG = "";
 		int N = 0;
 		List<Pair<Integer, Integer> > lpa = new ArrayList<Pair<Integer,Integer> >();
-		
 		while((result = cdg.cargar(directori,100,br))!= "") {
 			Scanner cin = new Scanner(result);
-			cin.useDelimiter("#|:");
+			cin.useDelimiter("#|,");
 			String info = "";
 			if(cin.hasNext()) info = cin.next();
 			while(cin.hasNext()) {
@@ -352,9 +351,11 @@ public class ControladorGalaxia
 			}
 			cin.close();
 		}
+		
 		if(tiene) g = new Galaxia(nomG,N,lpa);
 		else g = new Galaxia(nomG,N);
-		cdg.CerrarEscritura();
+		
+		cdg.CerrarLectura();
     }
     
     /**
@@ -371,7 +372,6 @@ public class ControladorGalaxia
     	String result = "";
     	result += g.consultarNomGalaxia();
     	result += "#" + g.consultarLimitGalaxia();
-    	result += "#";
     	int i = 0;
     	int n = g.consulta_nombreLimits();
     	if(n != 0) {
