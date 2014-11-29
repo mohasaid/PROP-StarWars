@@ -83,6 +83,10 @@ public class ControladorPlaneta {
     
     public void PlanetaAuto(String id, ControladorGalaxia cg) throws Exception 
     {
+    	if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
+    	if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
+    	// si no scao la excepcion anterior, habria inconsistencia entre galaxia y controlador planeta
+    	
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
     	
     	String a11 = cg.afegirPlanetaAutomatic();
@@ -98,19 +102,13 @@ public class ControladorPlaneta {
     }
     
     //Pre: Cierto.
-    //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo.
-    public void Planeta(String id, int k, Pair<Integer,Integer> Coo) throws Exception 
-    {
-        if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
-        
-        Planeta p = new Planeta (id, k, Coo);
-        listaPlanetas.add(id,p);
-    }
-    //Pre: Cierto.
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Asiganado = A.
     public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
     {
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
+        if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
+    	// si no scao la excepcion anterior, habria inconsistencia entre galaxia y controlador planeta
+        
         cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(id, p);
@@ -222,7 +220,6 @@ public class ControladorPlaneta {
     	BufferedReader buffer = new BufferedReader(file);
     	Scanner sc;
     	int k, x, y;
-    	boolean A;
     	while((res = cdp.cargar(path,100,buffer))!= "") {
     		sc = new Scanner(res);
     		sc.useDelimiter("#|:");
