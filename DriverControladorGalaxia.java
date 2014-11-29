@@ -212,8 +212,15 @@ public class DriverControladorGalaxia {
 				int i = 0;
 				while(i < n) {
 					String res = cGalaxia.consultarLimitsGalaxia(i);
-					System.out.print(res);
+					Scanner t = new Scanner(res);
+					t.useDelimiter("#");
+					String info;
+					while(t.hasNext()) {
+						info = t.next();
+						System.out.print("(" + info + ") ");
+					}
 					i += 100;
+					t.close();
 				}
 			}
 			else throw new Exception("La galaxia no tiene forma");
@@ -453,6 +460,7 @@ public class DriverControladorGalaxia {
 		try {
 			String directori = cin.next();
 			cGalaxia.carregarConjuntGalaxia(directori);
+			creado = true;
 		}
 		catch(Exception e) {
             System.out.println(e);
