@@ -34,7 +34,6 @@ public class ControladorPlaneta {
     
     public void anadirPlaneta(Planeta p) throws Exception
     {
-    	if(ExistePlaneta(p.Consultar_nombre())) throw new Exception("Ya hay un planeta con este identificador");
     	listaPlanetas.add(p.Consultar_nombre(),p);
     }
     //Pre: Cierto.
@@ -84,8 +83,6 @@ public class ControladorPlaneta {
     
     public void PlanetaAuto(String id, ControladorGalaxia cg) throws Exception 
     {
-    	if(ExistePlaneta(id)) throw new Exception("Error: Existe un planeta con ese nombre");
-    	
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
     	
     	String a11 = cg.afegirPlanetaAutomatic();
@@ -104,7 +101,6 @@ public class ControladorPlaneta {
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo.
     public void Planeta(String id, int k, Pair<Integer,Integer> Coo) throws Exception 
     {
-        if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
         
         Planeta p = new Planeta (id, k, Coo);
@@ -114,7 +110,6 @@ public class ControladorPlaneta {
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Asiganado = A.
     public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
     {
-        if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
         cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
         Planeta p = new Planeta (id, k, Coo);
@@ -206,7 +201,6 @@ public class ControladorPlaneta {
     public void Borrar(String id, ControladorRuta cr, ControladorGalaxia cg) throws Exception 
     {
     	Planeta p = listaPlanetas.buscar(id);
-    	if(p == null) throw new Exception ("Error: el Planeta a borrar no existe\n");
     	cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
     	listaPlanetas.eliminar(id);
     }
