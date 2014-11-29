@@ -375,10 +375,8 @@ public class ControladorRuta {
         if (ExisteRuta(id_nuevo)) {
         	throw new Exception("Ja existeix una ruta amb id = " + id_nuevo + " \n");
         }
-        Ruta solicitada = BuscarRuta(id_original);
-        solicitada.modificar_id(id_nuevo);
-        Conexion c = BuscarConexion(id_original);
-        c.modificar_id(id_nuevo);
+        BuscarRuta(id_original).modificar_id(id_nuevo);
+        BuscarConexion(id_original).modificar_id(id_nuevo);
     }
       
     //Pre: Existe una ruta con id = "id"
@@ -388,8 +386,8 @@ public class ControladorRuta {
         if(ErrorTipografico(capacidad_nueva)){
             throw new Exception("Error : La capacidad debe ser mayor o igual que 0\n");
         }
-        Ruta solicitada = BuscarRuta(id);
-        solicitada.modificar_capacidad(capacidad_nueva);
+        BuscarRuta(id).modificar_capacidad(capacidad_nueva);
+        
     }
       
     //Pre: Existe una ruta con id = "id"
@@ -399,8 +397,7 @@ public class ControladorRuta {
         if(ErrorTipografico(distancia_nueva) || distancia_nueva == 0){
             throw new Exception("Error : La distancia entre planeas debe ser mayor que 0\n");
         }
-        Ruta solicitada = BuscarRuta(id);
-        solicitada.modificar_distancia(distancia_nueva);
+        BuscarRuta(id).modificar_distancia(distancia_nueva);
     }
       
     //Pre: Existe una ruta con id = "id"
@@ -419,7 +416,7 @@ public class ControladorRuta {
         if ( !Disponibilidad_crear_ruta( id_planetaA_nuevo, c.consultar_planetaB() ) ) {
             throw new Exception("No se puede modificar la id ya que ya existe una ruta que conecta el planeta " + id_planetaA_nuevo + " y el planeta " + c.consultar_planetaB() + "\n");
         }
-        c.modificar_planetaA(id_planetaA_nuevo);
+        BuscarConexion(id).modificar_planetaA(id_planetaA_nuevo);
     }
     
     //Pre: Existe una ruta con id = "id"
@@ -437,7 +434,7 @@ public class ControladorRuta {
         if ( !Disponibilidad_crear_ruta( c.consultar_planetaA(), id_planetaB_nuevo ) ) {
             throw new Exception("No se puede modificar la id ya que ya existe una ruta que conecta el planeta " + c.consultar_planetaA() + " y el planeta " + id_planetaB_nuevo + "\n");
         }
-        c.modificar_planetaB(id_planetaB_nuevo);
+        BuscarConexion(id).modificar_planetaB(id_planetaB_nuevo);
     }
     
     //Pre: Existe una ruta con id = "id"
@@ -451,7 +448,7 @@ public class ControladorRuta {
                 throw new Exception("No se puede pasar a tener una ruta bidireccional, porque ya existe una ruta que une del planeta" + c.consultar_planetaB() + " a " + c.consultar_planetaA() + "\n");
             }
         }
-        r.modificar_bidireccional(bidireccional_nuevo);
+        BuscarRuta(id).modificar_bidireccional(bidireccional_nuevo);
     }
     
   //Pre: Existe una ruta con id = "id_planeta"
