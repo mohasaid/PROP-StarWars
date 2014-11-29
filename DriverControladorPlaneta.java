@@ -64,7 +64,7 @@ public class DriverControladorPlaneta {
             }
             int y = sc.nextInt();
             Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-            contp.Planeta(id,k,Coo);
+            contp.Planeta(id,k,Coo, cg);
         }
         catch (Exception e){
             System.out.print(e);
