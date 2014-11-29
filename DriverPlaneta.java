@@ -28,7 +28,7 @@ public class DriverPlaneta {
                 case 4: TestCCoste();break;
                 case 5: TestCCoordenadas();break;
                 case 6: TestCCoordenadaX();break;
-                case 7: TestCCoordenadaY();break
+                case 7: TestCCoordenadaY();break;
                 case 8: TestCAsignado();break;
                 case 9: TestMCoste(sc);break;
                 case 10: TestMCoordenadas(sc);break;
