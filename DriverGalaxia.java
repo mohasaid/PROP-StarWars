@@ -45,8 +45,7 @@ public class DriverGalaxia {
  	            
  	            case 17: TesteliminarPLaneta(g,cin,cp); break;
  	            case 18: TesteliminarTotsPlanetes(g,cp); break;
- 	            
- 	            default: System.out.println("Opcion incorrecta");
+ 	            default: System.out.println("Opcion incorrecta"); 
              }
              opcion = cin.nextInt();
          }
@@ -55,36 +54,36 @@ public class DriverGalaxia {
 	private static void opcions()
     {
     	 System.out.print(
-	              "----------------------------------------------------------------------------- 			\n"
-	            + "                               DRIVER GALAXIA                                    	    \n"
-	            + "----------------------------------------------------------------------------- 			\n"
+	              "-----------------------------------------------------------------------------\n"
+	            + "-                               DRIVER GALAXIA                              -\n"
+	            + "-----------------------------------------------------------------------------\n"
 	            
-	            + "- Opcion 0: Salir de la gestion del driver                                        	    \n"
+	            + "- Opcion 0: Salir de la gestion del driver                                  -\n"
 	            
-	            + "- Opcion 1: Galaxia(String nom, int n)                                           		\n"       
-	            + "- Opcion 2: Galaxia(String nom, int n, List<Pair<Integer, Integer> > l)   				\n"
+	            + "- Opcion 1: Galaxia(String nom, int n)                                      -\n"       
+	            + "- Opcion 2: Galaxia(String nom, int n, List<Pair<Integer, Integer> > l)     -\n"
 	            
-	            + "- Opcion 3: consultarNomGalaxia() 									    				\n"       
-	            + "- Opcion 4: consulta_nombreLimits() 										    			\n"
-	            + "- Opcion 5: consultarValorLimits() 					    								\n"
-	            + "- Opcion 6: consultarLimitGalaxia() 										    			\n"
-	            + "- Opcion 7: dintreLimitUsuari(int x, int y) 												\n"
+	            + "- Opcion 3: consultarNomGalaxia() 										   -\n"       
+	            + "- Opcion 4: consulta_nombreLimits() 										   -\n"
+	            + "- Opcion 5: consultarValorLimits() 					    				   -\n"
+	            + "- Opcion 6: consultarLimitGalaxia() 										   -\n"
+	            + "- Opcion 7: dintreLimitUsuari(int x, int y) 								   -\n"
 				
- 				+ "- Opcion 8: modificar_nomGalaxia(String nom) 							    			\n"
- 				+ "- Opcion 9: modificarN(int n) 											    			\n"
- 				+ "- Opcion 10: modificarLimitsUsuari(List<Pair<Integer, Integer> > p) 						\n"
+ 				+ "- Opcion 8: modificar_nomGalaxia(String nom) 							   -\n"
+ 				+ "- Opcion 9: modificarN(int n) 											   -\n"
+ 				+ "- Opcion 10: modificarLimitsUsuari(List<Pair<Integer, Integer> > p) 		   -\n"
  				
-				+ "- Opcion 11: existeixPlanetaCoordenades(int x, int y) 				    				\n"
-				+ "- Opcion 12: consultarPlaneta(String idPlaneta)                    						\n"
-	            + "- Opcion 13: algunPlaneta()																\n"
+				+ "- Opcion 11: existeixPlanetaCoordenades(int x, int y) 				       -\n"
+				+ "- Opcion 12: consultarPlaneta(String idPlaneta)                    		   -\n"
+	            + "- Opcion 13: algunPlaneta()												   -\n"
 				
-				+ "- Opcion 14: CrearPlaneta(String, x, y)  												\n"
-				+ "- Opcion 15: CrearPlanetaAutomatic(String idPlaneta) 							    	\n"
-				+ "- Opcion 16: PlanetaAuto()  																\n"
+				+ "- Opcion 14: CrearPlaneta(String, x, y)  								   -\n"
+				+ "- Opcion 15: CrearPlanetaAutomatic(String idPlaneta) 					   -\n"
+				+ "- Opcion 16: PlanetaAuto()  												   -\n"
 				
-            	+ "- Opcion 17: eliminarPLaneta(String idPlaneta)  						    				\n"
-            	+ "- Opcion 18: eliminarTotsPlanetes() 										    			\n"
-	            );
+            	+ "- Opcion 17: eliminarPLaneta(String idPlaneta)  						       -\n"
+            	+ "- Opcion 18: eliminarTotsPlanetes() 										   -\n"
+            	+ "-----------------------------------------------------------------------------\n");
     }
     
     private static Galaxia TestCrearGalaxia(Scanner cin)
