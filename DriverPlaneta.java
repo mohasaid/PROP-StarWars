@@ -6,18 +6,18 @@ public class DriverPlaneta {
 	public void Ejecuta(Scanner sc) {
         int n;
             System.out.print(
-            "-----------------------------------------------------------------------------------"
-            +   "                    DRIVER PLANETA                                     "
-            +   "-----------------------------------------------------------------------------------"
-            + "Opciones \n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)\n"
-            + " 2: Consultar_nombre()\n"
-            + " 3: Consultar_Coste()\n"
-            + " 4: Consultar_Coordenadas()\n"
-            + " 5: consultar_X( )\n"
-            + " 6: consultar_Y( )\n"
-            + " 7: Modificar_Coste(int k)\n"
-            + " 8: modificarCoordenades(int x, int y)\n");
+            "----------------------------------------------------------------------------------- 	\n"
+            +   "                    DRIVER PLANETA                                     			\n"
+            +   "-----------------------------------------------------------------------------------\n"
+            + "Opciones 																			\n"
+            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, bool F, bool S)				\n"
+            + " 2: Consultar_id()																	\n"
+            + " 3: Consultar_Coste()																\n"
+            + " 4: Consultar_Coordenadas()															\n"
+            + " 5: consultar_X( )																	\n"
+            + " 6: consultar_Y( )																	\n"
+            + " 7: Modificar_Coste(int k)															\n"
+            + " 8: modificarCoordenades(int x, int y)												\n");
         n = sc.nextInt();
         while(n != 0) {
             switch(n) {
@@ -105,6 +105,7 @@ public class DriverPlaneta {
     		System.out.print(e);
     	}
     }
+
     public void TestMCoste (Scanner sc  ) {
     	try {
     		String s;
