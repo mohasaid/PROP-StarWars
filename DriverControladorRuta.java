@@ -29,7 +29,6 @@ public class DriverControladorRuta {
               + " 18: Consultar_Conexiones()\n"
               + " 19: Consultar_id_ruta(String planetaA, String planetaB) \n"
               
-              + " 20: ModificarIddRuta(int id_original, int id_nuevo, ControladorPlaneta cp) \n"    
               + " 21: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
               + " 22: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
               + " 23: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
@@ -74,7 +73,6 @@ public class DriverControladorRuta {
 	            case 18:  TestControladorConsultarConexiones(cr);break;
 	            case 19:  TestConsultaridruta(cin, cr);break;
 	            
-	            case 20: TestControladorModificarIdRuta(cin,cr,cp);break;
 	            case 21: TestControladorModificarCpacitatRuta(cin,cr);break;
 	            case 22: TestControladorModificarDistanciaRuta(cin,cr);break;
 	            case 23: TestControladorModificarPlanetaARuta(cin,cr,cp);break;
@@ -369,18 +367,6 @@ public class DriverControladorRuta {
 		try {
 			if ( cr.ExisteRuta(cin.nextInt()) ) System.out.println("La ruta si existe");
 			else System.out.println("La ruta no existe");
-		}
-		catch (Exception e){
-            System.out.print(e);
-		}
-	}
-	
-	public void TestControladorModificarIdRuta(Scanner cin, ControladorRuta cr, ControladorPlaneta cp) throws Exception 
-	{
-		try {
-			int id_original = cin.nextInt();
-			int id_modificado = cin.nextInt();
-			cr.ModificarIddRuta(id_original, id_modificado, cp);
 		}
 		catch (Exception e){
             System.out.print(e);
