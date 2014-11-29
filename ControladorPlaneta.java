@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.util.*;
 
 public class ControladorPlaneta {
-    private TreeSet<Planeta> listaPlanetas;
+    private TST<Planeta> listaPlanetas;
     private ControladorDadesPlaneta cdp;
     private static int id = 0;
     private static final String nomG = "Planeta";
@@ -29,46 +29,31 @@ public class ControladorPlaneta {
     //Post: Crea un ControladorPlaneta.
     public ControladorPlaneta()
     {
-        listaPlanetas = new TreeSet<Planeta>(new OrdenPlaneta());
+        listaPlanetas = new TST<Planeta>();
     }
     
     public void anadirPlaneta(Planeta p) throws Exception
     {
     	if(ExistePlaneta(p.Consultar_nombre())) throw new Exception("Ya hay un planeta con este identificador");
-    	listaPlanetas.add(p);
+    	listaPlanetas.add(p.Consultar_nombre(),p);
     }
     //Pre: Cierto.
     //Post: Retorna true si el planeta existe y false si no.
     public boolean ExistePlaneta(String idP) throws Exception 
     {
-        Iterator<Planeta> it = listaPlanetas.iterator();
-        while(it.hasNext()) {
-            if(it.next().Consultar_nombre().compareTo(idP) == 0) return true;
-        }
-        return false;
+    	return listaPlanetas.contains(idP);
     }
     
     public void BorraPla(String idPlaneta) throws Exception
     {
-    	Iterator<Planeta> it = listaPlanetas.iterator();
-    	Planeta p = null;
-    	while(it.hasNext()) {
-    		p = it.next();
-    		if(p.Consultar_nombre().compareTo(idPlaneta) == 0) it.remove();
-    	}
+    	listaPlanetas.eliminar(idPlaneta);
     }
     
     //Pre: Cierto.
     //Post: Retorna un Planeta con idedentificador "id".
     public Planeta BuscarPlaneta(String id) throws Exception
     {
-        Iterator<Planeta> it = listaPlanetas.iterator();
-        Planeta p;
-        while(it.hasNext()) {
-        	p = it.next();
-            if (p.Consultar_nombre().compareTo(id) == 0) return p;
-        }
-		return null;   
+		return listaPlanetas.buscar(id);   
     }
     //Pre: Cierto.
     //Post: Crea un planeta automaticamente con atributos aleatorios incluida la id
@@ -93,7 +78,7 @@ public class ControladorPlaneta {
 		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
 		
         Planeta p = new Planeta(f, r1, co_nuevas);
-        listaPlanetas.add(p);
+        listaPlanetas.add(f,p);
         sc.close();
     }
     
@@ -111,7 +96,7 @@ public class ControladorPlaneta {
 		Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
 		
         Planeta p = new Planeta(id, r1, co_nuevas);
-        listaPlanetas.add(p);
+        listaPlanetas.add(id,p);
         sc.close();
     }
     
@@ -123,18 +108,18 @@ public class ControladorPlaneta {
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
         
         Planeta p = new Planeta (id, k, Coo);
-        listaPlanetas.add(p);
+        listaPlanetas.add(id,p);
     }
     //Pre: Cierto.
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Asiganado = A.
-    public void Planeta(String id, int k, Pair<Integer,Integer> Coo, boolean A, ControladorGalaxia cg) throws Exception 
+    public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
     {
         if(ExistePlaneta(id)) throw new Exception ("Error: La id del planeta ya existe");
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
+        cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
+        Planeta p = new Planeta (id, k, Coo);
+        listaPlanetas.add(id, p);
         
-        Planeta p = new Planeta (id, k, Coo, A);
-        listaPlanetas.add(p);
-        if(A) cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
     }
     //Pre: Cierto.
     //Post: Retorna el Coste del planeta.
@@ -164,11 +149,6 @@ public class ControladorPlaneta {
         return BuscarPlaneta(id).consultar_Y();
     }
     //Pre: Cierto.
-    //Post: Retorna Asignado.
-    public boolean Consultar_Asiganado(String id) throws Exception {
-    	return BuscarPlaneta(id).Consultar_Asignado();
-    }
-    //Pre: Cierto.
     //Post: Retorna el tamanio de listaPlanetas.
     public int Consultar_Size() 
     {
@@ -179,40 +159,22 @@ public class ControladorPlaneta {
     //Post: Retorna listaPlanetas.
     public String Consultar_listaPlanetas() throws Exception
     {
-    	String res;
-    	Iterator<Planeta> it = listaPlanetas.iterator();
-    	res = "";
-    	while (it.hasNext()) {
-    		res += "-" + it.next().Consultar_nombre();
-    	}
-    	res += "\n";
-        return res;
+    	String res = ""	;
+    	ArrayList<String> lp = listaPlanetas.ConsultarIdentificadores();
+    	for(int i = 0; i < listaPlanetas.size(); ++i) res += lp.get(i)+"-";
+    	res +="\n";
+    	return res;
     }
     
     public ArrayList<String> consultarPlanetas() throws Exception
     {
-    	ArrayList<String> pl = new ArrayList<String>();
-    	Iterator<Planeta> it = listaPlanetas.iterator();
-    	while(it.hasNext()) {
-    		pl.add(it.next().Consultar_nombre());
-    	}
-    	return pl;
+    	return listaPlanetas.ConsultarIdentificadores();
     }
     
     //Pre: 0 <= X < listaPlanetas.size().
     //Post: Consulta el elemento X de la listaPlanetas en caso de que exista
     public Planeta Consultar_PlanetaX(int x) throws Exception {
-        if (listaPlanetas.isEmpty()) throw new Exception("Error: No existe ningun planeta");
-        
-        Iterator<Planeta> it = listaPlanetas.iterator();
-        int n = 0;
-        Planeta a = null;
-        while(n != x) {
-                a = it.next();
-                ++n;
-        }
-        a = it.next();
-        return a;
+        return listaPlanetas.MostrarElementos().get(x);
     }
     
     //Pre: Cierto.
@@ -235,43 +197,18 @@ public class ControladorPlaneta {
     	Planeta a = BuscarPlaneta(id);
     	int c1 = a.consultar_X();
     	int c2 = a.consultar_Y();
-    	if(a.Consultar_Asignado()) {
-    		cg.afegirPlaneta(x, y); // saca excepcion si hay algo o no se puede
-    		cg.eliminarPlaneta(c1, c2);
-    	}
+    	cg.afegirPlaneta(x, y);
+    	cg.eliminarPlaneta(c1, c2);
     	a.modificarCoordenades(x, y);
     }
-    //Pre: Cierto.
-    //Post: Modifica Asignado del planeta id.
-    public void Modificar_Asignado(String id, boolean A, ControladorGalaxia cg) throws Exception {
-    	Planeta p = BuscarPlaneta(id);
-    	if(p.Consultar_Asignado() && !A) {
-    		cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
-    		p.Modificar_Asignado(A);
-    	}
-    	else if(!p.Consultar_Asignado() && A) {
-    		cg.afegirPlaneta(p.consultar_X(), p.consultar_Y());
-    		p.Modificar_Asignado(A);
-    	}
-    }
-    
     //Pre: Cierto.
     //Post: Borra el planeta.
     public void Borrar(String id, ControladorRuta cr, ControladorGalaxia cg) throws Exception 
     {
-        Iterator<Planeta> it = listaPlanetas.iterator();
-        boolean found = false;
-        Planeta p;
-        while (!found && it.hasNext()) {
-        	p = it.next();
-        	if(p.Consultar_nombre().equals(id)) {
-        		found = true; 
-        		cr.BorrarRutaConexions(id);
-        		if(p.Consultar_Asignado()) cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
-        		listaPlanetas.remove(it);
-        	}
-        }
-       
+    	Planeta p = listaPlanetas.buscar(id);
+    	if(p == null) throw new Exception ("Error: el Planeta a borrar no existe\n");
+    	cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
+    	listaPlanetas.eliminar(id);
     }
     
     public void BorrarTodos() throws Exception 
@@ -305,13 +242,11 @@ public class ControladorPlaneta {
 				x = Integer.parseInt(s);
 				s = sc.next();
 				y = Integer.parseInt(s);
-				s = sc.next();
-				A = Boolean.parseBoolean(s);
 				sc.next();
 				Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-				Planeta p = new Planeta(id,k,Coo, A);
-				listaPlanetas.add(p);
 				cg.afegirPlaneta(x, y);
+				Planeta p = new Planeta(id,k,Coo);
+				listaPlanetas.add(id,p);
     		}
     	}
     	cdp.CerrarLectura();
@@ -326,12 +261,11 @@ public class ControladorPlaneta {
     	if(!listaPlanetas.isEmpty()){
     		cdp.AbrirEscritura(path);
     		res = "";
-    		for(Planeta p : listaPlanetas) {
+    		for(Planeta p : listaPlanetas.MostrarElementos()) {
     			res +=p.Consultar_nombre()+":";
     			res +=p.Consultar_Coste()+":";
     			res +=p.consultar_X()+":";
-    			res +=p.consultar_Y()+":";
-    			res +=p.Consultar_Asignado()+":";
+    			res +=p.consultar_Y();
     			res +="#";
     			++iter;
     			if(iter == 100){
@@ -350,12 +284,11 @@ public class ControladorPlaneta {
     
     public String consultarTODO() throws Exception {
     	String res ="";
-    	for(Planeta p : listaPlanetas) {
+    	for(Planeta p : listaPlanetas.MostrarElementos()) {
 			res +=p.Consultar_nombre()+":";
 			res +=p.Consultar_Coste()+":";
 			res +=p.consultar_X()+":";
-			res +=p.consultar_Y()+":";
-			res +=p.Consultar_Asignado()+":"; 
+			res +=p.consultar_Y();
 			res +="#";
 		}
     	return res;
