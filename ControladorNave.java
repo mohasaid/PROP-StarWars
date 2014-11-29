@@ -20,7 +20,7 @@ public class ControladorNave{
 			return listaNaves.buscar(id2);
 	}
 	public ArrayList<String> PlanetasOrigen() throws Exception{
-		ArrayList<String> ln = listaNaves.MostrarContenido();
+		ArrayList<String> ln = listaNaves.ConsultarIdentificadores();
 		ArrayList<String> planetas = new ArrayList<String>();
 		Iterator<String> it = ln.iterator();
 		while(it.hasNext()){
@@ -31,7 +31,7 @@ public class ControladorNave{
 		return planetas;				
 	}
 	public ArrayList<String> PlanetasDestino() throws Exception{
-		ArrayList<String> ln = listaNaves.MostrarContenido();
+		ArrayList<String> ln = listaNaves.ConsultarIdentificadores();
 		ArrayList<String> planetas = new ArrayList<String>();
 		Iterator<String> it = ln.iterator();
 		while(it.hasNext()){
