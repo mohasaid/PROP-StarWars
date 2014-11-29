@@ -5,7 +5,6 @@ public class Planeta
     private String nombrePlaneta; //Identificador del planeta
     private int Coste; //Precio del combustible del planeta.
     private Pair<Integer,Integer> Coordenadas; //Coordenadas del planeta en la galaxia
-    private boolean Asignado;
     
     private boolean alfa_numeric(String nom)
     {
@@ -26,18 +25,6 @@ public class Planeta
         nombrePlaneta = n;
         Coste = k;
         Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
-        Asignado = false;
-    }
-    // Pre: Cierto.
-    // Post: Crea un planeta con nombrePlaneta = n , Coste = k, Coordenadas = Coo, F indica si es Fuente y S si es Sumidero.
-    public Planeta(String n, int k, Pair<Integer,Integer> Coo, boolean A) throws Exception
-    {
-        if(!alfa_numeric(n)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico y contener menos de 20 caracteres");
-    	if (k < 0) throw new Exception ("Error: El Coste no puede ser negativo");
-        nombrePlaneta = n;
-        Coste = k;
-        Coordenadas = new Pair<Integer, Integer> (Coo.consultarPrimero(), Coo.consultarSegundo());
-        Asignado = A;
     }
     //Pre: Cierto.
     //Post: Retorna la id del planeta
@@ -71,11 +58,6 @@ public class Planeta
         return Coordenadas.consultarSegundo();
     }
     //Pre: Cierto.
-    //Post: Retrona Asignado
-    public boolean Consultar_Asignado() {
-    	return Asignado;
-    }
-    //Pre: Cierto.
     //Post: Modifica el coste Coste, Coste = k.
     public void Modificar_Coste(int k) throws Exception
     {
@@ -91,15 +73,4 @@ public class Planeta
     	Coordenadas.ponPrimero(rndX);
     	Coordenadas.ponSegundo(rndY);
     }
-    //Pre: Cierto.
-    //Post: Modifica Asignado
-    public void Modificar_Asignado(boolean A){
-    	Asignado = A;
-    }
 }
-
-class OrdenPlaneta implements Comparator<Planeta>{
-	 public int compare(Planeta a, Planeta b) {
-		 return a.Consultar_nombre().compareTo(b.Consultar_nombre());
-	 }
-} 
