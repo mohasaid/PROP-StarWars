@@ -71,15 +71,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador del tipo de nave debe ser un entero\n");
                     }
                     int tipoID = sc.nextInt();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El identificador del planeta destino debe ser un entero\n");
-                    }
                     String destID = sc.next();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El identificador del planeta origen debe ser un entero\n");
-                    }
                     String origID = sc.next();
                     
                     if(!cp.ExistePlaneta(destID)){
