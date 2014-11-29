@@ -140,7 +140,7 @@ public class DriverControladorNave{
                     String orig = cn.ConsultarPlanetaOrigen(id);
                     int tipo = cn.ConsultarTipo(id);
                     int cons = cn.ConsultarConsumo(id);
-                    System.out.print("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", origen: " + orig + ", destino: " + dest + "\n");
+                    System.out.println("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", origen: " + orig + ", destino: " + dest);
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -166,7 +166,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    System.out.print(cn.ConsultarPlanetaDestino(id) + "\n");
+                    System.out.println(cn.ConsultarPlanetaDestino(id));
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -179,7 +179,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    System.out.print(cn.ConsultarPlanetaOrigen(id) + "\n");
+                    System.out.println(cn.ConsultarPlanetaOrigen(id));
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -193,7 +193,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idnave = sc.nextInt();
-                    System.out.print(cn.ConsultarTipo(idnave));
+                    System.out.println(cn.ConsultarTipo(idnave));
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -207,7 +207,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idnave = sc.nextInt();
-                    System.out.print(cn.ConsultarConsumo(idnave) + "\n");
+                    System.out.println(cn.ConsultarConsumo(idnave));
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -220,7 +220,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idtipo = sc.nextInt();
-                    System.out.print(cn.ConsultarConsumoTipo(idtipo) + "\n");
+                    System.out.println(cn.ConsultarConsumoTipo(idtipo));
                 }
                 catch (Exception e){
                     System.out.print(e);
