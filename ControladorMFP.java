@@ -25,8 +25,18 @@ public class ControladorMFP{
 		}
 		if(i==1||i==2){
 			alg = new FordFulkerson(e);
-			if(i==1)r = new BFS();
-			else if(i==2)r = new Dijkstra();
+			if(i==1){
+				if(!(fc instanceof FuncionFlujo)){
+					throw new Exception("Error: Ford Fulkerson bfs se ejecuta para función de coste: Flujo");
+				}
+				r = new BFS();
+			}
+			else if(i==2){
+				if(fc instanceof FuncionFlujo){
+					throw new Exception("Error: Ford Fulkerson dijkstra se ejecuta para funciones de coste: Distancia, Precio");
+				}
+				r = new Dijkstra();
+			}
 			alg.Ejecutar(r,s);
 		}
 		if(i==3){
