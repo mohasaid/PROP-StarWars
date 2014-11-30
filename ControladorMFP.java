@@ -15,6 +15,7 @@ public class ControladorMFP {
 	public ControladorMFP()
 	{
 		FuncionElegida = false;
+		s = new Salida();
 	}
 	
 	public void AnadirEntrada(Entrada e1)
@@ -132,5 +133,4 @@ public class ControladorMFP {
 		}
 		return res;
 	}
-	
 }
