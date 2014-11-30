@@ -110,7 +110,7 @@ public class ControladorMFP {
 			++j;
 		}
 		res += "Maximo flujo de naves = " + s.ConsultarMax_flow() + "\n";
-		res += "Tiempo ejecucion del algoritmo = " + s.consultarTiempo() + "\n";
+		res += "Tiempo ejecucion del algoritmo = " + s.consultarTiempo() + " milisegundos\n";
 		return res;
 	}
 	
