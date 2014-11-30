@@ -1,7 +1,6 @@
 import java.util.*;
 
 public class FordFulkerson extends MFP {
-	//protected int path[]; // con -1
 	
 	public FordFulkerson(Entrada e)
 	{
@@ -15,7 +14,7 @@ public class FordFulkerson extends MFP {
 		int size = g_residual.sizeGrafo();
 		
 		int origen = size-2; // nodo origen
-		int destino = size-1; // nodo destinoW
+		int destino = size-1; // nodo destino
 		
 		int path[] = new int[size];
 		Arrays.fill(path, -1);
@@ -50,10 +49,5 @@ public class FordFulkerson extends MFP {
 		
 		long tiempo = System.currentTimeMillis() - t;
 		s.AnadirTiempo(tiempo);
-	}
-	
-	public void Caminos(Nave n, int consumo, boolean b, Recorrido r, ControladorPlaneta cp, Salida s) throws Exception
-	{
-		super.Caminos(n, consumo,b,r,cp,s);
 	}
 }
