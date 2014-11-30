@@ -15,13 +15,12 @@ public class DriverGeneral
         + " Opcion 6: Driver Ruta			 			    \n"
         + " Opcion 7: Driver Controlador Planeta			\n"
         + " Opcion 8: Driver Planeta 						\n"
-        + " Opcion 9:  Driver Conexion						\n"
+        + " Opcion 9: Driver Conexion						\n"
         + " Opcion 10: Driver Entrada 						\n"
         + " Opcion 11: Driver Arco   						\n"
         + " Opcion 12: Driver Salida 						\n"
         + " Opcion 13: Driver Controlador MFP				\n"
-        + " Opcion 14: Driver Pair							\n"
-		);
+        + " Opcion 14: Driver Pair							\n");
     }
       
     public static void main(String[] args) throws Exception {
@@ -56,9 +55,8 @@ public class DriverGeneral
         
         //Entrada
         DriverEntrada De = new DriverEntrada();
-        //Entrada e = null;
-        
-         //Conexion
+
+        //Conexion
         DriverConexion Dc = new DriverConexion();
         
         // Pair
@@ -80,7 +78,7 @@ public class DriverGeneral
                 case 10: De.Executa(); break;
                 case 11: Darco.Executa(sc); break;
                 case 12: Dsalida.Executa(sc,cr,cg); break;
-                case 13: dMFP.Executa(sc,/*e,*/cMFP,cg,cr,cp,cn); break;
+                case 13: dMFP.Executa(sc,cMFP,cg,cr,cp,cn); break;
                 case 14: dp.Executa(sc); break;
                 default: System.out.println("Opcion incorrecta");                
             }
