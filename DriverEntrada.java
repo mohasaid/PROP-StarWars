@@ -26,7 +26,6 @@ public class DriverEntrada {
 	            case 2:  TestConsultarGrafo();break;
 	            default: System.out.println("Opcion incorrecta");
             }
-        opciones();
         op = cin.nextInt();
         }
     }
