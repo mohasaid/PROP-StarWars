@@ -5,8 +5,7 @@ import java.util.Scanner;
 public class DriverPair {
 	private Pair<Integer, Integer> p;
 	
-	public void Executa() {
-        Scanner sc = new Scanner(System.in);
+	public void Executa(Scanner sc) {
         int op;
         System.out.print(
              "------------------------------------------------ \n"
@@ -31,8 +30,8 @@ public class DriverPair {
             	case 6: TestConsultaPintar(); break;
             	default: System.out.println("Opcion incorrecta");
             }
-    op = sc.nextInt(); 
-    }
+        op = sc.nextInt(); 
+        }
    }
 	
 	public void TestCreaPair(Scanner sc) 
@@ -69,3 +68,6 @@ public class DriverPair {
 		System.out.println(p.toString());
 	}
 }	
+
+
+
