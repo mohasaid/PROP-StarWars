@@ -43,9 +43,9 @@ public class ControladorMFP {
 				}
 				r = new Dijkstra();
 			}
-			System.out.println("ANTES DE EJECUTARLO");
+			System.out.println("ANTES DE EJECUTARLO, max flow = " + s.ConsultarMax_flow());
 			alg.Ejecutar(r,s);
-			System.out.println("DESPUES DE EJECUTARLO");
+			System.out.println("DESPUES DE EJECUTARLO, max flow = " + s.ConsultarMax_flow());
 		}
 		if(i==3) {
 			alg = new PushRelabel(e);
@@ -55,10 +55,12 @@ public class ControladorMFP {
 		//Calculo del camino de nada nave 
 		ArrayList<Nave> aux = cn.CNaves();
 		Iterator<Nave> it = aux.iterator();
-		while(it.hasNext()){
+		int indice = 0;
+		while(it.hasNext()) {
 			Nave n = it.next();
 			int cons = cn.ConsultarConsumo(n.consultar_id());
-			alg.Caminos(n,cons,(fc instanceof FuncionPrecio),r,cp,s);
+			alg.Caminos(n,cons,(fc instanceof FuncionPrecio),r,cp,s,indice);
+			++indice;
 		}
 		//Calculo de los cuellos de botella
 		alg.Calcular_cuellos_botellas(s,cp,cr);
@@ -107,8 +109,8 @@ public class ControladorMFP {
 			res += itCB.next()+"\n";
 			++j;
 		}
-		res += "Maximo flujo = " + s.ConsultarMax_flow() + "\n";
-		res += "Tiempo tardado = " + s.consultarTiempo() + "\n";
+		res += "Maximo flujo de naves = " + s.ConsultarMax_flow() + "\n";
+		res += "Tiempo ejecucion del algoritmo = " + s.consultarTiempo() + "\n";
 		return res;
 	}
 	
