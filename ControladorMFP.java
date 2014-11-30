@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class ControladorMFP{
+public class ControladorMFP {
 	private MFP alg;
 	private Entrada e;
 	private Salida s;
@@ -12,18 +12,23 @@ public class ControladorMFP{
 	private Iterator<String> itC;
 	
 	//CREADORA
-	public ControladorMFP(){
+	public ControladorMFP()
+	{
 		FuncionElegida = false;
 	}
-	public void AnadirEntrada(Entrada e1){
+	
+	public void AnadirEntrada(Entrada e1)
+	{
 		e = e1;
 	}
+	
 	//Seleccion/Ejecucion del algoritmo
-	public void SeleccionarAlgoritmo(int i, ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp) throws Exception{
-		if(!FuncionElegida){
+	public void SeleccionarAlgoritmo(int i, ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp) throws Exception
+	{
+		if(!FuncionElegida) {
 			throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
 		}
-		if(i==1||i==2){
+		if(i==1||i==2) {
 			alg = new FordFulkerson(e);
 			if(i==1){
 				if(!(fc instanceof FuncionFlujo)){
@@ -31,7 +36,7 @@ public class ControladorMFP{
 				}
 				r = new BFS();
 			}
-			else if(i==2){
+			else if(i==2) {
 				if(fc instanceof FuncionFlujo){
 					throw new Exception("Error: Ford Fulkerson dijkstra se ejecuta para funciones de coste: Distancia, Precio");
 				}
@@ -39,9 +44,9 @@ public class ControladorMFP{
 			}
 			alg.Ejecutar(r,s);
 		}
-		if(i==3){
-			//alg = new PushRelabel();
-			//alg.Grafo(e.Consultar_grafo());
+		if(i==3) {
+			alg = new PushRelabel(e);
+			alg.Ejecutar(r, s);
 		}
 		//Calculo del camino de nada nave 
 		ArrayList<Nave> aux = cn.CNaves();
@@ -49,30 +54,31 @@ public class ControladorMFP{
 		while(it.hasNext()){
 			Nave n = it.next();
 			int cons = cn.ConsultarConsumo(n.consultar_id());
-			alg.Caminos(n,cons,(fc instanceof FuncionPrecio),cp,s);
+			//alg.Caminos(n,cons,(fc instanceof FuncionPrecio),cp,s);
 		}
 		//Calculo de los cuellos de botella
-		alg.Calcular_cuellos_botellas(cr,cp,s);
+		alg.Calcular_cuellos_botellas(s,cp,cr);
 	}
 	
 	//Funciones de coste
-	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception{
+	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception
+	{
 		if(x==1) fc = new FuncionFlujo();
 		if(x==2) fc = new FuncionDistancia();
 		if(x==3) fc = new FuncionPrecio();
-		FuncionElegida=true;
+		FuncionElegida = true;
 		e = cg.transformaGrafo(cr,cp,cn,fc);
 	}
-
-	
-	
 	
 //OPERACIONES SALIDA
-	public void Inicializar1(){
+	public void Inicializar1()
+	{
 		itF = (s.ConsultarCaminos()).iterator();
 		itCB = (s.ConsultarCuellos()).iterator();
 	}
-	public void Inicializar2(){
+	
+	public void Inicializar2()
+	{
 		itC = (s.ConsultarCambios()).iterator();
 	}
 	
@@ -80,7 +86,8 @@ public class ControladorMFP{
 	//Post: devuelve el numero de elementos que conforman la salida incluyendo numero de rutas, numero de cuellos de botella y el coste
 	//Pre:cierto
 	//Post: devuelve un string que contiene: flujos de cada ruta, los cuellos de botella y el coste
-	public String ConsultarSalida(int i){
+	public String ConsultarSalida(int i)
+	{
 		String res = "";
 		int j=0;
 		if(i==0){
@@ -98,16 +105,21 @@ public class ControladorMFP{
 		}
 		return res;
 	}
-	public int size(){
+	
+	public int size()
+	{
 		return s.size();
 	}
-	public int sizeCambios(){
+	
+	public int sizeCambios()
+	{
 		return s.sizeCambios();
 	}
 	
 	//Pre:cierto
 	//Post:devuelve un string que contiene los cambios que se han ido produciendo en el grafo durante la ejecución del algoritmo.
-	public String ConsultarCambios(int i){
+	public String ConsultarCambios(int i)
+	{
 		String res = "";
 		int j=0;
 		if(i==0){
