@@ -43,12 +43,15 @@ public class ControladorMFP {
 				}
 				r = new Dijkstra();
 			}
+			System.out.println("ANTES DE EJECUTARLO");
 			alg.Ejecutar(r,s);
+			System.out.println("DESPUES DE EJECUTARLO");
 		}
 		if(i==3) {
 			alg = new PushRelabel(e);
 			alg.Ejecutar(r, s);
 		}
+		System.out.println("YA TENEMOS EL GRAFO RESIDUAL");
 		//Calculo del camino de nada nave 
 		ArrayList<Nave> aux = cn.CNaves();
 		Iterator<Nave> it = aux.iterator();
@@ -104,6 +107,8 @@ public class ControladorMFP {
 			res += itCB.next()+"\n";
 			++j;
 		}
+		res += "Maximo flujo = " + s.ConsultarMax_flow() + "\n";
+		res += "Tiempo tardado = " + s.consultarTiempo() + "\n";
 		return res;
 	}
 	
