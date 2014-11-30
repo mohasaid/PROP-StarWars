@@ -1,14 +1,16 @@
 import java.util.*;
 
 public class Dijkstra extends Recorrido {
-	protected int dist[];
+	protected int dist[]; // con infinito
+	
 	public Dijkstra(){}
 	
 	public boolean Recorrido(Grafo g_residual, int origen, int destino, int path[]) {
 		int V = g_residual.sizeGrafo();
 		boolean[] visitados = new boolean[V];
 		Arrays.fill(visitados, false);
-				
+		
+		Arrays.fill(dist, Integer.MAX_VALUE);
 		dist[origen] = 0;
 		
 		PriorityQueue<Pair<Integer, Integer> > pq = new PriorityQueue<Pair<Integer, Integer> >(1, new PriorityQueueComparator()); // coste, nodo
@@ -35,7 +37,6 @@ public class Dijkstra extends Recorrido {
 		else return false;
 	}
 }
-
 
 class PriorityQueueComparator implements Comparator<Pair<Integer, Integer>> 
 {
