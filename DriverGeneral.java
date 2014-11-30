@@ -4,7 +4,6 @@ public class DriverGeneral
 {
     private static void opciones()
     {
-        // menu telescopic
         System.out.println(
           "OPCIONES \n"
         + " Opcion 0: Salir gestion drivers                 \n"
@@ -21,6 +20,7 @@ public class DriverGeneral
         + " Opcion 11: Driver Arco   						\n"
         + " Opcion 12: Driver Salida 						\n"
         + " Opcion 13: Driver Controlador MFP				\n"
+        + " Opcion 14: Driver Pair							\n"
 		);
     }
       
@@ -48,7 +48,9 @@ public class DriverGeneral
         
        //Ruta (controlador ruta ya esta creado)
         DriverRuta DRuta = new DriverRuta();
-        DriverControladorRuta DCRuta = new DriverControladorRuta(); 
+        DriverControladorRuta DCRuta = new DriverControladorRuta();
+        
+        // Planeta
         DriverPlaneta Dp = new DriverPlaneta();
         DriverControladorPlaneta DCP = new DriverControladorPlaneta();
         
@@ -58,6 +60,9 @@ public class DriverGeneral
         
          //Conexion
         DriverConexion Dc = new DriverConexion();
+        
+        // Pair
+        DriverPair dp = new DriverPair();
 
         int op= sc.nextInt();
         while (op != 0){
@@ -69,13 +74,14 @@ public class DriverGeneral
                 case 4: DCGalaxia.Executa(sc,cp, cr, cn,cg); break;
                 case 5: DCRuta.Executa(cr, cp, sc); break;
                 case 6: DRuta.Executa(sc); break;
-                case 7:	DCP.Ejecuta(sc,cp,cr,cg);break;
-                case 8: Dp.Ejecuta(sc);break;
-                case 9: Dc.Executa(sc);break;
-                case 10: De.Executa();break;
-                case 11: Darco.Executa(sc);break;
-                case 12: Dsalida.Executa(sc,cr,cg);break;
-                case 13: dMFP.Executa(sc,e,cMFP,cg,cr,cp,cn);break;
+                case 7:	DCP.Ejecuta(sc,cp,cr,cg); break;
+                case 8: Dp.Ejecuta(sc); break;
+                case 9: Dc.Executa(sc); break;
+                case 10: De.Executa(); break;
+                case 11: Darco.Executa(sc); break;
+                case 12: Dsalida.Executa(sc,cr,cg); break;
+                case 13: dMFP.Executa(sc,e,cMFP,cg,cr,cp,cn); break;
+                case 14: dp.Executa(sc); break;
                 default: System.out.println("Opcion incorrecta");                
             }
             opciones();
