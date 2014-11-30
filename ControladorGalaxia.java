@@ -214,27 +214,31 @@ public class ControladorGalaxia
     public Entrada transformaGrafo(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn,  FuncionesCoste fc) throws Exception 
     {
     	Grafo g = new Grafo();
-    	
     	ArrayList<String> pl = cp.consultarPlanetas();
     	ArrayList<Conexion> ac = cr.Consultar_Conexiones();
     	
-    	for(int i = 0; i < ac.size(); ++i) { // anado las conexiones bidireccionales
+    	ArrayList<Conexion> ac1 = ac;
+    	
+    	int tam = ac.size();
+    	for(int i = 0; i < tam; i++) { // anado las conexiones bidireccionales
     		Ruta r = cr.BuscarRuta(ac.get(i).consultar_id());
     		if(r.consultar_bidireccional()) {
     			String pA = ac.get(i).consultar_planetaA();
     			String pB = ac.get(i).consultar_planetaB();
     			Conexion c = new Conexion(r.consultar_id(),pB,pA);
-    			ac.add(c);
+    			ac1.add(c);
     		}
     	}
+    	
+    	int tam1 = ac1.size();
     	
     	for(int i = 0; i < pl.size(); ++i) {
     		String idPlaneta = pl.get(i);
     		ArrayList<Pair<Arco, Integer> > ara = new ArrayList<Pair<Arco, Integer> >();
-    		for(int j = 0; j < ac.size(); ++j) {
-    			if(ac.get(j).consultar_planetaA().compareTo(idPlaneta) == 0) {
-    				int rut = ac.get(j).consultar_id();
-    				String pb = ac.get(j).consultar_planetaB();
+    		for(int j = 0; j < tam1; ++j) {
+    			if(ac1.get(j).consultar_planetaA().compareTo(idPlaneta) == 0) {
+    				int rut = ac1.get(j).consultar_id();
+    				String pb = ac1.get(j).consultar_planetaB();
     				int tmp = 0;
     				for(int k = 0; k < pl.size() ; ++k) {
     					if(pl.get(k).compareTo(pb) == 0) {
@@ -243,6 +247,7 @@ public class ControladorGalaxia
     					}
     				}
     				Ruta r = cr.BuscarRuta(rut);
+    				System.out.println("Ya tenemos la ruta " + r.consultar_id());
     				int cap = r.consultar_capacidad();
     				Arco arc = new Arco(cap);
     				if(fc instanceof FuncionFlujo) {
@@ -267,6 +272,7 @@ public class ControladorGalaxia
     	
     	ArrayList<String> origenes = cn.PlanetasOrigen(); // Penultimo Nodo virtual - origen general, size - 2
     	ArrayList<Pair<Arco, Integer> > apai = new ArrayList<Pair<Arco, Integer> >();
+    	
     	for(int i = 0; i < origenes.size(); ++i) {
     		String o = origenes.get(i);
     		int tmp2 = 0;
@@ -285,6 +291,7 @@ public class ControladorGalaxia
     	
     	ArrayList<String> destinos = cn.PlanetasDestino(); // Ultimo nodo virtual - destino general, size - 1
     	ArrayList<Pair<Arco, Integer> > apai1 = new ArrayList<Pair<Arco, Integer> >();
+    	
     	for(int i = 0; i < destinos.size(); ++i) {
     		String d = destinos.get(i);
     		int tmp3 = 0;
@@ -315,7 +322,7 @@ public class ControladorGalaxia
      */
     public void carregarConjuntGalaxia(String directori) throws Exception
     {
-		//g.eliminarTotsPlanetes(); // borro los planetas, el resto lo sobreescribo
+		g.eliminarTotsPlanetes(); // borro los planetas, el resto lo sobreescribo
 		
 		String result;
 		cdg.AbrirLectura(directori);
@@ -333,8 +340,8 @@ public class ControladorGalaxia
 			if(cin.hasNext()) info = cin.next();
 			while(cin.hasNext()) {
 				if(first) {
-					nomG = info; // nombre
-					info = cin.next(); // limite siempre tendra
+					nomG = info;
+					info = cin.next();
 					N = Integer.parseInt(info);
 					first = false;
 				}
@@ -351,7 +358,6 @@ public class ControladorGalaxia
 			}
 			cin.close();
 		}
-		
 		if(tiene) g = new Galaxia(nomG,N,lpa);
 		else g = new Galaxia(nomG,N);
 		
