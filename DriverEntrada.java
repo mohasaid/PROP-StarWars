@@ -6,15 +6,13 @@ public class DriverEntrada {
 	public void opciones()
     {
     	System.out.print(
-    				"-----------------------------------------------------------------------------------\n"
-                +   "                               DRIVER ENTRADA                                      \n"
-                +   "-----------------------------------------------------------------------------------\n"
-                +   " 0: Salir de la gestion del driver 												\n"
-                
-                +   " 1: Entrada() 																		\n"
-                
-                +   " 2: Consultar_grafo() 																\n"    
-    			);
+    			  "------------------------------------------------\n"
+                + "              DRIVER ENTRADA                   -\n"
+                + "------------------------------------------------\n"
+                + " 0: Salir de la gestion del driver 			   \n"
+                + " 1: CrearEntrada() 							   \n"
+                + " 2: Consultar_grafo() 						   \n"    
+    			+ "------------------------------------------------\n");
     }
     
     public void Executa() 
