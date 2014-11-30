@@ -89,31 +89,33 @@ public abstract class MFP {
 			scan.close();
 			
 			// calculo consumo general
-			int a1, a2, tmp = 0; // nodos
-			Scanner scan1 = new Scanner(res);
-			scan1.useDelimiter(",");
-			boolean first = true;
-			while(scan1.hasNext()) {
-				if(first) {
-					String a_1 = scan1.next();
-					a1 = Integer.parseInt(a_1);
-					String a_2 = scan1.next();
-					a2 = Integer.parseInt(a_2);
-					int cst = g_residual.consultaPairUn(a1, a2).consultarPrimero().ConsultarCoste();
-					cTotal += (cst*consumo);
-					tmp = a2;
-					first = false;
+			if(b) {
+				int a1, a2, tmp = 0; // nodos
+				Scanner scan1 = new Scanner(res);
+				scan1.useDelimiter(",");
+				boolean first = true;
+				while(scan1.hasNext()) {
+					if(first) {
+						String a_1 = scan1.next();
+						a1 = Integer.parseInt(a_1);
+						String a_2 = scan1.next();
+						a2 = Integer.parseInt(a_2);
+						int cst = g_residual.consultaPairUn(a1, a2).consultarPrimero().ConsultarCoste();
+						cTotal += (cst*consumo);
+						tmp = a2;
+						first = false;
+					}
+					else {
+						String a_11 = scan1.next();
+						int a3 = Integer.parseInt(a_11);
+						int cst1 = g_residual.consultaPairUn(tmp, a3).consultarPrimero().ConsultarCoste();
+						cTotal += (cst1*consumo);
+						tmp = a3;
+					}
 				}
-				else {
-					String a_11 = scan1.next();
-					int a3 = Integer.parseInt(a_11);
-					int cst1 = g_residual.consultaPairUn(tmp, a3).consultarPrimero().ConsultarCoste();
-					cTotal += (cst1*consumo);
-					tmp = a3;
-				}
+				scan1.close();
+				planetes += "#" + cTotal;
 			}
-			scan1.close();
-			planetes += "#" + cTotal;
 		}
 		else planetes = "Esta nave no puede desplazarse ya que no existe un camino posible entre su origen y destino";
 		s.AnadirCamino(planetes);
