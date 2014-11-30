@@ -14,8 +14,8 @@ public class FordFulkerson extends MFP {
 		
 		int size = g_residual.sizeGrafo();
 		
-		int origen = size-1; // nodo origen
-		int destino = size-2; // nodo destino
+		int origen = size-2; // nodo origen
+		int destino = size-1; // nodo destino
 		
 		int path[] = new int[size];
 		Arrays.fill(path, -1);
