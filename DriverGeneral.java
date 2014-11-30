@@ -56,7 +56,7 @@ public class DriverGeneral
         
         //Entrada
         DriverEntrada De = new DriverEntrada();
-        Entrada e = null;
+        //Entrada e = null;
         
          //Conexion
         DriverConexion Dc = new DriverConexion();
@@ -80,7 +80,7 @@ public class DriverGeneral
                 case 10: De.Executa(); break;
                 case 11: Darco.Executa(sc); break;
                 case 12: Dsalida.Executa(sc,cr,cg); break;
-                case 13: dMFP.Executa(sc,e,cMFP,cg,cr,cp,cn); break;
+                case 13: dMFP.Executa(sc,/*e,*/cMFP,cg,cr,cp,cn); break;
                 case 14: dp.Executa(sc); break;
                 default: System.out.println("Opcion incorrecta");                
             }
