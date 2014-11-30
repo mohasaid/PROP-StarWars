@@ -8,17 +8,17 @@ public class DriverPair {
 	public void Executa(Scanner sc) {
         int op;
         System.out.print(
-             "------------------------------------------------ \n"
-           + "                  DRIVER PAIR     			 - \n"
-           + "------------------------------------------------ \n"
-           + "- Opcion 0: Salir de la gestion del driver       \n"
-           + "- Opcion 1: Pair(int a, int b)				   \n"
-           + "- Opcion 2: ponPrimero(int elemento) 			   \n"
-           + "- Opcion 3: ponSegundo(int elemento) 			   \n"
-           + "- Opcion 4: consultaPrimero()  				   \n"
-           + "- Opcion 5: consultaSegundo() 				   \n"
-           + "- Opcion 6: toString()						   \n"
-           + "-------------------------------------------------\n");
+             "------------------------------------------------\n"
+           + "                  DRIVER PAIR     			 -\n"
+           + "------------------------------------------------\n"
+           + "- Opcion 0: Salir de la gestion del driver      \n"
+           + "- Opcion 1: Pair(int a, int b)				  \n"
+           + "- Opcion 2: ponPrimero(int elemento) 			  \n"
+           + "- Opcion 3: ponSegundo(int elemento) 			  \n"
+           + "- Opcion 4: consultaPrimero()  				  \n"
+           + "- Opcion 5: consultaSegundo() 				  \n"
+           + "- Opcion 6: toString()						  \n"
+           + "------------------------------------------------\n");
         op = sc.nextInt(); 
         while(op != 0){
             switch (op) {
