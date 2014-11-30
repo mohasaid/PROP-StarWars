@@ -33,10 +33,9 @@ public class DriverConexion {
             case 4:  TestConsultarPlanetaBConnexio();break;
             case 5:  TestModificarIdConnexio(cin);break;
             case 6:  TestModificarPlanetaAConnexio(cin);break;
-            case 7: TestModificarPlanetaBConnexio(cin);break;
+            case 7:  TestModificarPlanetaBConnexio(cin);break;
             default: System.out.println("Opcion incorrecta");
             }
-        opciones();
         n = cin.nextInt();
         }
     }
