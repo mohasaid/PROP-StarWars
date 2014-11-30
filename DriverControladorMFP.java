@@ -1,34 +1,27 @@
 import java.util.Scanner;
 
-public class DriverControladorMFP{
-    public void Executa(Scanner sc,/* Entrada e,*/ ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) {
+public class DriverControladorMFP {
+    public void Executa(Scanner sc, ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) {
         int op;
-        // cMFP.AnadirEntrada(e);
-
-        
-                		System.out.print("Opciones: \n\n"
+             System.out.print("Opciones: \n\n"
 		     +"---------------------------------------------------------------------------------\n"
       	     +"-                                 OPCIONES                                      -\n"
    	         +"-                     [opcion   Operacion(Atributos)]                           -\n"
              +"---------------------------------------------------------------------------------\n"
-             +"-                                                                               -\n"
              +"-   0   Salir del DriverControladorMFP                                          -\n"
              +"-   1   TestSeleccionarFC(int i)                                                -\n"
              +"-   2   TestSeleccionarAlgoritmo(int i)                                         -\n"
              +"-   3   Mostrar solucion                                                        -\n"
              +"-   4   Mostrar solucion parcial                                                -\n"
-             +"-                                                                               -\n"
              +"---------------------------------------------------------------------------------\n");
-
         op = sc.nextInt(); 
-                
         while(op != 0){
             switch (op) {
-            case 1: TestSeleccionarFC(sc,cMFP,cg,cr,cp,cn);break;
-            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cn,cr,cp);break;
-            case 3: TestConsultarSalida(cMFP);break;
-            case 4: TestConsultarCambios(cMFP);break;
-            default: System.out.println("Opcion incorrecta");
+	            case 1: TestSeleccionarFC(sc,cMFP,cg,cr,cp,cn);break;
+	            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cn,cr,cp);break;
+	            case 3: TestConsultarSalida(cMFP);break;
+	            case 4: TestConsultarCambios(cMFP);break;
+	            default: System.out.println("Opcion incorrecta");
             }
     op = sc.nextInt(); 
     }
@@ -40,11 +33,9 @@ public class DriverControladorMFP{
 	         	    +"-             OPCIONES                        -\n"
 	      	        +"-     [opcion   Operacion(Atributos)]         -\n"
 	                +"-----------------------------------------------\n"
-	                +"-                                             -\n"
 	                +"-   1   Flujo                                 -\n"
 	                +"-   2   Distancia                             -\n"
 	                +"-   3   Precio                                -\n"
-	                +"-                                             -\n"
 	                +"-----------------------------------------------\n");
 	    	int i = sc.nextInt();
 	    	if(i<1 || i>3) throw new Exception("Error: Opcion incorrecta");
@@ -61,11 +52,9 @@ public class DriverControladorMFP{
 	         	    +"-             OPCIONES                        -\n"
 	      	        +"-     [opcion   Operacion(Atributos)]         -\n"
 	                +"-----------------------------------------------\n"
-	                +"-                                             -\n"
 	                +"-   1   FordFulkerson con BFS                 -\n"
 	                +"-   2   FordFulkerson con Dijkstra            -\n"
 	                +"-   3   PushRelabel                           -\n"
-	                +"-                                             -\n"
 	                +"-----------------------------------------------\n");
 	    	int i = sc.nextInt();
 	    	if(i<1 || i>3) throw new Exception("Error: Opcion incorrecta");
