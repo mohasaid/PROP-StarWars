@@ -48,7 +48,7 @@ public abstract class MFP {
 		}
 	}
 
-	public void Caminos(Nave n, int consumo, boolean b, Recorrido r, ControladorPlaneta cp, Salida s) throws Exception
+	public void Caminos(Nave n, int consumo, boolean b, Recorrido r, ControladorPlaneta cp, Salida s, int indice) throws Exception
 	{
 		String origen = n.consultar_origen();
 		String destino = n.consultar_destino();
@@ -62,7 +62,7 @@ public abstract class MFP {
 		boolean hay = r.Recorrido(g_residual, o1, d1, path);
 		
 		String res = ""; // contiene camino con nodos
-		String planetes = ""; // contiene camino con planetas
+		String planetes = "Nave " + indice + " => "; // contiene camino con planetas
 		int cTotal = 0;
 		if(hay) {
 			// guardo el camino de nodos
@@ -82,7 +82,7 @@ public abstract class MFP {
 				String pa = scan.next();
 				Integer pai = Integer.parseInt(pa);
 				String pla1 = pl.get(pai);
-				planetes += pla1 + ",";
+				planetes += pla1 + ", ";
 			}
 			scan.close();
 			// calculo consumo general
@@ -114,7 +114,7 @@ public abstract class MFP {
 				planetes += "#" + cTotal;
 			}
 		}
-		else planetes = "Esta nave no puede desplazarse ya que no existe un camino posible entre su origen y destino";
+		else planetes = "Nave " + indice + " => Esta nave no puede desplazarse ya que no existe un camino posible entre su origen y destino";
 		s.AnadirCamino(planetes);
 	}
 }
