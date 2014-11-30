@@ -239,13 +239,7 @@ public class ControladorGalaxia
     			if(ac1.get(j).consultar_planetaA().compareTo(idPlaneta) == 0) {
     				int rut = ac1.get(j).consultar_id();
     				String pb = ac1.get(j).consultar_planetaB();
-    				int tmp = 0;
-    				for(int k = 0; k < pl.size() ; ++k) {
-    					if(pl.get(k).compareTo(pb) == 0) {
-    						tmp = k;
-    						break;
-    					}
-    				}
+    				int tmp = pl.indexOf(pb);
     				Ruta r = cr.BuscarRuta(rut);
     				int cap = r.consultar_capacidad();
     				Arco arc = new Arco(cap);
@@ -263,7 +257,6 @@ public class ControladorGalaxia
     					arc.ModificarCoste(fc.CalcularCoste());
     				}
     				Pair<Arco, Integer> paira = new Pair<Arco, Integer>(arc,tmp);
-    				
     				int tama1 = ara.size();
     				int va = 0;
     				boolean anadido = false;
@@ -285,13 +278,7 @@ public class ControladorGalaxia
     	
     	for(int i = 0; i < origenes.size(); ++i) {
     		String o = origenes.get(i);
-    		int tmp2 = 0;
-    		for(int j = 0; j < pl.size(); ++j) {
-    			if(pl.get(j).compareTo(o) == 0) {
-    				tmp2 = j;
-    				break;
-    			}
-    		}
+    		int tmp2 = pl.indexOf(o);
     		Arco c = new Arco(Integer.MAX_VALUE);
     		c.ModificarCoste(0);
     		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,tmp2);
@@ -304,13 +291,7 @@ public class ControladorGalaxia
     	
     	for(int i = 0; i < destinos.size(); ++i) {
     		String d = destinos.get(i);
-    		int tmp3 = 0;
-    		for(int j = 0; j < pl.size(); ++j) {
-    			if(pl.get(j).compareTo(d) == 0) {
-    				tmp3 = j;
-    				break;
-    			}
-    		}
+    		int tmp3 = pl.indexOf(d);
     		Arco c = new Arco(Integer.MAX_VALUE);
     		c.ModificarCoste(0);
     		Pair<Arco, Integer> pac1 = new Pair<Arco,Integer>(c,tmp3);
