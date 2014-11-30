@@ -220,7 +220,7 @@ public class ControladorGalaxia
     	ArrayList<Conexion> ac1 = ac;
     	
     	int tam = ac.size();
-    	for(int i = 0; i < tam; i++) { // anado las conexiones bidireccionales
+    	for(int i = 0; i < tam; i++) {
     		Ruta r = cr.BuscarRuta(ac.get(i).consultar_id());
     		if(r.consultar_bidireccional()) {
     			String pA = ac.get(i).consultar_planetaA();
@@ -247,7 +247,6 @@ public class ControladorGalaxia
     					}
     				}
     				Ruta r = cr.BuscarRuta(rut);
-    				System.out.println("Ya tenemos la ruta " + r.consultar_id());
     				int cap = r.consultar_capacidad();
     				Arco arc = new Arco(cap);
     				if(fc instanceof FuncionFlujo) {
@@ -259,7 +258,7 @@ public class ControladorGalaxia
     				}
     				else if(fc instanceof FuncionPrecio) {
     					fc.ModificarRuta(r);
-    					Planeta a = cp.BuscarPlaneta(idPlaneta);
+    					Planeta a = cp.BuscarPlaneta(pb);
     					fc.ModificarPlaneta(a);
     					arc.ModificarCoste(fc.CalcularCoste());
     				}
@@ -270,7 +269,7 @@ public class ControladorGalaxia
     		g.ponG(ara);
     	}
     	
-    	ArrayList<String> origenes = cn.PlanetasOrigen(); // Penultimo Nodo virtual - origen general, size - 2
+    	ArrayList<String> origenes = cn.PlanetasOrigen(); // Penultimo Nodo = nodo virtual -> origen general, size - 2
     	ArrayList<Pair<Arco, Integer> > apai = new ArrayList<Pair<Arco, Integer> >();
     	
     	for(int i = 0; i < origenes.size(); ++i) {
@@ -289,7 +288,7 @@ public class ControladorGalaxia
     	}
     	g.ponG(apai);
     	
-    	ArrayList<String> destinos = cn.PlanetasDestino(); // Ultimo nodo virtual - destino general, size - 1
+    	ArrayList<String> destinos = cn.PlanetasDestino(); // Ultimo nodo = nodo virtual -> destino general, size - 1
     	ArrayList<Pair<Arco, Integer> > apai1 = new ArrayList<Pair<Arco, Integer> >();
     	
     	for(int i = 0; i < destinos.size(); ++i) {
