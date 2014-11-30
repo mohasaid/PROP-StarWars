@@ -41,7 +41,6 @@ public class DriverRuta {
             case 9:  TestModificarBidireccionalitatRuta(cin);break;
             default: System.out.println("Opcion incorrecta");
             }
-        opciones();
         n = cin.nextInt();
         }
     }
