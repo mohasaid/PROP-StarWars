@@ -50,7 +50,6 @@ public abstract class MFP {
 
 	public void Caminos(Nave n, int consumo, boolean b, Recorrido r, ControladorPlaneta cp, Salida s) throws Exception
 	{
-		
 		String origen = n.consultar_origen();
 		String destino = n.consultar_destino();
 		ArrayList<String> pl = cp.consultarPlanetas();
@@ -76,7 +75,6 @@ public abstract class MFP {
 				res += st.pop() + ",";
 			}
 			res += st.pop();
-			
 			// Paso de nodos a planetas
 			Scanner scan = new Scanner(res);
 			scan.useDelimiter(",");
@@ -87,7 +85,6 @@ public abstract class MFP {
 				planetes += pla1 + ",";
 			}
 			scan.close();
-			
 			// calculo consumo general
 			if(b) {
 				int a1, a2, tmp = 0; // nodos
