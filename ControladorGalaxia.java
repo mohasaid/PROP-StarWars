@@ -263,7 +263,18 @@ public class ControladorGalaxia
     					arc.ModificarCoste(fc.CalcularCoste());
     				}
     				Pair<Arco, Integer> paira = new Pair<Arco, Integer>(arc,tmp);
-    				ara.add(paira);
+    				
+    				int tama1 = ara.size();
+    				int va = 0;
+    				boolean anadido = false;
+	    			for(int l = 0; l < tama1 && !anadido; l++) {
+	    				if(ara.get(l).consultarPrimero().ConsultarCoste() > paira.consultarPrimero().ConsultarCoste()) {
+	    					va = l;
+	    					anadido = true;
+	    				}
+	    			}
+	    			if(!anadido) va = ara.size();
+	    			ara.add(va,paira);
     			}
     		}
     		g.ponG(ara);
