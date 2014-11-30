@@ -53,7 +53,8 @@ public class ControladorMFP {
 		Iterator<Nave> it = aux.iterator();
 		while(it.hasNext()){
 			Nave n = it.next();
-			int cons = cn.ConsultarConsumo(n.consultar_id());
+		int tipo = n.consultar_tipo();
+		int cons = cn.ConsultarConsumoTipo(tipo);
 			//alg.Caminos(n,cons,(fc instanceof FuncionPrecio),cp,s);
 		}
 		//Calculo de los cuellos de botella
