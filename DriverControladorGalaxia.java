@@ -47,6 +47,7 @@ public class DriverControladorGalaxia {
 				
 				+ "- Opcion 20: carregarConjuntGalaxia(String directori)                            \n"
 				+ "- Opcion 21: guardarConjuntGalaxia(String directori)                             \n"
+				+ "- Opcion 22: transformarGrafo()  												\n"	
 				+ "---------------------------------------------------------------------------------\n");
       n = cin.nextInt();
       while(n != 0) {
@@ -79,6 +80,8 @@ public class DriverControladorGalaxia {
     	  	
     	  	case 20: TestcarregarConjuntGalaxia(cGalaxia,cp,cin); break;
     	  	case 21: TestguardarConjuntGalaxia(cGalaxia,cin); break;
+    	  	
+    	  	case 22: TestconsultarGrafo(cin,cGalaxia,cr,cp,cn); break;
     	  	
     	  	default: System.out.println("Opcion incorrecta");
     	  }
@@ -478,5 +481,30 @@ public class DriverControladorGalaxia {
 		catch(Exception e) {
             System.out.println(e);
         }
+	}
+	
+	public void TestconsultarGrafo(Scanner cin, ControladorGalaxia cGalaxia, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn)
+	{
+		try {
+			FuncionesCoste fc = null;
+			int x = cin.nextInt();
+			if(x < 1 || x > 3) throw new Exception("No existe esa funcion de optimizacion");
+			if(x == 1) fc = new FuncionFlujo();
+			if(x == 2) fc = new FuncionDistancia();
+			if(x == 3) fc = new FuncionPrecio();
+			Entrada e = cGalaxia.transformaGrafo(cr, cp, cn, fc);
+			Grafo g = e.Consultar_grafo();
+			for(int i = 0; i < g.sizeGrafo(); ++i) {
+				System.out.println("Del vertice " + i + " sale lo siguiente:");
+				for(int j = 0; j < g.sizeGrafo(i); ++j) {
+					System.out.println("Arista de capacidad = " + g.consultarPrim(i, j).ConsultarCapacidad()
+									 + " y con coste = " + g.consultarPrim(i, j).ConsultarCoste()
+									 + " hacia el vertice "+ g.consultarSeg(i, j));
+				}
+			}
+		}
+		catch (Exception e){
+            System.out.print(e);
+		}
 	}
 }
