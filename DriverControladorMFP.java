@@ -1,7 +1,8 @@
 import java.util.Scanner;
 
 public class DriverControladorMFP {
-    public void Executa(Scanner sc, ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) {
+   public void Executa(Scanner sc, ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) 
+    {
         int op;
              System.out.print("Opciones: \n\n"
 		     +"---------------------------------------------------------------------------------\n"
@@ -26,7 +27,7 @@ public class DriverControladorMFP {
     op = sc.nextInt(); 
     }
    }
-    public static void TestSeleccionarFC(Scanner sc, ControladorMFP cMFP, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp,ControladorNave cn){
+   public static void TestSeleccionarFC(Scanner sc, ControladorMFP cMFP, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp,ControladorNave cn){
     	try{
 	    	System.out.print("Opciones:\n\n"
 	    			+"-----------------------------------------------\n"
@@ -44,8 +45,8 @@ public class DriverControladorMFP {
     	catch(Exception e){
     		System.out.println(e);
     	}
-    }
-    public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP, ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp){
+   }
+   public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP, ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp){
     	try{
 	    	System.out.print("Opciones:\n\n"
 	    			+"-----------------------------------------------\n"
@@ -58,13 +59,13 @@ public class DriverControladorMFP {
 	                +"-----------------------------------------------\n");
 	    	int i = sc.nextInt();
 	    	if(i<1 || i>3) throw new Exception("Error: Opcion incorrecta");
-	    	cMFP.SeleccionarAlgoritmo(i,cn,cr,cp); // aqui calculamos entrada
+	    	cMFP.SeleccionarAlgoritmo(i,cn,cr,cp);
     	}
     	catch(Exception e){
     		System.out.println(e);
     	}
-    }
-    public static void TestConsultarSalida(ControladorMFP cMFP){
+   }
+   public static void TestConsultarSalida(ControladorMFP cMFP){
     	try{
             int i=0;
             int n = cMFP.size();
@@ -77,8 +78,8 @@ public class DriverControladorMFP {
          catch (Exception e){
              System.out.print(e);
          }
-    }
-    public static void TestConsultarCambios(ControladorMFP cMFP){
+   }
+   public static void TestConsultarCambios(ControladorMFP cMFP){
     	try{
             int i=0;
             int n = cMFP.size();
