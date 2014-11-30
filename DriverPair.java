@@ -9,7 +9,7 @@ public class DriverPair {
         int op;
         System.out.print(
              "------------------------------------------------\n"
-           + "                  DRIVER PAIR     	     -\n"
+           + "                  DRIVER PAIR     	       -\n"
            + "------------------------------------------------\n"
            + "- Opcion 0: Salir de la gestion del driver      \n"
            + "- Opcion 1: Pair(int a, int b)				  \n"
