@@ -1,11 +1,9 @@
 import java.util.Scanner;
 
-
-
 public class DriverControladorMFP{
-    public void Executa(Scanner sc,Entrada e, ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) {
+    public void Executa(Scanner sc,/* Entrada e,*/ ControladorMFP cMFP,ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) {
         int op;
-        cMFP.AnadirEntrada(e);
+        // cMFP.AnadirEntrada(e);
 
         
                 		System.out.print("Opciones: \n\n"
@@ -27,10 +25,10 @@ public class DriverControladorMFP{
         while(op != 0){
             switch (op) {
             case 1: TestSeleccionarFC(sc,cMFP,cg,cr,cp,cn);break;
-            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cn,cp,cr);break;
+            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cn);break;
             case 3: TestConsultarSalida(cMFP);break;
             case 4: TestConsultarCambios(cMFP);break;
-            default: System.out.println("Opción incorrecta");
+            default: System.out.println("Opcion incorrecta");
             }
     op = sc.nextInt(); 
     }
@@ -56,7 +54,7 @@ public class DriverControladorMFP{
     		System.out.println(e);
     	}
     }
-    public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP, ControladorNave cn, ControladorPlaneta cp, ControladorRuta cr){
+    public static void TestSeleccionarAlgoritmo(Scanner sc, ControladorMFP cMFP, ControladorNave cn){
     	try{
 	    	System.out.print("Opciones:\n\n"
 	    			+"-----------------------------------------------\n"
@@ -71,7 +69,7 @@ public class DriverControladorMFP{
 	                +"-----------------------------------------------\n");
 	    	int i = sc.nextInt();
 	    	if(i<1 || i>3) throw new Exception("Error: Opcion incorrecta");
-	    	cMFP.SeleccionarAlgoritmo(i,cn,cr,cp);
+	    	cMFP.SeleccionarAlgoritmo(i,cn); // aqui calculamos entrada
     	}
     	catch(Exception e){
     		System.out.println(e);
