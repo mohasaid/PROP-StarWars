@@ -1,6 +1,6 @@
 import java.util.*;
 
-public abstract class MFP{
+public abstract class MFP {
 	protected Grafo g_residual;
 
 	public abstract void Ejecutar(Recorrido r, Salida s);
