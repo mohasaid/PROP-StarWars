@@ -6,10 +6,12 @@ public class FordFulkerson extends MFP {
 	{
 		g_residual = e.Consultar_grafo();
 	}
-	public void Ejecutar(Recorrido r,Salida s)
+	public void Ejecutar(Recorrido r, Salida s)
 	{
 		// CONSULTAR TIEMPO
-		long t = System.currentTimeMillis();
+		long time_start, time_end;
+		
+		time_start = System.currentTimeMillis();
 		
 		int size = g_residual.sizeGrafo();
 		
@@ -24,6 +26,7 @@ public class FordFulkerson extends MFP {
 		String camino = ""; // Contiene el camino en orden inverso
 		
 		while(r.Recorrido(g_residual,origen,destino,path)) {
+			
 			int pathflow = Integer.MAX_VALUE;
 			camino += destino;
 			for(v = destino; v != origen; v = path[v]) {
@@ -47,7 +50,9 @@ public class FordFulkerson extends MFP {
 		}
 		s.AnadirMax_flow(max_flow);
 		
-		long tiempo = System.currentTimeMillis() - t;
-		s.AnadirTiempo(tiempo);
+		time_end = System.currentTimeMillis();
+		long tiempo_total = time_end - time_start;
+		s.AnadirTiempo(tiempo_total);
 	}
+	
 }
