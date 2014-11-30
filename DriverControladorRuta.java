@@ -96,7 +96,7 @@ public class DriverControladorRuta {
     public void TestConsultaridruta(Scanner cin, ControladorRuta cr)
     {
     	try {
-    		System.out.print(cr.Consultar_id_ruta( cin.next(), cin.next() ) );
+    		System.out.println(cr.Consultar_id_ruta( cin.next(), cin.next() ) );
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -140,7 +140,7 @@ public class DriverControladorRuta {
 		Conexion aux;
 		while( it.hasNext() ){
 			aux = it.next();
-            System.out.print(aux.consultar_id());
+            System.out.print(aux.consultar_id()+" ");
 		}
     }
     
@@ -172,7 +172,7 @@ public class DriverControladorRuta {
     public void escriu_arraylist(ArrayList<Integer> e)
     {
     	for( int i = 0 ; i < e.size() ; i++ ){
-    		  System.out.println( e.get(i) );
+    		  System.out.println( e.get(i)+" " );
 		}
     }
     
@@ -184,7 +184,7 @@ public class DriverControladorRuta {
 		Conexion aux;
 		while(it.hasNext()){
 			aux = it.next();
-			System.out.println( aux.consultar_id() );
+			System.out.println( aux.consultar_id() + " ");
 		}
     }
     
