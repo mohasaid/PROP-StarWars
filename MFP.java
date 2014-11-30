@@ -9,13 +9,14 @@ public abstract class MFP{
 	{
 		int V = g_residual.sizeGrafo();
 		
-		int path[] = new int[V];
+		//int path[] = new int[V];
 		
 		int origen = V-2;
 		
 		boolean[] visitados = new boolean[V];
 		Arrays.fill(visitados,false);
 		visitados[origen] = true;
+		
 		Queue<Integer> q1 = new LinkedList<Integer>();
 		q1.add(origen);
 		
@@ -29,7 +30,7 @@ public abstract class MFP{
 				int adj = g_residual.consultarSeg(actual, i);
 				int cap = g_residual.consultarPrim(actual, i).ConsultarCapacidad();
 				if(cap != 0 && !visitados[adj]) {
-					path[adj] = actual;
+					//path[adj] = actual;
 					visitados[adj] = true;
 					q1.add(adj);
 				}
