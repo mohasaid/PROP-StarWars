@@ -47,7 +47,7 @@ public class DriverControladorGalaxia {
 				
 				+ "- Opcion 20: carregarConjuntGalaxia(String directori)                            \n"
 				+ "- Opcion 21: guardarConjuntGalaxia(String directori)                             \n"
-				+ "- Opcion 22: transformarGrafo()  												\n"	
+				+ "- Opcion 22: transformarGrafo(int idFuncionCoste)  								\n"	
 				+ "---------------------------------------------------------------------------------\n");
       n = cin.nextInt();
       while(n != 0) {
