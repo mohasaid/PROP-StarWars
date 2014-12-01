@@ -9,9 +9,7 @@ public class FordFulkerson extends MFP {
 	public void Ejecutar(Recorrido r, Salida s)
 	{
 		// CONSULTAR TIEMPO
-		long time_start, time_end;
-		
-		time_start = System.currentTimeMillis();
+		long timeMillis = System.currentTimeMillis();
 		
 		int size = g_residual.sizeGrafo();
 		
@@ -33,6 +31,7 @@ public class FordFulkerson extends MFP {
 				u = path[v];
 				camino += ", " + u;
 				pathflow = Math.min(pathflow, g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
+				System.out.println("Pathflow = " + pathflow);
 			}
 			camino += ", " + origen;
 			for(v = destino; v != origen; v = path[v]) {
@@ -44,15 +43,17 @@ public class FordFulkerson extends MFP {
 				tmp1 += pathflow;
 				g_residual.ponEnVerAr(v, u, tmp1);
 			}
+			System.out.println("Pathflow1 = " + pathflow);
 			max_flow += pathflow;
+			System.out.println("MAXFLOW1 = " + max_flow);
 			s.AnadirCambio(camino);
 			camino = "";
 		}
+		System.out.println("MAXFLOW = " + max_flow);
 		s.AnadirMax_flow(max_flow);
 		
-		time_end = System.currentTimeMillis();
-		long tiempo_total = time_end - time_start;
-		s.AnadirTiempo(tiempo_total);
+		long timeMillis1 = System.currentTimeMillis();
+		long f1 = timeMillis1 - timeMillis;
+		s.AnadirTiempo(f1);
 	}
-	
 }
