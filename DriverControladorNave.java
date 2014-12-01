@@ -12,7 +12,7 @@ public class DriverControladorNave{
                 +"-----------------------------------------------------------------------------------\n"
                 +"-                                                                                 -\n"
                 +"-   1   TestCrearNave(int idTipo, int idDestino, int idOrigen)                    -\n"
-                +"-   2   TestCrearNaveAuto()                                                       -\n"
+                +"-   2   TestCrearNaveAuto(int i)                                                       -\n"
                 +"-   3   TestCrearTipo(int idtipo, int consumo)                                    -\n"
                 +"-   4   TestCrearTipoAuto()                                                       -\n"
                 +"-   5   TestConsultarNaves()                                                      -\n"
