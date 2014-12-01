@@ -77,7 +77,7 @@ public class DriverGalaxia {
 				+ "- Opcion 12: consultarPlaneta(String idPlaneta)                    		    \n"
 	            + "- Opcion 13: algunPlaneta()												    \n"
 				
-				+ "- Opcion 14: CrearPlaneta(String, x, y)  								    \n"
+				+ "- Opcion 14: CrearPlaneta(String, x, y, coste)  								\n"
 				+ "- Opcion 15: CrearPlanetaAutomatic(String idPlaneta) 					    \n"
 				+ "- Opcion 16: PlanetaAuto()  												    \n"
 				
