@@ -2,6 +2,7 @@ import java.util.*;
 
 public abstract class MFP {
 	protected Grafo g_residual;
+	protected Grafo G;
 
 	public abstract void Ejecutar(Recorrido r, Salida s);
 
@@ -26,7 +27,7 @@ public abstract class MFP {
 			for(int i = 0; i < size; ++i) {
 				int adj = g_residual.consultarSeg(actual, i);
 				int cap = g_residual.consultarPrim(actual, i).ConsultarCapacidad();
-				if(cap != 0 && !visitados[adj]) {
+				if(cap > 0 && !visitados[adj]) {
 					visitados[adj] = true;
 					q1.add(adj);
 				}
@@ -40,6 +41,7 @@ public abstract class MFP {
 						if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
 							trobat = true;
 							idr = con.get(k).consultar_id();
+							System.out.println("ID RUTA CUELLO DE BOTELLA = " + idr + "une a " + pa + " y " + pb);
 						}
 					}
 					s.AnadirCuello(idr);
@@ -66,12 +68,13 @@ public abstract class MFP {
 		int cTotal = 0;
 		if(hay) {
 			// guardo el camino de nodos
-			String cami = "" + d1;
+			String cami = "";
+			cami += d1;
 			Stack<Integer> st = new Stack<Integer>();
 			while(d1 != -1) {
 				st.push(d1);
 				d1 = path[d1];
-				if(d1 != -1) cami += ", " + d1;
+				if(d1 != -1) cami += "," + d1;
 			}
 			while(st.size() > 1) {
 				res += st.pop() + ",";
@@ -93,14 +96,12 @@ public abstract class MFP {
 					g_residual.consultaPairUn(pos1,pos2).consultarPrimero().ModificarCapacidad(cap);
 					temp = pos2;
 					primer = false;
-					System.out.println("He restado 1 a la capacidad entre nodo = " + pos1 + " y " + pos2);
 				}
 				else {
 					String ter = scane.next();
 					int pos3 = Integer.parseInt(ter);
 					int cap = g_residual.consultaPairUn(temp,pos3).consultarPrimero().ConsultarCapacidad() - 1;
 					g_residual.consultaPairUn(temp, pos3).consultarPrimero().ModificarCapacidad(cap);
-					System.out.println("He restado 1 a la capacidad entre nodo 1 = " + temp + " y " + pos3);
 					temp = pos3;
 				}
 			}
@@ -116,6 +117,7 @@ public abstract class MFP {
 				planetes += pla1 + ", ";
 			}
 			scan.close();
+			System.out.println("PLANETES = "+ planetes);
 			
 			// calculo consumo general
 			if(b) {
