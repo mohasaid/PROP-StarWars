@@ -46,7 +46,6 @@ public class DriverControladorRuta {
     }
     
     public void Executa(ControladorRuta cr, ControladorPlaneta cp, Scanner cin) throws Exception {
-        System.out.println(cp.Consultar_Size());
         int n;
         opcions();
         n = cin.nextInt();
