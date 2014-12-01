@@ -8,12 +8,25 @@ public class Conexion {
 	
     //PARTE PUBLICA
 	
-    //Pre: Cierto
+    //Pre: Entra como parametro un numero entero
     //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
+	/**
+	 * Metodo para consultar si un entero es mayor o igual que 0
+	 * @param i
+	 * @return Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
+	 */
     private static boolean ErrorTipografico(int i) {
         return (i<0);
     }
     
+    //Pre: Entra como parametro un string
+    //Post: Rtorna un valor booleano. Es true en el caso que el string nom sea alfanumerico, en caso contrario, devuelve fasle
+
+    /**
+     * Metodo para consultar si string es alfanumerico
+     * @param nom
+     * @return Retorna un valor booleano. Es true en el caso que el string nom sea alfanumerico, en caso contrario, devuelve fasle
+     */
     private static boolean alfa_numeric(String nom)
     {
         if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
@@ -26,8 +39,15 @@ public class Conexion {
 	
     //CONSTRUCTORAS
     
-    //Pre: Cierto
+    //Pre: Entra como parametro un entero, y dos strings. Los planetas pA y pB deben existir
     //Post: Crea una conexion con idruta = "i", planetaA = "pA" y planetaB = "pB"
+    /**
+     * Metodo para crear una conexion
+     * @param i
+     * @param pA
+     * @param pB
+     * @throws Exception
+     */
     public Conexion(int i, String pA, String pB) throws Exception
     {
         if(ErrorTipografico(i)){
@@ -48,13 +68,21 @@ public class Conexion {
     
     //Pre: Cierto
     //Post: Retorna un entero que representa el identificador de la conexion
+    /**
+     * Metodo para consultar el id de una conexion
+     * @return Retorna un entero que representa el identificador de la conexion
+     */
     public int consultar_id()
     {
         return idruta;
     }
     
     //Pre: Cierto
-    //Post: Retorna un string que representa el identificador del planetaA de la conexion  
+    //Post: Retorna un string que representa el identificador del planetaA de la conexion
+    /**
+     * Metodo para consultar el planetaA de la conexion
+     * @return Retorna un string que representa el identificador del planetaA de la conexion
+     */
     public String consultar_planetaA()
     {
         return planetaA;
@@ -62,6 +90,10 @@ public class Conexion {
        
     //Pre: Cierto
     //Post: Retorna un string que representa el identificador del planetaB de la conexion
+    /**
+     * Metodo para consultar el planetaB de la conexion
+     * @return Retorna un string que representa el identificador del planetaB de la conexion
+     */
     public String consultar_planetaB()
     {
         return planetaB;
@@ -69,8 +101,13 @@ public class Conexion {
     
     //MODIFICADORAS
     
-    //Pre: Cierto
+    //Pre: No existe ninguna ruta con id = id_nuevo
     //Post: El id de la conexion se ha modificado por id = "id_nuevo"
+    /**
+     * Metodo para modificar el id de la ruta
+     * @param id_nuevo
+     * @throws Exception
+     */
     public void modificar_id(int id_nuevo) throws Exception
     {
         if(ErrorTipografico(id_nuevo)){
@@ -79,8 +116,13 @@ public class Conexion {
         idruta = id_nuevo;
     }
     
-    //Pre: Cierto
+    //Pre: Existe un planeta con id = idA
     //Post: El id del planetaA de la conexion se ha modificado por planetaA = "idA"
+    /**
+     * Metodo para modificar el id del planetaA
+     * @param idA
+     * @throws Exception
+     */
     public void modificar_planetaA(String idA) throws Exception
     {
         if( !alfa_numeric(idA) ){
@@ -92,8 +134,13 @@ public class Conexion {
         planetaA = idA;
     }
        
-    //Pre: Cierto
+    //Pre: Existe un planeta con id = idB
     //Post: El id del planetaB de la conexion se ha modificado por planetaB = "idB"
+    /**
+     * Metodo para modificar el id del planetaB
+     * @param idB
+     * @throws Exception
+     */
     public void modificar_planetaB(String idB) throws Exception
     {
         if( !alfa_numeric(idB) ){
