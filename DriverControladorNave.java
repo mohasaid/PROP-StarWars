@@ -252,10 +252,6 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El nuevo identificador debe ser un entero\n");
-                    }
                     String destID = sc.next();
                     cn.ModificaDestino(id, destID);
                 }
@@ -270,10 +266,6 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    while(!sc.hasNextInt()){
-                        String s = sc.nextLine();
-                        throw new Exception("Error: El nuevo identificador debe ser un entero\n");
-                    }
                     String origID = sc.next();
                     cn.ModificaDestino(id, origID);
                 }
