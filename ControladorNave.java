@@ -350,9 +350,12 @@ public class ControladorNave{
 				 * @throws Exception
 				 */
 				public void ModificaTipo(int id, int idtipo) throws Exception{
+				if(idtipo<1 || idtipo>5) throw new Exception("Error: El identificador del tipo debe estar entre 1 y 5\n");
+				if(!ExisteTipo(idtipo)) throw new Exception("Error: El tipo "+ idtipo +" no ha sido definido\n");	
 					Nave aux = BuscarNave(id);
 					EliminarNave(id);
 					Nave n;
+					
 					if(idtipo==1){
 						n = new TipoNave1(id, aux.consultar_destino(), aux.consultar_origen());
 						listaNaves.add(Integer.toString(n.consultar_id()),n);
@@ -400,7 +403,10 @@ public class ControladorNave{
 						 * @throws Exception
 						 */
 				public void ModificaConsumo(int id,int cn) throws Exception{
+					if(id<1 || id>5) throw new Exception("Error: El identificador del tipo debe estar entre 1 y 5\n");
+					if(!ExisteTipo(id)) throw new Exception("Error: El tipo "+ id +" no ha sido definido\n");	
 					if(id==1){
+						
 						TipoNave1.modificar_consumo(cn);
 					}
 					if(id==2){
