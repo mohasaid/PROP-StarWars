@@ -10,7 +10,7 @@ public class DriverPlaneta {
             +   "                    DRIVER PLANETA                                     			\n"
             +   "-----------------------------------------------------------------------------------\n"
             + "Opciones 																			\n"
-            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo, bool F, bool S)				\n"
+            + " 1: Planeta(int id, int k, Pair<Integer,Integer> Coo)				\n"
             + " 2: Consultar_id()																	\n"
             + " 3: Consultar_Coste()																\n"
             + " 4: Consultar_Coordenadas()															\n"
