@@ -43,7 +43,11 @@ public class DriverConexion {
 	public void  TestCrearConnexio2(Scanner cin) throws Exception
 	{
 		try {
-			int id = cin.nextInt();
+	    	while(!cin.hasNextInt()){
+	            String s = cin.nextLine();
+	            throw new Exception("Error: La capacidad debe ser un entero mayor o igual que 0\n");
+	        }
+	    	int id = cin.nextInt();
 			String planetaA = cin.next();
 			String planetaB = cin.next();
 			c =  new Conexion(id, planetaA, planetaB);
@@ -87,6 +91,10 @@ public class DriverConexion {
 	public void TestModificarIdConnexio(Scanner cin) throws Exception 
 	{
 		try {
+	    	while(!cin.hasNextInt()){
+	            String s = cin.nextLine();
+	            throw new Exception("Error: La capacidad debe ser un entero mayor o igual que 0\n");
+	        }
 			c.modificar_id(cin.nextInt());
 		}
 		catch (Exception e){
