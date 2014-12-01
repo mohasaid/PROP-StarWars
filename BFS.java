@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.*; 
 public class BFS extends Recorrido {
 
@@ -19,7 +18,7 @@ public class BFS extends Recorrido {
 			for(int i = 0; i < size; ++i) {
 				int adj = g_residual.consultarSeg(actual, i);
 				int cap = g_residual.consultarPrim(actual, i).ConsultarCapacidad();
-				if(cap != 0 && !visitados[adj]) {
+				if(cap > 0 && !visitados[adj]) {
 					path[adj] = actual;
 					visitados[adj] = true;
 					q1.add(adj);
@@ -29,4 +28,3 @@ public class BFS extends Recorrido {
 		return visitados[destino];
 	}
 }
-
