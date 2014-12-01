@@ -13,7 +13,7 @@ public class Entrada {
     
     /**
      * Metodo para consultar el grafo que contiene entrada
-     * @return
+     * @return Retorna el grafo que contiene
      */
     public Grafo Consultar_grafo()
     {
