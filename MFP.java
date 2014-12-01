@@ -66,15 +66,46 @@ public abstract class MFP {
 		int cTotal = 0;
 		if(hay) {
 			// guardo el camino de nodos
+			String cami = "" + d1;
 			Stack<Integer> st = new Stack<Integer>();
 			while(d1 != -1) {
 				st.push(d1);
 				d1 = path[d1];
+				if(d1 != -1) cami += ", " + d1;
 			}
 			while(st.size() > 1) {
 				res += st.pop() + ",";
 			}
 			res += st.pop();
+			
+			// Actualizo capacidades grafo residual
+			int pos1, pos2, temp = 0;
+			Scanner scane = new Scanner(cami);
+			scane.useDelimiter(",");
+			boolean primer = true;
+			while(scane.hasNext()) {
+				if(primer) {
+					String pri = scane.next();
+					pos1 = Integer.parseInt(pri);
+					String seg = scane.next();
+					pos2 = Integer.parseInt(seg);
+					int cap = g_residual.consultaPairUn(pos1,pos2).consultarPrimero().ConsultarCapacidad() - 1;
+					g_residual.consultaPairUn(pos1,pos2).consultarPrimero().ModificarCapacidad(cap);
+					temp = pos2;
+					primer = false;
+					System.out.println("He restado 1 a la capacidad entre nodo = " + pos1 + " y " + pos2);
+				}
+				else {
+					String ter = scane.next();
+					int pos3 = Integer.parseInt(ter);
+					int cap = g_residual.consultaPairUn(temp,pos3).consultarPrimero().ConsultarCapacidad() - 1;
+					g_residual.consultaPairUn(temp, pos3).consultarPrimero().ModificarCapacidad(cap);
+					System.out.println("He restado 1 a la capacidad entre nodo 1 = " + temp + " y " + pos3);
+					temp = pos3;
+				}
+			}
+			scane.close();
+			
 			// Paso de nodos a planetas
 			Scanner scan = new Scanner(res);
 			scan.useDelimiter(",");
@@ -85,6 +116,7 @@ public abstract class MFP {
 				planetes += pla1 + ", ";
 			}
 			scan.close();
+			
 			// calculo consumo general
 			if(b) {
 				int a1, a2, tmp = 0; // nodos
@@ -113,6 +145,7 @@ public abstract class MFP {
 				scan1.close();
 				planetes += "#" + cTotal;
 			}
+			System.out.println("CONSUMO TOTAL NAVE = " + cTotal);
 		}
 		else planetes = "Nave " + indice + " => Esta nave no puede desplazarse ya que no existe un camino posible entre su origen y destino";
 		s.AnadirCamino(planetes);
