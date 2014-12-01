@@ -231,7 +231,6 @@ public class ControladorGalaxia
     	}
     	
     	int tam1 = ac1.size();
-    	
     	for(int i = 0; i < pl.size(); ++i) {
     		String idPlaneta = pl.get(i);
     		ArrayList<Pair<Arco, Integer> > ara = new ArrayList<Pair<Arco, Integer> >();
@@ -287,18 +286,20 @@ public class ControladorGalaxia
     	g.ponG(apai);
     	
     	ArrayList<String> destinos = cn.PlanetasDestino(); // Ultimo nodo = nodo virtual -> destino general, size - 1
-    	ArrayList<Pair<Arco, Integer> > apai1 = new ArrayList<Pair<Arco, Integer> >();
+    	ArrayList<Pair<Arco,Integer>> nulo = new ArrayList<Pair<Arco, Integer> >();
+    	g.ponG(nulo);
+    	
+    	int size_g = g.sizeGrafo();
     	
     	for(int i = 0; i < destinos.size(); ++i) {
     		String d = destinos.get(i);
     		int tmp3 = pl.indexOf(d);
     		Arco c = new Arco(Integer.MAX_VALUE);
     		c.ModificarCoste(0);
-    		Pair<Arco, Integer> pac1 = new Pair<Arco,Integer>(c,tmp3);
-    		apai1.add(pac1);
+    		Pair<Arco, Integer> pac1 = new Pair<Arco,Integer>(c,size_g-1);
+    		g.consultarCosteDestinos(tmp3).add(0, pac1);
     	}
-    	g.ponG(apai1);
-    	
+
     	Entrada ent = new Entrada(g);
     	return ent;
     }
