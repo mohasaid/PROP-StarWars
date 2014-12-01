@@ -47,7 +47,7 @@ public class ControladorRuta {
      */
     private boolean Disponibilidad_crear_ruta (String idA, String idB) throws Exception
     {
-    	if (idA == idB) return false;
+    	if (idA.equals(idB)) return false;
     	ArrayList<Conexion> c = Conexiones.MostrarElementos();
 		Iterator<Conexion> it = c.iterator();
 		Conexion aux;
@@ -200,7 +200,7 @@ public class ControladorRuta {
     }
       
     //Pre: entran como parametros res enteros, dos strings, un booleano un controlador de Planeta
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la añade al sistema    
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃ±ade al sistema    
     /**
      * Metodo para crear una ruta de forma manual
      * @param id
@@ -527,7 +527,7 @@ public class ControladorRuta {
     }
       
     //Pre: Existe una ruta con id = "id"
-    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"ç
+    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"Ã§
     /**
      * Metodo para modificar la distancia de una ruta determinada por un id
      * @param id
@@ -683,7 +683,6 @@ public class ControladorRuta {
           if(sc.hasNext()) s = sc.next();
           while (!s.equals("") && sc.hasNext()) {
         	  if ( Integer.parseInt(s) == 0 ) { //anadimos ruta
-        		  System.out.println("ruta");
         	      s = sc.next();
         	      int id = Integer.parseInt(s);
         	      s = sc.next();
@@ -695,21 +694,16 @@ public class ControladorRuta {
         	      Ruta r = new Ruta(id,capacidad,distancia,b);
         	      ArbolRutas.add(Integer.toString(r.consultar_id()),r);
     	      } else { //anadimos conexion
-        		  System.out.println("conexio");
     		      s = sc.next();
-        		  System.out.println("idconex=" +s);
     	    	  int id = Integer.parseInt(s);
         	      s = sc.next();
-        		  System.out.println("idaconex=" +s);
         	      String ida = s;
         	      s = sc.next();
-        		  System.out.println("idbconex=" +s);
         	      String idb = s;
         	      Conexion c = new Conexion(id,ida,idb);
         	      Conexiones.add(Integer.toString(c.consultar_id()),c);
     	      }
     	      s= sc.next();
-    		  System.out.println("ja es lo proxim=" +s);
 
           }
       }
@@ -776,7 +770,6 @@ public class ControladorRuta {
             res += r.consultar_distancia() + ":";
             res += r.consultar_bidireccional();
             res += "#";
-            System.out.println(res);
             ++iteracions;
             if(iteracions == 100){
                 Cdr.guardar(path,res);
@@ -798,7 +791,6 @@ public class ControladorRuta {
             res += c.consultar_planetaA() + ":";
             res += c.consultar_planetaB() + "";
             res += "#";
-            System.out.println(res);
             ++iteracions;
             if(iteracions == 100){
                 Cdr.guardar(path,res);
