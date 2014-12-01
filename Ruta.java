@@ -9,8 +9,13 @@ public class Ruta {
        
     //PARTE PUBLICA
        
-    //Pre: Cierto
+    //Pre: Entra como parametro un numero entero
     //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
+	/**
+	 * Metodo para consultar si un entero es mayor o igual que 0
+	 * @param i
+	 * @return Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
+	 */
     private static boolean ErrorTipografico(int i) {
         return (i<0);
     }
@@ -19,6 +24,14 @@ public class Ruta {
        
     //Pre: Cierto
     //Post: Crea una ruta con id = "i", capacidad = "c", distancia = "d"
+    /**
+     * Metodo para crear una ruta
+     * @param i
+     * @param c
+     * @param d
+     * @param b
+     * @throws Exception
+     */
     public Ruta(int i, int c, int d, boolean b) throws Exception
     {
         if(ErrorTipografico(i)){
@@ -40,6 +53,10 @@ public class Ruta {
        
     //Pre: Cierto
     //Post: Retorna un entero que representa el identificador de la ruta
+    /**
+     * Metodo para consultar el id de la ruta
+     * @return Retorna un entero que representa el identificador de la ruta
+     */
     public int consultar_id()
     {
         return id;
@@ -47,6 +64,10 @@ public class Ruta {
        
     //Pre: Cierto
     //Post: Retorna un entero que representa la capacidad de la ruta
+    /**
+     * Metodo para consultar la capacidad de la ruta
+     * @return Retorna un entero que representa la capacidad de la ruta
+     */
     public int consultar_capacidad()
     {
         return capacidad;
@@ -54,6 +75,10 @@ public class Ruta {
        
     //Pre: Cierto
     //Post: Retorna un entero que representa la distancia de la ruta
+    /**
+     * Metodo para consultar la distancia de la ruta
+     * @return Retorna un entero que representa la distancia de la ruta
+     */
     public int consultar_distancia()
     {
         return distancia;
@@ -61,6 +86,10 @@ public class Ruta {
     
     //Pre: Cierto
     //Post: Retorna un valor booleano, el cual es cierto en el caso que la ruta sea bidireccional, en caso contrario, la ruta va solo del planetaA al planetaB
+    /**
+     * Metodo para consultar la bidireccionalidad de la ruta
+     * @return Retorna un valor booleano, el cual es cierto en el caso que la ruta sea bidireccional, en caso contrario, la ruta va solo del planetaA al planetaB
+     */
     public boolean consultar_bidireccional()
     {
         return bidireccional;
@@ -68,8 +97,13 @@ public class Ruta {
     
     //MODIFICDORAS
           
-    //Pre: Cierto
+    //Pre: Entra como parametro un entero
     //Post: El id de la ruta se ha modificado por id = "id_nuevo"
+    /**
+     * Metodo para modificar el id de la ruta
+     * @param id_nuevo
+     * @throws Exception
+     */
     public void modificar_id(int id_nuevo) throws Exception
     {
         if(ErrorTipografico(id_nuevo)){
@@ -78,8 +112,13 @@ public class Ruta {
         id = id_nuevo;
     }
        
-    //Pre: Cierto
+    //Pre: Entra como parametro un entero
     //Post: La capacidad de la ruta se ha modificado por capacidad = "c"
+    /**
+     * Metodo para modificar la capacidad de la ruta
+     * @param c
+     * @throws Exception
+     */
     public void modificar_capacidad(int c) throws Exception
     {
         if(ErrorTipografico(c)){
@@ -88,8 +127,13 @@ public class Ruta {
         capacidad = c;
     }
        
-    //Pre: Cierto
+    //Pre: Entra como parametro un entero
     //Post: La distancia de la ruta se ha modificado por distancia = "d"
+    /**
+     * Metodo para modificar la distnaica de la ruta
+     * @param d
+     * @throws Exception
+     */
     public void modificar_distancia(int d) throws Exception
     {
         if(ErrorTipografico(d) || d == 0){
@@ -98,8 +142,13 @@ public class Ruta {
         distancia = d;
     }
     
-    //Pre: Cierto
+    //Pre: Entra como parametro un booleano
     //Post: La bidireccionalidad de la ruta ha sido modificada tal que bidireccional = "b"
+    /**
+     * Metodo para modificar la bidireccionalidad de la ruta
+     * @param b
+     * @throws Exception
+     */
     public void modificar_bidireccional(boolean b) throws Exception
     {
         bidireccional = b;
