@@ -1,10 +1,6 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
-
-public class PushRelabel extends MFP{
-
-private Grafo G;
+public class PushRelabel extends MFP {
 
 private void g_residual() {
 	ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
@@ -51,6 +47,7 @@ private void g_residual() {
 			exceso[v] = aux;					//Inicializar
 		}
 	}
+	
 	private void Push(int exceso[], int aux, int aux1, int i, int j){
 		int df = Math.min((aux - aux1), exceso[i]); //push
 		aux1 += df;
@@ -61,6 +58,7 @@ private void g_residual() {
 		exceso[i] -= df;
 		exceso[j] += df;
 	}
+	
 	private void Relabel(ArrayList<Integer> LNP, int altura[],int i) {
 		altura[i] = Integer.MAX_VALUE; //relabel
       	int aux,aux1,v;
@@ -80,8 +78,8 @@ private void g_residual() {
 		
 		long tiempo = System.currentTimeMillis();
 		int size = G.sizeGrafo();
-		int origen = size-1;
-		int destino = size-2;
+		int origen = size-2;
+		int destino = size-1;
 		String camino = "";
 		
 		int n = G.sizeGrafo(); 
@@ -128,6 +126,7 @@ private void g_residual() {
 			        }
 		      	}
 	    	}
+		
 		s.AnadirMax_flow(exceso[destino]);
 		long tiempo1 = System.currentTimeMillis() - tiempo;
 		s.AnadirTiempo(tiempo1);
