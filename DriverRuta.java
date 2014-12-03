@@ -16,9 +16,9 @@ public class DriverRuta {
                 + " 3: consultar_capacidad() 															\n"       
                 + " 4: consultar_distancia() 															\n"       
 
-                + " 5: modificar_id() 																	\n"    
-                + " 6: modificar_capacidad() 															\n"       
-                + " 7: modificar_distancia() 															\n" 
+                + " 5: modificar_id(int) 																	\n"    
+                + " 6: modificar_capacidad(int) 															\n"       
+                + " 7: modificar_distancia(int) 															\n" 
     			);
     }
     
@@ -48,7 +48,6 @@ public class DriverRuta {
 			int id = cin.nextInt();
 			int capacidad = cin.nextInt();
 			int distancia = cin.nextInt();
-			System.out.print("creo ruta");
 			r =  new Ruta(id, capacidad, distancia);
 		}
 		catch (Exception e){
