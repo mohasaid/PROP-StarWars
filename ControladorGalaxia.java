@@ -218,18 +218,6 @@ public class ControladorGalaxia
     	ArrayList<Conexion> ac = cr.Consultar_Conexiones();
     	
     	ArrayList<Conexion> ac1 = ac;
-    	
-    	int tam = ac.size();
-    	for(int i = 0; i < tam; i++) {
-    		Ruta r = cr.BuscarRuta(ac.get(i).consultar_id());
-    		if(r.consultar_bidireccional()) {
-    			String pA = ac.get(i).consultar_planetaA();
-    			String pB = ac.get(i).consultar_planetaB();
-    			Conexion c = new Conexion(r.consultar_id(),pB,pA);
-    			ac1.add(c);
-    		}
-    	}
-    	
     	int tam1 = ac1.size();
     	for(int i = 0; i < pl.size(); ++i) {
     		String idPlaneta = pl.get(i);
