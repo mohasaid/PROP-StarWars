@@ -53,11 +53,8 @@ public class ControladorRuta {
 		Conexion aux;
 		while( it.hasNext() ){
 			aux = it.next();
-			if (aux.consultar_planetaA().equals(idA) && aux.consultar_planetaB().equals(idB)) return false; // ya existe esta ruta
-			if (aux.consultar_planetaA().equals(idB) && aux.consultar_planetaB().equals(idA) ) {
-				Ruta r = BuscarRuta(aux.consultar_id());
-				if (r.consultar_bidireccional()) return false; //hay una ruta de b->a que es bidireccional, eso implica que ya existe la ruta
-			}
+			if (aux.consultar_planetaA().equals(idA) && aux.consultar_planetaB().equals(idB)) return false; // ya existe esta ruta entre los dos planetas
+			if (aux.consultar_planetaA().equals(idB) && aux.consultar_planetaB().equals(idA)) return false; // ya existe esta ruta entre los dos planetas
 		}
 		return true; 
     }
@@ -70,16 +67,7 @@ public class ControladorRuta {
      */
     private int Numero_rutes_sumant_bidireccional() 
     {
-    	ArrayList<Ruta> r = ArbolRutas.MostrarElementos();
-    	int ret = 0;
-    	ret = Consultar_numero_rutes();
-		Iterator<Ruta> it = r.iterator();
-		Ruta aux;
-		while( it.hasNext() ){
-			aux = it.next();
-			if ( aux.consultar_bidireccional() ) ++ret;
-		}
-		return ret;
+    	return Consultar_numero_rutes();
     }
     
     //Pre: Cierto
@@ -200,7 +188,7 @@ public class ControladorRuta {
     }
       
     //Pre: entran como parametros res enteros, dos strings, un booleano un controlador de Planeta
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃ±ade al sistema    
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÂ±ade al sistema    
     /**
      * Metodo para crear una ruta de forma manual
      * @param id
@@ -212,7 +200,7 @@ public class ControladorRuta {
      * @param cp
      * @throws Exception
      */
-    public void CrearRuta(int id, int capacidad, int distancia, String planetaA, String planetaB, boolean bidireccional, ControladorPlaneta cp) throws Exception
+    public void CrearRuta(int id, int capacidad, int distancia, String planetaA, String planetaB, ControladorPlaneta cp) throws Exception
     { 
     	int numero_planetas = cp.Consultar_Size();
     	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
@@ -230,7 +218,7 @@ public class ControladorRuta {
         if ( !Disponibilidad_crear_ruta(planetaA , planetaB) ) {
         	throw new Exception("La Ruta de " + planetaA + " a " + planetaB + " ja existeix \n");
         }
-        Ruta r = new Ruta(id,capacidad,distancia, bidireccional);
+        Ruta r = new Ruta(id,capacidad,distancia);
         Conexion c = new Conexion(id, planetaA, planetaB);
         
 		ArbolRutas.add(Integer.toString(r.consultar_id()),r);
@@ -278,10 +266,7 @@ public class ControladorRuta {
             planetaB = cp.Consultar_PlanetaX(aux);
         }
         
-        boolean bidireccional;
-        bidireccional = aleatorio.nextBoolean();
-        
-        Ruta r = new Ruta(id,capacidad,distancia, bidireccional);
+        Ruta r = new Ruta(id,capacidad,distancia);
         Conexion c = new Conexion(id, planetaA.Consultar_nombre(), planetaB.Consultar_nombre());
 		ArbolRutas.add(Integer.toString(r.consultar_id()),r);
 		Conexiones.add(Integer.toString(c.consultar_id()),c);
@@ -330,9 +315,7 @@ public class ControladorRuta {
             planetaB = cp.Consultar_PlanetaX(aux);
         }
         
-        boolean bidireccional;
-        bidireccional = aleatorio.nextBoolean();
-        Ruta r = new Ruta(id,capacidad, distancia, bidireccional);
+        Ruta r = new Ruta(id,capacidad, distancia);
         Conexion c = new Conexion(id, planetaA.Consultar_nombre(), planetaB.Consultar_nombre());
 		ArbolRutas.add(Integer.toString(r.consultar_id()),r);
 		Conexiones.add(Integer.toString(c.consultar_id()),c);
@@ -395,21 +378,7 @@ public class ControladorRuta {
     	Conexion c = BuscarConexion(id);
         return c.consultar_planetaB();
     }
-      
-    //Pre: entra como parametro un entero
-    //Post: Retorna un valor booleano True si la ruta con id = "id" es bidireccional, en caso contraro retorna false
-    /**
-     * Metodo para consultar bidireccionalidad de una ruta determinada
-     * @param id
-     * @return Retorna un valor booleano True si la ruta con id = "id" es bidireccional, en caso contraro retorna false
-     * @throws Exception
-     */
-    public boolean ConsultarBidireccionalidadRuta(int id) throws Exception
-    {
-    	Ruta r = BuscarRuta(id);
-        return r.consultar_bidireccional();
-    }
-      
+           
     //Pre: Cierto
     //Post: Retorna el tamano del arbol de rutas
     /**
@@ -527,7 +496,7 @@ public class ControladorRuta {
     }
       
     //Pre: Existe una ruta con id = "id"
-    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"Ã§
+    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"ÃƒÂ§
     /**
      * Metodo para modificar la distancia de una ruta determinada por un id
      * @param id
@@ -591,26 +560,6 @@ public class ControladorRuta {
             throw new Exception("No se puede modificar la id ya que ya existe una ruta que conecta el planeta " + c.consultar_planetaA() + " y el planeta " + id_planetaB_nuevo + "\n");
         }
         BuscarConexion(id).modificar_planetaB(id_planetaB_nuevo);
-    }
-    
-    //Pre: Existe una ruta con id = "id"
-    //Post: La bidireccionalidad de la ruta con id = "id" ha sido modificada tal que bidireccional = "bidireccional_nuevo"
-    /**
-     * Metodo para modificar la bidireccionalidad de una ruta determinada por un id
-     * @param id
-     * @param bidireccional_nuevo
-     * @throws Exception
-     */
-    public void ModificarBidireccionalidadRuta(int id, boolean bidireccional_nuevo) throws Exception
-    {
-        Ruta r = BuscarRuta(id);
-        Conexion c = BuscarConexion(id);
-        if (bidireccional_nuevo && !r.consultar_bidireccional()) {
-            if ( !Disponibilidad_crear_ruta( c.consultar_planetaB(), c.consultar_planetaA() ) ) {
-                throw new Exception("No se puede pasar a tener una ruta bidireccional, porque ya existe una ruta que une del planeta" + c.consultar_planetaB() + " a " + c.consultar_planetaA() + "\n");
-            }
-        }
-        BuscarRuta(id).modificar_bidireccional(bidireccional_nuevo);
     }
     
   //Pre: Existe una ruta con id = "id_planeta"
@@ -690,8 +639,7 @@ public class ControladorRuta {
         	      s = sc.next();
         	      int distancia = Integer.parseInt(s);
         	      s = sc.next();
-        	      Boolean b = Boolean.parseBoolean(s);
-        	      Ruta r = new Ruta(id,capacidad,distancia,b);
+        	      Ruta r = new Ruta(id,capacidad,distancia);
         	      ArbolRutas.add(Integer.toString(r.consultar_id()),r);
     	      } else { //anadimos conexion
     		      s = sc.next();
@@ -729,7 +677,6 @@ public class ControladorRuta {
 	            res += r.consultar_id() + ":";
 	            res += r.consultar_capacidad() + ":";
 	            res += r.consultar_distancia();
-	            res += r.consultar_bidireccional();
 	            res += "#";
 	            }
 	        }
@@ -768,7 +715,6 @@ public class ControladorRuta {
             res += r.consultar_id() + ":";
             res += r.consultar_capacidad() + ":";
             res += r.consultar_distancia() + ":";
-            res += r.consultar_bidireccional();
             res += "#";
             ++iteracions;
             if(iteracions == 100){
