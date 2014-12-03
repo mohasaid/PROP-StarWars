@@ -83,6 +83,7 @@ public class DriverControladorRuta {
 	            case 27: TestControladorGuardarRutas(cin,cr);break;
 	            default: System.out.println("Opcion incorrecta");
             }
+            System.out.println("LLegim opcio");
             n = cin.nextInt();
         }
     }
@@ -91,8 +92,10 @@ public class DriverControladorRuta {
     public void TestConsultaridruta(Scanner cin, ControladorRuta cr)
     {
     	try {
-    		if (cr.Consultar_id_ruta( cin.next(), cin.next() ) == -1) System.out.println( "No existe ruta que conecte esos dos planetas" );
-    		else System.out.println(cr.Consultar_id_ruta( cin.next(), cin.next() ) );
+    		String a = cin.next();
+    		String b = cin.next();
+    		if (cr.Consultar_id_ruta(a,b) == -1) System.out.println( "No existe ruta que conecte esos dos planetas" );
+    		else System.out.println(cr.Consultar_id_ruta(a,b) );
 		}
 		catch (Exception e){
             System.out.print(e);
