@@ -16,31 +16,29 @@ public class DriverControladorRuta {
               + " 5:  ConsultarDistanciaRuta(int id) \n"       
               + " 6:  ConsultarPlanetaARuta(int id) \n"       
               + " 7:  ConsultarPlanetaBRuta(int id) \n"       
-              + " 8:  ConsultarBidireccionalidadRuta(int id) \n"
-              + " 9:  Consultar_numero_rutes()\n" 
-              + " 10: Consultar_arbre_conexions()\n"
-              + " 11: Consultar_entrades_planeta(int id_planeta)\n"
-              + " 12: Consultar_sortides_planeta(int id_planeta)\n"
-              + " 13: Consultar_ids_rutas()\n"
-              + " 14: ExisteConexion(int id)\n"
-              + " 15: ExisteRuta(int id)\n"
-              + " 16: BuscarConexion(int id)\n"
-              + " 17: BuscarRuta(int id)\n"
-              + " 18: Consultar_Conexiones()\n"
-              + " 19: Consultar_id_ruta(String planetaA, String planetaB) \n"
+              + " 8:  Consultar_numero_rutes()\n" 
+              + " 9: Consultar_arbre_conexions()\n"
+              + " 10: Consultar_entrades_planeta(int id_planeta)\n"
+              + " 11: Consultar_sortides_planeta(int id_planeta)\n"
+              + " 12: Consultar_ids_rutas()\n"
+              + " 13: ExisteConexion(int id)\n"
+              + " 14: ExisteRuta(int id)\n"
+              + " 15: BuscarConexion(int id)\n"
+              + " 16: BuscarRuta(int id)\n"
+              + " 17: Consultar_Conexiones()\n"
+              + " 18: Consultar_id_ruta(String planetaA, String planetaB) \n"
               
-              + " 20: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
-              + " 21: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
-              + " 22: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
-              + " 23: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
-              + " 24: ModificarBidireccionalidadRuta(int id, boolean bidireccional) \n"
+              + " 19: ModificarCapacidadRuta(int id, int capacidad nueva, ControladorPlaneta cp) \n"       
+              + " 20: ModificarDistanciaRuta(int id, int distancia_nueva) \n"       
+              + " 21: ModificarPlanetaARuta(int id, int id_planetaA_nuevo) \n"       
+              + " 22: ModificarPlanetaBRuta(int id, int id_planetaB_nuevo) \n"    
               
-              + " 25: BorrarRutaConexions(int id_planeta)\n"
-              + " 26: BorrarRuta(int id) \n"
-              + " 27: Borrar_Rutas() \n"
+              + " 23: BorrarRutaConexions(int id_planeta)\n"
+              + " 24: BorrarRuta(int id) \n"
+              + " 25: Borrar_Rutas() \n"
               
-              + " 28: Cargar_Rutas() \n"
-              + " 29: Guardar_Rutas() \n"
+              + " 26: Cargar_Rutas() \n"
+              + " 27: Guardar_Rutas() \n"
 
       		);
     }
@@ -59,32 +57,30 @@ public class DriverControladorRuta {
 	            case 5:   TestControladorConsultarDistanciaRuta(cin, cr);break;
 	            case 6:   TestControladorConsultarPlanetaARuta(cin,cr);break;
 	            case 7:   TestControladorConsultarPlanetaBRuta(cin,cr);break;
-	            case 8:   TestControladorConsultarBidireccionalRuta(cin,cr);break;
-	            case 9:   TestControladorConsultar_numero_rutes(cr);break;
-	            case 10:  TestConsultar_arbre_conexions(cr);break;
-	            case 11:  TestControladorConsultar_entrades_planeta(cin,cr);break;
-	            case 12:  TestControladorConsultar_sortides_planeta(cin,cr);break;
-	            case 13:  TestControladorConsultar_ids_rutas(cr);break;
-	            case 14:  TestControladorExisteConexion(cin,cr);break;
-	            case 15:  TestControladorConsultarExisteRuta(cin,cr);break;
-	            case 16:  TestControladorBuscarConexion(cin,cr);break;
-	            case 17:  TestControladorBuscarRuta(cin,cr);break;
-	            case 18:  TestControladorConsultarConexiones(cr);break;
-	            case 19:  TestConsultaridruta(cin, cr);break;
+	            case 8:   TestControladorConsultar_numero_rutes(cr);break;
+	            case 9:  TestConsultar_arbre_conexions(cr);break;
+	            case 10:  TestControladorConsultar_entrades_planeta(cin,cr);break;
+	            case 11:  TestControladorConsultar_sortides_planeta(cin,cr);break;
+	            case 12:  TestControladorConsultar_ids_rutas(cr);break;
+	            case 13:  TestControladorExisteConexion(cin,cr);break;
+	            case 14:  TestControladorConsultarExisteRuta(cin,cr);break;
+	            case 15:  TestControladorBuscarConexion(cin,cr);break;
+	            case 16:  TestControladorBuscarRuta(cin,cr);break;
+	            case 17:  TestControladorConsultarConexiones(cr);break;
+	            case 18:  TestConsultaridruta(cin, cr);break;
 	            
-	            case 20: TestControladorModificarCpacitatRuta(cin,cr);break;
-	            case 21: TestControladorModificarDistanciaRuta(cin,cr);break;
-	            case 22: TestControladorModificarPlanetaARuta(cin,cr,cp);break;
-	            case 23: TestControladorModificarPlanetaBRuta(cin,cr,cp);break;
-	            case 24: TestControladorModificarBidireccionalRuta(cin,cr);break;
+	            case 19: TestControladorModificarCpacitatRuta(cin,cr);break;
+	            case 20: TestControladorModificarDistanciaRuta(cin,cr);break;
+	            case 21: TestControladorModificarPlanetaARuta(cin,cr,cp);break;
+	            case 22: TestControladorModificarPlanetaBRuta(cin,cr,cp);break;
 	            
 	              
-	            case 25: TestControladorBorrarRutaConexions_desdePlaneta(cin,cr);break;
-	            case 26: TestControladorBorrarRuta(cin,cr,cp);break;
-	            case 27: TestControladorBorrarTodasRutas(cin,cr);break;
+	            case 23: TestControladorBorrarRutaConexions_desdePlaneta(cin,cr);break;
+	            case 24: TestControladorBorrarRuta(cin,cr,cp);break;
+	            case 25: TestControladorBorrarTodasRutas(cin,cr);break;
 	              
-	            case 28: TestControladorCargarRutas(cin,cr);break;
-	            case 29: TestControladorGuardarRutas(cin,cr);break;
+	            case 26: TestControladorCargarRutas(cin,cr);break;
+	            case 27: TestControladorGuardarRutas(cin,cr);break;
 	            default: System.out.println("Opcion incorrecta");
             }
             n = cin.nextInt();
@@ -201,8 +197,7 @@ public class DriverControladorRuta {
 			int distancia = cin.nextInt();
 			String planetaA = cin.next();
 			String planetaB = cin.next();
-			boolean bidireccional = cin.nextBoolean();
-			cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, bidireccional, cp);
+			cr.CrearRuta(id, capacidad, distancia, planetaA, planetaB, cp);
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -270,17 +265,6 @@ public class DriverControladorRuta {
 		}
 	}
 		
-	public void TestControladorConsultarBidireccionalRuta(Scanner cin, ControladorRuta cr) throws Exception
-	{
-		try {
-			if (cr.ConsultarBidireccionalidadRuta(cin.nextInt())) System.out.println("La ruta es bidireccional");
-			else System.out.println("La ruta no es bidireccional");
-		}
-		catch (Exception e){
-            System.out.print(e);
-		}
-	}
-	
     public void TestControladorConsultar_numero_rutes(ControladorRuta cr)
     {
 		try {
@@ -415,17 +399,6 @@ public class DriverControladorRuta {
 		}
 	}
 		
-	public void TestControladorModificarBidireccionalRuta(Scanner cin, ControladorRuta cr) throws Exception 
-	{
-		try {
-			int id = cin.nextInt();
-			cr.ModificarBidireccionalidadRuta(id, cin.nextBoolean());
-		}
-		catch (Exception e){
-            System.out.print(e);
-		}
-	}
-	
     public void TestControladorBorrarRutaConexions_desdePlaneta(Scanner cin, ControladorRuta cr)
     {
 		try {
