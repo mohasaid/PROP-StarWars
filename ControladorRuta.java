@@ -203,7 +203,7 @@ public class ControladorRuta {
     public void CrearRuta(int id, int capacidad, int distancia, String planetaA, String planetaB, ControladorPlaneta cp) throws Exception
     { 
     	int numero_planetas = cp.Consultar_Size();
-    	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
+    	if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
     		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
     	}
         if(ExisteRuta(id)){
@@ -235,7 +235,7 @@ public class ControladorRuta {
     public void CrearRuta_automatica(ControladorPlaneta cp) throws Exception
     {
     	int numero_planetas = cp.Consultar_Size();
-    	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
+    	if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
     		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
     	}
         Random aleatorio = new Random();
@@ -246,6 +246,7 @@ public class ControladorRuta {
         while (distancia == 0) {
             distancia = aleatorio.nextInt(2147483647);
         }
+    	System.out.println("despues de consutlar numero");
         int aux;
     	aux = aleatorio.nextInt(2147483647);
         aux = aux%cp.Consultar_Size();
@@ -257,14 +258,18 @@ public class ControladorRuta {
 	        
         while ( !Disponibilidad_crear_ruta(planetaA.Consultar_nombre() , planetaB.Consultar_nombre()) || planetaA.Consultar_nombre().equals(planetaB.Consultar_nombre()) )
         {
+
         	aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
             planetaA = cp.Consultar_PlanetaX(aux);
+
             
         	aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
             planetaB = cp.Consultar_PlanetaX(aux);
         }
+    	System.out.println("abans d'afegir coses");
+
         
         Ruta r = new Ruta(id,capacidad,distancia);
         Conexion c = new Conexion(id, planetaA.Consultar_nombre(), planetaB.Consultar_nombre());
@@ -283,7 +288,7 @@ public class ControladorRuta {
     public void CrearRuta_automatica(ControladorPlaneta cp, int id) throws Exception
     {
     	int numero_planetas = cp.Consultar_Size();
-    	if ( 2*(numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
+    	if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
     		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
     	}
     	if (ExisteRuta(id)) {
@@ -437,6 +442,7 @@ public class ControladorRuta {
 		Conexion aux;
 		while(it.hasNext()){
 			aux = it.next();
+			System.out.println("jksldfskdl");
 			if ( id_planeta.equals( aux.consultar_planetaB() ) ) ids_rutas.add( aux.consultar_id() );
 		}
     	return ids_rutas;
