@@ -47,7 +47,6 @@ public class DriverControladorRuta {
         int n;
         opcions();
         n = cin.nextInt();
-        System.out.println("fdsa");
         while(n != 0) {
             switch(n) {
 	            case 1:   TestControladorCrearRuta(cin, cr, cp);break;
