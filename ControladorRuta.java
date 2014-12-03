@@ -97,12 +97,12 @@ public class ControladorRuta {
     }
     
     //Pre: existe una ruta que va de planetaA a plaentaB
-    //Post: retorna la id de la ruta que une planetaA a planetaB
+    //Post: retorna la id de la ruta que une planetaA a planetaB si no existe retorna un -1
     /**
      * Metodo para saber cual es la id de la ruta que va del planetaA al planetaB
      * @param planetaA
      * @param planetaB
-     * @return  retorna la id de la ruta que une planetaA a planetaB
+     * @return  retorna la id de la ruta que une planetaA a planetaB, si no existe retorna un -1
      */
     public int Consultar_id_ruta(String planetaA, String planetaB)
     {
@@ -114,7 +114,7 @@ public class ControladorRuta {
 			if (aux.consultar_planetaA().equals(planetaA) && aux.consultar_planetaB().equals(planetaB)) 
 				return aux.consultar_id();
 		}
-		return -1;
+		return -1; //quiere decir que no existe ruta que conecta esos dos planetas
     }
 
     //Pre: entra como parametro un entero
@@ -188,7 +188,7 @@ public class ControladorRuta {
     }
       
     //Pre: entran como parametros res enteros, dos strings, un booleano un controlador de Planeta
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÂ±ade al sistema    
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã‚Â±ade al sistema    
     /**
      * Metodo para crear una ruta de forma manual
      * @param id
@@ -246,7 +246,6 @@ public class ControladorRuta {
         while (distancia == 0) {
             distancia = aleatorio.nextInt(2147483647);
         }
-    	System.out.println("despues de consutlar numero");
         int aux;
     	aux = aleatorio.nextInt(2147483647);
         aux = aux%cp.Consultar_Size();
@@ -268,7 +267,6 @@ public class ControladorRuta {
             aux = aux%cp.Consultar_Size();
             planetaB = cp.Consultar_PlanetaX(aux);
         }
-    	System.out.println("abans d'afegir coses");
 
         
         Ruta r = new Ruta(id,capacidad,distancia);
@@ -442,7 +440,6 @@ public class ControladorRuta {
 		Conexion aux;
 		while(it.hasNext()){
 			aux = it.next();
-			System.out.println("jksldfskdl");
 			if ( id_planeta.equals( aux.consultar_planetaB() ) ) ids_rutas.add( aux.consultar_id() );
 		}
     	return ids_rutas;
@@ -502,7 +499,7 @@ public class ControladorRuta {
     }
       
     //Pre: Existe una ruta con id = "id"
-    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"ÃƒÂ§
+    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"ÃƒÆ’Ã‚Â§
     /**
      * Metodo para modificar la distancia de una ruta determinada por un id
      * @param id
@@ -586,9 +583,8 @@ public class ControladorRuta {
 	  while( it.hasNext() ) {
 		  aux = it.next();
 		  if(aux.consultar_planetaA().equals(id_planeta) || aux.consultar_planetaB().equals(id_planeta)){
-			  it.remove();
+			  Borrar_Conexion (aux.consultar_id() );
 			  Borrar_Ruta( aux.consultar_id() );
-			  
 		  }
 	  }
   }
