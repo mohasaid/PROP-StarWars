@@ -91,7 +91,8 @@ public class DriverControladorRuta {
     public void TestConsultaridruta(Scanner cin, ControladorRuta cr)
     {
     	try {
-    		System.out.println(cr.Consultar_id_ruta( cin.next(), cin.next() ) );
+    		if (cr.Consultar_id_ruta( cin.next(), cin.next() ) == -1) System.out.println( "No existe ruta que conecte esos dos planetas" );
+    		else System.out.println(cr.Consultar_id_ruta( cin.next(), cin.next() ) );
 		}
 		catch (Exception e){
             System.out.print(e);
@@ -135,7 +136,7 @@ public class DriverControladorRuta {
 		Conexion aux;
 		while( it.hasNext() ){
 			aux = it.next();
-            System.out.print(aux.consultar_id()+" ");
+            System.out.println(aux.consultar_id()+" ");
 		}
     }
     
