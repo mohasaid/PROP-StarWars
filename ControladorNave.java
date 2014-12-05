@@ -8,11 +8,11 @@ public class ControladorNave {
 	private ArrayList<Nave> ln;
 	ControladorDadesNave Cdn;
 	
-	public ControladorNave(){
+	public ControladorNave() {
 		listaNaves = new TST<Nave>();
 		Cdn = new ControladorDadesNave();
 	}
-	public ArrayList<Nave> CNaves() throws Exception{
+	public ArrayList<Nave> CNaves() throws Exception {
 		return listaNaves.MostrarElementos();
 	}
 	public Nave BuscarNave(int id) throws Exception{
