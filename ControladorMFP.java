@@ -7,6 +7,7 @@ public class ControladorMFP {
 	private Recorrido r;
 	private FuncionesCoste fc;
 	private boolean FuncionElegida;
+	private boolean AlgoritmoElegido;
 	private Iterator<Integer> itCB;
 	private Iterator<String> itF;
 	private Iterator<String> itC;
