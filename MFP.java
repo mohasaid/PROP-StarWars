@@ -1,12 +1,19 @@
-import java.util.*;
-
 public abstract class MFP {
 	protected Grafo g_residual;
 	protected Grafo G;
+	
+	/*
+	 * GRAFO ENTRADA, GRAFO RESIDUAL EN SALIDA
+	 */
 
 	public abstract void Ejecutar(Recorrido r, Salida s);
+	
+	public Grafo consultaResidual()
+	{
+		return g_residual;
+	}
 
-	public void Calcular_cuellos_botellas (Salida s, ControladorPlaneta cp, ControladorRuta cr) throws Exception
+	/*public void Calcular_cuellos_botellas(Salida s, ControladorPlaneta cp, ControladorRuta cr) throws Exception
 	{
 		int V = g_residual.sizeGrafo();
 		int origen = V-2;
@@ -41,24 +48,27 @@ public abstract class MFP {
 						if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
 							trobat = true;
 							idr = con.get(k).consultar_id();
-							System.out.println("ID RUTA CUELLO DE BOTELLA = " + idr + "une a " + pa + " y " + pb);
 						}
 					}
-					s.AnadirCuello(idr);
+					if(trobat) s.AnadirCuello(idr);
 				}
 			}
 		}
-	}
+	}*/
 
-	public void Caminos(Nave n, int consumo, boolean b, Recorrido r, ControladorPlaneta cp, Salida s, int indice) throws Exception
+	// Por cada camino el numero de naves que pueden pasar
+	
+	/*public void Caminos(Nave n, int consumo, boolean b, Recorrido r, ControladorPlaneta cp, Salida s, int indice) throws Exception
 	{
 		String origen = n.consultar_origen();
 		String destino = n.consultar_destino();
 		ArrayList<String> pl = cp.consultarPlanetas();
+		
 		int o1 = pl.indexOf(origen);
 		int d1 = pl.indexOf(destino);
 		
-		int path[] = new int[g_residual.sizeGrafo()];
+		int tama = G.sizeGrafo();
+		int path[] = new int[tama];
 		Arrays.fill(path, -1);
 		
 		boolean hay = r.Recorrido(g_residual, o1, d1, path);
@@ -67,8 +77,20 @@ public abstract class MFP {
 		String planetes = "Nave " + indice + " => "; // contiene camino con planetas
 		int cTotal = 0;
 		if(hay) {
-			// guardo el camino de nodos
-			String cami = "";
+			
+			System.out.println("Entro en hay");
+			/*int u, cap_temp;
+			// ACTUALIZO LAS CAPACIDADES DEL CAMINO QUE RECORRE LA NAVE
+			for(int v = d1; v != o1; v = path[v]) {
+				u = path[v];
+				cap_temp  = g_residual.consultaPairUn(v, u).consultarPrimero().ConsultarCapacidad();
+				cap_temp = cap_temp - 1;
+				g_residual.consultaPairUn(v, u).consultarPrimero().ModificarCapacidad(cap_temp);
+			}
+			
+			
+			// Guardo el camino de nodos
+			String cami = ""; // orden inverso
 			cami += d1;
 			Stack<Integer> st = new Stack<Integer>();
 			while(d1 != -1) {
@@ -79,10 +101,10 @@ public abstract class MFP {
 			while(st.size() > 1) {
 				res += st.pop() + ",";
 			}
-			res += st.pop();
+			res += st.pop(); // orden correcto
 			
 			// Actualizo capacidades grafo residual
-			int pos1, pos2, temp = 0;
+			/*int pos1, pos2, pos3, temp = 0;
 			Scanner scane = new Scanner(cami);
 			scane.useDelimiter(",");
 			boolean primer = true;
@@ -99,7 +121,7 @@ public abstract class MFP {
 				}
 				else {
 					String ter = scane.next();
-					int pos3 = Integer.parseInt(ter);
+					pos3 = Integer.parseInt(ter);
 					int cap = g_residual.consultaPairUn(temp,pos3).consultarPrimero().ConsultarCapacidad() - 1;
 					g_residual.consultaPairUn(temp, pos3).consultarPrimero().ModificarCapacidad(cap);
 					temp = pos3;
@@ -151,5 +173,5 @@ public abstract class MFP {
 		}
 		else planetes = "Nave " + indice + " => Esta nave no puede desplazarse ya que no existe un camino posible entre su origen y destino";
 		s.AnadirCamino(planetes);
-	}
+	}*/
 }
