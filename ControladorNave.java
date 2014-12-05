@@ -1,7 +1,7 @@
 import java.util.*;
 import java.io.*;
 
-public class ControladorNave{
+public class ControladorNave {
 	private TST<Nave> listaNaves;
 	private static int idn=0;
 	private Iterator<Nave> itc;
@@ -350,12 +350,9 @@ public class ControladorNave{
 				 * @throws Exception
 				 */
 				public void ModificaTipo(int id, int idtipo) throws Exception{
-				if(idtipo<1 || idtipo>5) throw new Exception("Error: El identificador del tipo debe estar entre 1 y 5\n");
-				if(!ExisteTipo(idtipo)) throw new Exception("Error: El tipo "+ idtipo +" no ha sido definido\n");	
 					Nave aux = BuscarNave(id);
 					EliminarNave(id);
 					Nave n;
-					
 					if(idtipo==1){
 						n = new TipoNave1(id, aux.consultar_destino(), aux.consultar_origen());
 						listaNaves.add(Integer.toString(n.consultar_id()),n);
@@ -403,10 +400,7 @@ public class ControladorNave{
 						 * @throws Exception
 						 */
 				public void ModificaConsumo(int id,int cn) throws Exception{
-					if(id<1 || id>5) throw new Exception("Error: El identificador del tipo debe estar entre 1 y 5\n");
-					if(!ExisteTipo(id)) throw new Exception("Error: El tipo "+ id +" no ha sido definido\n");	
 					if(id==1){
-						
 						TipoNave1.modificar_consumo(cn);
 					}
 					if(id==2){
@@ -469,6 +463,39 @@ public class ControladorNave{
 					ln = listaNaves.MostrarElementos();
 					itc = ln.iterator();
 				}
+				
+				/**
+				 * Metodo que te devuelve el conjunto de origenes y destinos de todas las naves, junto el numero de naves que los tienen
+				 * @return
+				 */
+				public ArrayList<Pair<Integer, Pair<String, String>>> consultaPAOR()
+				{
+					ArrayList<Pair<Integer, Pair<String, String> > > api = new ArrayList<Pair<Integer, Pair<String, String>>>();
+					Inicializar();
+					while(itc.hasNext()) {
+						int num = 1;
+						Nave aux = itc.next();
+						String or = aux.consultar_origen();
+						String de = aux.consultar_destino();
+						Pair<String, String> p = new Pair<String, String>(or,de);
+						Pair<Integer, Pair<String, String>> p1 = new Pair<Integer, Pair<String, String>>(num, p);
+						boolean trobat = false;
+						if(!api.isEmpty()) {
+							for(int i = 0; i < api.size(); ++i) {
+								if((api.get(i).consultarSegundo().consultarPrimero().compareTo(p1.consultarSegundo().consultarPrimero()) == 0) && (api.get(i).consultarSegundo().consultarPrimero().compareTo(p1.consultarSegundo().consultarPrimero()) == 0)) {
+									trobat = true;
+									num = api.get(i).consultarPrimero();
+									++num;
+									api.get(i).ponPrimero(num);
+								}
+							}
+							if(!trobat) api.add(p1);
+						}
+						else api.add(p1);
+					}
+					return api;
+				}
+				
 				//Post: Devuelve parte de las naves que se encuentran en el sistema
 				/**
 				 * metodo que retorna un string conteniendo parte de las naves del sistema
