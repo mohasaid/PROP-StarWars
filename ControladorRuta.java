@@ -4,9 +4,11 @@ import java.util.*;
 
 public class ControladorRuta {
     //PARTE PRIVADA
-	private TST<Ruta> ArbolRutas;
-	private TST<Conexion> Conexiones;
+    private TST<Ruta> ArbolRutas;
+    private TST<Conexion> Conexiones;
     private ControladorDadesRuta Cdr;
+    private Iterator<Ruta> itc;
+    private ArrayList<Ruta> lr;
     
     //Pre: Entra como parametro un numero entero
     //Post: Retorna cierto en el caso que el entero i sea menor que 0, en caso contrario, retorna falso
@@ -424,6 +426,34 @@ public class ControladorRuta {
     	
     	return res;
     }
+    
+    public void Inicializar()
+    {
+        lr = ArbolRutas.MostrarElementos();
+        itc = lr.iterator();
+    }
+    
+    //Pre: Cierto
+    //Post: Retorna un String que contiene todos los ids de las rutas presentes separadas por '#'
+    /**
+     * Metodo para consultar los id's de todas las rutas 
+     * @param i
+     * @return Retorna un String que contiene todos los ids de las rutas presentes separadas por '#'
+     */
+    public String Consultar_ids_rutas_string(int i)
+    {
+        if(i==0) Inicializar();
+        int j=0;
+        String res = "";
+        while(itc.hasNext() && j<100){
+                Ruta aux = itc.next();
+                int id = aux.consultar_id();
+                res += id+"#";
+                ++j;
+        }
+        if(i+100 >= ArbolRutas.size()) lr.clear();
+        return res; 
+    }
       
     //Pre: Entra como parametro un string
     //Post: Retorna un arraylist que contiene todos los ids de las rutas que le entran al planeta con id = "id_planeta"
@@ -622,7 +652,7 @@ public class ControladorRuta {
    */
   public void CargarRutas (String path) throws Exception 
   {
-	  String res;
+      String res;
       Cdr.AbrirLectura(path);
       FileReader fr = new FileReader(path);
       BufferedReader br = new BufferedReader(fr);
