@@ -14,6 +14,7 @@ public class DriverControladorMFP {
              +"-   2   TestSeleccionarAlgoritmo(int i)                                         -\n"
              +"-   3   Mostrar solucion                                                        -\n"
              +"-   4   Mostrar solucion parcial                                                -\n"
+             +"-   5   Ejecutar algoritmo													   -\n"									
              +"---------------------------------------------------------------------------------\n");
         op = sc.nextInt(); 
         while(op != 0){
