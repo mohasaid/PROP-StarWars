@@ -38,6 +38,23 @@ public class FordFulkerson extends MFP {
 		}
 	}
 	
+	public void updateGraph()
+	{
+		ArrayList<ArrayList<Pair<Arco, Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
+		for(int i = 0; i < G.sizeGrafo(); ++i) {
+			ArrayList<Pair<Arco,Integer> >  ad = G.consultarCosteDestinos(i);
+			ar.add(ad);
+		}
+		Grafo parcial = new Grafo(ar);
+		for(int i = 0; i < parcial.sizeGrafo(); ++i) {
+			for(int j = 0; j < parcial.sizeGrafo(i); ++j) {
+				int cap = g_residual.consultarPrim(j, i).ConsultarCapacidad();
+				parcial.consultaPair(i, j).consultarPrimero().ModificarCapacidad(cap);
+			}
+		}
+		g_residual = parcial;
+	}
+	
 	public void Ejecutar(Recorrido r, Salida s)
 	{
 		// CONSULTAR TIEMPO
@@ -79,6 +96,9 @@ public class FordFulkerson extends MFP {
 		}
 		System.out.println("MAXFLOW = " + max_flow);
 		s.AnadirMax_flow(max_flow);
+		
+		// actualizamos grafo residual quitando las retroactivas y actualizando el valor de la capacidad
+		updateGraph();
 		
 		// System.out.println()
 		System.out.println("GRAFO RESIDUAL DESPUES DE FORD FULKERSON");
