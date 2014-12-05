@@ -57,8 +57,9 @@ public class ControladorMFP {
 	{
 		alg.Ejecutar(r, s);
 		
-		r = new BFS();
-		Recorrido r1 = new Dijkstra(); // en caso de coste hacer que el recorrido sea un DIJKSTRA
+		/** r = new BFS();
+		
+		if(fc instanceof FuncionPrecio || fc instanceof FuncionDistancia) r = new Dijkstra(); // en caso de coste hacer que el recorrido sea un DIJKSTRA
 
 		ArrayList<String> pla = cp.consultarPlanetas();
 		
@@ -67,14 +68,14 @@ public class ControladorMFP {
 		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
 		ArrayList<Conexion> con = new ArrayList<Conexion>();
 		
-		if(alg instanceof FordFulkerson) tipo = 1;
-		else if(alg instanceof PushRelabel) tipo = 2;
+		/*if(alg instanceof FordFulkerson) tipo = 1;
+		else if(alg instanceof PushRelabel) tipo = 2;*/
 		
-		int camino[] = new int[g_res.sizeGrafo()];
+		/**int camino[] = new int[g_res.sizeGrafo()];
 		String way = "";
 		for(int in = 0; in < paor.size(); ++in) {
-			int a = s.Caminos(g_res, paor.get(in).consultarSegundo().consultarPrimero(), paor.get(in).consultarSegundo().consultarSegundo(), (fc instanceof FuncionPrecio), r, pla, tipo, camino);
-			while(a != 0) {
+			int a = s.Caminos(g_res, paor.get(in).consultarSegundo().consultarPrimero(), paor.get(in).consultarSegundo().consultarSegundo(), (fc instanceof FuncionPrecio), r, pla,/* tipo,*///camino);
+			/**while(a != 0) {
 				int num = paor.get(in).consultarPrimero();
 				if(num >= a) num = a;
 				// restar el numero de naves, quitar las naves con origen y destino del arraylist aux
@@ -105,7 +106,7 @@ public class ControladorMFP {
 							}
 							if(trobat) s.AnadirCuello(idr);
 						}*/
-						g_res.consultaPairUn(v, u).consultarPrimero().ModificarCapacidad(cap);
+						/**g_res.consultaPairUn(v, u).consultarPrimero().ModificarCapacidad(cap);
 					}
 				}
 				else if(tipo == 2) {
@@ -129,14 +130,14 @@ public class ControladorMFP {
 							}
 							if(trobat) s.AnadirCuello(idr);*/
 						
-						g_res.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(cap);
+						/**g_res.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(cap);
 					}
 				}
 				way += " pueden pasar " + a + " naves";
 				s.AnadirCamino(way);
 				way = "";
-				a = s.Caminos(g_res, paor.get(in).consultarSegundo().consultarPrimero(), paor.get(in).consultarSegundo().consultarSegundo(), (fc instanceof FuncionPrecio), r, pla, tipo, camino);
-			}
+				a = s.Caminos(g_res, paor.get(in).consultarSegundo().consultarPrimero(), paor.get(in).consultarSegundo().consultarSegundo(), (fc instanceof FuncionPrecio), r, pla,/* tipo,*/ //camino);
+		/*	}
 		}
 		// calcular los cuellos de botella
 		int V = g_res.sizeGrafo();
@@ -178,7 +179,7 @@ public class ControladorMFP {
 					}
 				}
 			}
-		}
+		}*/
 	}
 	
 	//Funciones de coste
