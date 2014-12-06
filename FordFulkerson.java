@@ -49,8 +49,7 @@ public class FordFulkerson extends MFP {
 	    }
 	}
 	
-	
-	public void escribeGrafoResidual()
+	/*public void escribeGrafoResidual()
 	{
 		System.out.println("GRAFO RESIDUAL");
 		for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
@@ -78,23 +77,21 @@ public class FordFulkerson extends MFP {
 		}
 		System.out.println();
 		System.out.println();
-	}
+	}*/
 	
-	public void updateGraph(int size) // quito los virtuales y retroactivas
+	public void updateGraph(int size) // quito las retroactivas pero no los virtuales
 	{
 		ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
-	    for(int i = 0; i < size-2; ++i) {
+	    for(int i = 0; i < size; ++i) {
 	            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
 	            ar.add(ad);
 	    }
 		Grafo parcial = new Grafo(ar);
 		int v;
-		int tam1 = size-1;
-		int tam2 = size-2;
-		for(int i = 0; i < g_residual.sizeGrafo()-2; ++i) {
+		for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
 			for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
 				v = g_residual.consultarSeg(i, j);
-				if(v != tam1 && v != tam2 && v >= i) {
+				if(G.ExisteV(i, v)) {
 					Arco a = new Arco();
 	                a.ModificarCoste(g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
 	                a.ModificarCapacidad(g_residual.consultaPairUn(v, i).consultarPrimero().ConsultarCapacidad());
@@ -123,8 +120,6 @@ public class FordFulkerson extends MFP {
 		int max_flow = 0;
 		String camino = ""; // Contiene el camino en orden inverso
 		
-		// Buscar caminos antes que 
-		
 		while(r.Recorrido(g_residual,origen,destino,path)) {
 			int pathflow = Integer.MAX_VALUE;
 			camino += destino;
@@ -150,7 +145,7 @@ public class FordFulkerson extends MFP {
 		System.out.println("MAXFLOW = " + max_flow);
 		s.AnadirMax_flow(max_flow);
 		
-		// actualizamos grafo residual quitando las retroactivas y actualizando el valor de la capacidad y nodos virtuales
+		// actualizamos grafo residual quitando las retroactivas y actualizando el valor de la capacidad
 		updateGraph(g_residual.sizeGrafo());
 		
 		long timeMillis1 = System.currentTimeMillis();
