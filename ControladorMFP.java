@@ -46,13 +46,10 @@ public class ControladorMFP {
 				}
 				r = new Dijkstra();
 			}
-			//alg.Ejecutar(r,s);
-			//System.out.println("DESPUES DE EJECUTARLO, max flow = " + s.ConsultarMax_flow());
 		}
 		if(i==3) {
 			alg = new PushRelabel(e);
 			AlgoritmoElegido = true;
-			//alg.Ejecutar(r, s);
 		}
 	}
 	
