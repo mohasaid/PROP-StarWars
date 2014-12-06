@@ -16,6 +16,7 @@ public class ControladorMFP {
 	public ControladorMFP()
 	{
 		FuncionElegida = false;
+		AlgoritmoElegido = false;
 		s = new Salida();
 	}
 	
@@ -32,6 +33,7 @@ public class ControladorMFP {
 		}
 		if(i==1||i==2) {
 			alg = new FordFulkerson(e);
+			AlgoritmoElegido = true;
 			if(i==1){
 				if(!(fc instanceof FuncionFlujo)){
 					throw new Exception("Error: Ford Fulkerson bfs se ejecuta para función de coste: Flujo");
@@ -44,17 +46,21 @@ public class ControladorMFP {
 				}
 				r = new Dijkstra();
 			}
-			alg.Ejecutar(r,s);
-			System.out.println("DESPUES DE EJECUTARLO, max flow = " + s.ConsultarMax_flow());
+			//alg.Ejecutar(r,s);
+			//System.out.println("DESPUES DE EJECUTARLO, max flow = " + s.ConsultarMax_flow());
 		}
 		if(i==3) {
 			alg = new PushRelabel(e);
-			alg.Ejecutar(r, s);
+			AlgoritmoElegido = true;
+			//alg.Ejecutar(r, s);
 		}
 	}
 	
 	public void Executa(ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp) throws Exception 
 	{
+		if(!AlgoritmoElegido) throw new Exception("Error: Es necesario seleccionar un algoritmo antes de ejecutarlo");
+		if(!FuncionElegida) throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
+		
 		alg.Ejecutar(r, s);
 		
 		r = new BFS();
