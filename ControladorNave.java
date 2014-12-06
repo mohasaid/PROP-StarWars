@@ -482,7 +482,9 @@ public class ControladorNave {
 						boolean trobat = false;
 						if(!api.isEmpty()) {
 							for(int i = 0; i < api.size(); ++i) {
-								if((api.get(i).consultarSegundo().consultarPrimero().compareTo(p1.consultarSegundo().consultarPrimero()) == 0) && (api.get(i).consultarSegundo().consultarPrimero().compareTo(p1.consultarSegundo().consultarPrimero()) == 0)) {
+								String ori = api.get(i).consultarSegundo().consultarPrimero();
+								String dest = api.get(i).consultarSegundo().consultarPrimero();
+								if((ori.compareTo(or) == 0) && (dest.compareTo(de) == 0)) {
 									trobat = true;
 									num = api.get(i).consultarPrimero();
 									++num;
