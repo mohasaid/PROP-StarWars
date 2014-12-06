@@ -2,32 +2,57 @@ import java.util.*;
 
 public class FordFulkerson extends MFP {
 	
-	public FordFulkerson(Entrada e)
+	public FordFulkerson(Entrada e) throws CloneNotSupportedException
 	{
 		G = e.Consultar_grafo();
-		g_residual();
+		g_residual(G.sizeGrafo());
 	}
 	
-	public void g_residual() // sin 0
+	public void g_residual(int size) {
+	    ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
+	    for(int i = 0; i < size; ++i) {
+	            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
+	            ar.add(ad);
+	    }
+	    g_residual = new Grafo(ar);
+	    int v;
+	    boolean insert = false;
+	    for(int i = 0; i < G.sizeGrafo(); ++i) {
+	            for (int j = 0; j < G.sizeGrafo(i); ++j) {
+	                    v = G.consultarSeg(i, j);
+	                    Arco a = new Arco();
+	                    a.ModificarCoste(G.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
+	                    a.ModificarCapacidad(G.consultaPairUn(i, v).consultarPrimero().ConsultarCapacidad());
+	                    Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
+	                    if (g_residual.consultarCosteDestinos(i).isEmpty()) g_residual.consultarCosteDestinos(i).add(p);
+	                    else {
+	                            for(int h = 0; h < g_residual.consultarCosteDestinos(i).size() && !insert; ++h) {
+	                                    if (g_residual.consultarCosteDestinos(i).get(h).consultarPrimero().ConsultarCoste() >= a.ConsultarCoste()) {
+	                                            g_residual.consultarCosteDestinos(i).add(h, p);
+	                                            insert = true;
+	                                    }
+	                            }
+	                            if(!insert) g_residual.consultarCosteDestinos(i).add(p);
+	                            insert = false;
+	                    }
+	            }
+	    }
+	    for(int i = 0; i < G.sizeGrafo(); ++i) {
+	            for (int j = 0; j < G.sizeGrafo(i); ++j) {
+	                    v = G.consultarSeg(i, j);
+	                    if(!g_residual.ExisteV(v, i)) {
+	                            Arco a = new Arco();
+	                            Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,i);
+	                            g_residual.consultarCosteDestinos(v).add(p);
+	                    }
+	            }
+	    }
+	}
+	
+	
+	public void escribeGrafoResidual()
 	{
-		ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
-		for(int i = 0; i < G.sizeGrafo(); ++i) {
-			ArrayList<Pair<Arco,Integer> >  ad = G.consultarCosteDestinos(i);
-			ar.add(ad);
-		}
-		g_residual = new Grafo(ar);
-		int v;
-		for(int i = 0; i < G.sizeGrafo(); ++i) {
-			for(int j = 0; j < G.sizeGrafo(i); ++j) {
-				v = G.consultarSeg(i, j);
-				Arco a = new Arco();
-				int coste = G.consultarPrim(i, j).ConsultarCoste();
-				a.ModificarCoste(coste);
-				Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,i);
-				g_residual.consultarCosteDestinos(v).add(p);
-			}
-		}
-		System.out.println("GRAFO RESIDUAL ANTES DE FORD FULKERSON");
+		System.out.println("GRAFO RESIDUAL");
 		for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
 			System.out.println("Del vertice " + i + " sale lo siguiente:");
 			for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
@@ -36,20 +61,46 @@ public class FordFulkerson extends MFP {
 								 + " hacia el vertice "+ g_residual.consultarSeg(i, j));
 			}
 		}
+		System.out.println();
+		System.out.println();
 	}
 	
-	public void updateGraph()
+	public void escribeGrafoOriginal()
 	{
-		ArrayList<ArrayList<Pair<Arco, Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
+		System.out.println("GRAFO ORIGINAL");
 		for(int i = 0; i < G.sizeGrafo(); ++i) {
-			ArrayList<Pair<Arco,Integer> >  ad = G.consultarCosteDestinos(i);
-			ar.add(ad);
+			System.out.println("Del vertice " + i + " sale lo siguiente:");
+			for(int j = 0; j < G.sizeGrafo(i); ++j) {
+				System.out.println("Arista de capacidad = " + G.consultarPrim(i, j).ConsultarCapacidad()
+								 + " y con coste = " + G.consultarPrim(i, j).ConsultarCoste()
+								 + " hacia el vertice "+ G.consultarSeg(i, j));
+			}
 		}
+		System.out.println();
+		System.out.println();
+	}
+	
+	public void updateGraph(int size) // quito los virtuales y retroactivas
+	{
+		ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
+	    for(int i = 0; i < size-2; ++i) {
+	            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
+	            ar.add(ad);
+	    }
 		Grafo parcial = new Grafo(ar);
-		for(int i = 0; i < parcial.sizeGrafo(); ++i) {
-			for(int j = 0; j < parcial.sizeGrafo(i); ++j) {
-				int cap = g_residual.consultarPrim(j, i).ConsultarCapacidad();
-				parcial.consultaPair(i, j).consultarPrimero().ModificarCapacidad(cap);
+		int v;
+		int tam1 = size-1;
+		int tam2 = size-2;
+		for(int i = 0; i < g_residual.sizeGrafo()-2; ++i) {
+			for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
+				v = g_residual.consultarSeg(i, j);
+				if(v != tam1 && v != tam2 && v >= i) {
+					Arco a = new Arco();
+	                a.ModificarCoste(g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
+	                a.ModificarCapacidad(g_residual.consultaPairUn(v, i).consultarPrimero().ConsultarCapacidad());
+	                Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
+	                parcial.consultarCosteDestinos(i).add(p);
+				}
 			}
 		}
 		g_residual = parcial;
@@ -72,12 +123,14 @@ public class FordFulkerson extends MFP {
 		int max_flow = 0;
 		String camino = ""; // Contiene el camino en orden inverso
 		
+		// Buscar caminos antes que 
+		
 		while(r.Recorrido(g_residual,origen,destino,path)) {
 			int pathflow = Integer.MAX_VALUE;
 			camino += destino;
 			for(v = destino; v != origen; v = path[v]) {
 				u = path[v];
-				camino += "," + u;
+				camino += "<=" + u;
 				pathflow = Math.min(pathflow, g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
 			}
 			for(v = destino; v != origen; v = path[v]) {
@@ -97,19 +150,8 @@ public class FordFulkerson extends MFP {
 		System.out.println("MAXFLOW = " + max_flow);
 		s.AnadirMax_flow(max_flow);
 		
-		// actualizamos grafo residual quitando las retroactivas y actualizando el valor de la capacidad
-		updateGraph();
-		
-		// System.out.println()
-		System.out.println("GRAFO RESIDUAL DESPUES DE FORD FULKERSON");
-		for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
-			System.out.println("Del vertice " + i + " sale lo siguiente:");
-			for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
-				System.out.println("Arista de capacidad = " + g_residual.consultarPrim(i, j).ConsultarCapacidad()
-								 + " y con coste = " + g_residual.consultarPrim(i, j).ConsultarCoste()
-								 + " hacia el vertice "+ g_residual.consultarSeg(i, j));
-			}
-		}
+		// actualizamos grafo residual quitando las retroactivas y actualizando el valor de la capacidad y nodos virtuales
+		updateGraph(g_residual.sizeGrafo());
 		
 		long timeMillis1 = System.currentTimeMillis();
 		long f1 = timeMillis1 - timeMillis;
