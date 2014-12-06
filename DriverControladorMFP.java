@@ -23,6 +23,7 @@ public class DriverControladorMFP {
 	            case 2: TestSeleccionarAlgoritmo(sc,cMFP,cn,cr,cp);break;
 	            case 3: TestConsultarSalida(cMFP);break;
 	            case 4: TestConsultarCambios(cMFP);break;
+	            case 5: TestEjecutarAlgoritmo(cMFP,cn,cr,cp); break;
 	            default: System.out.println("Opcion incorrecta");
             }
     op = sc.nextInt(); 
@@ -65,6 +66,16 @@ public class DriverControladorMFP {
     	catch(Exception e){
     		System.out.println(e);
     	}
+   }
+   
+   public static void TestEjecutarAlgoritmo(ControladorMFP cMFP, ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp)
+   {
+	   try {
+		   cMFP.Executa(cn, cr, cp);
+	   }
+	   catch (Exception e){
+           System.out.print(e);
+       }
    }
    public static void TestConsultarSalida(ControladorMFP cMFP){
     	try{
