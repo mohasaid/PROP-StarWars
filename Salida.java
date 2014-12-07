@@ -57,7 +57,7 @@ public class Salida{
 		int path[] = new int[tam+1]; // en la posicion tam estara la capacidad minima
 		Arrays.fill(path,-1);
 		path[tam] = 0;
-		int u,v;//,min = 0;
+		int u,v;
 		boolean hay;
 		hay = r.Recorrido(g, o1, d1, path);
 		if(hay) {
