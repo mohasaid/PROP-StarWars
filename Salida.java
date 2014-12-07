@@ -48,36 +48,33 @@ public class Salida{
 	 * @return
 	 * @throws Exception
 	 */
-	public int Caminos(Grafo g, String origen, String destino, boolean b, Recorrido r, ArrayList<String> pl,/* int tipo,*/ int[] camino) throws Exception
+	public int[] Caminos(Grafo g, int naves, String origen, String destino, boolean b, Recorrido r, ArrayList<String> pl) throws Exception
 	{
 		int o1 = pl.indexOf(origen); // nodo origen
 		int d1 = pl.indexOf(destino); // nodo destino
 		
 		int tam = g.sizeGrafo();
-		int path[] = new int[tam];
-		Arrays.fill(path, -1);
-		int u,v, min = 0;
+		int path[] = new int[tam+1]; // en la posicion tam estara la capacidad minima
+		Arrays.fill(path,-1);
+		path[tam] = 0;
+		int u,v;//,min = 0;
 		boolean hay;
-		/*if(tipo == 1) {
-			hay = r.Recorrido(g, d1, o1, path); // ff orden inverso
-			if(hay) {
-				for(v = o1; v != d1; v = path[v]) {
-					u = path[v];
-					min = Math.min(Integer.MAX_VALUE, g.consultaPairUn(v, u).consultarPrimero().ConsultarCapacidad());
-				}
+		hay = r.Recorrido(g, o1, d1, path);
+		if(hay) {
+			for(v = d1; v != o1; v = path[v]) {
+				u = path[v];
+				path[tam] = Math.min(Integer.MAX_VALUE, g.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
+			}
+			if(naves >= path[tam]) naves = path[tam];
+			// paso las naves
+			for(v = d1; v != o1; v = path[v]) {
+				u = path[v];
+				int tmp = g.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
+				tmp = tmp - naves;
+				g.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(tmp);
 			}
 		}
-		if(tipo == 2) {*/
-			hay = r.Recorrido(g, o1, d1, path); // push relabel orden correcto
-			if(hay) {
-				for(v = d1; v != o1; v = path[v]) {
-					u = path[v];
-					min = Math.min(Integer.MAX_VALUE, g.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
-				}
-			}
-		//}
-		camino = path;
-		return min;
+		return path;
 	}
 	
 	//Pre:cierto
