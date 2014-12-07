@@ -1,11 +1,7 @@
 import java.util.ArrayList;
 
 public class Grafo {
-	
-	// i = id nodo origen , [i][j].second = destino nodo i, [i][j].first.first = capacidad , [i][j].first.second = coste
 	private ArrayList<ArrayList<Pair<Arco,Integer> > > g;
-	
-	// private ArrayList<Nodo> g;
 	
 	/**
 	 * Creadora vacia de un grafo
@@ -91,6 +87,7 @@ public class Grafo {
     			trobat = true;
     		}
     	}
+    	//g.get(u).get(tmp).consultarPrimero().ModificarCapacidad(cap);
     	Arco c = g.get(u).get(tmp).consultarPrimero();
     	c.ModificarCapacidad(cap);
     	g.get(u).get(tmp).ponPrimero(c); // modifico capacidad del arco
@@ -120,7 +117,7 @@ public class Grafo {
     }
     
     /**
-     * Metodo para añadir una arista y destino 
+     * Metodo para anadir una arista y destino 
      * @param i
      * @param p
      */
@@ -193,8 +190,8 @@ public class Grafo {
     }
     
     /**
-     * Metodo para consultar el tamaño del grafo
-     * @return El tamaño del grafo
+     * Metodo para consultar el tamano del grafo
+     * @return El tamano del grafo
      */
     public int sizeGrafo() 
     {
@@ -209,6 +206,11 @@ public class Grafo {
     public int sizeGrafo(int u)
     {
     	return g.get(u).size();
+    }
+    
+    public Grafo clone() throws CloneNotSupportedException
+    {
+    	return (Grafo) super.clone();
     }
     
 }
