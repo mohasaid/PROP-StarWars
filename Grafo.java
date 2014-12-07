@@ -207,10 +207,4 @@ public class Grafo {
     {
     	return g.get(u).size();
     }
-    
-    public Grafo clone() throws CloneNotSupportedException
-    {
-    	return (Grafo) super.clone();
-    }
-    
 }
