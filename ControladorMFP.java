@@ -82,7 +82,6 @@ public class ControladorMFP {
 		}*/
 		
 		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
-		
 		// COMPROBAR LAS NAVES
 		/*for(int i = 0; i < paor.size(); ++i) {
 			int n = paor.get(i).consultarPrimero();
@@ -126,10 +125,12 @@ public class ControladorMFP {
 				int d1 = pla.indexOf(dest);
 				int v, u;
 				way += "Por el camino ";
+				// String parcial += d1;
 				way += d1;
 				for(v = d1; v != o1; v = a[v]) {
 					u = a[v];
 					way += "<=" + u;
+					// parcial += "<=" + u;
 					/*int cap = g_res.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
 					System.out.println("capacidad antes = " + cap);
 					cap = cap - num;
@@ -151,11 +152,11 @@ public class ControladorMFP {
 						if(trobat) s.AnadirCuello(idr);
 					}*/
 				}
+				// parcial = toPlanetes(parcial,pla);
+				// way += parcial +  " pasan " + n_final + " naves";
 				way += " pasan " + n_final + " naves";
 				System.out.println(" -- way --");
 				System.out.println(way);
-				// String cami_planetes = toPlanetes(way,pla);
-				// s.AnadirCamino(cami_planees);
 				s.AnadirCamino(way);
 				way = "";
 				int naus = paor.get(in).consultarPrimero();
@@ -207,6 +208,12 @@ public class ControladorMFP {
 		}
 	}
 	
+	/**
+	 * Metodo para transformar el camino de nodos a planetas
+	 * @param res
+	 * @param pl
+	 * @return
+	 */
 	public String toPlanetes(String res, ArrayList<String> pl)
 	{
 		String planetes = "";
