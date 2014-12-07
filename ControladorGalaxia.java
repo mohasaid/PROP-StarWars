@@ -17,7 +17,7 @@ public class ControladorGalaxia
      * Metodo para crear el controlador de la galaxia, un controlador de datos y una galaxia con nombre y limite
      * @throws Exception 
      */
-    public ControladorGalaxia() throws Exception 
+    public ControladorGalaxia()
     {
     	cdg = new ControladorDadesGalaxia();
     }
