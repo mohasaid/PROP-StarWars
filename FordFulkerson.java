@@ -2,13 +2,18 @@ import java.util.*;
 
 public class FordFulkerson extends MFP {
 	
-	public FordFulkerson(Entrada e) throws CloneNotSupportedException
+	public FordFulkerson(Entrada e)
 	{
 		G = e.Consultar_grafo();
 		g_residual(G.sizeGrafo());
 	}
 	
-	public void g_residual(int size) {
+	/**
+	 * Metodo para construir el grafo residual
+	 * @param size
+	 */
+	public void g_residual(int size) 
+	{
 	    ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
 	    for(int i = 0; i < size; ++i) {
 	            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
@@ -42,14 +47,19 @@ public class FordFulkerson extends MFP {
 	                    v = G.consultarSeg(i, j);
 	                    if(!g_residual.ExisteV(v, i)) {
 	                            Arco a = new Arco();
+	                            a.ModificarCoste(G.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
 	                            Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,i);
 	                            g_residual.consultarCosteDestinos(v).add(p);
 	                    }
 	            }
 	    }
+	    System.out.println(" -- AHORA LOS GRAFOS TIENEN COSTES --");
+	    escribeGrafoOriginal();
+	    escribeGrafoResidual();
+	    
 	}
 	
-	/*public void escribeGrafoResidual()
+	public void escribeGrafoResidual()
 	{
 		System.out.println("GRAFO RESIDUAL");
 		for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
@@ -77,8 +87,12 @@ public class FordFulkerson extends MFP {
 		}
 		System.out.println();
 		System.out.println();
-	}*/
+	}
 	
+	/**
+	 * Metodo para quitar los arcos retroactivos del grafo residual
+	 * @param size
+	 */
 	public void updateGraph(int size) // quito las retroactivas pero no los virtuales
 	{
 		ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
@@ -93,7 +107,7 @@ public class FordFulkerson extends MFP {
 				v = g_residual.consultarSeg(i, j);
 				if(G.ExisteV(i, v)) {
 					Arco a = new Arco();
-	                a.ModificarCoste(g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
+	                a.ModificarCoste(G.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
 	                a.ModificarCapacidad(g_residual.consultaPairUn(v, i).consultarPrimero().ConsultarCapacidad());
 	                Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
 	                parcial.consultarCosteDestinos(i).add(p);
