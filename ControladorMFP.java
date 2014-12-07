@@ -60,6 +60,8 @@ public class ControladorMFP {
 		
 		alg.Ejecutar(r, s);
 		
+		System.out.println("salido del algoritmo");
+		
 		r = new BFS();
 		
 		if(fc instanceof FuncionPrecio || fc instanceof FuncionDistancia) r = new Dijkstra(); // en caso de coste hacer que el recorrido sea un DIJKSTRA
@@ -68,51 +70,96 @@ public class ControladorMFP {
 		
 		Grafo g_res = alg.consultaResidual();
 		
-		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
-		ArrayList<Conexion> con = new ArrayList<Conexion>();
+		// COMPROBAR GRAFO RESIDUAL
+		/*System.out.println("GRAFO RESIDUAL");
+		for(int i = 0; i < g_res.sizeGrafo(); ++i) {
+			System.out.println("Del vertice " + i + " sale lo siguiente:");
+			for(int j = 0; j < g_res.sizeGrafo(i); ++j) {
+				System.out.println("Arista de capacidad = " + g_res.consultarPrim(i, j).ConsultarCapacidad()
+								 + " y con coste = " + g_res.consultarPrim(i, j).ConsultarCoste()
+								 + " hacia el vertice "+ g_res.consultarSeg(i, j));
+			}
+		}*/
 		
-		int camino[] = new int[g_res.sizeGrafo()];
+		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
+		
+		// COMPROBAR LAS NAVES
+		/*for(int i = 0; i < paor.size(); ++i) {
+			int n = paor.get(i).consultarPrimero();
+			System.out.println("TENEMOS " + n + " naves dirigidas a:");
+			String pla1 = paor.get(i).consultarSegundo().consultarPrimero();
+			System.out.println("Origen: " + pla1);
+			String pla2 = paor.get(i).consultarSegundo().consultarSegundo();
+			System.out.println("Destino: " + pla2);
+		}*/
+		
+		ArrayList<Conexion> con = new ArrayList<Conexion>();
+		System.out.println("-- CONEXIONES --");
+		for(int i = 0; i < con.size(); ++i) {
+			System.out.println("0 idr conexion = " + con.get(i).consultar_id());
+			System.out.println("0 planeta a = " + con.get(i).consultar_planetaA());
+			System.out.println("0 planeta b = " + con.get(i).consultar_planetaB());
+			System.out.println("----");
+		}
+		
+		
+		int tam = g_res.sizeGrafo();
+		
 		String way = "";
 		for(int in = 0; in < paor.size(); ++in) {
-			int a = s.Caminos(g_res, paor.get(in).consultarSegundo().consultarPrimero(), paor.get(in).consultarSegundo().consultarSegundo(), (fc instanceof FuncionPrecio), r, pla,camino);
-			while(a != 0) {
+			String orig = paor.get(in).consultarSegundo().consultarPrimero();
+			String dest = paor.get(in).consultarSegundo().consultarSegundo();
+			int naves = paor.get(in).consultarPrimero();
+			int a[] = s.Caminos(g_res,naves, orig, dest, (fc instanceof FuncionPrecio), r, pla);
+			while(a[tam] != 0 && paor.get(in).consultarPrimero() > 0) { // mientras haya naves disponibles y capacidad
 				int num = paor.get(in).consultarPrimero();
-				if(num >= a) num = a;
-				// restar el numero de naves, quitar las naves con origen y destino del arraylist aux
-				paor.get(in).ponPrimero(num-a); // actualizo el numero de naves que quedan por pasar
+				int n_final = num;
+				if(a[tam] > num) paor.get(in).ponPrimero(0); // tenemos mas capacidad que naves, pasan todas
+				else { // tenemos mas naves que capacidad, sobran algunas
+					num = num - a[tam];
+					n_final = a[tam];
+					paor.get(in).ponPrimero(num);
+				}
 				// restar la capacidad del camino + consultar si capacidad es 0 = cuello de botella
-				int o1 = pla.indexOf(paor.get(in).consultarSegundo().consultarPrimero());
-				int d1 = pla.indexOf(paor.get(in).consultarSegundo().consultarSegundo());
+				int o1 = pla.indexOf(orig);
+				int d1 = pla.indexOf(dest);
 				int v, u;
 				way += "Por el camino ";
 				way += d1;
-				for(v = d1; v != o1; v = camino[v]) {
-					u = camino[v];
+				for(v = d1; v != o1; v = a[v]) {
+					u = a[v];
 					way += "<=" + u;
-					int cap = g_res.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
+					/*int cap = g_res.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
+					System.out.println("capacidad antes = " + cap);
 					cap = cap - num;
-					// cuello de botella entre u-v
+					System.out.println("capacidad despues = " + cap);
+					cuello de botella entre u-v
 					if(cap == 0) {
+						System.out.println("CUELLO DE BOTELLA ENCONTRADO");
 						String a1 = pla.get(v);
 						String a2 = pla.get(u);
 						boolean trobat = false;
 						int idr = 0;
-						for(int k = 0; k < con.size() && !trobat; ++k) {
+						for(int k = 0; k < con.size() && !trobat; ++k) { // no va conexiones
 							if(((con.get(k).consultar_planetaA().compareTo(a2) == 0) && (con.get(k).consultar_planetaB().compareTo(a1) == 0))) {
 								trobat = true;
 								idr = con.get(k).consultar_id();
+								System.out.println("EN LA RUTA " + idr);
 							}
 						}
 						if(trobat) s.AnadirCuello(idr);
-					}
-					g_res.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(cap);
+					}*/
 				}
-				way += " pueden pasar " + a + " naves";
+				way += " pasan " + n_final + " naves";
+				System.out.println(" -- way --");
+				System.out.println(way);
 				s.AnadirCamino(way);
 				way = "";
-				a = s.Caminos(g_res, paor.get(in).consultarSegundo().consultarPrimero(), paor.get(in).consultarSegundo().consultarSegundo(), (fc instanceof FuncionPrecio), r, pla,camino);
+				int naus = paor.get(in).consultarPrimero();
+				a = s.Caminos(g_res, naus, orig, dest, (fc instanceof FuncionPrecio), r, pla);
 			}
 		}
+		
 		// calcular los cuellos de botella
 		int V = g_res.sizeGrafo();
 		int origen = V-2;
@@ -135,21 +182,35 @@ public class ControladorMFP {
 					q1.add(adj);
 				}
 				else if(cap == 0) {
-					if(actual != V-1 && actual != V-2) {
+					System.out.println("CUELLO DE BOTELLA ENCONTRADO2");
+					System.out.println("ENTRE " + actual + " y " + adj);
+					//if(actual != V-1 && actual != V-2) {
 						String pa = pla.get(actual);
 						String pb = pla.get(adj);
 						int idr = 0;
 						boolean trobat = false;
-						for(int k = 0; k < con.size() && !trobat; ++k) {
+						for(int k = 0; k < con.size() && !trobat; ++k) { // no va conexiones
+							//System.out.println("idr conexion = " + con.get(k).consultar_id());
+							//System.out.println("planeta a = " + con.get(k).consultar_planetaA());
+							//System.out.println("planeta b = " + con.get(k).consultar_planetaB());
+							//System.out.println("----");
 							if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
 								trobat = true;
 								idr = con.get(k).consultar_id();
+								//System.out.println("EN LA RUTA2 " + idr);
 							}
 						}
 						if(trobat) s.AnadirCuello(idr);
-					}
+					//}
 				}
 			}
+		}
+		
+		// consultar cuellos de botella
+		ArrayList<Integer> a = s.ConsultarCuellos();
+		System.out.println("-- Cuellos de botella -- = " + a.size());
+		for(int i = 0; i < a.size(); ++i) {
+			System.out.println(a.get(i));
 		}
 	}
 	
