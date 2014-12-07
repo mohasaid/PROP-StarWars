@@ -89,7 +89,7 @@ public class ControladorGalaxia
      * @return Limite maximo de la galaxia
      * @throws Exception
      */
-    public int consultarLimit() throws Exception
+    public int consultarLimit()
     {
         return g.consultarLimitGalaxia();
     }
