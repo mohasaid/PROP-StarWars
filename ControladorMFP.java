@@ -93,16 +93,17 @@ public class ControladorMFP {
 			System.out.println("Destino: " + pla2);
 		}*/
 		
-		ArrayList<Conexion> con = new ArrayList<Conexion>();
-		System.out.println("-- CONEXIONES --");
-		for(int i = 0; i < con.size(); ++i) {
-			System.out.println("0 idr conexion = " + con.get(i).consultar_id());
-			System.out.println("0 planeta a = " + con.get(i).consultar_planetaA());
-			System.out.println("0 planeta b = " + con.get(i).consultar_planetaB());
+		ArrayList<Conexion> con = cr.Consultar_Conexiones();
+		/*System.out.println("-- CONEXIONES --");
+		Conexion act;
+		Iterator<Conexion> it = con.iterator();
+		while(it.hasNext()) {
+			act = it.next();
+			System.out.println("0 idr conexion = " + act.consultar_id());
+			System.out.println("0 planeta a = " + act.consultar_planetaA());
+			System.out.println("0 planeta b = " + act.consultar_planetaB());
 			System.out.println("----");
-		}
-		
-		
+		}*/
 		int tam = g_res.sizeGrafo();
 		
 		String way = "";
@@ -153,6 +154,8 @@ public class ControladorMFP {
 				way += " pasan " + n_final + " naves";
 				System.out.println(" -- way --");
 				System.out.println(way);
+				// String cami_planetes = toPlanetes(way,pla);
+				// s.AnadirCamino(cami_planees);
 				s.AnadirCamino(way);
 				way = "";
 				int naus = paor.get(in).consultarPrimero();
@@ -182,36 +185,47 @@ public class ControladorMFP {
 					q1.add(adj);
 				}
 				else if(cap == 0) {
-					System.out.println("CUELLO DE BOTELLA ENCONTRADO2");
-					System.out.println("ENTRE " + actual + " y " + adj);
-					//if(actual != V-1 && actual != V-2) {
 						String pa = pla.get(actual);
 						String pb = pla.get(adj);
 						int idr = 0;
 						boolean trobat = false;
 						for(int k = 0; k < con.size() && !trobat; ++k) { // no va conexiones
-							//System.out.println("idr conexion = " + con.get(k).consultar_id());
-							//System.out.println("planeta a = " + con.get(k).consultar_planetaA());
-							//System.out.println("planeta b = " + con.get(k).consultar_planetaB());
-							//System.out.println("----");
 							if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
 								trobat = true;
 								idr = con.get(k).consultar_id();
-								//System.out.println("EN LA RUTA2 " + idr);
 							}
 						}
 						if(trobat) s.AnadirCuello(idr);
-					//}
 				}
 			}
 		}
-		
 		// consultar cuellos de botella
 		ArrayList<Integer> a = s.ConsultarCuellos();
 		System.out.println("-- Cuellos de botella -- = " + a.size());
 		for(int i = 0; i < a.size(); ++i) {
-			System.out.println(a.get(i));
+			System.out.println("Ruta -> " + a.get(i));
 		}
+	}
+	
+	public String toPlanetes(String res, ArrayList<String> pl)
+	{
+		String planetes = "";
+		Scanner sca = new Scanner(res);
+		sca.useDelimiter("<=");
+		String a;
+		int pos;
+		Stack<String> tmp = new Stack<String>();
+		while(sca.hasNext()) {
+			pos = Integer.parseInt(sca.next());
+			a = pl.get(pos);
+			tmp.add(a);
+		}
+		sca.close();
+		while(tmp.size() > 1) {
+			planetes += tmp.pop() + " => ";
+		}
+		planetes += tmp.pop();
+		return planetes;
 	}
 	
 	//Funciones de coste
@@ -246,12 +260,12 @@ public class ControladorMFP {
 		int j=0;
 		if(i==0){
 			Inicializar1();
-			res += "Camino que ha de recorrer cada nave:\n";
+			res += "Caminos disponibles:\n";
 		}
 		while(itF.hasNext() && j<100){
 			String aux = itF.next();
 			res += aux+"\n";
-			if(!itF.hasNext() && itCB.hasNext()) res += "Cuellos de botella:\n";
+			if(!itF.hasNext() && itCB.hasNext()) res += "Cuellos de botella en las rutas:\n";
 		}
 		while(itCB.hasNext() && j<100){
 			res += itCB.next()+"\n";
