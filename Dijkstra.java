@@ -3,8 +3,6 @@ import java.util.*;
 public class Dijkstra extends Recorrido {
 	protected int dist[]; // con infinito
 	
-	public Dijkstra(){}
-	
 	public boolean Recorrido(Grafo g_residual, int origen, int destino, int path[]) {
 		int V = g_residual.sizeGrafo();
 		boolean[] visitados = new boolean[V];
@@ -26,7 +24,8 @@ public class Dijkstra extends Recorrido {
 				for(int i = 0; i < size; ++i) {
 					int adj = g_residual.consultarSeg(actual, i);
 					int coste = g_residual.consultarPrim(actual, i).ConsultarCoste();
-					if(dist[adj] > dist[actual] + coste && coste >= 0) {
+					int cap = g_residual.consultarPrim(actual, i).ConsultarCapacidad();
+					if((dist[adj] > dist[actual] + coste) && cap > 0 /*&& (coste >= 0)*/) {
 						dist[adj] = dist[actual] + coste;
 						path[adj] = actual;
 						pq.add(new Pair<Integer,Integer>(dist[adj],adj));
