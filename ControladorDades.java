@@ -1,5 +1,4 @@
 import java.io.*; 
-import java.util.Scanner; 
 import java.io.File;
 
 public class ControladorDades {
@@ -28,5 +27,4 @@ public class ControladorDades {
     {
         fr.close();
     }
-
 }
