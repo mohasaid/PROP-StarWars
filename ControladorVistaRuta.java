@@ -168,5 +168,4 @@ public class ControladorVistaRuta {
         CVN.actualitzaRuta();
         CVP.actualitzaRuta();
     }
-    
 }
