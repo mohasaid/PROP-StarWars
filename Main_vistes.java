@@ -1,4 +1,5 @@
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,9 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JPanel;
+import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 import static sun.security.ssl.Debug.Help;
 import static sun.security.util.Debug.Help;
@@ -125,7 +128,7 @@ public class Main_vistes extends JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(Btn_MFP, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Btn_Naves, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -162,7 +165,7 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         //colocamos las rutas				
-                        panelGrande.add(VR);			
+                        //panelGrande.add(VR);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -178,7 +181,7 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // colocamos naves
-                        panelGrande.add(VN);			
+                       // panelGrande.add(VN);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -194,7 +197,7 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // coloquem planetas					
-                        panelGrande.add(VP);			
+                        //panelGrande.add(VP);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -210,7 +213,7 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // col�loquem el de galaxia					
-                        panelGrande.add(VMFP);			
+                        //panelGrande.add(VMFP);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -218,21 +221,49 @@ public class Main_vistes extends JFrame {
         });		
         Btn_Galaxia.setToolTipText("Gestiona Flujo Maximo del sistema");
         
-        JLabel lblAjuda = new JLabel("Ajuda");
-		lblAjuda.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {				
-				// eliminem el panel actual
-				panelGrande.removeAll();
-				panelGrande.repaint();
-				panelGrande.revalidate();
-				// col�loquem el de galaxia				
-				panelGrande.add(help);
-				panelGrande.repaint();
-				panelGrande.revalidate();
-			}
-		});
-		lblAjuda.setBounds(223, 0, 57, 24);
-		panel.add(lblAjuda);
+        JToolBar jToolBar1 = new javax.swing.JToolBar();
+        JButton jButton1 = new javax.swing.JButton();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1000, 600));
+
+        jToolBar1.setRollover(true);
+
+        jButton1.setText("Ayuda");
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton1);
+
+        layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 575, Short.MAX_VALUE))
+        );
+
+        pack();
+        
+        
+        /** Boton Help **/
+        jButton1.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {				
+                        // eliminem el panel actual
+                        panelGrande.removeAll();
+                        panelGrande.repaint();
+                        panelGrande.revalidate();
+                        // col�loquem el de galaxia					
+                        //panelGrande.add(VMFP);			
+                        panelGrande.repaint();
+                        panelGrande.revalidate();
+
+                }
+        });
     }
 }
