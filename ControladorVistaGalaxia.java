@@ -22,13 +22,7 @@ public class ControladorVistaGalaxia {
 		cGalaxia.creaGalaxia(nom, limit);
 	}
 	
-	public void creaGalaxia2(String nom, String n, List<Pair<Integer, Integer> > l) throws Exception // MIRAR QUE ENTRI UN STRING I NO UNA LLISTA DE COORDENADES
-	{
-		int limit = Integer.parseInt(n);
-		cGalaxia.creaGalaxia2(nom, limit, l);
-	}
-	
-	public void creaGalaxia22(String nom, String n, String limits) throws Exception // Entra un String
+	public void creaGalaxia2(String nom, String n, String limits) throws Exception // Entra un String
 	{
 		int limit = Integer.parseInt(n);
 		
@@ -107,9 +101,8 @@ public class ControladorVistaGalaxia {
 		return cGalaxia.consultarLimit();
 	}
 	
-	public ArrayList<String> consultarLimits() throws Exception // DEVOLVER STRING O ARRAYLIST DE STRINGS
+	public String consultarLimits() throws Exception // devolver de 100 en 100 
 	{
-		ArrayList<String> llista = new ArrayList<String>();
 		int n = cGalaxia.consultarNombreLimits();
 		String res = "";
 		if(n > 0) {
@@ -124,11 +117,10 @@ public class ControladorVistaGalaxia {
 		String info = "";
 		while(sca.hasNext()) {
 			info = sca.next();
-			resultat += "(" + info + ")";
-			llista.add(resultat);
+			resultat += "(" + info + ") ";
 		}
 		sca.close();
-		return llista;
+		return resultat;
 	}
 	
 	public int consultarNombreLimits()
@@ -172,11 +164,6 @@ public class ControladorVistaGalaxia {
 	{
 		int limit = Integer.parseInt(n);
 		cGalaxia.modificarLimit(limit);
-	}
-	
-	public void modificarLimitsUsuari(List<Pair<Integer, Integer> > lp) throws Exception // COMPROBAR ESTO
-	{
-		cGalaxia.modificarLimits(lp);
 	}
 	
 	public void modificarLimits(String limits) throws Exception
