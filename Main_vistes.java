@@ -55,7 +55,7 @@ public class Main_vistes extends JFrame {
         CVN = cVN;
         CVR = cVR;
         
-        setResizable(true);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 1035, 648);
         panel = new JPanel();
