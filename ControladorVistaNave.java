@@ -15,61 +15,63 @@ import java.util.*;
  */
 public class ControladorVistaNave {
     private ControladorNave cn;
-    private VistaNaveP vn;
+    private VistaNave vn;
 
-    ControladorVistaNave(){
+    public ControladorVistaNave(){
         cn = new ControladorNave();
-        vn = new VistaNaveP(this);
+        vn = new VistaNave(this);
     }
     public ControladorNave ConsultarControladorNave(){
         return cn;
     }
-    public VistaNaveP ConsultarVistaNave(){
+    
+    public VistaNave ConsultarVistaNave(){
         return vn;
     }
-    public void  CrearNave(String t, String d, String o){
+    
+    public void  CrearNave(String t, String d, String o)throws Exception{
         cn.CrearNave(Integer.parseInt(t),d,o);
     }
-    public void CrearNaveAuto(String i, ArrayList<String> lp){
+    public void CrearNaveAuto(String i, ArrayList<String> lp)throws Exception{
         cn.CrearNaveAuto(Integer.parseInt(i),lp);
     }
-    public void CrearTipo(String id, String consumo){
+    public void CrearTipo(String id, String consumo)throws Exception{
         cn.CrearTipoNave(Integer.parseInt(id),Integer.parseInt(consumo));
     }
-    public void CrearTipoAuto(){
-        cn.CrearTipoAuto();
+    public void CrearTipoAuto()throws Exception{
+        cn.CrearTipoNaveAuto();
     }
-    public String ConsultarPlanetaDestino(String id){
+    public String ConsultarPlanetaDestino(String id)throws Exception{
        return cn.ConsultarPlanetaDestino(Integer.parseInt(id));
     }
-    public String ConsultarPlanetaOrigen(String id){
+    public String ConsultarPlanetaOrigen(String id)throws Exception{
         return cn.ConsultarPlanetaDestino(Integer.parseInt(id));
     }
-    public String ConsultarTipo(String id){
-        return cn.ConsultarPlanetaDestino(Integer.parseInt(id));
+    public String ConsultarTipo(String id)throws Exception{
+        return String.valueOf(cn.ConsultarTipo(Integer.parseInt(id)));
     }
-    public String ConsultarConsumo(String id){
-        return cn.ConsultarConsumo(Integer.parseInt(id));
+    public String ConsultarConsumo(String id)throws Exception{
+        return String.valueOf(cn.ConsultarConsumo(Integer.parseInt(id)));
     }
-    public String ConsultarConsumoTipo(String id){
-        return cn.ConsultarConsumoTipo(Integer.parseInt(id));
+    public String ConsultarConsumoTipo(String id)throws Exception{
+        return String.valueOf(cn.ConsultarConsumoTipo(Integer.parseInt(id)));
     }
-    public void ModificaTipo(String id, String idtipo){
+    public void ModificaTipo(String id, String idtipo)throws Exception{
         cn.ModificaTipo(Integer.parseInt(id),Integer.parseInt(idtipo));
     }
-   public void ModificaDestino(String id, String destID){
-       cn.ModificarDestino(Integer.parseInt(id), destID);
+   public void ModificaDestino(String id, String destID)throws Exception{
+       cn.ModificaDestino(Integer.parseInt(id), destID);
     }
-   public void ModificaOrigen(String id, String origID){
-       cn.ModificarOrigen(Integer.parseInt(id),origID);
+   public void ModificaOrigen(String id, String origID)throws Exception{
+       cn.ModificaOrigen(Integer.parseInt(id),origID);
    }
-   public void ModificaConsumo(String id, String c){
-       cn.ModificarConsumo(Integer.parseInt(id), Integer.parseInt(c));
+   public void ModificaConsumo(String id, String c)throws Exception{
+       cn.ModificaConsumo(Integer.parseInt(id), Integer.parseInt(c));
    }
-   public void EliminarNave(String id){
+   public void EliminarNave(String id)throws Exception{
        cn.EliminarNave(Integer.parseInt(id));
    }
-   public ArrayList<String> ConsultarNaves(){
+   public ArrayList<String> ConsultarNaves()throws Exception{
        ArrayList<String> res = new ArrayList<String>();
        int i=0; 
        int n = cn.size();
@@ -100,10 +102,10 @@ public class ControladorVistaNave {
        }
        return res;
    }
-   public void CargarNaves(String path){
+   public void CargarNaves(String path)throws Exception{
        cn.CargarNaves(path);
    }
-   public void GuardarNaves(String path){
+   public void GuardarNaves(String path)throws Exception{
        cn.GuardarNaves(path);
    }
    public void EliminarNaves(){
