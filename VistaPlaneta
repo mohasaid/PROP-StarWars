@@ -39,6 +39,8 @@ public class VistaPlaneta extends JPanel {
     private Panel PanelCreacion;
     private Panel PanelModificar;
     private Panel PanelConsultar;
+    private Panel PanelGuardar;
+    private Panel PanelCargar;
     private JScrollPane ScrollPlanetasConsulta;
     
     //Etiquetas
@@ -59,6 +61,11 @@ public class VistaPlaneta extends JPanel {
     private JButton CrearPlanetaAutoCN;
     private JButton Modificar;
     
+    //Casillas
+    private JRadioButton Manual;
+    private JRadioButton Automatico;
+    private JRadioButton AutomaticoCN;
+    
     //Listas
     private JList<String> listaScroll1;
     private JList<String> listaScroll2;
@@ -75,11 +82,9 @@ public class VistaPlaneta extends JPanel {
                 for (String p : listado) mlistado.addElement(p);
                 CBPlanetas.revalidate();
                 CBPlanetas.repaint();
-                /*
-                 *
-                 * A espera de Primer nivel
-                 *
-                 */
+                listaScroll1.setModel(mlistado);
+                listaScroll1.revalidate();
+                listaScroll1.repaint();
             }        
         }
         catch (Exception e) {
@@ -126,6 +131,22 @@ public class VistaPlaneta extends JPanel {
         Central.addTab("Crear",null,PanelCreacion,null);
         PanelCreacion.setLayout(null);
         
+        Manual = new JRadioButton("Manual");
+        Manual.setSelected(false); 
+        Manual.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        PanelCreacion.add(Manual);
+        
+        Automatico = new JRadioButton("Automatico");
+        Automatico.setSelected(false);
+        Automatico.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        PanelCreacion.add(Automatico);
+        
+        AutomaticoCN = new JRadioButton("Automatico con Nombre");
+        AutomaticoCN.setSelected(false);
+        AutomaticoCN.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        PanelCreacion.add(AutomaticoCN);
+        
+        
         ENombre = new JLabel("Nombre :");
         ENombre.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
         PanelCreacion.add(ENombre);
@@ -134,6 +155,7 @@ public class VistaPlaneta extends JPanel {
         NombreAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
         PanelCreacion.add(NombreAc);
         NombreAc.setColumns(10);  //??????
+        NombreAc.setEnabled(false);
         
         ECoste = new JLabel ("Coste :");
         ECoste.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
@@ -143,6 +165,7 @@ public class VistaPlaneta extends JPanel {
         CosteAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
         PanelCreacion.add(CosteAc);
         CosteAc.setColumns(10);
+        CosteAc.setEnabled(false);
         
         ECoordenadaX = new JLabel("X :");
         ECoordenadaX.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
@@ -152,7 +175,8 @@ public class VistaPlaneta extends JPanel {
         CoordenadaXAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
         PanelCreacion.add(CoordenadaXAc);
         CoordenadaXAc.setColumns(10);
-        
+        CoordenadaXAc.setEnabled(false);
+                
         ECoordenadaY = new JLabel("Y :");
         ECoordenadaY.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
         PanelCreacion.add(ECoordenadaX);
@@ -161,6 +185,61 @@ public class VistaPlaneta extends JPanel {
         CoordenadaYAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
         PanelCreacion.add(CoordenadaYAc);
         CoordenadaYAc.setColumns(10);
+        CoordenadaYAc.setEnabled(false);
+        
+        Manual.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent a) {
+                try {
+                    if(Manual.isSelected()) {
+                        NombreAc.setEnabled(true);
+                        CosteAc.setEnabled(true);
+                        CoordenadaXAc.setEnabled(true);
+                        CoordenadaYAc.setEnabled(true);
+                        Automatico.setSelected(false);
+                        AutomaticoCN.setSelected(false);
+                    }
+                }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+            }
+        });
+        
+        Automatico.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+                try {
+                    if(Automatico.isSelected()) {
+                        NombreAc.setEnabled(false);
+                        CosteAc.setEnabled(false);
+                        CoordenadaXAc.setEnabled(false);
+                        CoordenadaYAc.setEnabled(false);
+                        Manual.setSelected(false);
+                        AutomaticoCN.setSelected(false);
+                    }
+                }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+            }
+        });
+        
+        AutomaticoCN.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+                try {
+                    if(AutomaticoCN.isSelected()) {
+                        NombreAc.setEnabled(true);
+                        CosteAc.setEnabled(false);
+                        CoordenadaXAc.setEnabled(false);
+                        CoordenadaYAc.setEnabled(false);
+                        Manual.setSelected(false);
+                        Automatico.setSelected(false);
+                    }
+                }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+            }
+        });
         
         CrearPlaneta = new JButton("Crear");
         CrearPlaneta.setIcon(null);
@@ -173,12 +252,22 @@ public class VistaPlaneta extends JPanel {
         CrearPlaneta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
-                    String n = NombreAc.getText();
-                    String c = CosteAc.getText();
-                    String x = CoordenadaXAc.getText();
-                    String y = CoordenadaYAc.getText();
-                    CVP.CrearPlaneta(n, c, x, y);
-                    actualiza();
+                    if(Manual.isSelected()){
+                        String n = NombreAc.getText();
+                        String c = CosteAc.getText();
+                        String x = CoordenadaXAc.getText();
+                        String y = CoordenadaYAc.getText();
+                        CVP.CrearPlaneta(n, c, x, y);
+                        actualiza();
+                    }
+                    if(Automatico.isSelected()) {
+                        CVP.CrearPlaneta();
+                        actualiza();
+                    }
+                    else {
+                        String n = NombreAc.getText();
+                        CVP.CrearPlaneta(n);
+                    }
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -192,38 +281,6 @@ public class VistaPlaneta extends JPanel {
      
         CrearPlaneta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
         PanelCreacion.add(CrearPlaneta);
-        
-        CrearPlanetaAutoCN = new JButton("Automatico con Nomrbe");
-        CrearPlanetaAutoCN.setIcon(null);
-        
-        CrearPlanetaAutoCN.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent a) {
-                try {
-                    String n = NombreAc.getText();
-                    CVP.CrearPlaneta(n);
-                    actualiza();
-                }
-                catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
-                NombreAc.setText("");
-            }
-        });
-        
-        CrearPlanetaAutoSN = new JButton("Automatico");
-        CrearPlanetaAutoSN.setIcon(null);
-        
-        CrearPlanetaAutoSN.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent a) {
-                try {
-                    CVP.CrearPlaneta();
-                    actualiza();
-                }
-                catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
         
         PanelModificar = new Panel();
         PanelModificar.setBackground(SystemColor.activeCaption);
@@ -245,7 +302,6 @@ public class VistaPlaneta extends JPanel {
         
         CosteAc = new JTextField();
         CosteAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        CosteAc.setEditable(false);
         CosteAc.setEnabled(false);
         PanelModificar.add(CosteAc);
         CosteAc.setColumns(10);
@@ -256,7 +312,6 @@ public class VistaPlaneta extends JPanel {
         
         CoordenadaXAc = new JTextField();
         CoordenadaXAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        CoordenadaXAc.setEditable(false);
         CoordenadaXAc.setEnabled(false);
         PanelModificar.add(CoordenadaXAc);
         CoordenadaXAc.setColumns(10);
@@ -267,7 +322,6 @@ public class VistaPlaneta extends JPanel {
         
         CoordenadaYAc = new JTextField();
         CoordenadaYAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        CoordenadaYAc.setEditable(false);
         CoordenadaYAc.setEnabled(false);
         PanelModificar.add(CoordenadaYAc);
         CoordenadaYAc.setColumns(10);
@@ -331,19 +385,6 @@ public class VistaPlaneta extends JPanel {
         Central.addTab("Consultar",null,PanelConsultar,null);
         PanelConsultar.setLayout(null);
         
-        ScrollPlanetasConsulta = new JScrollPane((Component) null);
-        ScrollPlanetasConsulta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        ScrollPlanetasConsulta.setPreferredSize(new Dimension(152,217));
-        PanelConsultar.add(ScrollPlanetasConsulta);
-        
-        listaScroll2 = new JList<String>();
-        listaScroll2.setVisibleRowCount(10);
-        listaScroll2.setValueIsAdjusting(true);
-        listaScroll2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listaScroll2.setBorder(new BevelBorder(BevelBorder.LOWERED, SystemColor.activeCaptionBorder, null, null, null)); 
-        listaScroll2.setBackground(SystemColor.inactiveCaptionBorder); 
-        ScrollPlanetasConsulta.setViewportView(listaScroll2); 
-        
         CBPConsulta = new JComboBox<String>();
         CBPConsulta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
         PanelConsultar.add(CBPConsulta);
@@ -384,8 +425,53 @@ public class VistaPlaneta extends JPanel {
         CoordenadaYAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
         PanelConsultar.add(CoordenadaYAc);
         
+        PanelGuardar = new Panel();
+        PanelGuardar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Guardar", null, PanelGuardar, null);
+        PanelGuardar.setLayout(null);
         
+        Guardar = new JFileChooser();
+        Guardar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Guardar.setAutoscrolls(true);
+        Guardar.setPreferredSize(new Dimension(WIDTH,WIDTH));
+        PanelGuardar.add(Guardar);
+        Guardar.setDialogTitle("Guardar");
+        
+        Guardar.addActionListener(new ActionListener() {
+            public void actionPerformed (ActionEvent a) {
+                try {
+                    String path = Guardar.getSelectedFile().getAbsolutePath();
+                    CVP.GuardarPlanetas(path);
+                }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+            }
+        });
+        
+        PanelCargar = new Panel();
+        PanelCargar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Cargar", null, PanelCargar, null);
+        PanelCargar.setLayout(null);
+        
+        Cargar = new JFileChooser();
+        Cargar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Cargar.setAutoscrolls(true);
+        Cargar.setPreferredSize(new Dimension(WIDTH,WIDTH));
+        PanelCargar.add(Cargar);
+        Cargar.setDialogTitle("Cargr");
+        
+        Cargar.addActionListener(new ActionListener() { 
+            public void actionPerformed(ActionEvent a) {
+                try{
+                    String path = Cargar.getSelectedFile().getAbsolutePath();
+                    CVP.CargarPlanetas(path);
+                    actualiza();
+                }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+            }
+        });
     }
-   
-   
 }
