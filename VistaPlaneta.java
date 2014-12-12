@@ -70,6 +70,10 @@ public class VistaPlaneta extends JPanel {
     private JList<String> listaScroll1;
     private JList<String> listaScroll2;
     private JComboBox <String> CBPConsulta;
+    
+    public VistaPlaneta ConsultarVistaPlaneta() {
+        return this;
+    }
     public void actualiza() {
         try {
             mlistado.removeAllElements();
