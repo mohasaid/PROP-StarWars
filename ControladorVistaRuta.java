@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -151,7 +150,17 @@ public class ControladorVistaRuta {
         CVP.actualitzaRuta();
     }
     
-    public void ModificarPlanetaBRuta(String id, String id_planetaB_nuevo, ControladorPlaneta cp)throws Exception
+    public void GuardarRutas(String path)
+    {
+        CR.GuardarRutas(path);
+    }
+    
+    public void CargarRutas(String path)
+    {
+        CR.CargarRutas(path);
+    }
+    
+    public void ModificarPlanetaBRuta(String id, String id_planetaB_nuevo)throws Exception
     {
         int i = Integer.parseInt(id);
         CR.ModificarPlanetaARuta(i, id_planetaB_nuevo, CP);
