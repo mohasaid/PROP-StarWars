@@ -15,11 +15,16 @@ import java.util.*;
  */
 public class ControladorVistaNave {
     private ControladorNave cn;
+    private ControladorVistaPlaneta cvp;
     private VistaNave vn;
+
 
     public ControladorVistaNave(){
         cn = new ControladorNave();
         vn = new VistaNave(this);
+    }
+    public void start(ControladorVistaPlaneta c){
+        cvp = c;
     }
     public ControladorNave ConsultarControladorNave(){
         return cn;
@@ -30,10 +35,17 @@ public class ControladorVistaNave {
     }
     
     public void  CrearNave(String t, String d, String o)throws Exception{
+        if(!(cvp.ConsultarNombresPlanetas().contains(o))){
+            throw new Exception("Error: El planeta "+o+" no existe en la galaxia");
+        }
+        if(!(cvp.ConsultarNombresPlanetas().contains(d))){
+            throw new Exception("Error: El planeta "+d+" no existe en la galaxia");
+        }
         cn.CrearNave(Integer.parseInt(t),d,o);
     }
-    public void CrearNaveAuto(String i, ArrayList<String> lp)throws Exception{
-        cn.CrearNaveAuto(Integer.parseInt(i),lp);
+    public void CrearNaveAuto(String i)throws Exception{
+
+        cn.CrearNaveAuto(Integer.parseInt(i),cvp.ConsultarNombresPlanetas());
     }
     public void CrearTipo(String id, String consumo)throws Exception{
         cn.CrearTipoNave(Integer.parseInt(id),Integer.parseInt(consumo));
@@ -45,7 +57,7 @@ public class ControladorVistaNave {
        return cn.ConsultarPlanetaDestino(Integer.parseInt(id));
     }
     public String ConsultarPlanetaOrigen(String id)throws Exception{
-        return cn.ConsultarPlanetaDestino(Integer.parseInt(id));
+        return cn.ConsultarPlanetaOrigen(Integer.parseInt(id));
     }
     public String ConsultarTipo(String id)throws Exception{
         return String.valueOf(cn.ConsultarTipo(Integer.parseInt(id)));
@@ -69,7 +81,24 @@ public class ControladorVistaNave {
        cn.ModificaConsumo(Integer.parseInt(id), Integer.parseInt(c));
    }
    public void EliminarNave(String id)throws Exception{
+      
        cn.EliminarNave(Integer.parseInt(id));
+   }
+   public ArrayList<String>Consulta100Naves(int i) throws Exception{
+           ArrayList<String> res = new ArrayList<String>();
+           ArrayList<String> aux = ConsultarNaves();
+           int j=0;
+           while(i<cn.size() && j<100){
+               String a = aux.get(i);
+               res.add(a);
+               ++j;
+               ++i;
+           }
+        return res;
+        
+   }
+   public String size(){
+       return String.valueOf(cn.size());
    }
    public ArrayList<String> ConsultarNaves()throws Exception{
        ArrayList<String> res = new ArrayList<String>();
@@ -77,17 +106,11 @@ public class ControladorVistaNave {
        int n = cn.size();
         while(i < n){
             String s = cn.ConsultarNaves(i);
-                if((i+100)>n){
-                    if (s.length() > 0 && s.charAt(s.length()-1)==' ') {
-                     	s= s.substring(0, s.length()-1);  
-                    }
-                	}
                 Scanner sc = new Scanner(s);
-                sc.useDelimiter(" ");
+                sc.useDelimiter(",");
                 while(sc.hasNext()){
                     res.add(sc.next());
                 }
-                sc.close();
                 i += 100;   
         }  
         return res;
