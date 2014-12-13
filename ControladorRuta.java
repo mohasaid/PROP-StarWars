@@ -644,53 +644,6 @@ public class ControladorRuta {
   }
   
   //Pre: Cierto.
-  //Post: Carga todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
-  /**
-   * Metodo para cargar un conjunto de rutas desde un fichero determinado
-   * @param path
-   * @throws Exception
-   */
-  public void CargarRutas (String path) throws Exception 
-  {
-      String res;
-      Cdr.AbrirLectura(path);
-      FileReader fr = new FileReader(path);
-      BufferedReader br = new BufferedReader(fr);
-      while( !(res = Cdr.cargar(path,100,br) ).equals("")){
-    	  System.out.println(res);
-          Scanner sc = new Scanner(res);
-          sc.useDelimiter("#|:");
-          String s="";
-          if(sc.hasNext()) s = sc.next();
-          while (!s.equals("") && sc.hasNext()) {
-        	  if ( Integer.parseInt(s) == 0 ) { //anadimos ruta
-        	      s = sc.next();
-        	      int id = Integer.parseInt(s);
-        	      s = sc.next();
-        	      int capacidad = Integer.parseInt(s);
-        	      s = sc.next();
-        	      int distancia = Integer.parseInt(s);
-        	      s = sc.next();
-        	      Ruta r = new Ruta(id,capacidad,distancia);
-        	      ArbolRutas.add(Integer.toString(r.consultar_id()),r);
-    	      } else { //anadimos conexion
-    		      s = sc.next();
-    	    	  int id = Integer.parseInt(s);
-        	      s = sc.next();
-        	      String ida = s;
-        	      s = sc.next();
-        	      String idb = s;
-        	      Conexion c = new Conexion(id,ida,idb);
-        	      Conexiones.add(Integer.toString(c.consultar_id()),c);
-    	      }
-    	      s= sc.next();
-
-          }
-      }
-      Cdr.CerrarLectura();
-  }    
-  
-  //Pre: Cierto.
   //Post: retorna un string que contiene todas las rutas y conexiones, separados por '#'
   /**
    * Metodo para consultar todas las rutas
@@ -728,6 +681,76 @@ public class ControladorRuta {
   }
   
   //Pre: Cierto.
+  //Post: Carga todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
+  /**
+   * Metodo para cargar un conjunto de rutas desde un fichero determinado
+   * @param path
+   * @throws Exception
+   */
+  public void CargarRutas (String path, ControladorPlaneta cp) throws Exception 
+  {
+      ArrayList<Integer> Rutes_afegides = new ArrayList<Integer>();
+      String res;
+      Cdr.AbrirLectura(path);
+      FileReader fr = new FileReader(path);
+      BufferedReader br = new BufferedReader(fr);
+      while( !(res = Cdr.cargar(path,100,br) ).equals("")){
+    	  System.out.println(res);
+          Scanner sc = new Scanner(res);
+          sc.useDelimiter("#|:");
+          String s="";
+          if(sc.hasNext()) s = sc.next();
+          while (!s.equals("") && sc.hasNext()) {
+        	  if ( Integer.parseInt(s) == 0 ) { //anadimos ruta
+        	      s = sc.next();
+        	      int id = Integer.parseInt(s);
+        	      s = sc.next();
+        	      int capacidad = Integer.parseInt(s);
+        	      s = sc.next();
+        	      int distancia = Integer.parseInt(s);
+        	      s = sc.next();
+                      if (Rutes_afegides.contains(id)) { //si hemos añadido la conexion, anadimos tambien la ruta
+                         Ruta r = new Ruta(id,capacidad,distancia);
+                         ArbolRutas.add(Integer.toString(r.consultar_id()),r);
+                      }
+    	      } else { //anadimos conexion
+    		      s = sc.next();
+                      int id = Integer.parseInt(s);
+        	      s = sc.next();
+        	      String ida = s;
+        	      s = sc.next();
+        	      String idb = s;
+                      
+                      int numero_planetas = cp.Consultar_Size();
+                      
+                      if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
+                          throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
+                      }
+                      if(ExisteRuta(id)){
+                          throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");       
+                      }
+                      if ( !cp.ExistePlaneta(ida) ) { 
+                          throw new Exception("Error: El Planeta con id = " + ida + " no existe\n");
+                      }
+                      if ( !cp.ExistePlaneta(idb) ) { 
+                          throw new Exception("Error: El Planeta con id = " + idb + " no existe\n");
+                      }
+                      if ( !Disponibilidad_crear_ruta(ida , idb) ) {
+                          throw new Exception("La Ruta de " + ida + " a " + idb + " ja existeix \n");
+                      }
+        	      Conexion c = new Conexion(id,ida,idb);
+                      Rutes_afegides.add(id);
+        	      Conexiones.add(Integer.toString(c.consultar_id()),c);
+    	      }
+    	      s= sc.next();
+
+          }
+      }
+      Cdr.CerrarLectura();
+  }    
+  
+  
+  //Pre: Cierto.
   //Post: Guarda todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
   /**
    * Metodo para guardar el conjunto de rutas que existen a un fichero determinado
@@ -735,30 +758,7 @@ public class ControladorRuta {
    * @throws Exception
    */
   public void GuardarRutas (String path) throws Exception {
-  	String res = "";
-  	//Guardamos todas la rutas
-    if(!ArbolRutas.isEmpty()){
-        Cdr.AbrirEscritura(path);        
-        res = "";
-        int iteracions = 0;
-    	ArrayList<Ruta> ar = ArbolRutas.MostrarElementos();
-        for (Ruta r : ar){  
-            res += 0 + ":"; //quiere decir que se trata de una ruta
-            res += r.consultar_id() + ":";
-            res += r.consultar_capacidad() + ":";
-            res += r.consultar_distancia() + ":";
-            res += "#";
-            ++iteracions;
-            if(iteracions == 100){
-                Cdr.guardar(path,res);
-                iteracions = 0;
-                res = "";
-            }
-        }
-    }
-    
-    //res += "@"; //Le anadimo este separador para diferenciar entre ruas y conexiones
-    
+    String res = "";
     //Guardamos toadas las conexiones
     if(!Conexiones.isEmpty()){
         int iteracions = 0;
@@ -777,6 +777,26 @@ public class ControladorRuta {
             }
         }
     }
+    //Guardamos todas la rutas
+    if(!ArbolRutas.isEmpty()){
+        Cdr.AbrirEscritura(path);        
+        res = "";
+        int iteracions = 0;
+    	ArrayList<Ruta> ar = ArbolRutas.MostrarElementos();
+        for (Ruta r : ar){  
+            res += 0 + ":"; //quiere decir que se trata de una ruta
+            res += r.consultar_id() + ":";
+            res += r.consultar_capacidad() + ":";
+            res += r.consultar_distancia() + ":";
+            res += "#";
+            ++iteracions;
+            if(iteracions == 100){
+                Cdr.guardar(path,res);
+                iteracions = 0;
+                res = "";
+            }
+        }
+    }  
     if(res != ""){
     	Cdr.guardar(path,res);
     	Cdr.CerrarEscritura();
