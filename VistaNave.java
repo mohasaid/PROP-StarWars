@@ -8,8 +8,6 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -470,13 +468,29 @@ public class VistaNave extends PrimerNivel{
         PanelCrearNave.add(CrearNave);
         
         CrearNave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    CrearNaveActionPerformed(evt);
-                } catch (Exception ex) {
-                    Logger.getLogger(VistaNaveP.class.getName()).log(Level.SEVERE, null, ex);
+            public void actionPerformed(java.awt.event.ActionEvent evt){
+        try{
+        if(ManNave.isSelected()){
+            String d = textfield3.getText();
+            String o = textfield4.getText();
+            String t="";
+                if(TT1.isSelected()) t="1";
+                else if(TT2.isSelected()) t="2";
+                else if(TT3.isSelected()) t="3";
+                else if(TT4.isSelected()) t="4";
+                else if(TT5.isSelected()) t="5";
+                cvn.CrearNave(t, d, o);
+        }
+        else if(AutoNave.isSelected()){
+            String num = numNaves.getText();
+            cvn.CrearNaveAuto(num);
+        }
+            actualiza();
+        }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
                 }
-            }
+    }
         });
         
         CrearTipo = new JButton("Crear");
@@ -486,12 +500,26 @@ public class VistaNave extends PrimerNivel{
         
         CrearTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    CrearTipoActionPerformed(evt);
-                } catch (Exception ex) {
-                    Logger.getLogger(VistaNaveP.class.getName()).log(Level.SEVERE, null, ex);
+        try{
+        if(ManTipo.isSelected()){
+                String c = textfield6.getText();
+                 String t="";
+                     if(T1.isSelected()) t=T1.getText();
+                     else if(T2.isSelected()) t=T2.getText();
+                     else if(T3.isSelected()) t=T3.getText();
+                     else if(T4.isSelected()) t=T4.getText();
+                     else if(T5.isSelected()) t=T5.getText();
+                     cvn.CrearTipo(t,c);
+             }
+             else if(AutoTipo.isSelected()){
+                 cvn.CrearTipoAuto();
+             }
+        actualizaT();
+        }
+        catch (Exception e) {
+                    Errores.setText(e.getMessage());
                 }
-            }
+    }
         });
         
         
@@ -546,12 +574,20 @@ public class VistaNave extends PrimerNivel{
         PanelModificarTipo.add(ModificarTipo);
                 ModificarTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    ModificarTipoActionPerformed(evt);
-                } catch (Exception ex) {
-                    Logger.getLogger(VistaNaveP.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try{
+                    if(textfield11.getText()!="") cvn.ModificaConsumo(textfield16.getText(),textfield11.getText());
+                    textfield11.setText("");
+                        Errores.setText("");
+                        String n = textfield16.getText();
+                        textfield22.setText(n);
+                        textfield23.setText(cvn.ConsultarConsumoTipo(n));
+                        textfield17.setText(cvn.ConsultarConsumoTipo(n));
+
             }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+    }
         });
         
     //Modificar Nave
@@ -627,12 +663,18 @@ public class VistaNave extends PrimerNivel{
         PanelModificarNave.add(ModificarNave);
                 ModificarNave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    ModificarNaveActionPerformed(evt);
-                } catch (Exception ex) {
-                    Logger.getLogger(VistaNaveP.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            try{
+                    if(textfield8.getText()!="") cvn.ModificaOrigen(textfield12.getText(),textfield8.getText());
+                    if(textfield7.getText()!="") cvn.ModificaDestino(textfield12.getText(), textfield7.getText());
+                    if(textfield9.getText()!="") cvn.ModificaTipo(textfield12.getText(), textfield9.getText());
+                    textfield8.setText("");
+                    textfield7.setText("");
+                    textfield9.setText("");
             }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+    }
         });
         
         
@@ -800,10 +842,17 @@ public class VistaNave extends PrimerNivel{
                 add(Eliminar);
                  Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                try {
-                    EliminarNaveActionPerformed(evt);
-                } catch (Exception ex) {
-                    Logger.getLogger(VistaNaveP.class.getName()).log(Level.SEVERE, null, ex);
+            try{
+                int selectedIndex = listaScroll2.getSelectedIndex(); 
+                if (selectedIndex != -1) { 
+                    String n = listaScroll2.getSelectedValue(); 
+                    mlistado.removeElement(n);
+                    cvn.EliminarNave(n);
+                    actualiza();
+                }
+            }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
                 }
             }
         });
@@ -929,90 +978,9 @@ public class VistaNave extends PrimerNivel{
                     Errores.setText(e.getMessage());
                 }
     }    
-    private void CrearNaveActionPerformed(java.awt.event.ActionEvent evt) throws Exception{
-        try{
-        if(ManNave.isSelected()){
-            String d = textfield3.getText();
-            String o = textfield4.getText();
-            String t=":O";
-                if(TT1.isSelected()) t="1";
-                else if(TT2.isSelected()) t="2";
-                else if(TT3.isSelected()) t="3";
-                else if(TT4.isSelected()) t="4";
-                else if(TT5.isSelected()) t="5";
-                cvn.CrearNave(t, d, o);
-        }
-        else if(AutoNave.isSelected()){
-            String num = numNaves.getText();
-            cvn.CrearNaveAuto(num);
-        }
-            actualiza();
-        }
-                catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
-    }
-    private void CrearTipoActionPerformed(java.awt.event.ActionEvent evt) throws Exception{
-        try{
-        if(ManTipo.isSelected()){
-                String c = textfield6.getText();
-                 String t=":O";
-                     if(T1.isSelected()) t=T1.getText();
-                     else if(T2.isSelected()) t=T2.getText();
-                     else if(T3.isSelected()) t=T3.getText();
-                     else if(T4.isSelected()) t=T4.getText();
-                     else if(T5.isSelected()) t=T5.getText();
-                     cvn.CrearTipo(t,c);
-             }
-             else if(AutoTipo.isSelected()){
-                 cvn.CrearTipoAuto();
-             }
-        actualizaT();
-        }
-        catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
-    }
-        private void ModificarTipoActionPerformed(java.awt.event.ActionEvent evt) throws Exception{
-            try{
-                    if(textfield11.getText()!="") cvn.ModificaConsumo(textfield16.getText(),textfield11.getText());
-                    textfield11.setText("");
-                        Errores.setText("");
-                        String n = textfield16.getText();
-                        textfield22.setText(n);
-                        textfield23.setText(cvn.ConsultarConsumoTipo(n));
-                        textfield17.setText(cvn.ConsultarConsumoTipo(n));
 
-            }
-                catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
-    }
-        private void ModificarNaveActionPerformed(java.awt.event.ActionEvent evt) throws Exception{
-            try{
-                    if(textfield8.getText()!="") cvn.ModificaOrigen(textfield12.getText(),textfield8.getText());
-                    if(textfield7.getText()!="") cvn.ModificaDestino(textfield12.getText(), textfield7.getText());
-                    if(textfield9.getText()!="") cvn.ModificaTipo(textfield12.getText(), textfield9.getText());
-                    textfield8.setText("");
-                    textfield7.setText("");
-                    textfield9.setText("");
-            }
-                catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
-    }
-        private void EliminarNaveActionPerformed(java.awt.event.ActionEvent evt) throws Exception{
-            try{
-                int selectedIndex = listaScroll2.getSelectedIndex(); 
-                if (selectedIndex != -1) { 
-                    String n = listaScroll2.getSelectedValue(); 
-                    mlistado.removeElement(n);
-                    cvn.EliminarNave(n);
-                    actualiza();
-                }
-            }
-                catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
-    }
+
+
+
+
 }
