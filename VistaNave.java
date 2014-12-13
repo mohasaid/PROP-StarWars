@@ -1,6 +1,5 @@
 package prop1;
 
-import pro1.VistaNaveP;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
