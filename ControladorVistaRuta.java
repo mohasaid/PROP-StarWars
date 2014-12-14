@@ -29,16 +29,16 @@ public class ControladorVistaRuta {
         VR = new VistaRuta(this);
     }
     
-    public ControladorRuta obtenerControladorRuta() {
-        return CR;
+    public VistaRuta ConsultarVistaRuta() {
+        return VR;
     }
 	
-    public void inicialitza(ControladorVistaGalaxia cVG, ControladorVistaPNave cVN, ControladorVistaPlaneta cVP) {
-        CG = cVG.obtenerControladorGalaxia();
+    public void inicialitza(ControladorVistaGalaxia cVG, ControladorVistaNave cVN, ControladorVistaPlaneta cVP) {
+        CG = cVG.consultarControladorGalaxia();
         CVG = cVG;
         CN = cVN.obtenerControladorNave();
         CVN = cVN;
-        CP = cVP.obtenerControladorPlaneta();
+        CP = cVP.ConsultarControladorPlaneta();
         CVP = cVP;
     }
 	
@@ -72,24 +72,21 @@ public class ControladorVistaRuta {
         int capacidad = Integer.parseInt(_capacidad);
         int distancia = Integer.parseInt(_distancia);
         CR.CrearRuta(id, capacidad, distancia, planetaA, planetaB, CP);
-        CVG.actualitzaRuta();
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaPlaneta();
     }
 
     public void creaRutaAut() throws Exception	{
-        CR.CrearRuta_automatica(CP);
-        CVG.actualitzaRuta();
+        CR.CrearRuta_automatica(CP);    
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaRuta();
     }
     
     public void creaRutaAut_id( String _id ) throws Exception	{
         int id = Integer.parseInt(_id);
         CR.CrearRuta_automatica(CP, id);
-        CVG.actualitzaRuta();
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaRuta();
     }
     
     public String ConsultarCapacidadRuta(String id) throws Exception
@@ -126,9 +123,8 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         int c = Integer.parseInt(capacidad_nueva);
         CR.ModificarCapacidadRuta(i, c);
-        CVG.actualitzaRuta();
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaRuta();
     }
       
     public void ModificarDistanciaRuta(String id, String distancia_nueva)throws Exception
@@ -136,45 +132,43 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         int d = Integer.parseInt(distancia_nueva);
         CR.ModificarDistanciaRuta(i, d);
-        CVG.actualitzaRuta();
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaRuta();
     }
 
     public void ModificarPlanetaARuta(String id, String id_planetaA_nuevo)throws Exception
     {
         int i = Integer.parseInt(id);
         CR.ModificarPlanetaARuta(i, id_planetaA_nuevo, CP);
-        CVG.actualitzaRuta();
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaRuta();
     }
     
-    public void GuardarRutas(String path)
+    public void GuardarRutas(String path) throws Exception
     {
         CR.GuardarRutas(path);
     }
     
-    public void CargarRutas(String path)
+    public void CargarRutas(String path) throws Exception
     {
-        CR.CargarRutas(path);
+        CR.CargarRutas(path, CP);
     }
     
-    public void ModificarPlanetaBRuta(String id, String id_planetaB_nuevo)throws Exception
+    public void ModificarPlanetaBRuta(String id, String id_planetaB_nuevo) throws Exception
     {
         int i = Integer.parseInt(id);
         CR.ModificarPlanetaARuta(i, id_planetaB_nuevo, CP);
-        CVG.actualitzaRuta();
+        //CVG.actualitzaRuta();
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaRuta();
     }
 
     public void eliminarRuta(String id) throws Exception 
     {
         int i = Integer.parseInt(id);
         CR.BorrarRuta(i);
-        CVG.actualitzaRuta();
+        //CVG.actualitzaRuta();
         CVN.actualitzaRuta();
-        CVP.actualitzaRuta();
+        //CVP.actualitzaRuta();
     }
 }
