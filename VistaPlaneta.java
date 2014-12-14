@@ -7,59 +7,21 @@ import javax.swing.*;
 import javax.swing.border.BevelBorder;
  
  
-public class VistaPlaneta extends JPanel {
+public class VistaPlaneta extends PrimerNivel {
     
     //Componentes vista
     private ControladorVistaPlaneta CVP;
     private ArrayList<String> listado;
     private DefaultListModel<String> mlistado;
     private DefaultListModel<String> mlistadoPlanetas;
-    private JComboBox<String> CBPlanetas;
-   
-    //Cajas Atributos
-    private JTextField NombreAc;
-    private JTextField CosteAc;
-    private JTextField CoordenadaXAc;
-    private JTextField CoordenadaYAc;
-    private JTextField CosteNew;
-    private JTextField CoordenadaXNew;
-    private JTextField CoordenadaYNew;
-    
-    //Errores
-    private JTextField Errores;
-    
-    //Cargar y Guardar
-    private JFileChooser Cargar;
-    private JFileChooser Guardar;
-    
-    //PRIMER NIVEL???
-    private JTabbedPane Central;
     
     //Paneles
-    private Panel PanelCreacion;
-    private Panel PanelModificar;
-    private Panel PanelConsultar;
-    private Panel PanelGuardar;
-    private Panel PanelCargar;
     private JScrollPane ScrollPlanetasConsulta;
     
-    //Etiquetas
-    private JLabel ENombre;
-    private JLabel ECoste;
-    private JLabel ECoordenadaX;
-    private JLabel ECoordenadaY;
-    private JLabel ECosteNew;
-    private JLabel ECoordenadaXNew;
-    private JLabel ECoordenadaYNew;
-    private JLabel HelpNombre;
-    private JLabel HelpCoste;
-    private JLabel HelpCoordenadas;
     
     //Botones
     private JButton CrearPlaneta;
-    private JButton CrearPlanetaAutoSN;
-    private JButton CrearPlanetaAutoCN;
-    private JButton Modificar;
+    private JButton ModificarPlaneta;
     
     //Casillas
     private JRadioButton Manual;
@@ -68,24 +30,18 @@ public class VistaPlaneta extends JPanel {
     
     //Listas
     private JList<String> listaScroll1;
-    private JList<String> listaScroll2;
-    private JComboBox <String> CBPConsulta;
-    
-    public VistaPlaneta ConsultarVistaPlaneta() {
-        return this;
-    }
     public void actualiza() {
         try {
             mlistado.removeAllElements();
             listado = CVP.ConsultarNombresPlanetas();
-            CBPlanetas.removeAllItems();
-            CBPlanetas.setEditable(false);
+            CB.removeAllItems();
+            CB.setEditable(false);
             if (listado.size() != 0) {  
-                CBPlanetas.setEditable(true);
-                for (String s : listado) CBPlanetas.addItem(s);
+                CB.setEditable(true);
+                for (String s : listado) CB.addItem(s);
                 for (String p : listado) mlistado.addElement(p);
-                CBPlanetas.revalidate();
-                CBPlanetas.repaint();
+                CB.revalidate();
+                CB.repaint();
                 listaScroll1.setModel(mlistado);
                 listaScroll1.revalidate();
                 listaScroll1.repaint();
@@ -103,21 +59,21 @@ public class VistaPlaneta extends JPanel {
         
         listado = new ArrayList<String>();
         mlistado = new DefaultListModel<String>();
-        mlistadoPlanetas = new DefaultListModel<String>();
         // list 1
         //scrollPanel
         
-        CBPlanetas = new JComboBox<String>();
-        CBPlanetas.addActionListener(new ActionListener() {
+        CB = new JComboBox<String>();
+        CB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
-                    String n = CBPlanetas.getSelectedItem().toString();
+                    String n = CB.getSelectedItem().toString();
                     if(!n.equals("")){
                         Errores.setText("");
-                        NombreAc.setText(n);
-                        CosteAc.setText(CVP.ConsultarCoste(n));
-                        CoordenadaXAc.setText(CVP.ConsultarCoordenadaX(n));
-                        CoordenadaYAc.setText(CVP.ConsultarCoordenadaY(n));
+                        textfield1.setText(n);
+                        textfield2.setText(CVP.ConsultarCoste(n));
+                        textfield3.setText(CVP.ConsultarCoordenadaX(n));
+                        textfield4.setText(CVP.ConsultarCoordenadaY(n));
+                        actualiza();
                     }   
                 }
                 catch (Exception e) {
@@ -127,78 +83,79 @@ public class VistaPlaneta extends JPanel {
         });
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBackground(SystemColor.activeCaption);
-        Central.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //A la espera de consenso
+        Central.setBounds(50, 50, 700, 500); //A la espera de consenso
         add(Central);
         
-        PanelCreacion = new Panel();
-        PanelCreacion.setBackground(SystemColor.activeCaption);
-        Central.addTab("Crear",null,PanelCreacion,null);
-        PanelCreacion.setLayout(null);
+        Crear = new JPanel();
+        Crear.setBackground(SystemColor.activeCaption);
+        Crear.setBounds(0, 0, 700, 500);
+        Central.addTab("Crear",null,Crear,null);
+        Crear.setLayout(null);
         
         Manual = new JRadioButton("Manual");
         Manual.setSelected(false); 
-        Manual.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(Manual);
+        Manual.setBounds(400, 115, 120, 20);
+        Crear.add(Manual);
         
         Automatico = new JRadioButton("Automatico");
         Automatico.setSelected(false);
-        Automatico.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(Automatico);
+        Automatico.setBounds(400, 165, 120, 20);
+        Crear.add(Automatico);
         
         AutomaticoCN = new JRadioButton("Automatico con Nombre");
         AutomaticoCN.setSelected(false);
-        AutomaticoCN.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(AutomaticoCN);
+        AutomaticoCN.setBounds(400, 215, 120, 20);
+        Crear.add(AutomaticoCN);
         
         
-        ENombre = new JLabel("Nombre :");
-        ENombre.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelCreacion.add(ENombre);
+        label1 = new JLabel("Nombre :");
+        label1.setBounds(50, 115, 50, 35); //Esperando
+        Crear.add(label1);
         
-        NombreAc = new JTextField();
-        NombreAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelCreacion.add(NombreAc);
-        NombreAc.setColumns(10);  //??????
-        NombreAc.setEnabled(false);
+        textfield1 = new JTextField();
+        textfield1.setBounds(180, 115, 120, 35); //Esperando
+        Crear.add(textfield1);
+        textfield1.setColumns(10);  //??????
+        textfield1.setEnabled(false);
         
-        ECoste = new JLabel ("Coste :");
-        ECoste.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(ECoste);
+        label2 = new JLabel ("Coste :");
+        label2.setBounds(50, 165, 50, 3); //Esperar
+        Crear.add(label2);
         
-        CosteAc = new JTextField();
-        CosteAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(CosteAc);
-        CosteAc.setColumns(10);
-        CosteAc.setEnabled(false);
+        textfield2 = new JTextField();
+        textfield2.setBounds(180, 165, 120, 35); //Esperar
+        Crear.add(textfield2);
+        textfield2.setColumns(10);
+        textfield2.setEnabled(false);
         
-        ECoordenadaX = new JLabel("X :");
-        ECoordenadaX.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(ECoordenadaX);
+        label3 = new JLabel("X :");
+        label3.setBounds(50, 215, 50, 35); //Esperar
+        Crear.add(label3);
         
-        CoordenadaXAc = new JTextField();
-        CoordenadaXAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(CoordenadaXAc);
-        CoordenadaXAc.setColumns(10);
-        CoordenadaXAc.setEnabled(false);
+        textfield3 = new JTextField();
+        textfield3.setBounds(180, 215, 120, 35); //Esperar
+        Crear.add(textfield3);
+        textfield3.setColumns(10);
+        textfield3.setEnabled(false);
                 
-        ECoordenadaY = new JLabel("Y :");
-        ECoordenadaY.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(ECoordenadaX);
+        label4 = new JLabel("Y :");
+        label4.setBounds(50, 265, 50, 35); //Esperar
+        Crear.add(label3);
         
-        CoordenadaYAc = new JTextField();
-        CoordenadaYAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(CoordenadaYAc);
-        CoordenadaYAc.setColumns(10);
-        CoordenadaYAc.setEnabled(false);
+        textfield4 = new JTextField();
+        textfield4.setBounds(180, 265, 120, 35); //Esperar
+        Crear.add(textfield4);
+        textfield4.setColumns(10);
+        textfield4.setEnabled(false);
         
         Manual.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()) {
-                        NombreAc.setEnabled(true);
-                        CosteAc.setEnabled(true);
-                        CoordenadaXAc.setEnabled(true);
-                        CoordenadaYAc.setEnabled(true);
+                        textfield1.setEnabled(true);
+                        textfield2.setEnabled(true);
+                        textfield3.setEnabled(true);
+                        textfield4.setEnabled(true);
                         Automatico.setSelected(false);
                         AutomaticoCN.setSelected(false);
                     }
@@ -213,10 +170,10 @@ public class VistaPlaneta extends JPanel {
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Automatico.isSelected()) {
-                        NombreAc.setEnabled(false);
-                        CosteAc.setEnabled(false);
-                        CoordenadaXAc.setEnabled(false);
-                        CoordenadaYAc.setEnabled(false);
+                        textfield1.setEnabled(false);
+                        textfield2.setEnabled(false);
+                        textfield3.setEnabled(false);
+                        textfield4.setEnabled(false);
                         Manual.setSelected(false);
                         AutomaticoCN.setSelected(false);
                     }
@@ -231,10 +188,10 @@ public class VistaPlaneta extends JPanel {
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(AutomaticoCN.isSelected()) {
-                        NombreAc.setEnabled(true);
-                        CosteAc.setEnabled(false);
-                        CoordenadaXAc.setEnabled(false);
-                        CoordenadaYAc.setEnabled(false);
+                        textfield1.setEnabled(true);
+                        textfield2.setEnabled(false);
+                        textfield3.setEnabled(false);
+                        textfield4.setEnabled(false);
                         Manual.setSelected(false);
                         Automatico.setSelected(false);
                     }
@@ -247,6 +204,8 @@ public class VistaPlaneta extends JPanel {
         
         CrearPlaneta = new JButton("Crear");
         CrearPlaneta.setIcon(null);
+        CrearPlaneta.setBounds(50, 385, 120, 50);
+        Crear.add(CrearPlaneta);
         /*
         HelpNombre = new JLabel("");
         HelpNombre.setToolTipText("El Nombre tiene que estar compuesto por caracteres alfanumericos.");
@@ -257,10 +216,10 @@ public class VistaPlaneta extends JPanel {
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()){
-                        String n = NombreAc.getText();
-                        String c = CosteAc.getText();
-                        String x = CoordenadaXAc.getText();
-                        String y = CoordenadaYAc.getText();
+                        String n = textfield1.getText();
+                        String c = textfield2.getText();
+                        String x = textfield3.getText();
+                        String y = textfield4.getText();
                         CVP.CrearPlaneta(n, c, x, y);
                         actualiza();
                     }
@@ -269,102 +228,105 @@ public class VistaPlaneta extends JPanel {
                         actualiza();
                     }
                     else {
-                        String n = NombreAc.getText();
+                        String n = textfield1.getText();
                         CVP.CrearPlaneta(n);
                     }
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
-                NombreAc.setText("");
-                CosteAc.setText("");
-                CoordenadaXAc.setText("");
-                CoordenadaYAc.setText("");
+                textfield1.setText("");
+                textfield2.setText("");
+                textfield3.setText("");
+                textfield4.setText("");
             }
         });
-     
-        CrearPlaneta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(CrearPlaneta);
         
-        PanelModificar = new Panel();
-        PanelModificar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Modificar", null,PanelModificar,null);
-        PanelModificar.setLayout(null);
+        Modificar = new JPanel();
+        Modificar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Modificar", null,Modificar,null);
+        Modificar.setBounds(0, 0, 700, 500);
+        Modificar.setLayout(null);
         
-        ENombre = new JLabel("Nombre :");
-        ENombre.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelModificar.add(ENombre);
+        label1 = new JLabel("Nombre :");
+        label1.setBounds(50, 115, 50, 35); //Esperando
+        Modificar.add(label1);
         
-        NombreAc = new JTextField();
-        NombreAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelModificar.add(NombreAc);
-        NombreAc.setColumns(10);  //??????
+        textfield1 = new JTextField();
+        textfield1.setBounds(180, 115, 120, 35); //Esperando
+        Modificar.add(textfield1);
+        textfield1.setColumns(10);  //??????
         
-        ECoste = new JLabel ("Coste :");
-        ECoste.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECoste);
+        label2 = new JLabel ("Coste :");
+        label2.setBounds(50, 165, 50, 3); //Esperar
+        Modificar.add(label2);
         
-        CosteAc = new JTextField();
-        CosteAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        CosteAc.setEnabled(false);
-        PanelModificar.add(CosteAc);
-        CosteAc.setColumns(10);
+        textfield2 = new JTextField();
+        textfield2.setBounds(180, 165, 120, 35); //Esperar
+        Modificar.add(textfield2);
+        textfield2.setColumns(10);
+        textfield2.setEnabled(false);
         
-        ECoordenadaX = new JLabel("X :");
-        ECoordenadaX.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECoordenadaX);
+        label3 = new JLabel("X :");
+        label3.setBounds(50, 215, 50, 35); //Esperar
+        Modificar.add(label3);
         
-        CoordenadaXAc = new JTextField();
-        CoordenadaXAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        CoordenadaXAc.setEnabled(false);
-        PanelModificar.add(CoordenadaXAc);
-        CoordenadaXAc.setColumns(10);
+        textfield3 = new JTextField();
+        textfield3.setBounds(180, 215, 120, 35); //Esperar
+        Modificar.add(textfield3);
+        textfield3.setColumns(10);
+        textfield3.setEnabled(false);
+                
+        label4 = new JLabel("Y :");
+        label4.setBounds(50, 265, 50, 35); //Esperar
+        Modificar.add(label3);
         
-        ECoordenadaY = new JLabel("Y :");
-        ECoordenadaY.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECoordenadaX);
+        textfield4 = new JTextField();
+        textfield4.setBounds(180, 265, 120, 35); //Esperar
+        Modificar.add(textfield4);
+        textfield4.setColumns(10);
+        textfield4.setEnabled(false);
         
-        CoordenadaYAc = new JTextField();
-        CoordenadaYAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        CoordenadaYAc.setEnabled(false);
-        PanelModificar.add(CoordenadaYAc);
-        CoordenadaYAc.setColumns(10);
         
-        ECosteNew = new JLabel ("Coste nuevo :");
-        ECosteNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECosteNew);
+        label5 = new JLabel ("Coste :");
+        label5.setBounds(350, 165, 50, 3); //Esperar
+        Modificar.add(label5);
         
-        CosteNew = new JTextField();
-        CosteNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(CosteNew);
-        CosteNew.setColumns(10);
+        textfield5 = new JTextField();
+        textfield5.setBounds(530, 165, 120, 35); //Esperar
+        Modificar.add(textfield5);
+        textfield5.setColumns(10);
         
-        ECoordenadaXNew = new JLabel("X :");
-        ECoordenadaXNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECoordenadaXNew);
         
-        CoordenadaXNew = new JTextField();
-        CoordenadaXNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(CoordenadaXNew);
-        CoordenadaXNew.setColumns(10);
+        label6 = new JLabel("X :");
+        label6.setBounds(350, 215, 50, 35); //Esperar
+        Modificar.add(label6);
         
-        ECoordenadaYNew = new JLabel("Y :");
-        ECoordenadaYNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECoordenadaXNew);
+        textfield6 = new JTextField();
+        textfield6.setBounds(530, 215, 120, 35); //Esperar
+        Modificar.add(textfield6);
+        textfield6.setColumns(10);
+                
+        label7 = new JLabel("Y :");
+        label7.setBounds(350, 265, 50, 35); //Esperar
+        Modificar.add(label7);
         
-        CoordenadaYNew = new JTextField();
-        CoordenadaYNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(CoordenadaYNew);
-        CoordenadaYNew.setColumns(10);
+        textfield7 = new JTextField();
+        textfield7.setBounds(530, 265, 120, 35); //Esperar
+        Modificar.add(textfield7);
+        textfield7.setColumns(10);
         
-        Modificar = new JButton("Modificar");
-        Modificar.addActionListener(new ActionListener() {
+        ModificarPlaneta = new JButton("Modificar");
+        ModificarPlaneta.setIcon(null);
+        ModificarPlaneta.setBounds(290, 270, 120, 50);
+        Modificar.add(ModificarPlaneta);
+        ModificarPlaneta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
-                    String nac = NombreAc.getText();
-                    String c = CosteNew.getText();
-                    String x = CoordenadaXNew.getText();
-                    String y = CoordenadaYNew.getText();
+                    String nac = textfield1.getText();
+                    String c = textfield5.getText();
+                    String x = textfield6.getText();
+                    String y = textfield7.getText();
                     if(!c.isEmpty()) CVP.ModificarCoste(nac, c);
                     if(!x.isEmpty() && !y.isEmpty()) CVP.ModificarCoordenadas(nac, x, y);
                     else if(x.isEmpty() && !y.isEmpty()) CVP.ModificarCoordenadas(nac, CVP.ConsultarCoordenadaX(nac), y);
@@ -374,71 +336,67 @@ public class VistaPlaneta extends JPanel {
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
-                NombreAc.setText("");
-                CosteAc.setText("");
-                CoordenadaXAc.setText("");
-                CoordenadaYAc.setText("");
-                CosteNew.setText("");
-                CoordenadaXNew.setText("");
-                CoordenadaYNew.setText("");
+                textfield1.setText("");
+                textfield2.setText("");
+                textfield3.setText("");
+                textfield4.setText("");
+                textfield5.setText("");
+                textfield6.setText("");
+                textfield7.setText("");
             }
         });
         
-        PanelConsultar = new Panel();
-        PanelConsultar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Consultar",null,PanelConsultar,null);
-        PanelConsultar.setLayout(null);
+        Consultar = new JPanel();
+        Consultar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Consultar",null,Consultar,null);
+        Consultar.setLayout(null);
         
-        CBPConsulta = new JComboBox<String>();
-        CBPConsulta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(CBPConsulta);
+        label1 = new JLabel("Nombre :");
+        label1.setBounds(200, 115, 50, 35);
+        Consultar.add(label1);
         
-        ENombre = new JLabel("Nombre :");
-        ENombre.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(ENombre);
+        textfield1 = new JTextField();
+        textfield1.setColumns(10);
+        textfield1.setBounds(380, 115, 120, 35);
+        Consultar.add(textfield1);
         
-        NombreAc = new JTextField();
-        NombreAc.setColumns(10);
-        NombreAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(NombreAc);
+        label2 = new JLabel("Coste :");
+        label2.setBounds(200, 165, 50, 35);
+        Consultar.add(label2);
         
-        ECoste = new JLabel("Coste :");
-        ECoste.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(ECoste);
+        textfield2 = new JTextField();
+        textfield2.setColumns(10);
+        textfield2.setBounds(380, 165, 120, 35);
+        Consultar.add(textfield2);
         
-        CosteAc = new JTextField();
-        CosteAc.setColumns(10);
-        CosteAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(CosteAc);
+        label3 = new JLabel("X :");
+        label3.setBounds(200, 215, 50, 35);
+        Consultar.add(label3);
         
-        ECoordenadaX = new JLabel("X :");
-        ECoordenadaX.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(ECoordenadaX);
+        textfield3 = new JTextField();
+        textfield3.setColumns(10);
+        textfield3.setBounds(380, 215, 120, 35);
+        Consultar.add(textfield3);
         
-        CoordenadaXAc = new JTextField();
-        CoordenadaXAc.setColumns(10);
-        CoordenadaXAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(CoordenadaXAc);
+        label3 = new JLabel("Y :");
+        label3.setBounds(200, 265, 50, 35);
+        Consultar.add(label3);
         
-        ECoordenadaX = new JLabel("Y :");
-        ECoordenadaX.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(ECoordenadaX);
+        textfield4 = new JTextField();
+        textfield4.setColumns(10);
+        textfield4.setBounds(380, 265, 120, 35);
+        Consultar.add(textfield4);
         
-        CoordenadaYAc = new JTextField();
-        CoordenadaYAc.setColumns(10);
-        CoordenadaYAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(CoordenadaYAc);
-        
-        PanelGuardar = new Panel();
-        PanelGuardar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Guardar", null, PanelGuardar, null);
-        PanelGuardar.setLayout(null);
+        FrameGuardar = new JInternalFrame();
+        FrameGuardar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Guardar", null, FrameGuardar, null);
+        FrameGuardar.setLayout(null);
         
         Guardar = new JFileChooser();
-        Guardar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Guardar.setBounds(0, 0, 700, 500);
         Guardar.setAutoscrolls(true);
         Guardar.setPreferredSize(new Dimension(WIDTH,WIDTH));
-        PanelGuardar.add(Guardar);
+        FrameGuardar.add(Guardar);
         Guardar.setDialogTitle("Guardar");
         
         Guardar.addActionListener(new ActionListener() {
@@ -453,16 +411,16 @@ public class VistaPlaneta extends JPanel {
             }
         });
         
-        PanelCargar = new Panel();
-        PanelCargar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Cargar", null, PanelCargar, null);
-        PanelCargar.setLayout(null);
+        FrameCargar = new JInternalFrame();
+        FrameCargar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Cargar", null, FrameCargar, null);
+        FrameCargar.setLayout(null);
         
         Cargar = new JFileChooser();
-        Cargar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Cargar.setBounds(0, 0, 700, 500);
         Cargar.setAutoscrolls(true);
         Cargar.setPreferredSize(new Dimension(WIDTH,WIDTH));
-        PanelCargar.add(Cargar);
+        FrameCargar.add(Cargar);
         Cargar.setDialogTitle("Cargr");
         
         Cargar.addActionListener(new ActionListener() { 
