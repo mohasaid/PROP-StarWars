@@ -14,11 +14,11 @@ public class Main {
 		                     } 
 		                     catch (Exception e) {}
 		                     
-		                    ControladorVistaGalaxia cVistaGalaxia = new ControladorVistaGalaxia();
+		                    //ControladorVistaGalaxia cVistaGalaxia = new ControladorVistaGalaxia();
 		                    //ControladorVistaPlaneta cVistaPlaneta = new ControladorVistaPlaneta();
-		                    //ControladorVistaRuta cVistaRuta = new ControladorVistaRuta();
+		                    ControladorVistaRuta cVistaRuta = new ControladorVistaRuta();
 		                    //ControladorVistaNave cVistaNave = new ControladorVistaNave();
-		                    ControladorVistaMFP cVistaMFP = new ControladorVistaMFP();
+		                    //ControladorVistaMFP cVistaMFP = new ControladorVistaMFP();
 		                    
 		                    //cVistaGalaxia.inicialitza(cVistaPlaneta,cVistaTerraformacio);                   
 		                    //cVistaPlaneta.inicialitza(cVistaGalaxia, cVistaPaquet, cVistaRecurs);
@@ -26,8 +26,8 @@ public class Main {
 		                    //cVistaNave.inicialitza(cVistaPlaneta, cVistaPaquet, cVistaTerraformacio);
 		                    //cVistaMFP.inicialitza(cVistaGalaxia,cVistaPlaneta);                       
 		                     
-		                    //VistaPrincipal frame = new VistaPrincipal(cVistaGalaxia,/*cVistaPlaneta,cVistaRuta,cVistaNave,*/cVistaMFP);
-		                    //frame.setVisible(true);                                
+		                    Main_vistes frame = new Main_vistes(/*cVistaGalaxia,cVistaPlaneta,*/cVistaRuta/*,cVistaNave,cVistaMFP*/);
+		                    frame.setVisible(true);                                
 		                }
 		                catch (Exception e) {
 		                    e.printStackTrace();
