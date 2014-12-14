@@ -1,11 +1,16 @@
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -32,37 +37,38 @@ import static sun.security.util.Debug.Help;
  */
 public class Main_vistes extends JFrame {
 
-    private JPanel panel;
+    
     //private Help help;
-
+    private JPanel panel;
 
     /** Controladors Vistes **/
-    private ControladorVistaGalaxia CVG;
-    private ControladorVistaPlaneta CVP;
+    //private ControladorVistaGalaxia CVG;
+    //private ControladorVistaPlaneta CVP;
     //private ControladorVistaNave CVN;
     private ControladorVistaRuta CVR;
 
     /** Vistes **/
-    private VistaGalaxia VG;
+    //private VistaGalaxia VG;
     //private VistaPlaneta VP;
     //private VistaNave VN;
     private VistaRuta VR;
 
+    /*
     private void obtenerVistas() {		
         VG = CVG.consultarVistaGalaxia();
-        //VP = CVP.
+        VP = CVP.ConsultarVistaPlaneta();
         //VN = CVN.obtenerVistaNave();
-        //VR = CVR.obtenerVistaRuta();
-    }
+        VR = CVR.ConsultarVistaRuta();
+    }*/
     
 
-    public Main_vistes(/*ControladorVistaGalaxia cVG, ControladorVistaPlaneta cVP, ControladorVistaNave cVN, ControladorVistaRuta cVR*/) throws InterruptedException 
+    public Main_vistes(/*ControladorVistaGalaxia cVG, ControladorVistaPlaneta cVP, ControladorVistaNave cVN,*/ ControladorVistaRuta cVR/*, ControladrMFP cMFP*/) throws InterruptedException 
     {
         //CVG = cVG;
         //CVP = cVP;
         //CVN = cVN;
-        //CVR = cVR;
-        
+        CVR = cVR;
+
         
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,75 +77,60 @@ public class Main_vistes extends JFrame {
         panel.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(panel);
         panel.setLayout(null);
-
-        JLabel jLabel2 = new javax.swing.JLabel();
-        jLabel2.setIcon( new ImageIcon(Main_vistes.class.getResource("/Imagenes/galax.jpg")));
-        setContentPane(panel);
-        setContentPane(jLabel2);
-        panel.removeAll();
-        panel.repaint();
-        panel.revalidate();
+        
+        final JPanel panelGrande = new JPanel();
+        panelGrande.setOpaque(false);
+        panelGrande.setBounds(50,100,700,500);
+        panel.add(panelGrande);
+        panelGrande.setLayout(new GridLayout(1,0,0,0));
 
         
+        
+        JLabel jLabel2 = new javax.swing.JLabel();
+        jLabel2.setVisible(true);
+        jLabel2.setIcon( new ImageIcon(Main_vistes.class.getResource("/Imagenes/SW.jpg")));
+        jLabel2.setBounds(0,0,1035,648);
+        add(jLabel2);
+        
+        JButton Btn_MFP = new javax.swing.JButton("Maximo Flujo");
+        JButton Btn_Naves = new javax.swing.JButton("Nave");
+        JButton Btn_Planetas = new javax.swing.JButton("Planetas");
+        JButton Btn_Galaxia = new javax.swing.JButton("Galaxia");
+        JButton Btn_Rutas = new javax.swing.JButton("Rutas");
+        
+             
         /** Obtenim els objectes de les diferents vistes
          * que han creat els controladors de vistes **/
         //obtenerVistas();
 
        //help = new Help();
-		
-		
 
-        JButton Btn_MFP = new javax.swing.JButton();
-        JButton Btn_Naves = new javax.swing.JButton();
-        JButton Btn_Planetas = new javax.swing.JButton();
-        JButton Btn_Galaxia = new javax.swing.JButton();
-        JButton Btn_Rutas = new javax.swing.JButton();
+        
         
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        Btn_MFP.setText("Maximo Flujo");
-
-        Btn_Naves.setText("Naves");
-
-        Btn_Planetas.setText("Planetas");
-
-        Btn_Galaxia.setText("Galaxia");
-
-        Btn_Rutas.setText("Rutas");
-
-        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addComponent(Btn_Galaxia, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27)
-                .addComponent(Btn_Planetas, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(41, 41, 41)
-                .addComponent(Btn_Rutas, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addComponent(Btn_Naves, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 33, Short.MAX_VALUE)
-                .addComponent(Btn_MFP, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Btn_MFP, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_Naves, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_Planetas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_Galaxia, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(Btn_Rutas, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(435, Short.MAX_VALUE))
-        );
-        pack();
+        Btn_Galaxia.setBounds(50,50,120,40);
         
-        final JPanel panelGrande = new JPanel();
+        int aux = 120+67;
+        int aux2 = 120+70;
+        
+        Btn_Planetas.setBounds(aux+67-10,50,120,40);
+        Btn_Rutas.setBounds(2*aux+67,50,120,40);
+        Btn_Naves.setBounds(3*aux+67,50,120,40);
+        Btn_MFP.setBounds(4*aux2+74,50,120,40);
+
+        
+        panel.add(Btn_Galaxia);
+        panel.add(Btn_Planetas);
+        panel.add(Btn_Rutas);
+        panel.add(Btn_Naves);
+        panel.add(Btn_MFP);
+        
+        
+        //final JPanel panelGrande = new JPanel();
+        JPanel panel_aux =  new SW_Panel();
+        panel_aux.setBounds(50,100,700,500);
+        panel.add(panel_aux);
         
         /** Boton Galaxia **/
         Btn_Galaxia.addActionListener(new ActionListener() {
@@ -149,7 +140,8 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // col�loquem el de galaxia					
-                        panelGrande.add(VG);			
+                        //panelGrande.add(VG);
+                        panelGrande.add(panel_aux);
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -165,13 +157,13 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         //colocamos las rutas				
-                        //panelGrande.add(VR);			
+                        panelGrande.add(VR);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
                 }
         });		
-        Btn_Galaxia.setToolTipText("Gestiona las Rutas del sistema");
+        Btn_Rutas.setToolTipText("Gestiona las Rutas del sistema");
         
         /** Boton Naves **/
         Btn_Naves.addActionListener(new ActionListener() {
@@ -187,7 +179,7 @@ public class Main_vistes extends JFrame {
 
                 }
         });		
-        Btn_Galaxia.setToolTipText("Gestiona las Naves del sistema");
+        Btn_Naves.setToolTipText("Gestiona las Naves del sistema");
         
         /** Boton Planetas **/
         Btn_Planetas.addActionListener(new ActionListener() {
@@ -203,7 +195,7 @@ public class Main_vistes extends JFrame {
 
                 }
         });		
-        Btn_Galaxia.setToolTipText("Gestiona los Planetas del sistema");
+        Btn_Planetas.setToolTipText("Gestiona los Planetas del sistema");
         
         /** Boton MF **/
         Btn_MFP.addActionListener(new ActionListener() {
@@ -219,9 +211,11 @@ public class Main_vistes extends JFrame {
 
                 }
         });		
-        Btn_Galaxia.setToolTipText("Gestiona Flujo Maximo del sistema");
+        Btn_MFP.setToolTipText("Gestiona Flujo Maximo del sistema");
         
-        JToolBar jToolBar1 = new javax.swing.JToolBar();
+
+        
+        /*JToolBar jToolBar1 = new javax.swing.JToolBar();
         JButton jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -235,7 +229,7 @@ public class Main_vistes extends JFrame {
         jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(jButton1);
 
-        layout = new javax.swing.GroupLayout(getContentPane());
+        GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -251,7 +245,7 @@ public class Main_vistes extends JFrame {
         pack();
         
         
-        /** Boton Help **/
+        /** Boton Help **//*
         jButton1.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
                         // eliminem el panel actual
@@ -265,5 +259,6 @@ public class Main_vistes extends JFrame {
 
                 }
         });
+        */
     }
 }
