@@ -195,9 +195,10 @@ public class VistaPrincipal extends JFrame {
         panel.add(fons);
         
         JButton hp = new JButton("Ajuda");
+        hp.setBorder(null);
         jtb.add(hp);
         // cual de los dos
-        JLabel ajuda = new JLabel("Ajuda");
+        /*JLabel ajuda = new JLabel("Ajuda");
         jtb.add(ajuda);
         
         ajuda.addMouseListener(new MouseAdapter() {
@@ -213,7 +214,7 @@ public class VistaPrincipal extends JFrame {
                 panel.revalidate();
             }
         });
-        ajuda.setBounds(0, 0, 60, 24);
+        ajuda.setBounds(50, 50, 110, 74);*/
         
         /*JComboBox<String> comboBox = new JComboBox<String>();
         comboBox.setBounds(200,0,60,24);
