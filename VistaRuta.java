@@ -16,7 +16,7 @@ import javax.swing.border.BevelBorder;
  *
  * @author Gerard
  */
-public class VistaRuta extends /*PrimerNivel*/ JFrame{
+public class VistaRuta extends PrimerNivel{
     
     public VistaRuta ObtenerVista() {
         return this;
@@ -27,55 +27,45 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
     private DefaultListModel<String> mlistado;
     private DefaultListModel<String> mlistadoPlanetas;
     private JComboBox<String> CBRutas;
-   
+    
+    /*
     //Cajas Atributos
-    private JTextField IdAc;
-    private JTextField CapacidadAc;
-    private JTextField DistanciaAc;
-    private JTextField PlanetaAAc;
-    private JTextField PlanetaBAc;
-    private JTextField CapacidadNew;
-    private JTextField DistanciaNew;
-    private JTextField PlanetaANew;
-    private JTextField PlanetaBNew;
-    
-    //Errores
-    private JTextField Errores;
-    
-    //Cargar y Guardar
-    private JFileChooser Cargar;
-    private JFileChooser Guardar;
-    
-    //PRIMER NIVEL???
-    private JTabbedPane Central;
+    private JTextField textfield1;
+    private JTextField textfield2;
+    private JTextField textfield3;
+    private JTextField textfield4;
+    private JTextField textfield5;
+    private JTextField textfield6;
+    private JTextField textfield7;
+    private JTextField textfield8;
+    private JTextField textfield9;
+  
     
     //Paneles
-    private Panel PanelCreacion;
-    private Panel PanelModificar;
-    private Panel PanelConsultar;
-    private Panel PanelGuardar;
-    private Panel PanelCargar;
-    private JScrollPane ScrollPlanetasConsulta;
-    
+    private Panel Crear;
+    private Panel Modificar;
+    private Panel Consultar;
+    private Panel Guardar;
+    private Panel Cargar;
+   
+
     //Etiquetas
-    private JLabel EId;
-    private JLabel ECapacidad;
-    private JLabel EDistancia;
-    private JLabel EPlanetaA;
-    private JLabel EPlanetaB;
-    private JLabel ECapacidadNew;
-    private JLabel EDistanciaNew;
-    private JLabel EPlanetaANew;
-    private JLabel EPlanetaBNew;
-    private JLabel HelpNombre;
-    private JLabel HelpCoste;
-    private JLabel HelpCoordenadas;
+    private JLabel label1;
+    private JLabel label2;
+    private JLabel label3;
+    private JLabel label4;
+    private JLabel label5;
+    private JLabel label6;
+    private JLabel label7;
+    private JLabel label8;
+    private JLabel label9;
+    */
     
     //Botones
-    private JButton CrearPlaneta;
-    private JButton CrearPlanetaAutoSN;
-    private JButton CrearPlanetaAutoCN;
-    private JButton Modificar;
+    private JButton CrearRuta;
+    private JButton CrearRutaAuto;
+    private JButton CrearRutaAutoId;
+    private JButton Modificar_btn;
     
     //Casillas
     private JRadioButton Manual;
@@ -86,6 +76,8 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
     private JList<String> listaScroll1;
     private JList<String> listaScroll2;
     private JComboBox <String> CBRConsulta;
+    
+    
     public void actualiza() {
         try {
             mlistado.removeAllElements();
@@ -109,7 +101,7 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
     }
     public VistaRuta(ControladorVistaRuta ControladorVR) {
         CVR = ControladorVR;
-        setOpaque(false);          
+        //setOpaque(false);          
         setBackground(Color.WHITE); //Marco
         setLayout(null);
         
@@ -126,11 +118,11 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
                     String n = CBRutas.getSelectedItem().toString();
                     if(!n.equals("")){
                         Errores.setText("");
-                        IdAc.setText(n);
-                        CapacidadAc.setText(CVR.ConsultarCapacidadRuta(n));
-                        DistanciaAc.setText(CVR.ConsultarDistanciaRuta(n));
-                        PlanetaAAc.setText(CVR.ConsultarPlanetaARuta(n));
-                        PlanetaBAc.setText(CVR.ConsultarPlanetaBRuta(n));
+                        textfield1.setText(n);
+                        textfield2.setText(CVR.ConsultarCapacidadRuta(n));
+                        textfield3.setText(CVR.ConsultarDistanciaRuta(n));
+                        textfield4.setText(CVR.ConsultarPlanetaARuta(n));
+                        textfield5.setText(CVR.ConsultarPlanetaBRuta(n));
                     }   
                 }
                 catch (Exception e) {
@@ -140,88 +132,99 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
         });
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBackground(SystemColor.activeCaption);
-        Central.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //A la espera de consenso
+        Central.setBounds(50,100,700,500);
         add(Central);
         
-        PanelCreacion = new Panel();
-        PanelCreacion.setBackground(SystemColor.activeCaption);
-        Central.addTab("Crear",null,PanelCreacion,null);
-        PanelCreacion.setLayout(null);
+        Crear = new JPanel();
+        Crear.setBackground(SystemColor.activeCaption);
+        Central.addTab("Crear",null,Crear,null);
+        Crear.setLayout(null);
+        
         
         Manual = new JRadioButton("Manual");
         Manual.setSelected(false); 
-        Manual.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(Manual);
+        Manual.setBounds(400, 100, 50, 100);
+        Crear.add(Manual);
+        
+        int aux = 150;
         
         Automatico = new JRadioButton("Automatico");
         Automatico.setSelected(false);
-        Automatico.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(Automatico);
+        Automatico.setBounds(400, 250, 50, 100);
+        Crear.add(Automatico);
         
-        AutomaticoCId = new JRadioButton("Automatico con Nombre");
+        AutomaticoCId = new JRadioButton("Automatico con Id");
         AutomaticoCId.setSelected(false);
-        AutomaticoCId.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(AutomaticoCId);
+        AutomaticoCId.setBounds(400, 350, 50, 100);
+        Crear.add(AutomaticoCId);
         
+        int aux1 = 75;
+        int aux2 = 75;
+        int aux3 = 30;
+        int aux3_2 = aux3+35;
+        int aux4 = 50;
+        label1 = new JLabel("Id :");
+        label1.setBounds(aux1, aux2, aux3, aux4); //Esperando
+        Crear.add(label1);
         
-        EId = new JLabel("Id :");
-        EId.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelCreacion.add(EId);
+        textfield1 = new JTextField();
+        textfield1.setBounds(aux1, aux2, aux3_2, aux4); //Esperando
+        Crear.add(textfield1);
+        textfield1.setColumns(10);  //??????
+        textfield1.setEnabled(false);
         
-        IdAc = new JTextField();
-        IdAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelCreacion.add(IdAc);
-        IdAc.setColumns(10);  //??????
-        IdAc.setEnabled(false);
+        aux2+=80;
+        label2 = new JLabel ("Capacidad :");
+        label2.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        Crear.add(label2);
         
-        ECapacidad = new JLabel ("Capacidad :");
-        ECapacidad.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(ECapacidad);
+        textfield2 = new JTextField();
+        textfield2.setBounds(aux1, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield2);
+        textfield2.setColumns(10);
+        textfield2.setEnabled(false);
         
-        CapacidadAc = new JTextField();
-        CapacidadAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(CapacidadAc);
-        CapacidadAc.setColumns(10);
-        CapacidadAc.setEnabled(false);
+        aux2+=80;
+        label3 = new JLabel ("Distancia :");
+        label3.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        Crear.add(label3);
         
-        EDistancia = new JLabel ("Distancia :");
-        EDistancia.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(EDistancia);
+        textfield3 = new JTextField();
+        textfield3.setBounds(aux1, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield3);
+        textfield3.setColumns(10);
+        textfield3.setEnabled(false);
         
-        DistanciaAc = new JTextField();
-        DistanciaAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(DistanciaAc);
-        DistanciaAc.setColumns(10);
-        DistanciaAc.setEnabled(false);
+        aux2+=80;
+        label4 = new JLabel("Planeta A :");
+        label4.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        Crear.add(label4);
         
-        EPlanetaA = new JLabel("Planeta A :");
-        EPlanetaA.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(EPlanetaA);
+        textfield4 = new JTextField();
+        textfield4.setBounds(aux1, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield4);
+        textfield4.setColumns(10);
+        textfield4.setEnabled(false);
+             
+        aux2+=80;
+        label5 = new JLabel("Planeta B :");
+        label5.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        Crear.add(label4);
         
-        PlanetaAAc = new JTextField();
-        PlanetaAAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(PlanetaAAc);
-        PlanetaAAc.setColumns(10);
-        PlanetaAAc.setEnabled(false);
-                
-        EPlanetaB = new JLabel("Planeta B :");
-        EPlanetaB.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(EPlanetaA);
-        
-        PlanetaBAc = new JTextField();
-        PlanetaBAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelCreacion.add(PlanetaBAc);
-        PlanetaBAc.setColumns(10);
-        PlanetaBAc.setEnabled(false);
+        textfield5 = new JTextField();
+        textfield5.setBounds(aux1, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield5);
+        textfield5.setColumns(10);
+        textfield5.setEnabled(false);
         
         Manual.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()) {
-                        IdAc.setEnabled(true);
-                        CapacidadAc.setEnabled(true);
-                        PlanetaAAc.setEnabled(true);
-                        PlanetaBAc.setEnabled(true);
+                        textfield1.setEnabled(true);
+                        textfield2.setEnabled(true);
+                        textfield4.setEnabled(true);
+                        textfield5.setEnabled(true);
                         Automatico.setSelected(false);
                         AutomaticoCId.setSelected(false);
                     }
@@ -236,10 +239,10 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Automatico.isSelected()) {
-                        IdAc.setEnabled(false);
-                        CapacidadAc.setEnabled(false);
-                        PlanetaAAc.setEnabled(false);
-                        PlanetaBAc.setEnabled(false);
+                        textfield1.setEnabled(false);
+                        textfield2.setEnabled(false);
+                        textfield4.setEnabled(false);
+                        textfield5.setEnabled(false);
                         Manual.setSelected(false);
                         AutomaticoCId.setSelected(false);
                     }
@@ -254,10 +257,10 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(AutomaticoCId.isSelected()) {
-                        IdAc.setEnabled(true);
-                        CapacidadAc.setEnabled(false);
-                        PlanetaAAc.setEnabled(false);
-                        PlanetaBAc.setEnabled(false);
+                        textfield1.setEnabled(true);
+                        textfield2.setEnabled(false);
+                        textfield4.setEnabled(false);
+                        textfield5.setEnabled(false);
                         Manual.setSelected(false);
                         Automatico.setSelected(false);
                     }
@@ -268,23 +271,23 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
             }
         });
         
-        CrearPlaneta = new JButton("Crear");
-        CrearPlaneta.setIcon(null);
+        CrearRuta = new JButton("Crear");
+        CrearRuta.setIcon(null);
         /*
         HelpNombre = new JLabel("");
         HelpNombre.setToolTipText("El Nombre tiene que estar compuesto por caracteres alfanumericos.");
         HelpNombre.setIcon(null);
         */
         
-        CrearPlaneta.addActionListener(new ActionListener() {
+        CrearRuta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()){
-                        String n = IdAc.getText();
-                        String c = CapacidadAc.getText();
-                        String d = DistanciaAc.getText();
-                        String x = PlanetaAAc.getText();
-                        String y = PlanetaBAc.getText();
+                        String n = textfield1.getText();
+                        String c = textfield2.getText();
+                        String d = textfield3.getText();
+                        String x = textfield4.getText();
+                        String y = textfield5.getText();
                         CVR.creaRuta(n,c,d,x,y);
                         actualiza();
                     }
@@ -293,123 +296,123 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
                         actualiza();
                     }
                     else {
-                        String n = IdAc.getText();
+                        String n = textfield1.getText();
                         CVR.creaRutaAut_id(n);
                     }
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
-                IdAc.setText("");
-                CapacidadAc.setText("");
-                DistanciaAc.setText("");
-                PlanetaAAc.setText("");
-                PlanetaBAc.setText("");
+                textfield1.setText("");
+                textfield2.setText("");
+                textfield3.setText("");
+                textfield4.setText("");
+                textfield5.setText("");
             }
         });
      
-        CrearPlaneta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelCreacion.add(CrearPlaneta);
+        CrearRuta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Crear.add(CrearRuta);
         
-        PanelModificar = new Panel();
-        PanelModificar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Modificar", null,PanelModificar,null);
-        PanelModificar.setLayout(null);
+        Modificar = new JPanel();
+        Modificar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Modificar", null,Modificar,null);
+        Modificar.setLayout(null);
         
-        EId = new JLabel("Id :");
-        EId.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelModificar.add(EId);
+        label1 = new JLabel("Id :");
+        label1.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
+        Modificar.add(label1);
         
-        IdAc = new JTextField();
-        IdAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
-        PanelModificar.add(IdAc);
-        IdAc.setColumns(10);  //??????
+        textfield1 = new JTextField();
+        textfield1.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperando
+        Modificar.add(textfield1);
+        textfield1.setColumns(10);  //??????
         
-        ECapacidad = new JLabel ("Capacidad :");
-        ECapacidad.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECapacidad);
+        label2 = new JLabel ("Capacidad :");
+        label2.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label2);
         
-        CapacidadAc = new JTextField();
-        CapacidadAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        CapacidadAc.setEnabled(false);
-        PanelModificar.add(CapacidadAc);
-        CapacidadAc.setColumns(10);
+        textfield2 = new JTextField();
+        textfield2.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        textfield2.setEnabled(false);
+        Modificar.add(textfield2);
+        textfield2.setColumns(10);
         
-        EDistancia = new JLabel ("Distancia :");
-        EDistancia.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(EDistancia);
+        label3 = new JLabel ("Distancia :");
+        label3.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label3);
         
-        DistanciaAc = new JTextField();
-        DistanciaAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        DistanciaAc.setEnabled(false);
-        PanelModificar.add(DistanciaAc);
-        DistanciaAc.setColumns(10);
+        textfield3 = new JTextField();
+        textfield3.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        textfield3.setEnabled(false);
+        Modificar.add(textfield3);
+        textfield3.setColumns(10);
         
-        EPlanetaA = new JLabel("Planeta A :");
-        EPlanetaA.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(EPlanetaA);
+        label4 = new JLabel("Planeta A :");
+        label4.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label4);
         
-        PlanetaAAc = new JTextField();
-        PlanetaAAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PlanetaAAc.setEnabled(false);
-        PanelModificar.add(PlanetaAAc);
-        PlanetaAAc.setColumns(10);
+        textfield4 = new JTextField();
+        textfield4.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        textfield4.setEnabled(false);
+        Modificar.add(textfield4);
+        textfield4.setColumns(10);
         
-        EPlanetaB = new JLabel("Planeta B :");
-        EPlanetaB.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(EPlanetaA);
+        label5 = new JLabel("Planeta B :");
+        label5.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label4);
         
-        PlanetaBAc = new JTextField();
-        PlanetaBAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PlanetaBAc.setEnabled(false);
-        PanelModificar.add(PlanetaBAc);
-        PlanetaBAc.setColumns(10);
+        textfield5 = new JTextField();
+        textfield5.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        textfield5.setEnabled(false);
+        Modificar.add(textfield5);
+        textfield5.setColumns(10);
         
-        ECapacidadNew = new JLabel ("Capacidad nueva :");
-        ECapacidadNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(ECapacidadNew);
+        label6 = new JLabel ("Capacidad nueva :");
+        label6.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label6);
         
-        CapacidadNew = new JTextField();
-        CapacidadNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(CapacidadNew);
-        CapacidadNew.setColumns(10);
+        textfield6 = new JTextField();
+        textfield6.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(textfield6);
+        textfield6.setColumns(10);
         
-        EDistanciaNew = new JLabel ("Distancia nueva :");
-        EDistanciaNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(EDistanciaNew);
+        label7 = new JLabel ("Distancia nueva :");
+        label7.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label7);
         
-        DistanciaNew = new JTextField();
-        DistanciaNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(DistanciaNew);
-        DistanciaNew.setColumns(10);
+        textfield7 = new JTextField();
+        textfield7.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(textfield7);
+        textfield7.setColumns(10);
         
-        EPlanetaANew = new JLabel("Planeta A nuevo :");
-        EPlanetaANew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(EPlanetaANew);
+        label8 = new JLabel("Planeta A nuevo :");
+        label8.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label8);
         
-        PlanetaANew = new JTextField();
-        PlanetaANew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(PlanetaANew);
-        PlanetaANew.setColumns(10);
+        textfield8 = new JTextField();
+        textfield8.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(textfield8);
+        textfield8.setColumns(10);
         
-        EPlanetaBNew = new JLabel("Planeta B nuevo :");
-        EPlanetaBNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(EPlanetaANew);
+        label9 = new JLabel("Planeta B nuevo :");
+        label9.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(label8);
         
-        PlanetaBNew = new JTextField();
-        PlanetaBNew.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
-        PanelModificar.add(PlanetaBNew);
-        PlanetaBNew.setColumns(10);
+        textfield9 = new JTextField();
+        textfield9.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); //Esperar
+        Modificar.add(textfield9);
+        textfield9.setColumns(10);
         
-        Modificar = new JButton("Modificar");
-        Modificar.addActionListener(new ActionListener() {
+        Modificar_btn = new JButton("Modificar");
+        Modificar_btn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
-                    String nac = IdAc.getText();
-                    String c = CapacidadNew.getText();
-                    String d = DistanciaNew.getText();
-                    String x = PlanetaANew.getText();
-                    String y = PlanetaBNew.getText();
+                    String nac = textfield1.getText();
+                    String c = textfield6.getText();
+                    String d = textfield7.getText();
+                    String x = textfield8.getText();
+                    String y = textfield9.getText();
                     if(!c.isEmpty()) CVR.ModificarCapacidadRuta(nac,c);
                     if(!d.isEmpty()) CVR.ModificarDistanciaRuta(nac,d);
                     if(!x.isEmpty()) CVR.ModificarPlanetaARuta(nac,x);
@@ -418,82 +421,82 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
-                IdAc.setText("");
-                CapacidadAc.setText("");
-                DistanciaAc.setText("");
-                PlanetaAAc.setText("");
-                PlanetaBAc.setText("");
-                CapacidadNew.setText("");
-                DistanciaNew.setText("");
-                PlanetaANew.setText("");
-                PlanetaBNew.setText("");
+                textfield1.setText("");
+                textfield2.setText("");
+                textfield3.setText("");
+                textfield4.setText("");
+                textfield5.setText("");
+                textfield6.setText("");
+                textfield7.setText("");
+                textfield8.setText("");
+                textfield9.setText("");
             }
         });
         
-        PanelConsultar = new Panel();
-        PanelConsultar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Consultar",null,PanelConsultar,null);
-        PanelConsultar.setLayout(null);
+        Consultar = new JPanel();
+        Consultar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Consultar",null,Consultar,null);
+        Consultar.setLayout(null);
         
         CBRConsulta = new JComboBox<String>();
         CBRConsulta.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(CBRConsulta);
+        Consultar.add(CBRConsulta);
         
-        EId = new JLabel("Id :");
-        EId.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(EId);
+        label1 = new JLabel("Id :");
+        label1.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(label1);
         
-        IdAc = new JTextField();
-        IdAc.setColumns(10);
-        IdAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(IdAc);
+        textfield1 = new JTextField();
+        textfield1.setColumns(10);
+        textfield1.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(textfield1);
         
-        ECapacidad = new JLabel("Capacidad :");
-        ECapacidad.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(ECapacidad);
+        label2 = new JLabel("Capacidad :");
+        label2.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(label2);
         
-        CapacidadAc = new JTextField();
-        CapacidadAc.setColumns(10);
-        CapacidadAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(CapacidadAc);
+        textfield2 = new JTextField();
+        textfield2.setColumns(10);
+        textfield2.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(textfield2);
         
-        EDistancia = new JLabel("Distancia :");
-        EDistancia.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(EDistancia);
+        label3 = new JLabel("Distancia :");
+        label3.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(label3);
         
-        DistanciaAc = new JTextField();
-        DistanciaAc.setColumns(10);
-        DistanciaAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(DistanciaAc);
+        textfield3 = new JTextField();
+        textfield3.setColumns(10);
+        textfield3.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(textfield3);
         
-        EPlanetaA = new JLabel("Planeta A :");
-        EPlanetaA.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(EPlanetaA);
+        label4 = new JLabel("Planeta A :");
+        label4.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(label4);
         
-        PlanetaAAc = new JTextField();
-        PlanetaAAc.setColumns(10);
-        PlanetaAAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(PlanetaAAc);
+        textfield4 = new JTextField();
+        textfield4.setColumns(10);
+        textfield4.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(textfield4);
         
-        EPlanetaA = new JLabel("Planeta B :");
-        EPlanetaA.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(EPlanetaA);
+        label4 = new JLabel("Planeta B :");
+        label4.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(label4);
         
-        PlanetaBAc = new JTextField();
-        PlanetaBAc.setColumns(10);
-        PlanetaBAc.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
-        PanelConsultar.add(PlanetaBAc);
+        textfield5 = new JTextField();
+        textfield5.setColumns(10);
+        textfield5.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Consultar.add(textfield5);
         
-        PanelGuardar = new Panel();
-        PanelGuardar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Guardar", null, PanelGuardar, null);
-        PanelGuardar.setLayout(null);
+        Guardar = new JFileChooser();
+        Guardar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Guardar", null, Guardar, null);
+        Guardar.setLayout(null);
         
         Guardar = new JFileChooser();
         Guardar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
         Guardar.setAutoscrolls(true);
         Guardar.setPreferredSize(new Dimension(WIDTH,WIDTH));
-        PanelGuardar.add(Guardar);
+        Guardar.add(Guardar);
         Guardar.setDialogTitle("Guardar");
         
         Guardar.addActionListener(new ActionListener() {
@@ -508,16 +511,16 @@ public class VistaRuta extends /*PrimerNivel*/ JFrame{
             }
         });
         
-        PanelCargar = new Panel();
-        PanelCargar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Cargar", null, PanelCargar, null);
-        PanelCargar.setLayout(null);
+        Cargar = new JFileChooser();
+        Cargar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Cargar", null, Cargar, null);
+        Cargar.setLayout(null);
         
         Cargar = new JFileChooser();
         Cargar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
         Cargar.setAutoscrolls(true);
         Cargar.setPreferredSize(new Dimension(WIDTH,WIDTH));
-        PanelCargar.add(Cargar);
+        Cargar.add(Cargar);
         Cargar.setDialogTitle("Cargr");
         
         Cargar.addActionListener(new ActionListener() { 
