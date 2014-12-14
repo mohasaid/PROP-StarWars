@@ -44,13 +44,13 @@ public class Main_vistes extends JFrame {
     /** Controladors Vistes **/
     //private ControladorVistaGalaxia CVG;
     //private ControladorVistaPlaneta CVP;
-    //private ControladorVistaNave CVN;
+    private ControladorVistaNave CVN;
     private ControladorVistaRuta CVR;
 
     /** Vistes **/
     //private VistaGalaxia VG;
     //private VistaPlaneta VP;
-    //private VistaNave VN;
+    private VistaNave VN;
     private VistaRuta VR;
 
     /*
@@ -62,11 +62,11 @@ public class Main_vistes extends JFrame {
     }*/
     
 
-    public Main_vistes(/*ControladorVistaGalaxia cVG, ControladorVistaPlaneta cVP, ControladorVistaNave cVN,*/ ControladorVistaRuta cVR/*, ControladrMFP cMFP*/) throws InterruptedException 
+    public Main_vistes(/*ControladorVistaGalaxia cVG, ControladorVistaPlaneta cVP, */ControladorVistaNave cVN, ControladorVistaRuta cVR/*, ControladrMFP cMFP*/) throws InterruptedException 
     {
         //CVG = cVG;
         //CVP = cVP;
-        //CVN = cVN;
+        CVN = cVN;
         CVR = cVR;
 
         
@@ -157,7 +157,7 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         //colocamos las rutas				
-                        panelGrande.add(VR);			
+                        panelGrande.add(VR);	
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -173,7 +173,7 @@ public class Main_vistes extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // colocamos naves
-                       // panelGrande.add(VN);			
+                        panelGrande.add(VN);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
