@@ -4,7 +4,7 @@ import java.util.*;
 class ControladorVistaPlaneta {
     private ControladorPlaneta cp;
     private VistaPlaneta vp;
-    //private VistaNave vn;
+    private VistaNave vn;
     private VistaRuta vr;
     private VistaGalaxia vg;
     private ControladorGalaxia cg;
@@ -14,11 +14,11 @@ class ControladorVistaPlaneta {
         vp = new VistaPlaneta(this);    
     }
     
-    public void ImportarVistas(ControladorVistaNave n, ControladorVistaRuta r, ControladorVistaGalaxia g) {
-        vn = n.ConsultarVistaNave();
-        vr = r.ConsultarVistaRuta();
+    public void ImportarVistas(/*ControladorVistaNave n, ControladorVistaRuta r, */ControladorVistaGalaxia g) {
+        //vn = n.ConsultarVistaNave();
+        //vr = r.ConsultarVistaRuta();
         //vg = g.ConsultarVistaGalaxia();
-        //cg = g;
+        cg = g.consultarControladorGalaxia();
     }
     
     public ControladorPlaneta ConsultarControladorPlaneta() {
@@ -36,21 +36,21 @@ class ControladorVistaPlaneta {
         Pair<Integer,Integer> p = new Pair(x,y);
         cp.Planeta(Nombre,c,p,cg);
         //vg.ActualizarPlanetas();
-        vn.ActualizarPlanetas();
+        //vn.ActualizarPlanetas();
         //vr.ActualizarPlanetas();
     }
     
     public void CrearPlaneta() throws Exception {
        cp.PlanetaAuto(cg);
        //vg.ActualizarPlanetas();
-       vn.ActualizarPlanetas();
+      // vn.ActualizarPlanetas();
        //vr.ActualizarPlanetas();
     }
     
     public void CrearPlaneta(String Nombre) throws Exception {
         cp.PlanetaAuto(Nombre,cg);
         //vg.ActualizarPlanetas();
-        vn.ActualizarPlanetas();
+        //vn.ActualizarPlanetas();
         //vr.ActualizarPlanetas();
     }
     
