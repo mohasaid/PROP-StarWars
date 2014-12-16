@@ -13,6 +13,7 @@ import java.lang.reflect.Method;
 
 public class VistaGalaxia extends PrimerNivel {
 	/* VARIABLES */
+    private boolean teForma = false;
     private ControladorVistaGalaxia cvg;
     private String path;
 	
@@ -46,7 +47,52 @@ public class VistaGalaxia extends PrimerNivel {
     {
     	return this;
     }
-    // no hay nada que actualizar en la lista
+    
+    public void actualitza(boolean teforma) // ya se ha creado
+    {
+        textfield4.setText(cvg.consultarNomGalaxia()); // nombre actual modificar
+        textfield6.setText(String.valueOf(cvg.consultarLimit())); // limite actual modificar
+        
+        textfield10.setText(cvg.consultarNomGalaxia()); // nombre actual consulta
+        textfield11.setText(String.valueOf(cvg.consultarLimit())); // limite actual consulta
+        
+        forma.setN(String.valueOf(cvg.consultarLimit())); // dibujo modificar
+        forma1.setN(String.valueOf(cvg.consultarLimit())); // dibujo consultar
+                
+        dibujo = new JScrollPane(forma);
+        dibujo.setBounds(420, 30, 250, 250);
+        Modificar.add(dibujo);
+        
+        dibujo1 = new JScrollPane(forma1);
+        dibujo1.setBounds(225,170,250,250);
+        Consultar.add(dibujo1);
+        
+        if(teforma) {
+            forma.PonTodos(cvg.consultarLimits()); // forma modificar
+            forma1.PonTodos(cvg.consultarLimits()); // forma consultar
+        }   
+    }
+    
+    public void actualitza2(boolean teforma)
+    {
+        textfield4.setText(cvg.consultarNomGalaxia()); // nombre actual modificar
+        textfield6.setText(String.valueOf(cvg.consultarLimit())); // limite actual modificar
+        
+        textfield10.setText(cvg.consultarNomGalaxia()); // nombre actual consulta
+        textfield11.setText(String.valueOf(cvg.consultarLimit())); // limite actual consulta
+        
+        forma.setN(String.valueOf(cvg.consultarLimit())); // dibujo modificar
+        forma1.setN(String.valueOf(cvg.consultarLimit())); // dibujo consultar
+                
+        Modificar.add(dibujo);
+        Consultar.add(dibujo1);
+        
+        if(teforma) {
+            forma.PonTodos(cvg.consultarLimits()); // forma modificar
+            forma1.PonTodos(cvg.consultarLimits()); // forma consultar
+        }   
+    }
+
     public VistaGalaxia(ControladorVistaGalaxia cVG)
     {    	
     	cvg = cVG;
@@ -103,8 +149,7 @@ public class VistaGalaxia extends PrimerNivel {
         label15 = new JLabel("Limit :");
         textfield11 = new JTextField(); // limite
         // -> FORMA DIBUJARLA
-        //dibujo = new JScrollPane();
-        //dibujo1 = new JScrollPane();
+        
         forma = new Grid();
         forma1 = new Grid();
         label16 = new JLabel("Forma :"); // forma
@@ -130,7 +175,7 @@ public class VistaGalaxia extends PrimerNivel {
         add(btnMissatge);
     	Errores = new JTextField();
     	Errores.setEditable(false);
-        Errores.setBackground(SystemColor.activeCaption);
+        Errores.setBackground(SystemColor.white);
         Errores.setBounds(75,475,700,25);
         Errores.setVisible(true);
     	add(Errores);
@@ -226,9 +271,7 @@ public class VistaGalaxia extends PrimerNivel {
         textfield4.setEnabled(false);
         textfield4.setForeground(Color.BLACK);
         textfield4.setBounds(125, 70, 200, 25);
-        if(!(nomActual == null)) {
-            textfield4.setText(nomActual);
-        }
+             
         Modificar.add(textfield4);
 
         label7.setForeground(SystemColor.activeCaptionText); // nombre nuevo
@@ -247,9 +290,7 @@ public class VistaGalaxia extends PrimerNivel {
         textfield6.setEnabled(false);
         textfield6.setForeground(Color.BLACK);
         textfield6.setBounds(125, 140, 200, 25);
-        if(!(LimitActual == null)) {
-            textfield6.setText(LimitActual);
-        }
+        
         Modificar.add(textfield6);
         label9.setForeground(SystemColor.activeCaptionText); // limite nuevo
         label9.setBounds(75, 270, 100, 100);
@@ -297,36 +338,13 @@ public class VistaGalaxia extends PrimerNivel {
         textfield10.setForeground(Color.BLACK);
         textfield10.setBounds(125, 70, 200, 25);
         Consultar.add(textfield10);
-        
-        //if(!(cvg.consultarNomGalaxia() == null)) textfield10.setText(cvg.consultarNomGalaxia());
-        
+              
         textfield11.setDisabledTextColor(SystemColor.desktop); // LIMITE
         textfield11.setEnabled(false);
         textfield11.setForeground(Color.BLACK);
         textfield11.setBounds(125, 140, 200, 25);
         Consultar.add(textfield11);
-        
-        //if(!(cvg.consultarLimit() == 0)) textfield11.setText(String.valueOf(cvg.consultarLimit()));
-        
-        if(!(limitsActual == null)) 
-        {
-            forma.setN(LimitActual);
-            forma.PonTodos(limitsActual);
-            dibujo = new JScrollPane(forma);
-            dibujo.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            dibujo.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS); 
-            dibujo.setBounds(420, 30, 250, 250);
-            Modificar.add(dibujo);
-            
-            forma1.setN(LimitActual);
-            forma1.PonTodos(limitsActual);
-            dibujo1 = new JScrollPane(forma1);
-            dibujo1.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-            dibujo1.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            dibujo1.setBounds(225,180,240,225);
-            Consultar.add(dibujo1);
-        }
-        
+                        
     	/* LISTENERS */
         // ACTIVAR O DESACTIVAR CAMPO FORMA
         AmbForma.addActionListener
@@ -380,24 +398,16 @@ public class VistaGalaxia extends PrimerNivel {
                 public void actionPerformed(ActionEvent ae) {
                     nomActual = textfield1.getText();
                     LimitActual = textfield2.getText();
+                    limitsActual = textfield3.getText();
                     try {
                         if(AmbForma.isSelected()) {
-                                limitsActual = textfield3.getText();
                                 cvg.creaGalaxia2(nomActual, LimitActual, limitsActual); // mirar esto
-                                forma.setN(LimitActual);
-                                forma.PonTodos(limitsActual);
-                                textfield4.setText(nomActual);
-                                textfield6.setText(LimitActual);
-                                textfield10.setText(nomActual);
-                                textfield11.setText(LimitActual);
+                                actualitza(true);
+                                teForma = true;
                         }
                         else if(SenseForma.isSelected()) {
                                 cvg.creaGalaxia(nomActual, LimitActual);
-                                forma.setN(LimitActual);
-                                textfield4.setText(nomActual);
-                                textfield6.setText(LimitActual);
-                                textfield10.setText(nomActual);
-                                textfield11.setText(LimitActual);
+                                actualitza(false);
                         }
                     }
                     catch (Exception ex) {
@@ -414,47 +424,33 @@ public class VistaGalaxia extends PrimerNivel {
         (
             new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
-                            nomActual = textfield4.getText();
-                            LimitActual = textfield5.getText();
+                        nomActual = textfield4.getText();
+                        LimitActual = textfield5.getText();
 
-                            NomNou = textfield7.getText();
-                            LimitNou = textfield8.getText();
-                            limitsNous = textfield9.getText();
-                            // Puede modificar el nombre, trim quita los espacios en blanco
-                            try {
-                                    if(!NomNou.trim().isEmpty() && !NomNou.equals(nomActual)) {
-                                            cvg.modificarNom(NomNou);
-                                    }
+                        NomNou = textfield5.getText();
+                        LimitNou = textfield7.getText();
+                        limitsNous = textfield9.getText();
+
+                        try {
+                            if(!NomNou.trim().isEmpty() && !NomNou.equals(cvg.consultarNomGalaxia())) {
+                                cvg.modificarNom(NomNou);
                             }
-                            catch (Exception e) { 
-                                    Errores.setText(e.getMessage()); 
+                            if(!LimitNou.trim().isEmpty() && !LimitNou.equals(String.valueOf(cvg.consultarLimit()))) {
+                                cvg.modificarLimit(LimitNou);
                             }
-                            // Puede modificar el limite
-                            try {
-                                    if(!LimitNou.trim().isEmpty() && !LimitNou.equals(LimitActual)) {
-                                            cvg.modificarLimit(LimitNou);
-                                            forma.setN(LimitNou);
-                                    }
+                            if(AmbForma1.isSelected()) {
+                                 if(!limitsNous.trim().isEmpty() && !limitsNous.equals(cvg.consultarLimits())) {
+                                     cvg.modificarLimits(limitsNous);
+                                 }
                             }
-                            catch (Exception e) { 
-                                    Errores.setText(e.getMessage()); 
-                            }
-                            // Puede modificar la forma
-                            try {
-                                    if(!limitsNous.trim().isEmpty() && !limitsNous.equals(limitsActual)) {
-                                            cvg.modificarLimits(limitsNous);
-                                            forma.PonTodos(limitsActual);
-                                    }
-                            }
-                            catch (Exception e) { 
-                                    Errores.setText(e.getMessage()); 
-                            }
-                            textfield4.setText("");
-                            textfield5.setText("");
-                            textfield6.setText("");
-                            textfield7.setText("");
-                            textfield8.setText("");
-                            textfield9.setText("");
+                            actualitza2(false);
+                        }
+                        catch (Exception e) { 
+                            Errores.setText(e.getMessage()); 
+                        }
+                        textfield5.setText(""); // quitamos lo que habia en el recuadro
+                        textfield7.setText("");
+                        textfield9.setText("");
                     }
         });
         
@@ -497,7 +493,6 @@ public class VistaGalaxia extends PrimerNivel {
             public void actionPerformed(ActionEvent e) {
                 Errores.setText("");
             }
-        });
-        
+        });        
     }
 }
