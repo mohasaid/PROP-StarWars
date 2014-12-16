@@ -623,4 +623,37 @@ public class ControladorNave{
 			    		if(n.consultar_destino().compareTo(id) == 0 || n.consultar_origen().compareTo(id) == 0) EliminarNave(n.consultar_id());
 			    	}
 			    }
+			    /**
+				 * Metodo que te devuelve el conjunto de origenes y destinos de todas las naves, junto el numero de naves que los tienen
+				 * @return
+				 */
+				public ArrayList<Pair<Integer, Pair<String, String>>> consultaPAOR()
+				{
+					ArrayList<Pair<Integer, Pair<String, String> > > api = new ArrayList<Pair<Integer, Pair<String, String>>>();
+					Inicializar();
+					while(itc.hasNext()) {
+						int num = 1;
+						Nave aux = itc.next();
+						String or = aux.consultar_origen();
+						String de = aux.consultar_destino();
+						Pair<String, String> p = new Pair<String, String>(or,de);
+						Pair<Integer, Pair<String, String>> p1 = new Pair<Integer, Pair<String, String>>(num, p);
+						boolean trobat = false;
+						if(!api.isEmpty()) {
+							for(int i = 0; i < api.size(); ++i) {
+								String ori = api.get(i).consultarSegundo().consultarPrimero();
+								String dest = api.get(i).consultarSegundo().consultarPrimero();
+								if((ori.compareTo(or) == 0) && (dest.compareTo(de) == 0)) {
+									trobat = true;
+									num = api.get(i).consultarPrimero();
+									++num;
+									api.get(i).ponPrimero(num);
+								}
+							}
+							if(!trobat) api.add(p1);
+						}
+						else api.add(p1);
+					}
+					return api;
+				}
 }
