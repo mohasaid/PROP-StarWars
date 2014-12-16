@@ -6,12 +6,8 @@ public class ControladorVistaMFP {
     private ControladorGalaxia cg;
     private ControladorPlaneta cp;
     private ControladorRuta cr;
-    private COntroladorNave cn;
+    private ControladorNave cn;
     private ControladorMFP cmfp;
-            
-    public void actualiza() {
-        vMFP.actualiza();
-    }
     
     public void Importar(ControladorGalaxia g, ControladorPlaneta p, ControladorRuta r, ControladorNave n) {
         cg = g;
@@ -20,27 +16,29 @@ public class ControladorVistaMFP {
         cr = r;
                 
     }
+     
+    
     public VistaMFP ConsultarVistaMFP() {
         return vMFP;
     }
     
     public ControladorVistaMFP() {
         vMFP = new VistaMFP(this);
-        E = new Entrada();
+//        E = new Entrada();
         cmfp = new ControladorMFP();
         cmfp.AnadirEntrada(E);
         
     }
     
-    public void SeleccionarAlgoritmo(int i) {
+    public void SeleccionarAlgoritmo(int i) throws Exception {
         cmfp.SeleccionarAlgoritmo(i, cn, cr, cp);
     }
     
-    public void SeleccionarFuncionCoste(int i) {
+    public void SeleccionarFuncionCoste(int i) throws Exception {
         cmfp.SeleccionarFC(i, cg, cr, cp, cn);
     }
     
-    public void Ejecutar() {
+    public void Ejecutar() throws Exception {
         cmfp.Executa(cn, cr, cp);
     }
     public String ConsultarSalida() {
