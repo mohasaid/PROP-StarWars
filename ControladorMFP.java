@@ -103,9 +103,11 @@ public class ControladorMFP {
 			System.out.println("0 planeta b = " + act.consultar_planetaB());
 			System.out.println("----");
 		}*/
+		
 		int tam = g_res.sizeGrafo();
 		
 		String way = "";
+		String parcial = "";
 		for(int in = 0; in < paor.size(); ++in) {
 			String orig = paor.get(in).consultarSegundo().consultarPrimero();
 			String dest = paor.get(in).consultarSegundo().consultarSegundo();
@@ -125,44 +127,24 @@ public class ControladorMFP {
 				int d1 = pla.indexOf(dest);
 				int v, u;
 				way += "Por el camino ";
-				// String parcial += d1;
-				way += d1;
+				parcial += d1;
 				for(v = d1; v != o1; v = a[v]) {
 					u = a[v];
-					way += "<=" + u;
-					// parcial += "<=" + u;
-					/*int cap = g_res.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
-					System.out.println("capacidad antes = " + cap);
-					cap = cap - num;
-					System.out.println("capacidad despues = " + cap);
-					cuello de botella entre u-v
-					if(cap == 0) {
-						System.out.println("CUELLO DE BOTELLA ENCONTRADO");
-						String a1 = pla.get(v);
-						String a2 = pla.get(u);
-						boolean trobat = false;
-						int idr = 0;
-						for(int k = 0; k < con.size() && !trobat; ++k) { // no va conexiones
-							if(((con.get(k).consultar_planetaA().compareTo(a2) == 0) && (con.get(k).consultar_planetaB().compareTo(a1) == 0))) {
-								trobat = true;
-								idr = con.get(k).consultar_id();
-								System.out.println("EN LA RUTA " + idr);
-							}
-						}
-						if(trobat) s.AnadirCuello(idr);
-					}*/
+					parcial += "<=" + u;
 				}
-				// parcial = toPlanetes(parcial,pla);
-				// way += parcial +  " pasan " + n_final + " naves";
-				way += " pasan " + n_final + " naves";
+				parcial = toPlanetes(parcial,pla);
+				way += parcial +  " pasan " + n_final + " nave/s";
 				System.out.println(" -- way --");
 				System.out.println(way);
 				s.AnadirCamino(way);
+				parcial = "";
 				way = "";
 				int naus = paor.get(in).consultarPrimero();
 				a = s.Caminos(g_res, naus, orig, dest, (fc instanceof FuncionPrecio), r, pla);
 			}
 		}
+		
+		// SI HAY NAVES QUE VAYAN HACIA UN LUGAR Y NO PUEDEN PASAR ANADIR CUELLO DE BOTELLA
 		
 		// calcular los cuellos de botella
 		int V = g_res.sizeGrafo();
@@ -190,7 +172,7 @@ public class ControladorMFP {
 						String pb = pla.get(adj);
 						int idr = 0;
 						boolean trobat = false;
-						for(int k = 0; k < con.size() && !trobat; ++k) { // no va conexiones
+						for(int k = 0; k < con.size() && !trobat; ++k) {
 							if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
 								trobat = true;
 								idr = con.get(k).consultar_id();
