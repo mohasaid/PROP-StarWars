@@ -1,9 +1,9 @@
+/**
+ *
+ * @author Moha
+ */
 import javax.swing.UIManager;
- 
 public class Main {
-    /**
-     * Launch the application.
-     */
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(
         		new Runnable() {
@@ -11,22 +11,11 @@ public class Main {
 		                try {
 		                     try {
 		                       UIManager.setLookAndFeel("com.seaglasslookandfeel.SeaGlassLookAndFeel");
-		                     } 
+		                     }
 		                     catch (Exception e) {}
 		                     
-		                    //ControladorVistaGalaxia cVistaGalaxia = new ControladorVistaGalaxia();
-		                    //ControladorVistaPlaneta cVistaPlaneta = new ControladorVistaPlaneta();
-		                    ControladorVistaRuta cVistaRuta = new ControladorVistaRuta();
-		                    //ControladorVistaNave cVistaNave = new ControladorVistaNave();
-		                    //ControladorVistaMFP cVistaMFP = new ControladorVistaMFP();
-		                    
-		                    //cVistaGalaxia.inicialitza(cVistaPlaneta,cVistaTerraformacio);                   
-		                    //cVistaPlaneta.inicialitza(cVistaGalaxia, cVistaPaquet, cVistaRecurs);
-		                    //cVistaRuta.inicialitza(cVistaPlaneta, cVista);
-		                    //cVistaNave.inicialitza(cVistaPlaneta, cVistaPaquet, cVistaTerraformacio);
-		                    //cVistaMFP.inicialitza(cVistaGalaxia,cVistaPlaneta);                       
-		                     
-		                    Main_vistes frame = new Main_vistes(/*cVistaGalaxia,cVistaPlaneta,*/cVistaRuta/*,cVistaNave,cVistaMFP*/);
+		                    ControladorVistaGalaxia cVistaGalaxia = new ControladorVistaGalaxia();		                     
+		                    VistaPrincipal frame = new VistaPrincipal(cVistaGalaxia);
 		                    frame.setVisible(true);                                
 		                }
 		                catch (Exception e) {
@@ -35,5 +24,4 @@ public class Main {
 		            }
         	    });
     }
-     
 }
