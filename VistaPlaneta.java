@@ -1,4 +1,3 @@
-package javaapplication7;
 
 
 import java.awt.Color;
@@ -11,8 +10,6 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import javaapplication7.PrimerNivel;
-import javaapplication7.RoundedPanel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -28,9 +25,9 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.BevelBorder;
 
-
-    //private ControladorVistaPlaneta CVP;
+    
 public class VistaPlaneta extends PrimerNivel {
+    private ControladorVistaPlaneta CVP;
     private DefaultListModel<String> mlistado;
     private ArrayList<String> listado;
     private ArrayList<String> listado1;
@@ -44,19 +41,16 @@ public class VistaPlaneta extends PrimerNivel {
     //Botones
     private JButton CrearPlaneta;
     private JButton ModificarPlaneta;
-    
+    private JButton btnMissatge;
     //Casillas
     private JRadioButton Manual;
     private JRadioButton Automatico;
     private JRadioButton AutomaticoCN;
 
-    VistaPlaneta(ControladorVistaPlaneta aThis) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
     
     public void actualiza() {
         try {
-            /*mlistado.removeAllElements();
+            mlistado.removeAllElements();
             listado1 = CVP.ConsultarNombresPlanetas(i);
             listado2 = CVP.ConsultarNombresPlanetas(j);
             listado = CVP.ConsultarNombresPlanetas();
@@ -74,7 +68,7 @@ public class VistaPlaneta extends PrimerNivel {
                 listaScroll1.setModel(mlistado);
                 listaScroll1.revalidate();
                 listaScroll1.repaint();
-            } */       
+            }        
         }
         catch (Exception e) {
             System.out.print(e);
@@ -83,7 +77,7 @@ public class VistaPlaneta extends PrimerNivel {
     
     public void actualizaListaUP(){
             try{
-                /*if(i-100>=0){
+                if(i-100>=0){
                 j=i;
                 i-=100;
                 mlistado.removeAllElements();
@@ -95,7 +89,7 @@ public class VistaPlaneta extends PrimerNivel {
                 listaScroll2.setModel(mlistado);
                 listaScroll2.revalidate();
                 listaScroll2.repaint();
-                }*/
+                }
             }
             catch (Exception e) {
                 Errores.setText(e.getMessage());
@@ -103,7 +97,7 @@ public class VistaPlaneta extends PrimerNivel {
         }
      public void actualizaListaDown(){
             try{
-                /*if(j+100<CVP.size()){
+                if(j+100<CVP.size()){
                     i=j;
                     j+=100;
                     mlistado.removeAllElements();
@@ -115,15 +109,15 @@ public class VistaPlaneta extends PrimerNivel {
                     listaScroll2.setModel(mlistado);
                     listaScroll2.revalidate();
                     listaScroll2.repaint();
-                }*/
+                }
             }
                         catch (Exception e) {
                 Errores.setText(e.getMessage());
             }
         }
-    public VistaPlaneta(/*ControladorVistaPlaneta ControladorVP*/) {
-        //CVP = ControladorVP;
-//        setOpaque(false);          
+    public VistaPlaneta(ControladorVistaPlaneta ControladorVP) {
+        CVP = ControladorVP;
+        setOpaque(false);          
         setBackground(Color.WHITE); //Marco
         setLayout(null);
         
@@ -131,17 +125,22 @@ public class VistaPlaneta extends PrimerNivel {
         mlistado = new DefaultListModel<String>();
         listado1 = new ArrayList<String>();
         
-        label20 = new JLabel("   Error");
-        label20.setBounds(50,620,75,30);
-        label20.setOpaque(true);
-        label20.setBackground(SystemColor.activeCaption);
-        add(label20);
-        Errores = new JTextField();
-        Errores.setEditable(false);
-        Errores.setBackground(SystemColor.activeCaption);
-        Errores.setBounds(125, 620, 780, 30); //FALTA
-        add(Errores);
+        btnMissatge = new JButton("Error");
+        btnMissatge.setBounds(0,475,75,25);
+        btnMissatge.setBackground(SystemColor.activeCaption);
+        add(btnMissatge);
+    	Errores = new JTextField();
+    	Errores.setEditable(false);
+        Errores.setBackground(SystemColor.white);
+        Errores.setBounds(75,475,700,25);
         Errores.setVisible(true);
+    	add(Errores);
+        
+        btnMissatge.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Errores.setText("");
+            }
+        }); 
         
         Scroll = new JScrollPane();
         listaScroll2 = new JList(mlistado);
@@ -152,7 +151,7 @@ public class VistaPlaneta extends PrimerNivel {
         listaScroll2.setBackground(SystemColor.inactiveCaptionBorder); 
         Scroll.setViewportView(listaScroll2); 
         Scroll = new JScrollPane(listaScroll2);
-        Scroll.setBounds(780,180,120,420);
+        Scroll.setBounds(720,65,120,390);
         Scroll.setPreferredSize(new Dimension(152,217));
         add(Scroll);
         
@@ -182,9 +181,9 @@ public class VistaPlaneta extends PrimerNivel {
                 try { 
                     Errores.setText(n);
                     textfield1.setText(n);
-       //             textfield2.setText(CVP.ConsultarCoste(n));
-         //           textfield3.setText(CVP.ConsultarCoordenadaX(n));
-           //         textfield4.setText(CVP.ConsultarCoordenadaY(n));
+                    textfield2.setText(CVP.ConsultarCoste(n));
+                    textfield3.setText(CVP.ConsultarCoordenadaX(n));
+                    textfield4.setText(CVP.ConsultarCoordenadaY(n));
                 } 
                 catch (Exception e) { 
                     Errores.setText(e.getMessage()); 
@@ -194,7 +193,7 @@ public class VistaPlaneta extends PrimerNivel {
         });
         
         CB = new JComboBox<String>();
-        CB.setBounds(780, 120, 120, 30);
+        CB.setBounds(720,15 , 120, 30);
         add(CB);
         CB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
@@ -203,9 +202,9 @@ public class VistaPlaneta extends PrimerNivel {
                     if(!n.equals("")){
                         Errores.setText("");
                         textfield1.setText(n);
-             //           textfield2.setText(CVP.ConsultarCoste(n));
-             //           textfield3.setText(CVP.ConsultarCoordenadaX(n));
-             //           textfield4.setText(CVP.ConsultarCoordenadaY(n));
+                        textfield2.setText(CVP.ConsultarCoste(n));
+                        textfield3.setText(CVP.ConsultarCoordenadaX(n));
+                        textfield4.setText(CVP.ConsultarCoordenadaY(n));
                         actualiza();
                     }   
                 }
@@ -219,10 +218,10 @@ public class VistaPlaneta extends PrimerNivel {
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBorder(null);
         Central.setBackground(SystemColor.activeCaption);
-        Central.setBounds(50, 100, 700, 500); //A la espera de consenso
+        Central.setBounds(0, 0, 700, 450); //A la espera de consenso
         add(Central);
         
-        Crear = new RoundedPanel();
+        Crear = new JPanel();
         Crear.setBackground(SystemColor.activeCaption);
         Crear.setBounds(0, 0, 700, 500);
         Central.addTab("Crear",null,Crear,null);
@@ -342,13 +341,9 @@ public class VistaPlaneta extends PrimerNivel {
         
         CrearPlaneta = new JButton("Crear");
         CrearPlaneta.setIcon(null);
-        CrearPlaneta.setBounds(250, 385, 200, 50);
+        CrearPlaneta.setBounds(250, 365, 200, 50);
         Crear.add(CrearPlaneta);
-        /*
-        HelpNombre = new JLabel("");
-        HelpNombre.setToolTipText("El Nombre tiene que estar compuesto por caracteres alfanumericos.");
-        HelpNombre.setIcon(null);
-        */
+        
         
         CrearPlaneta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
@@ -358,16 +353,16 @@ public class VistaPlaneta extends PrimerNivel {
                         String c = textfield9.getText();
                         String x = textfield10.getText();
                         String y = textfield11.getText();
-               //         CVP.CrearPlaneta(n, c, x, y);
+                        CVP.CrearPlaneta(n, c, x, y);
                         actualiza();
                     }
                     if(Automatico.isSelected()) {
-                //        CVP.CrearPlaneta();
+                        CVP.CrearPlaneta();
                         actualiza();
                     }
                     else {
                         String n = textfield1.getText();
-                  //      CVP.CrearPlaneta(n);
+                        CVP.CrearPlaneta(n);
                     }
                 }
                 catch (Exception e) {
@@ -464,7 +459,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         ModificarPlaneta = new JButton("Modificar");
         ModificarPlaneta.setIcon(null);
-        ModificarPlaneta.setBounds(250, 385, 200, 50);
+        ModificarPlaneta.setBounds(250, 365, 200, 50);
         Modificar.add(ModificarPlaneta);
         ModificarPlaneta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
@@ -473,11 +468,11 @@ public class VistaPlaneta extends PrimerNivel {
                     String c = textfield5.getText();
                     String x = textfield6.getText();
                     String y = textfield7.getText();
-                    /*if(!c.isEmpty()) CVP.ModificarCoste(nac, c);
+                    if(!c.isEmpty()) CVP.ModificarCoste(nac, c);
                     if(!x.isEmpty() && !y.isEmpty()) CVP.ModificarCoordenadas(nac, x, y);
                     else if(x.isEmpty() && !y.isEmpty()) CVP.ModificarCoordenadas(nac, CVP.ConsultarCoordenadaX(nac), y);
                     else if(y.isEmpty() && !x.isEmpty()) CVP.ModificarCoordenadas(nac, x, CVP.ConsultarCoordenadaY(nac));
-                    */
+                    
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -543,9 +538,10 @@ public class VistaPlaneta extends PrimerNivel {
         FrameGuardar.setLayout(null);
         
         Guardar = new JFileChooser();
-        Guardar.setBounds(0, 0, 670, 450);
+        Guardar.setBounds(0, 0, 690, 390);
         Guardar.setAutoscrolls(true);
-        Guardar.setPreferredSize(new Dimension(WIDTH,WIDTH));
+        Guardar.setMinimumSize(new Dimension(200, 245)); 
+        Guardar.setPreferredSize(new Dimension(365, 200));
         FrameGuardar.add(Guardar);
         Guardar.setDialogTitle("Guardar");
         
@@ -553,7 +549,7 @@ public class VistaPlaneta extends PrimerNivel {
             public void actionPerformed (ActionEvent a) {
                 try {
                     String path = Guardar.getSelectedFile().getAbsolutePath();
-                    //CVP.GuardarPlanetas(path);
+                    CVP.GuardarPlanetas(path);
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -567,9 +563,10 @@ public class VistaPlaneta extends PrimerNivel {
         FrameCargar.setLayout(null);
         
         Cargar = new JFileChooser();
-        Cargar.setBounds(0, 0, 670, 450);
+        Cargar.setBounds(0, 0, 690, 390);
         Cargar.setAutoscrolls(true);
-        Cargar.setPreferredSize(new Dimension(WIDTH,WIDTH));
+        Cargar.setMinimumSize(new Dimension(200, 245)); 
+        Cargar.setPreferredSize(new Dimension(365, 200));
         FrameCargar.add(Cargar);
         Cargar.setDialogTitle("Cargr");
         
@@ -577,7 +574,7 @@ public class VistaPlaneta extends PrimerNivel {
             public void actionPerformed(ActionEvent a) {
                 try{
                     String path = Cargar.getSelectedFile().getAbsolutePath();
-                   // CVP.CargarPlanetas(path);
+                    CVP.CargarPlanetas(path);
                     actualiza();
                 }
                 catch (Exception e) {
