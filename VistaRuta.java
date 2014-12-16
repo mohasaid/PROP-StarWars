@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.AdjustmentEvent;
 import java.awt.event.AdjustmentListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
@@ -85,15 +87,20 @@ public class VistaRuta extends PrimerNivel{
     public void actualiza() {
         try {
             mlistado.removeAllElements();
-            listado = CVR.obtenerIdRutas();
-            CBRutas.removeAllItems();
-            CBRutas.setEditable(false);
+            listado1 = CVR.ConsultarIdsRutas(i);
+            listado2 = CVR.ConsultarIdsRutas(j);
+            listado = CVR.ConsultarIdsRutas_string();
+            Errores.setText(String.valueOf(listado1.size()));
+            CB.removeAllItems();
+            CB.setEditable(false);
+            listaScroll1.removeAll();
             if (listado.size() != 0) {  
-                CBRutas.setEditable(true);
-                for (String s : listado) CBRutas.addItem(s);
-                for (String p : listado) mlistado.addElement(p);
-                CBRutas.revalidate();
-                CBRutas.repaint();
+                CB.setEditable(true);
+                for (String s : listado) CB.addItem(s);
+                for (String p : listado1) mlistado.addElement(p);
+                for (String p : listado2) mlistado.addElement(p);
+                CB.revalidate();
+                CB.repaint();
                 listaScroll1.setModel(mlistado);
                 listaScroll1.revalidate();
                 listaScroll1.repaint();
@@ -103,7 +110,6 @@ public class VistaRuta extends PrimerNivel{
             System.out.print(e);
         }
     }
-    
     public void actualizaListaUP(){
         try{
             if(i-100>=0){
@@ -148,8 +154,9 @@ public class VistaRuta extends PrimerNivel{
     
     public VistaRuta(ControladorVistaRuta ControladorVR) {
         CVR = ControladorVR;
-        //setOpaque(false);          
+        setOpaque(false);      
         setBackground(Color.WHITE); //Marco
+        setBounds(0,0,1000,450);
         setLayout(null);
         
         listaScroll1 = new JList<String>();
@@ -197,33 +204,59 @@ public class VistaRuta extends PrimerNivel{
         listaScroll2.setVisibleRowCount(10);
         listaScroll2.setValueIsAdjusting(true);
         listaScroll2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        listaScroll2.setBorder(new BevelBorder(BevelBorder.LOWERED, SystemColor.activeCaptionBorder, null, null, null));
-        listaScroll2.setBackground(SystemColor.inactiveCaptionBorder);
-        Scroll.setViewportView(listaScroll2);
+        listaScroll2.setBorder(new BevelBorder(BevelBorder.LOWERED, SystemColor.activeCaptionBorder, null, null, null)); 
+        listaScroll2.setBackground(SystemColor.inactiveCaptionBorder); 
+        Scroll.setViewportView(listaScroll2); 
         Scroll = new JScrollPane(listaScroll2);
-        Scroll.setBounds(780,180,120,420);
+        Scroll.setBounds(720,65,120,390);
         Scroll.setPreferredSize(new Dimension(152,217));
         add(Scroll);
+        
         AdjustmentListener adjustmentListener = new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
                 if(Scroll.getVerticalScrollBar().getValue()== Scroll.getVerticalScrollBar().getMaximum()-Scroll.getVerticalScrollBar().getVisibleAmount()){
                     actualizaListaDown();
                 }
-               
+                
                 if(Scroll.getVerticalScrollBar().getValue()==Scroll.getVerticalScrollBar().getMinimum()){
                     actualizaListaUP();
                 }
-                       
+                        
             }
         };
-               
+                
         Scroll.getVerticalScrollBar().addAdjustmentListener(adjustmentListener);
+   
+           
+        listaScroll2.addMouseListener(new MouseAdapter () 
+        {        
+            public void mouseClicked(MouseEvent mouseEvent) {           
+              int index = listaScroll2.locationToIndex(mouseEvent.getPoint()); 
+              if (index >= 0) { 
+                String n = listaScroll2.getModel().getElementAt(index);
+                
+                try { 
+                    Errores.setText(n);
+                        textfield1.setText(n);
+                        textfield2.setText(CVR.ConsultarCapacidadRuta(n));
+                        textfield3.setText(CVR.ConsultarDistanciaRuta(n));
+                        textfield4.setText(CVR.ConsultarPlanetaARuta(n));
+                        textfield5.setText(CVR.ConsultarPlanetaBRuta(n));
+                } 
+                catch (Exception e) { 
+                    Errores.setText(e.getMessage()); 
+                } 
+              } 
+            } 
+        });
         
-        CBRutas = new JComboBox<String>();
-        CBRutas.addActionListener(new ActionListener() {
+        CB = new JComboBox<String>();
+        CB.setBounds(720,15 , 120, 30);
+        add(CB);
+        CB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
-                    String n = CBRutas.getSelectedItem().toString();
+                    String n = CB.getSelectedItem().toString();
                     if(!n.equals("")){
                         Errores.setText("");
                         textfield1.setText(n);
@@ -231,6 +264,7 @@ public class VistaRuta extends PrimerNivel{
                         textfield3.setText(CVR.ConsultarDistanciaRuta(n));
                         textfield4.setText(CVR.ConsultarPlanetaARuta(n));
                         textfield5.setText(CVR.ConsultarPlanetaBRuta(n));
+                        actualiza();
                     }   
                 }
                 catch (Exception e) {
@@ -238,6 +272,8 @@ public class VistaRuta extends PrimerNivel{
                 }
             }
         });
+
+        
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBackground(SystemColor.activeCaption);
         Central.setBounds(0,0,700,450);
@@ -591,10 +627,6 @@ public class VistaRuta extends PrimerNivel{
         Consultar.setBackground(SystemColor.activeCaption);
         Central.addTab("Consultar",null,Consultar,null);
         Consultar.setLayout(null);
-        
-        CB = new JComboBox<String>();
-        CB.setBounds(780,120,120,30);
-        add(CB);
         
         label1 = new JLabel("Id :");
         label1.setBounds(aux1,aux2,aux3,aux4);
