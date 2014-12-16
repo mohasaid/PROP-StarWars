@@ -240,7 +240,7 @@ public class VistaRuta extends PrimerNivel{
         });
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBackground(SystemColor.activeCaption);
-        Central.setBounds(50,100,700,500);
+        Central.setBounds(0,0,700,500);
         add(Central);
         
         Crear = new JPanel();
