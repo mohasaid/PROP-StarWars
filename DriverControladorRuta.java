@@ -79,7 +79,7 @@ public class DriverControladorRuta {
 	            case 24: TestControladorBorrarRuta(cin,cr,cp);break;
 	            case 25: TestControladorBorrarTodasRutas(cin,cr);break;
 	              
-	            case 26: TestControladorCargarRutas(cin,cr);break;
+	            case 26: TestControladorCargarRutas(cin,cr,cp);break;
 	            case 27: TestControladorGuardarRutas(cin,cr);break;
 	            default: System.out.println("Opcion incorrecta");
             }
@@ -112,10 +112,10 @@ public class DriverControladorRuta {
 		}
     }
     
-    public void  TestControladorCargarRutas(Scanner cin, ControladorRuta cr)
+    public void  TestControladorCargarRutas(Scanner cin, ControladorRuta cr, ControladorPlaneta cp)
     {
     	try {
-    		cr.CargarRutas( cin.next() );
+    		cr.CargarRutas( cin.next(),cp );
 		}
 		catch (Exception e){
             System.out.print(e);
