@@ -1,5 +1,3 @@
-package prop1;
-
 import java.util.*;
 import java.io.*;
 
@@ -623,6 +621,7 @@ public class ControladorNave{
 			    		if(n.consultar_destino().compareTo(id) == 0 || n.consultar_origen().compareTo(id) == 0) EliminarNave(n.consultar_id());
 			    	}
 			    }
+			    
 			    /**
 				 * Metodo que te devuelve el conjunto de origenes y destinos de todas las naves, junto el numero de naves que los tienen
 				 * @return
@@ -642,8 +641,8 @@ public class ControladorNave{
 						if(!api.isEmpty()) {
 							for(int i = 0; i < api.size(); ++i) {
 								String ori = api.get(i).consultarSegundo().consultarPrimero();
-								String dest = api.get(i).consultarSegundo().consultarPrimero();
-								if((ori.compareTo(or) == 0) && (dest.compareTo(de) == 0)) {
+								String dest = api.get(i).consultarSegundo().consultarSegundo();
+								if((ori.equals(or)) && (dest.equals(de))) {
 									trobat = true;
 									num = api.get(i).consultarPrimero();
 									++num;
