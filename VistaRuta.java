@@ -314,72 +314,70 @@ public class VistaRuta extends PrimerNivel{
         label1.setBounds(aux1, aux2, aux3, aux4); //Esperando
         Crear.add(label1);
         
-        textfield1 = new JTextField();
-        textfield1.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperando
-        Crear.add(textfield1);
-        textfield1.setColumns(10);  //??????
-        textfield1.setEnabled(false);
+        textfield19 = new JTextField();
+        textfield19.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperando
+        Crear.add(textfield19);
+        textfield19.setColumns(10);  //??????
+        textfield19.setEnabled(false);
         
         aux2+=80;
         label2 = new JLabel ("Capacidad :");
         label2.setBounds(aux1, aux2, aux3, aux4); //Esperar
         Crear.add(label2);
         
-        textfield2 = new JTextField();
-        textfield2.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
-        Crear.add(textfield2);
-        textfield2.setColumns(10);
-        textfield2.setEnabled(false);
+        textfield20 = new JTextField();
+        textfield20.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield20);
+        textfield20.setColumns(10);
+        textfield20.setEnabled(false);
         
         aux2+=80;
         label3 = new JLabel ("Distancia :");
         label3.setBounds(aux1, aux2, aux3, aux4); //Esperar
         Crear.add(label3);
         
-        textfield3 = new JTextField();
-        textfield3.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
-        Crear.add(textfield3);
-        textfield3.setColumns(10);
-        textfield3.setEnabled(false);
+        textfield21 = new JTextField();
+        textfield21.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield21);
+        textfield21.setColumns(10);
+        textfield21.setEnabled(false);
         
         aux2+=80;
         label4 = new JLabel("Planeta A :");
         label4.setBounds(aux1, aux2, aux3, aux4); //Esperar
         Crear.add(label4);
         
-        textfield4 = new JTextField();
-        textfield4.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
-        Crear.add(textfield4);
-        textfield4.setColumns(10);
-        textfield4.setEnabled(false);
+        textfield22 = new JTextField();
+        textfield22.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield22);
+        textfield22.setColumns(10);
+        textfield22.setEnabled(false);
              
         aux2+=80;
         label5 = new JLabel("Planeta B :");
         label5.setBounds(aux1, aux2, aux3, aux4); //Esperar
         Crear.add(label5);
         
-        textfield5 = new JTextField();
-        textfield5.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
-        Crear.add(textfield5);
-        textfield5.setColumns(10);
-        textfield5.setEnabled(false);
+        textfield23 = new JTextField();
+        textfield23.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        Crear.add(textfield23);
+        textfield23.setColumns(10);
+        textfield23.setEnabled(false);
         
         Manual.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()) {
-                        if (!textfield3.isEditable()) textfield3.setEnabled(true);
-                        textfield2.setEnabled(true);
-                        textfield4.setEnabled(true);
-                        textfield5.setEnabled(true);
-                        textfield2.setText("");
-                        textfield3.setText("");
-                        textfield4.setText("");
-                        textfield5.setText("");
-                        textfield2.setEditable(true);
-                        textfield3.setEditable(true); 
-                        textfield4.setEditable(true);
-                        textfield5.setEditable(true);   
+                        textfield19.setEnabled(true);
+                        textfield20.setEnabled(true);
+                        textfield21.setEnabled(true);
+                        textfield22.setEnabled(true);
+                        textfield23.setEnabled(true);
+                        textfield19.setText("");
+                        textfield20.setText("");
+                        textfield21.setText("");
+                        textfield22.setText("");
+                        textfield23.setText("");  
                         Automatico.setSelected(false);
                         Manual.setSelected(true);
                         AutomaticoCId.setSelected(false);
@@ -395,10 +393,11 @@ public class VistaRuta extends PrimerNivel{
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Automatico.isSelected()) {
-                        textfield1.setEnabled(false);
-                        textfield2.setEnabled(false);
-                        textfield4.setEnabled(false);
-                        textfield5.setEnabled(false);
+                        textfield19.setEnabled(false);
+                        textfield20.setEnabled(false);
+                        textfield21.setEnabled(false);
+                        textfield22.setEnabled(false);
+                        textfield23.setEnabled(false);
                         Automatico.setSelected(true);
                         Manual.setSelected(false);
                         AutomaticoCId.setSelected(false);
@@ -414,10 +413,12 @@ public class VistaRuta extends PrimerNivel{
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(AutomaticoCId.isSelected()) {
-                        textfield1.setEnabled(true);
-                        textfield2.setEnabled(false);
-                        textfield4.setEnabled(false);
-                        textfield5.setEnabled(false);
+                        textfield19.setEnabled(true);
+                        textfield20.setEnabled(false);
+                        textfield21.setEnabled(false);
+                        textfield22.setEnabled(false);
+                        textfield23.setEnabled(false);
+                        textfield19.setText("");
                         Manual.setSelected(false);
                         Automatico.setSelected(false);
                         AutomaticoCId.setSelected(true);
@@ -441,37 +442,35 @@ public class VistaRuta extends PrimerNivel{
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()){
-                        String n = textfield1.getText();
-                        String c = textfield2.getText();
-                        String d = textfield3.getText();
-                        String x = textfield4.getText();
-                        String y = textfield5.getText();
-                        //CVR.creaRuta(n,c,d,x,y);
+                        String n = textfield19.getText();
+                        String c = textfield20.getText();
+                        String d = textfield21.getText();
+                        String x = textfield22.getText();
+                        String y = textfield23.getText();
+                        CVR.creaRuta(n,c,d,x,y);
                         actualiza();
                     }
                     if(Automatico.isSelected()) {
-                        //CVR.creaRutaAut();
+                        CVR.creaRutaAut();
                         actualiza();
                     }
                     else {
-                        String n = textfield1.getText();
-                        //CVR.creaRutaAut_id(n);
+                        String n = textfield19.getText();
+                        CVR.creaRutaAut_id(n);
                     }
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
-                textfield1.setText("");
-                textfield2.setText("");
-                textfield3.setText("");
-                textfield4.setText("");
-                textfield5.setText("");
+                textfield19.setText("");
+                textfield20.setText("");
+                textfield21.setText("");
+                textfield22.setText("");
+                textfield23.setText("");
             }
         });
-     
         CrearRuta.setBounds(400, 350, 200, 50);
         Crear.add(CrearRuta);
-        
         
         
         aux1 = 75;
@@ -492,6 +491,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield1 = new JTextField();
         textfield1.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield1.setEnabled(false);
         Modificar.add(textfield1);
         textfield1.setColumns(10);  //??????
         
@@ -552,6 +552,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield6 = new JTextField();
         textfield6.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperar
+        textfield6.setEnabled(true);
         Modificar.add(textfield6);
         textfield6.setColumns(10);
         
@@ -562,6 +563,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield7 = new JTextField();
         textfield7.setBounds(aux1_2,aux2,aux3_2,aux4);
+        textfield7.setEnabled(true);
         Modificar.add(textfield7);
         textfield7.setColumns(10);
         
@@ -569,9 +571,10 @@ public class VistaRuta extends PrimerNivel{
         label8 = new JLabel("Planeta A nuevo :");
         label8.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label8);
-        
+        textfield8.setEnabled(true);
         textfield8 = new JTextField();
         textfield8.setBounds(aux1_2,aux2,aux3_2,aux4);
+        
         Modificar.add(textfield8);
         textfield8.setColumns(10);
         
@@ -582,6 +585,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield9 = new JTextField();
         textfield9.setBounds(aux1_2,aux2,aux3_2,aux4);
+        textfield9.setEnabled(true);
         Modificar.add(textfield9);
         textfield9.setColumns(10);
         
@@ -594,10 +598,10 @@ public class VistaRuta extends PrimerNivel{
                     String d = textfield7.getText();
                     String x = textfield8.getText();
                     String y = textfield9.getText();
-                   //if(!c.isEmpty()) CVR.ModificarCapacidadRuta(nac,c);
-                    //if(!d.isEmpty()) CVR.ModificarDistanciaRuta(nac,d);
-                   // if(!x.isEmpty()) CVR.ModificarPlanetaARuta(nac,x);
-                   // if(!y.isEmpty()) CVR.ModificarPlanetaBRuta(nac,y);
+                    if(!c.isEmpty()) CVR.ModificarCapacidadRuta(nac,c);
+                    if(!d.isEmpty()) CVR.ModificarDistanciaRuta(nac,d);
+                    if(!x.isEmpty()) CVR.ModificarPlanetaARuta(nac,x);
+                    if(!y.isEmpty()) CVR.ModificarPlanetaBRuta(nac,y);
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -634,6 +638,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield1 = new JTextField();
         textfield1.setColumns(10);
+        textfield1.setEnabled(false);
         textfield1.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield1);
         
@@ -645,6 +650,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield2 = new JTextField();
         textfield2.setColumns(10);
+        textfield2.setEnabled(false);
         textfield2.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield2);
         
@@ -655,6 +661,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield3 = new JTextField();
         textfield3.setColumns(10);
+        textfield3.setEnabled(false);
         textfield3.setBounds(aux1_2,aux2,aux3_2,aux4);;
         Consultar.add(textfield3);
         
@@ -665,6 +672,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield4 = new JTextField();
         textfield4.setColumns(10);
+        textfield4.setEnabled(false);
         textfield4.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield4);
         
@@ -675,6 +683,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield5 = new JTextField();
         textfield5.setColumns(10);
+        textfield5.setEnabled(false);
         textfield5.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield5);
         
