@@ -20,38 +20,61 @@ public class VistaMFP extends PrimerNivel {
     private JRadioButton PR;
     private JRadioButton STotal;
     private JRadioButton SParcial;
-    
+    private JButton btnMissatge;
     public VistaMFP (ControladorVistaMFP cv){
         cvMFP = cv;
         setOpaque(false);
         setBackground(Color.WHITE);
         setLayout(null);
         
+        btnMissatge = new JButton("Error");
+        btnMissatge.setBounds(0,475,75,25);
+        btnMissatge.setBackground(SystemColor.activeCaption);
+        add(btnMissatge);
+    	Errores = new JTextField();
+    	Errores.setEditable(false);
+        Errores.setBackground(SystemColor.white);
+        Errores.setBounds(75,475,700,25);
+        Errores.setVisible(true);
+    	add(Errores);
+        
+        btnMissatge.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Errores.setText("");
+            }
+        }); 
+        
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBackground(SystemColor.activeCaption);
-        Central.setBounds(50, 50, 700, 500);
+        Central.setBounds(0, 0, 700, 450);
+        add(Central);
         
         Crear = new JPanel();
         Crear.setBackground(SystemColor.activeCaption);
-        Central.add("Opciones", Crear);
+        Crear.setBounds(0, 0, 700, 500);
+        Central.addTab("Opciones",null,Crear,null);
+        Crear.setLayout(null);
         
         FCF = new JRadioButton("Flujo");
         FCF.setSelected(false);
-        FCF.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        FCF.setOpaque(false);
+        FCF.setBounds(100, 115, 120, 20);
         Crear.add(FCF);
         
         FCC = new JRadioButton("Coste");
         FCC.setSelected(false);
-        FCC.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        FCC.setOpaque(false);
+        FCC.setBounds(100, 165, 120, 20);
         Crear.add(FCC);
         
         FCD = new JRadioButton("Distancia");
         FCD.setSelected(false);
-        FCD.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        FCD.setOpaque(false);
+        FCD.setBounds(100, 215, 120, 20);
         Crear.add(FCD);
         
         label1 = new JLabel("Funciones de Coste");
-        label1.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        label1.setBounds(100, 50, 120, 20);
         Crear.add(label1);
         
         FCF.addActionListener(new ActionListener() {
@@ -96,22 +119,25 @@ public class VistaMFP extends PrimerNivel {
         });
         
         FFBFS = new JRadioButton("Ford-Fulkerson + BFS");
-        FFBFS.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        FFBFS.setBounds(400, 115, 180, 20);
+        FFBFS.setOpaque(false);
         FFBFS.setSelected(false);
         Crear.add(FFBFS);
         
         FFD = new JRadioButton("Ford-Fulkerson + Dijkstra");
         FFD.setSelected(false);
-        FFD.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        FFD.setOpaque(false);
+        FFD.setBounds(400, 165, 180, 20);
         Crear.add(FFD);
         
         PR = new JRadioButton("Push-Relabel");
         PR.setSelected(false);
-        PR.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        PR.setOpaque(false);
+        PR.setBounds(400, 215, 180, 20);
         Crear.add(PR);
         
         label2 = new JLabel("Algoritmos");
-        label2.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        label2.setBounds(400, 50, 120, 20);
         Crear.add(label2);
         
         FFBFS.addActionListener(new ActionListener() {
@@ -158,7 +184,7 @@ public class VistaMFP extends PrimerNivel {
         
         Ejecutar = new JButton("Ejecutar");
         Ejecutar.setIcon(null);
-        Ejecutar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Ejecutar.setBounds(250, 360, 200, 50);
         Crear.add(Ejecutar);
         
         Ejecutar.addActionListener(new ActionListener() {
@@ -182,18 +208,24 @@ public class VistaMFP extends PrimerNivel {
         Consultar.setBackground(SystemColor.activeCaption);
         Central.addTab("Salida", null,Consultar,null);
         Consultar.setLayout(null);
+        Consultar.setBounds(0, 0, 700, 500);
         
         STotal = new JRadioButton("Salida Total");
         STotal.setSelected(false);
-        STotal.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        STotal.setOpaque(false);
+        STotal.setBounds(100, 25, 120, 20);
         Consultar.add(STotal);
         
         SParcial = new JRadioButton("Salida Parcial");
         SParcial.setSelected(false);
-        SParcial.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        SParcial.setOpaque(false);
+        SParcial.setBounds(230, 25, 120, 20);
         Consultar.add(SParcial);
+        ButtonGroup gb = new ButtonGroup();
+        gb.add(STotal);
+        gb.add(SParcial);
         
-        STotal.addActionListener(new ActionListener() {
+        /*STotal.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent a) {
                 try {
                     if(STotal.isSelected()) SParcial.setSelected(false);
@@ -213,18 +245,22 @@ public class VistaMFP extends PrimerNivel {
                     Errores.setText(e.getMessage());
                 }
             }
-        });
+        });*/
         
         Mostrar = new JButton("Mostrar");
         Mostrar.setIcon(null);
-        Mostrar.setBounds(WIDTH, WIDTH, WIDTH, WIDTH);
+        Mostrar.setBounds(250, 360, 200, 50);
         Consultar.add(Mostrar);
        
-        textfield1 = new JTextField();
-        textfield1.setBounds(WIDTH, WIDTH, WIDTH, WIDTH); 
-        Consultar.add(textfield1);
-        textfield1.setColumns(10);  //??????
-        textfield1.setEditable(false);
+        JTextArea TA = new JTextArea(); 
+        TA.setEnabled(true);
+        TA.setEditable(true);
+        TA.setBounds(50, 50, 600, 370);
+        JScrollPane Sal = new JScrollPane(TA);
+        Sal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        Sal.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        Sal.setBounds(50, 50, 600, 300);
+        Consultar.add(Sal);
         
         Mostrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
