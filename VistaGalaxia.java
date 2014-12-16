@@ -184,19 +184,19 @@ public class VistaGalaxia extends PrimerNivel {
         FrameCargar.setBackground(SystemColor.activeCaption); 
         Central.addTab("Cargar", FrameCargar); 
         FrameCargar.setLayout(null);
-        Cargar.setBounds(0, 0, 725, 395); 
+        Cargar.setBounds(0, 0, 690, 390); 
         Cargar.setAutoscrolls(true); 
         Cargar.setMinimumSize(new Dimension(200, 245)); 
-        Cargar.setPreferredSize(new Dimension(365, 225)); 
+        Cargar.setPreferredSize(new Dimension(365, 200)); 
         FrameCargar.add(Cargar);
     	
         FrameGuardar.setBackground(SystemColor.activeCaption); 
         Central.addTab("Guardar", FrameGuardar); 
         FrameGuardar.setLayout(null);
-        Guardar.setBounds(0, 0, 725, 395); 
+        Guardar.setBounds(0, 0, 690, 390); 
         Guardar.setAutoscrolls(true); 
         Guardar.setMinimumSize(new Dimension(200, 245)); 
-        Guardar.setPreferredSize(new Dimension(365, 225)); 
+        Guardar.setPreferredSize(new Dimension(365, 200)); 
         FrameGuardar.add(Guardar); 
         
         // CREAR
@@ -460,14 +460,16 @@ public class VistaGalaxia extends PrimerNivel {
                 public void actionPerformed(ActionEvent e) { 
                     path = Cargar.getSelectedFile().getAbsolutePath();
                     try {
-                            cvg.carregarGalaxia(path);
+                        cvg.carregarGalaxia(path);
+                            
                     } 
                     catch (Exception e1) {
-                            Errores.setText(e1.getMessage());
+                        Errores.setText(e1.getMessage());
                     }
                     finally {
-                        Errores.setText("Ha finalitzat el procés de carregar l'arxiu " + path);                    
-                    }               
+                        Errores.setText("Se ha cargado el archivo " + path);                    
+                    }
+                    actualitza(false);
                 }
         });
         
@@ -483,7 +485,7 @@ public class VistaGalaxia extends PrimerNivel {
                             Errores.setText(e1.getMessage());
                     }
                     finally {
-                        Errores.setText("Ha finalitzat el procés de guardar l'arxiu " + path);                    
+                        Errores.setText("Se ha guardado el archivo en " + path);                    
                     }               
                 }
         });
