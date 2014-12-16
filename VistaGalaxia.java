@@ -443,7 +443,7 @@ public class VistaGalaxia extends PrimerNivel {
                                      cvg.modificarLimits(limitsNous);
                                  }
                             }
-                            actualitza2(false);
+                            actualitza2(teForma);
                         }
                         catch (Exception e) { 
                             Errores.setText(e.getMessage()); 
