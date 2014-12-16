@@ -32,11 +32,37 @@ public class ControladorVistaRuta {
     public VistaRuta ConsultarVistaRuta() {
         return VR;
     }
+    
+    public ArrayList<String> ConsultarIdsRutas(int i)
+    {
+        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<Integer> aux = CR. Consultar_ids_rutas();
+        int j=0;
+        while(i<aux.size() && j<100){
+            String a = ""+aux.get(i);
+            res.add(a);
+            ++j;
+            ++i;
+        }
+        return res;
+    }
+    
+    public ArrayList<String> ConsultarIdsRutas_string()
+    {
+        ArrayList<String> res = new ArrayList<String>();
+        ArrayList<Integer> aux = CR. Consultar_ids_rutas();
+        
+        for (Integer i : aux) {
+            String s = ""+aux.get(i);
+            res.add(s);
+        }
+        return res;
+    }
 	
     public void inicialitza(ControladorVistaGalaxia cVG, ControladorVistaNave cVN, ControladorVistaPlaneta cVP) {
         CG = cVG.consultarControladorGalaxia();
         CVG = cVG;
-        CN = cVN.obtenerControladorNave();
+        //CN = cVN.obtenerControladorNave();
         CVN = cVN;
         CP = cVP.ConsultarControladorPlaneta();
         CVP = cVP;
@@ -72,20 +98,20 @@ public class ControladorVistaRuta {
         int capacidad = Integer.parseInt(_capacidad);
         int distancia = Integer.parseInt(_distancia);
         CR.CrearRuta(id, capacidad, distancia, planetaA, planetaB, CP);
-        CVN.actualitzaRuta();
+//        CVN.actualitzaRuta();
         //CVP.actualitzaPlaneta();
     }
 
     public void creaRutaAut() throws Exception	{
         CR.CrearRuta_automatica(CP);    
-        CVN.actualitzaRuta();
+//        CVN.actualitzaRuta();
         //CVP.actualitzaRuta();
     }
     
     public void creaRutaAut_id( String _id ) throws Exception	{
         int id = Integer.parseInt(_id);
         CR.CrearRuta_automatica(CP, id);
-        CVN.actualitzaRuta();
+//        CVN.actualitzaRuta();
         //CVP.actualitzaRuta();
     }
     
@@ -123,7 +149,7 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         int c = Integer.parseInt(capacidad_nueva);
         CR.ModificarCapacidadRuta(i, c);
-        CVN.actualitzaRuta();
+//        CVN.actualitzaRuta();
         //CVP.actualitzaRuta();
     }
       
@@ -132,7 +158,7 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         int d = Integer.parseInt(distancia_nueva);
         CR.ModificarDistanciaRuta(i, d);
-        CVN.actualitzaRuta();
+//        CVN.actualitzaRuta();
         //CVP.actualitzaRuta();
     }
 
@@ -140,7 +166,7 @@ public class ControladorVistaRuta {
     {
         int i = Integer.parseInt(id);
         CR.ModificarPlanetaARuta(i, id_planetaA_nuevo, CP);
-        CVN.actualitzaRuta();
+        //CVN.actualitzaRuta();
         //CVP.actualitzaRuta();
     }
     
@@ -159,7 +185,7 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         CR.ModificarPlanetaARuta(i, id_planetaB_nuevo, CP);
         //CVG.actualitzaRuta();
-        CVN.actualitzaRuta();
+//        CVN.actualitzaRuta();
         //CVP.actualitzaRuta();
     }
 
@@ -168,7 +194,7 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         CR.BorrarRuta(i);
         //CVG.actualitzaRuta();
-        CVN.actualitzaRuta();
+//        CVN.actualitzaRuta();
         //CVP.actualitzaRuta();
     }
 }
