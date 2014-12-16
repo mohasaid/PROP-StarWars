@@ -457,6 +457,7 @@ public class VistaRuta extends PrimerNivel{
                     else {
                         String n = textfield19.getText();
                         CVR.creaRutaAut_id(n);
+                        actualiza();
                     }
                 }
                 catch (Exception e) {
@@ -602,6 +603,7 @@ public class VistaRuta extends PrimerNivel{
                     if(!d.isEmpty()) CVR.ModificarDistanciaRuta(nac,d);
                     if(!x.isEmpty()) CVR.ModificarPlanetaARuta(nac,x);
                     if(!y.isEmpty()) CVR.ModificarPlanetaBRuta(nac,y);
+                    actualiza();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -700,7 +702,7 @@ public class VistaRuta extends PrimerNivel{
                    
                 String path = Guardar.getSelectedFile().getAbsolutePath(); 
                 try { 
-                   // CVR.GuardarRutas(path);
+                   CVR.GuardarRutas(path);
                     actualiza();   
                 } catch (Exception e1) {
                     Errores.setText(e1.getMessage());
@@ -725,7 +727,7 @@ public class VistaRuta extends PrimerNivel{
                    
                 String path = Cargar.getSelectedFile().getAbsolutePath(); 
                 try { 
-                 //   CVR.CargarRutas(path);
+                    CVR.CargarRutas(path);
                     actualiza();                    
                 } catch (Exception e1) {
                     Errores.setText(e1.getMessage());
