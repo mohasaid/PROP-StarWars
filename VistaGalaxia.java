@@ -1,7 +1,3 @@
-/**
- *
- * @author Moha
- */
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
@@ -13,6 +9,7 @@ import java.lang.reflect.Method;
 
 public class VistaGalaxia extends PrimerNivel {
 	/* VARIABLES */
+    private boolean CREADA = false;
     private boolean teForma = false;
     private ControladorVistaGalaxia cvg;
     private String path;
@@ -48,7 +45,17 @@ public class VistaGalaxia extends PrimerNivel {
     	return this;
     }
     
-    public void actualitza(boolean teforma) // ya se ha creado
+    public void pintaPlaneta(int x, int y)
+    {
+        forma1.planetaCell(x, y);
+    }
+    
+    public boolean consultarCreada()
+    {
+        return CREADA;
+    }
+    
+    private void actualitza(boolean teforma) // ya se ha creado
     {
         textfield4.setText(cvg.consultarNomGalaxia()); // nombre actual modificar
         textfield6.setText(String.valueOf(cvg.consultarLimit())); // limite actual modificar
@@ -162,7 +169,7 @@ public class VistaGalaxia extends PrimerNivel {
         // COMPOUNDBORDER -> LINEA QUE RODEA EL BOTON CON UN COLOR DETERMINADO
     	// Panel de arriba
         Central.setBackground(SystemColor.control);
-        Central.setBounds(0, 0, 700, 450); // -> mirar valores
+        Central.setBounds(0, 0, 700, 460); // -> mirar valores
         add(Central);
     	Central.addTab("Crear", Crear); // nombre, icono, panel, mensaje cuando pones el raton encima
     	Central.addTab("Modificar", Modificar);
@@ -176,8 +183,9 @@ public class VistaGalaxia extends PrimerNivel {
     	Errores = new JTextField();
     	Errores.setEditable(false);
         Errores.setBackground(SystemColor.white);
-        Errores.setBounds(75,475,700,25);
+        Errores.setBounds(75,475,625,25);
         Errores.setVisible(true);
+        Errores.setForeground(Color.red);
     	add(Errores);
         
     	// FILECHOOSERS
@@ -402,11 +410,13 @@ public class VistaGalaxia extends PrimerNivel {
                     try {
                         if(AmbForma.isSelected()) {
                                 cvg.creaGalaxia2(nomActual, LimitActual, limitsActual); // mirar esto
+                                CREADA = true;
                                 actualitza(true);
                                 teForma = true;
                         }
                         else if(SenseForma.isSelected()) {
                                 cvg.creaGalaxia(nomActual, LimitActual);
+                                CREADA = true;
                                 actualitza(false);
                         }
                     }
@@ -490,7 +500,6 @@ public class VistaGalaxia extends PrimerNivel {
                 }
         });
         
-        // VACIAR MENSAJE ERROR
         btnMissatge.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Errores.setText("");
