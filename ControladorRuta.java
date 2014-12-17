@@ -190,7 +190,7 @@ public class ControladorRuta {
     }
       
     //Pre: entran como parametros res enteros, dos strings, un booleano un controlador de Planeta
-    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã‚Â±ade al sistema    
+    //Post: Crea una ruta con id = "id", capacidad = "capacidad", distancia = "distancia", planetaA = "planetaA", planetaB = "planetaB", bidireccional = "bidireccional", y la aÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â±ade al sistema    
     /**
      * Metodo para crear una ruta de forma manual
      * @param id
@@ -529,7 +529,7 @@ public class ControladorRuta {
     }
       
     //Pre: Existe una ruta con id = "id"
-    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"ÃƒÆ’Ã‚Â§
+    //Post: La distancia de la ruta con id = "id" ha sido modificada por distancia = "distancia_nueva"ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§
     /**
      * Metodo para modificar la distancia de una ruta determinada por un id
      * @param id
@@ -709,7 +709,7 @@ public class ControladorRuta {
         	      s = sc.next();
         	      int distancia = Integer.parseInt(s);
         	      s = sc.next();
-                      if (Rutes_afegides.contains(id)) { //si hemos añadido la conexion, anadimos tambien la ruta
+                      if (Rutes_afegides.contains(id)) { //si hemos aÃ±adido la conexion, anadimos tambien la ruta
                          Ruta r = new Ruta(id,capacidad,distancia);
                          ArbolRutas.add(Integer.toString(r.consultar_id()),r);
                       }
@@ -759,15 +759,18 @@ public class ControladorRuta {
    */
   public void GuardarRutas (String path) throws Exception {
     String res = "";
+	System.out.println("entro a guardar");
     //Guardamos toadas las conexiones
     if(!Conexiones.isEmpty()){
+    	System.out.println("entro a conexions");
         int iteracions = 0;
     	ArrayList<Conexion> ac = Conexiones.MostrarElementos();
-        for (Conexion c : ac){  
+        for (Conexion c : ac){ 
+        	System.out.println("iteracio");
             res += 1 + ":"; //quiere decir que se trata de una conexion
             res += c.consultar_id() + ":";
             res += c.consultar_planetaA() + ":";
-            res += c.consultar_planetaB() + "";
+            res += c.consultar_planetaB();
             res += "#";
             ++iteracions;
             if(iteracions == 100){
@@ -780,14 +783,13 @@ public class ControladorRuta {
     //Guardamos todas la rutas
     if(!ArbolRutas.isEmpty()){
         Cdr.AbrirEscritura(path);        
-        res = "";
         int iteracions = 0;
     	ArrayList<Ruta> ar = ArbolRutas.MostrarElementos();
         for (Ruta r : ar){  
             res += 0 + ":"; //quiere decir que se trata de una ruta
             res += r.consultar_id() + ":";
             res += r.consultar_capacidad() + ":";
-            res += r.consultar_distancia() + ":";
+            res += r.consultar_distancia();
             res += "#";
             ++iteracions;
             if(iteracions == 100){
@@ -796,7 +798,7 @@ public class ControladorRuta {
                 res = "";
             }
         }
-    }  
+    }
     if(res != ""){
     	Cdr.guardar(path,res);
     	Cdr.CerrarEscritura();
