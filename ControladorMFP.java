@@ -1,3 +1,9 @@
+package prop;
+
+/**
+ *
+ * @author Moha
+ */
 import java.util.*;
 
 public class ControladorMFP {
@@ -15,14 +21,14 @@ public class ControladorMFP {
 	//CREADORA
 	public ControladorMFP()
 	{
-		FuncionElegida = false;
-		AlgoritmoElegido = false;
-		s = new Salida();
+            FuncionElegida = false;
+            AlgoritmoElegido = false;
+            s = new Salida();
 	}
 	
 	public void AnadirEntrada(Entrada e1)
 	{
-		e = e1;
+            e = e1;
 	}
 	
 	//Seleccion/Ejecucion del algoritmo
@@ -69,10 +75,11 @@ public class ControladorMFP {
 		ArrayList<String> pla = cp.consultarPlanetas();
 		
 		Grafo g_res = alg.consultaResidual();
-		
+				
 		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
+
 		ArrayList<Conexion> con = cr.Consultar_Conexiones();
-	
+		
 		int tam = g_res.sizeGrafo();
 		
 		String way = "";
@@ -103,8 +110,6 @@ public class ControladorMFP {
 				}
 				parcial = toPlanetes(parcial,pla);
 				way += parcial +  " pasan " + n_final + " nave/s";
-				System.out.println(" -- way --");
-				System.out.println(way);
 				s.AnadirCamino(way);
 				parcial = "";
 				way = "";
@@ -151,12 +156,6 @@ public class ControladorMFP {
 				}
 			}
 		}
-		// consultar cuellos de botella
-		ArrayList<Integer> a = s.ConsultarCuellos();
-		System.out.println("-- Cuellos de botella -- = " + a.size());
-		for(int i = 0; i < a.size(); ++i) {
-			System.out.println("Ruta -> " + a.get(i));
-		}
 	}
 	
 	/**
@@ -174,13 +173,13 @@ public class ControladorMFP {
 		int pos;
 		Stack<String> tmp = new Stack<String>();
 		while(sca.hasNext()) {
-			pos = Integer.parseInt(sca.next());
-			a = pl.get(pos);
-			tmp.add(a);
+                    pos = Integer.parseInt(sca.next());
+                    a = pl.get(pos);
+                    tmp.add(a);
 		}
 		sca.close();
 		while(tmp.size() > 1) {
-			planetes += tmp.pop() + " => ";
+                    planetes += tmp.pop() + " => ";
 		}
 		planetes += tmp.pop();
 		return planetes;
@@ -236,12 +235,12 @@ public class ControladorMFP {
 	
 	public int size()
 	{
-		return s.size();
+            return s.size();
 	}
 	
 	public int sizeCambios()
 	{
-		return s.sizeCambios();
+            return s.sizeCambios();
 	}
 	
 	//Pre:cierto
