@@ -62,17 +62,6 @@ public class ControladorRuta {
     }
     
     //Pre: Cierto
-    //Post: Retorna el numero de rutas que hay el arbol de conexiones, donde las que son bidireccionales cuentan como dos
-    /**
-     * Metodo para consultar el numero de rutas que hay
-     * @return Retorna el numero de rutas que hay el arbol de conexiones, donde las que son bidireccionales cuentan como dos
-     */
-    private int Numero_rutes_sumant_bidireccional() 
-    {
-    	return Consultar_numero_rutes();
-    }
-    
-    //Pre: Cierto
     //Post: La conexion con id = "id" ha sido borrada del arbol de conexiones
     /**
      * Metodo para borrar una conexion determinada por un id
@@ -204,10 +193,6 @@ public class ControladorRuta {
      */
     public void CrearRuta(int id, int capacidad, int distancia, String planetaA, String planetaB, ControladorPlaneta cp) throws Exception
     { 
-    	int numero_planetas = cp.Consultar_Size();
-    	if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
-    		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
-    	}
         if(ExisteRuta(id)){
             throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");       
         }
@@ -236,10 +221,6 @@ public class ControladorRuta {
      */
     public void CrearRuta_automatica(ControladorPlaneta cp) throws Exception
     {
-    	int numero_planetas = cp.Consultar_Size();
-    	if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
-    		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
-    	}
         Random aleatorio = new Random();
         int id = 0;
         while(ExisteRuta(id)) ++id; 
@@ -287,10 +268,6 @@ public class ControladorRuta {
      */
     public void CrearRuta_automatica(ControladorPlaneta cp, int id) throws Exception
     {
-    	int numero_planetas = cp.Consultar_Size();
-    	if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
-    		throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
-    	}
     	if (ExisteRuta(id)) {
     		throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");
     	}
@@ -721,11 +698,6 @@ public class ControladorRuta {
         	      s = sc.next();
         	      String idb = s;
                       
-                      int numero_planetas = cp.Consultar_Size();
-                      
-                      if ( (numero_planetas*(numero_planetas-1)/2) <= Numero_rutes_sumant_bidireccional() ) {
-                          throw new Exception("Error: se ha alcanzado el numero maximo de rutas que puede haber \n");
-                      }
                       if(ExisteRuta(id)){
                           throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");       
                       }
