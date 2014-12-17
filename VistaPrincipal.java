@@ -2,7 +2,6 @@
  *
  * @author Moha
  */
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -35,34 +34,39 @@ import static sun.security.util.Debug.Help;
  */
 public class VistaPrincipal extends JFrame {
 
-    //private Help help;
     private JPanel panel;
 
     /** Controladors Vistes **/
-    //private ControladorVistaGalaxia CVG;
-    //private ControladorVistaPlaneta CVP;
-    //private ControladorVistaNave CVN;
+    private ControladorVistaGalaxia CVG;
+    private ControladorVistaPlaneta CVP;
+    private ControladorVistaNave CVN;
     private ControladorVistaRuta CVR;
+    private ControladorVistaMFP CVMFP;
 
     /** Vistes **/
-    //private VistaGalaxia VG;
-    //private VistaPlaneta VP;
-    //private VistaNave VN;
+    private VistaGalaxia VG;
+    private VistaPlaneta VP;
+    private VistaNave VN;
     private VistaRuta VR;
+    private VistaMFP vMFP;
+    
+    private VistaHelp help;
  
     private void obtenerVistas() {		
-        //VG = CVG.consultarVistaGalaxia();
-        //VP = CVP.ConsultarVistaPlaneta();
-        //VN = CVN.obtenerVistaNave();
+        VG = CVG.consultarVistaGalaxia();
+        VP = CVP.ConsultarVistaPlaneta();
+        VN = CVN.ConsultarVistaNave();
         VR = CVR.ConsultarVistaRuta();
+        vMFP = CVMFP.ConsultarVistaMFP();
     }
     
-    public VistaPrincipal(/*ControladorVistaGalaxia cVG, ControladorVistaPlaneta cVP, ControladorVistaNave cVN,*/ ControladorVistaRuta cVR/*, ControladrMFP cMFP*/) throws InterruptedException 
+    public VistaPrincipal(ControladorVistaGalaxia cVG, ControladorVistaPlaneta cVP, ControladorVistaNave cVN, ControladorVistaRuta cVR, ControladorVistaMFP cMFP) throws InterruptedException 
     {
-        //CVG = cVG;
-        //CVP = cVP;
-        //CVN = cVN;
+        CVG = cVG;
+        CVP = cVP;
+        CVN = cVN;
         CVR = cVR;
+        CVMFP = cMFP;
 
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,8 +115,7 @@ public class VistaPrincipal extends JFrame {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
-                        
-                        //panelGrande.add(VG);
+                        panelGrande.add(VG);
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -124,6 +127,7 @@ public class VistaPrincipal extends JFrame {
         Btn_Rutas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
                         // eliminem el panel actual
+                   if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
@@ -131,7 +135,7 @@ public class VistaPrincipal extends JFrame {
                         panelGrande.add(VR);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
-
+                   }
                 }
         });		
         Btn_Rutas.setToolTipText("Gestiona las Rutas del sistema");
@@ -140,14 +144,15 @@ public class VistaPrincipal extends JFrame {
         Btn_Naves.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
                         // eliminem el panel actual
+                    if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // colocamos naves
-                       // panelGrande.add(VN);			
+                        panelGrande.add(VN);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
-
+                    }
                 }
         });		
         Btn_Naves.setToolTipText("Gestiona las Naves del sistema");
@@ -156,14 +161,15 @@ public class VistaPrincipal extends JFrame {
         Btn_Planetas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
                         // eliminem el panel actual
+                    if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // coloquem planetas					
-                        //panelGrande.add(VP);			
+                        panelGrande.add(VP);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
-
+                    }
                 }
         });		
         Btn_Planetas.setToolTipText("Gestiona los Planetas del sistema");
@@ -172,14 +178,15 @@ public class VistaPrincipal extends JFrame {
         Btn_MFP.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
                         // eliminem el panel actual
+                    if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         // col�loquem el de galaxia					
-                        //panelGrande.add(VMFP);			
+                        panelGrande.add(vMFP);
                         panelGrande.repaint();
                         panelGrande.revalidate();
-
+                    }
                 }
         });		
         Btn_MFP.setToolTipText("Gestiona Flujo Maximo del sistema");
@@ -190,40 +197,26 @@ public class VistaPrincipal extends JFrame {
         panel.add(jtb);
         
         final JLabel fons = new JLabel("");
-        fons.setIcon(new ImageIcon(VistaPrincipal.class.getResource("/Imagenes/SW.jpg")));
+        fons.setIcon(new ImageIcon(VistaPrincipal.class.getResource("sw.jpg")));
         fons.setBounds(0, 0, 1035, 648);
         panel.add(fons);
         
         JButton hp = new JButton("Ajuda");
         hp.setBorder(null);
         jtb.add(hp);
-        // cual de los dos
-        /*JLabel ajuda = new JLabel("Ajuda");
-        jtb.add(ajuda);
         
-        ajuda.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent arg0) {             
-                // eliminem el panel actual
-                //panel.removeAll();
-                panel.repaint();
-                panel.revalidate();
-                // col·loquem el de galaxia             
-                //panel.add(help);
-                panel.repaint();
-                panel.revalidate();
-            }
-        });
-        ajuda.setBounds(50, 50, 110, 74);*/
-        
-        /*JComboBox<String> comboBox = new JComboBox<String>();
-        comboBox.setBounds(200,0,60,24);
-        comboBox.setMaximumSize(new Dimension(72767, 32767));
-        comboBox.addItem("");
-        comboBox.addItem("Guardar Tot");
-        comboBox.addItem("Carregar Tot");
-        jtb.add(comboBox);*/
-        //panel.add(ajuda);
-        
+        help = new VistaHelp();
+           
+        hp.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0) {
+                        panelGrande.removeAll();
+                        panelGrande.repaint();
+                        panelGrande.revalidate();
+                        
+                        panelGrande.add(help);
+                        panelGrande.repaint();
+                        panelGrande.revalidate();
+                }
+        }); 
     }
 }
