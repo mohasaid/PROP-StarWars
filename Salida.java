@@ -1,6 +1,17 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package prop;
+
+/**
+ *
+ * @author Moha
+ */
 import java.util.*;
 
-public class Salida{
+public class Salida {
 	private ArrayList<Integer> CuellosB; 
 	private ArrayList<String> Caminos;
 	private ArrayList<String> Cambios;
