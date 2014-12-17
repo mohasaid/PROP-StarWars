@@ -32,39 +32,6 @@ public class VistaRuta extends PrimerNivel{
     private ArrayList<String> listado2;
     private DefaultListModel<String> mlistado;
     
-    /*
-    //Cajas Atributos
-    private JTextField textfield1;
-    private JTextField textfield2;
-    private JTextField textfield3;
-    private JTextField textfield4;
-    private JTextField textfield5;
-    private JTextField textfield6;
-    private JTextField textfield7;
-    private JTextField textfield8;
-    private JTextField textfield9;
-  
-    
-    //Paneles
-    private Panel Crear;
-    private Panel Modificar;
-    private Panel Consultar;
-    private Panel Guardar;
-    private Panel Cargar;
-   
-
-    //Etiquetas
-    private JLabel label1;
-    private JLabel label2;
-    private JLabel label3;
-    private JLabel label4;
-    private JLabel label5;
-    private JLabel label6;
-    private JLabel label7;
-    private JLabel label8;
-    private JLabel label9;
-    */
-    
     //Botones
     private JButton CrearRuta;
     private JButton Modificar_btn;
@@ -155,7 +122,7 @@ public class VistaRuta extends PrimerNivel{
     public VistaRuta(ControladorVistaRuta ControladorVR) {
         CVR = ControladorVR;
         setOpaque(false);      
-        setBackground(Color.WHITE); //Marco
+        setBackground(Color.WHITE);
         setBounds(0,0,1000,450);
         setLayout(null);
         i=0;
@@ -356,55 +323,55 @@ public class VistaRuta extends PrimerNivel{
         int aux4 = 30;
         
         label1 = new JLabel("Identificador :");
-        label1.setBounds(aux1, aux2, aux3, aux4); //Esperando
+        label1.setBounds(aux1, aux2, aux3, aux4); 
         Crear.add(label1);
         
         textfield19 = new JTextField();
-        textfield19.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperando
+        textfield19.setBounds(aux1_2, aux2, aux3_2, aux4); 
         Crear.add(textfield19);
-        textfield19.setColumns(10);  //??????
+        textfield19.setColumns(10); 
         textfield19.setEnabled(false);
         
         aux2+=80;
         label2 = new JLabel ("Capacidad :");
-        label2.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        label2.setBounds(aux1, aux2, aux3, aux4); 
         Crear.add(label2);
         
         textfield20 = new JTextField();
-        textfield20.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        textfield20.setBounds(aux1_2, aux2, aux3_2, aux4);
         Crear.add(textfield20);
         textfield20.setColumns(10);
         textfield20.setEnabled(false);
         
         aux2+=80;
         label3 = new JLabel ("Distancia :");
-        label3.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        label3.setBounds(aux1, aux2, aux3, aux4);
         Crear.add(label3);
         
         textfield21 = new JTextField();
-        textfield21.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        textfield21.setBounds(aux1_2, aux2, aux3_2, aux4);
         Crear.add(textfield21);
         textfield21.setColumns(10);
         textfield21.setEnabled(false);
         
         aux2+=80;
         label4 = new JLabel("Planeta Origen :");
-        label4.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        label4.setBounds(aux1, aux2, aux3, aux4);
         Crear.add(label4);
         
         textfield22 = new JTextField();
-        textfield22.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        textfield22.setBounds(aux1_2, aux2, aux3_2, aux4);
         Crear.add(textfield22);
         textfield22.setColumns(10);
         textfield22.setEnabled(false);
              
         aux2+=80;
         label5 = new JLabel("Planeta Destino :");
-        label5.setBounds(aux1, aux2, aux3, aux4); //Esperar
+        label5.setBounds(aux1, aux2, aux3, aux4); 
         Crear.add(label5);
         
         textfield23 = new JTextField();
-        textfield23.setBounds(aux1_2, aux2, aux3_2, aux4); //Esperar
+        textfield23.setBounds(aux1_2, aux2, aux3_2, aux4); 
         Crear.add(textfield23);
         textfield23.setColumns(10);
         textfield23.setEnabled(false);
@@ -476,12 +443,6 @@ public class VistaRuta extends PrimerNivel{
         });
         
         CrearRuta = new JButton("Crear");
-
-        /*
-        HelpNombre = new JLabel("");
-        HelpNombre.setToolTipText("El Nombre tiene que estar compuesto por caracteres alfanumericos.");
-        HelpNombre.setIcon(null);
-        */
         
         CrearRuta.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
@@ -530,55 +491,55 @@ public class VistaRuta extends PrimerNivel{
         Modificar.setLayout(null);
         
         label1 = new JLabel("Identificador :");
-        label1.setBounds(aux1,aux2,aux3,aux4); //Esperando
+        label1.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label1);
         
         textfield14 = new JTextField();
-        textfield14.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield14.setBounds(aux1_2,aux2,aux3_2,aux4);
         textfield14.setEditable(false);
         Modificar.add(textfield14);
-        textfield14.setColumns(10);  //??????
+        textfield14.setColumns(10);
         
         aux2+=50;
         label2 = new JLabel ("Capacidad :");
-        label2.setBounds(aux1,aux2,aux3,aux4); //Esperando
+        label2.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label2);
         
         textfield15 = new JTextField();
-        textfield15.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield15.setBounds(aux1_2,aux2,aux3_2,aux4);
         textfield15.setEditable(false);
         Modificar.add(textfield15);
         textfield15.setColumns(10);
         
         aux2+=50;
         label3 = new JLabel ("Distancia :");
-        label3.setBounds(aux1,aux2,aux3,aux4); //Esperando
+        label3.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label3);
         
         textfield16 = new JTextField();
-        textfield16.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield16.setBounds(aux1_2,aux2,aux3_2,aux4);
         textfield16.setEditable(false);
         Modificar.add(textfield16);
         textfield16.setColumns(10);
         
         aux2+=50;
         label4 = new JLabel("Planeta Origen :");
-        label4.setBounds(aux1,aux2,aux3,aux4); //Esperando
+        label4.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label4);
         
         textfield17 = new JTextField();
-        textfield17.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield17.setBounds(aux1_2,aux2,aux3_2,aux4); 
         textfield17.setEditable(false);
         Modificar.add(textfield17);
         textfield17.setColumns(10);
         
         aux2+=50;
         label5 = new JLabel("Planeta Destino :");
-        label5.setBounds(aux1,aux2,aux3,aux4); //Esperando
+        label5.setBounds(aux1,aux2,aux3,aux4); 
         Modificar.add(label5);
         
         textfield18 = new JTextField();
-        textfield18.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield18.setBounds(aux1_2,aux2,aux3_2,aux4);
         textfield18.setEditable(false);
         Modificar.add(textfield18);
         textfield18.setColumns(10);
@@ -591,18 +552,18 @@ public class VistaRuta extends PrimerNivel{
         aux4 = 30;
         
         label6 = new JLabel ("Capacidad nueva :");
-        label6.setBounds(aux1,aux2,aux3,aux4); //Esperar
+        label6.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label6);
         
         textfield6 = new JTextField();
-        textfield6.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperar
+        textfield6.setBounds(aux1_2,aux2,aux3_2,aux4);
         textfield6.setEnabled(true);
         Modificar.add(textfield6);
         textfield6.setColumns(10);
         
         aux2+=50;
         label7 = new JLabel ("Distancia nueva :");
-        label7.setBounds(aux1,aux2,aux3,aux4); //Esperar
+        label7.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label7);
         
         textfield7 = new JTextField();
