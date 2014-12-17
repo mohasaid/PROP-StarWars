@@ -300,7 +300,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield11.setColumns(10);
         textfield11.setEnabled(false);
         
-        /*Manual.addActionListener(new ActionListener() { 
+       Manual.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()) {
@@ -308,8 +308,6 @@ public class VistaPlaneta extends PrimerNivel {
                         textfield9.setEnabled(true);
                         textfield10.setEnabled(true);
                         textfield11.setEnabled(true);
-                        Automatico.setSelected(false);
-                        AutomaticoCN.setSelected(false);
                     }
                 }
                 catch (Exception e) {
@@ -326,8 +324,6 @@ public class VistaPlaneta extends PrimerNivel {
                         textfield9.setEnabled(false);
                         textfield10.setEnabled(false);
                         textfield11.setEnabled(false);
-                        Manual.setSelected(false);
-                        AutomaticoCN.setSelected(false);
                     }
                 }
                 catch (Exception e) {
@@ -344,15 +340,13 @@ public class VistaPlaneta extends PrimerNivel {
                         textfield9.setEnabled(false);
                         textfield10.setEnabled(false);
                         textfield11.setEnabled(false);
-                        Manual.setSelected(false);
-                        Automatico.setSelected(false);
                     }
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
             }
-        });*/
+        });
         
         CrearPlaneta = new JButton("Crear");
         CrearPlaneta.setIcon(null);
