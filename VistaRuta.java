@@ -338,7 +338,7 @@ public class VistaRuta extends PrimerNivel{
         Automatico.setOpaque(false);
         Crear.add(Automatico);
         
-        AutomaticoCId = new JRadioButton("Automatico con Id");
+        AutomaticoCId = new JRadioButton("Automatico con Identificador");
         AutomaticoCId.setSelected(false);
         AutomaticoCId.setBounds(400, 200, 200, 100);
         AutomaticoCId.setOpaque(false);
@@ -349,14 +349,14 @@ public class VistaRuta extends PrimerNivel{
         gb.add(Automatico);
         gb.add(AutomaticoCId);
         
-        int aux1 = 75;
-        int aux1_2 = aux1+35+50;
+        int aux1 = 40;
+        int aux1_2 = aux1+35+50+20;
         int aux2 = 25;
-        int aux3 = 70;
+        int aux3 = 120;
         int aux3_2 = 120;
         int aux4 = 30;
         
-        label1 = new JLabel("Id :");
+        label1 = new JLabel("Identificador :");
         label1.setBounds(aux1, aux2, aux3, aux4); //Esperando
         Crear.add(label1);
         
@@ -389,7 +389,7 @@ public class VistaRuta extends PrimerNivel{
         textfield21.setEnabled(false);
         
         aux2+=80;
-        label4 = new JLabel("Planeta A :");
+        label4 = new JLabel("Planeta Origen :");
         label4.setBounds(aux1, aux2, aux3, aux4); //Esperar
         Crear.add(label4);
         
@@ -400,7 +400,7 @@ public class VistaRuta extends PrimerNivel{
         textfield22.setEnabled(false);
              
         aux2+=80;
-        label5 = new JLabel("Planeta B :");
+        label5 = new JLabel("Planeta Destino :");
         label5.setBounds(aux1, aux2, aux3, aux4); //Esperar
         Crear.add(label5);
         
@@ -518,10 +518,10 @@ public class VistaRuta extends PrimerNivel{
         Crear.add(CrearRuta);
         
         
-        aux1 = 75;
-        aux1_2 = aux1+35+50;
+        aux1 = 25;
+        aux1_2 = aux1+35+50+20;
         aux2 = 20;
-        aux3 = 70;
+        aux3 = 100;
         aux3_2 = 120;
         aux4 = 30;
         
@@ -530,7 +530,7 @@ public class VistaRuta extends PrimerNivel{
         Central.addTab("Modificar", null,Modificar,null);
         Modificar.setLayout(null);
         
-        label1 = new JLabel("Id :");
+        label1 = new JLabel("Identificador :");
         label1.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label1);
         
@@ -563,7 +563,7 @@ public class VistaRuta extends PrimerNivel{
         textfield16.setColumns(10);
         
         aux2+=50;
-        label4 = new JLabel("Planeta A :");
+        label4 = new JLabel("Planeta Origen :");
         label4.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label4);
         
@@ -574,7 +574,7 @@ public class VistaRuta extends PrimerNivel{
         textfield17.setColumns(10);
         
         aux2+=50;
-        label5 = new JLabel("Planeta B :");
+        label5 = new JLabel("Planeta Destino :");
         label5.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label5);
         
@@ -587,8 +587,8 @@ public class VistaRuta extends PrimerNivel{
         
         aux1 = 350;
         aux1_2 = aux1+35+120;
-        aux2 = 60;
-        aux3 = 120;
+        aux2 = 75;
+        aux3 = 150;
         aux4 = 30;
         
         label6 = new JLabel ("Capacidad nueva :");
@@ -613,7 +613,7 @@ public class VistaRuta extends PrimerNivel{
         textfield7.setColumns(10);
         
         aux2+=50;
-        label8 = new JLabel("Planeta A nuevo :");
+        label8 = new JLabel("Planeta Origen nuevo :");
         label8.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label8);
         textfield8.setEnabled(true);
@@ -624,7 +624,7 @@ public class VistaRuta extends PrimerNivel{
         textfield8.setColumns(10);
         
         aux2+=50;
-        label9 = new JLabel("Planeta B nuevo :");
+        label9 = new JLabel("Planeta Destino nuevo :");
         label9.setBounds(aux1,aux2,aux3,aux4);
         Modificar.add(label9);
         
@@ -666,10 +666,10 @@ public class VistaRuta extends PrimerNivel{
         Modificar_btn.setBounds(220, 300, 200, 50);
         Modificar.add(Modificar_btn);
         
-        aux1 = 200;
-        aux1_2 = aux1+50+35;
+        aux1 = 180;
+        aux1_2 = aux1+80+35;
         aux2 = 25;
-        aux3 = 100;
+        aux3 = 150;
         aux3_2 = 120;
         aux4 = 30;
         
@@ -678,7 +678,7 @@ public class VistaRuta extends PrimerNivel{
         Central.addTab("Consultar",null,Consultar,null);
         Consultar.setLayout(null);
         
-        label1 = new JLabel("Id :");
+        label1 = new JLabel("Identificador :");
         label1.setBounds(aux1,aux2,aux3,aux4);
         Consultar.add(label1);
         
@@ -712,7 +712,7 @@ public class VistaRuta extends PrimerNivel{
         Consultar.add(textfield3);
         
         aux2+=80;
-        label4 = new JLabel("Planeta A :");
+        label4 = new JLabel("Planeta Origen :");
         label4.setBounds(aux1,aux2,aux3,aux4);
         Consultar.add(label4);
         
@@ -723,7 +723,7 @@ public class VistaRuta extends PrimerNivel{
         Consultar.add(textfield4);
         
         aux2+=80;
-        label4 = new JLabel("Planeta B :");
+        label4 = new JLabel("Planeta Destino :");
         label4.setBounds(aux1,aux2,aux3,aux4);
         Consultar.add(label4);
         
