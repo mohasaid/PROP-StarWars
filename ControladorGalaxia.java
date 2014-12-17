@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package prop;
-
 /**
  *
  * @author Moha
@@ -21,6 +15,7 @@ public class ControladorGalaxia
     private Galaxia g;
     private ControladorDadesGalaxia cdg;
     private Iterator<Pair<Integer, Integer> > itp;
+    private static final int arist = 2000000000;
  
     //CONSTRUCTORAS
  
@@ -72,7 +67,7 @@ public class ControladorGalaxia
      * @return Las coordenadas que dan forma a la galaxia
      * @throws Exception
      */
-    public String consultarLimitsGalaxia(int i) throws Exception
+    public String consultarLimitsGalaxia(int i) //throws Exception
     {
     	String res = "";
     	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
@@ -277,7 +272,7 @@ public class ControladorGalaxia
     	for(int i = 0; i < origenes.size(); ++i) {
     		String o = origenes.get(i);
     		int tmp2 = pl.indexOf(o);
-    		Arco c = new Arco(Integer.MAX_VALUE);
+    		Arco c = new Arco(arist);
     		c.ModificarCoste(0);
     		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,tmp2);
     		apai.add(pac);
@@ -293,12 +288,12 @@ public class ControladorGalaxia
     	for(int i = 0; i < destinos.size(); ++i) {
     		String d = destinos.get(i);
     		int tmp3 = pl.indexOf(d);
-    		Arco c = new Arco(Integer.MAX_VALUE);
+    		Arco c = new Arco(arist);
     		c.ModificarCoste(0);
     		Pair<Arco, Integer> pac1 = new Pair<Arco,Integer>(c,size_g-1);
     		g.consultarCosteDestinos(tmp3).add(0, pac1);
     	}
-
+        
     	Entrada ent = new Entrada(g);
     	return ent;
     }
