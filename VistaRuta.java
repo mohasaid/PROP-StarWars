@@ -86,21 +86,20 @@ public class VistaRuta extends PrimerNivel{
     
     public void actualiza() {
         try {
-            
             mlistado.removeAllElements();
             listado1 = CVR.ConsultarIdsRutas(i);
             listado2 = CVR.ConsultarIdsRutas(j);
-            int x = 0;
             listado = CVR.ConsultarIdsRutas_string();
             Errores.setText(String.valueOf(listado1.size()));
             CB.removeAllItems();
-            CB.setEditable(false);
             listaScroll1.removeAll();
             if (listado.size() != 0) {  
                 CB.setEditable(true);
                 for (String s : listado) CB.addItem(s);
                 for (String p : listado1) mlistado.addElement(p);
                 for (String p : listado2) mlistado.addElement(p);
+                System.out.println("listado1: "+listado1);
+                System.out.println("listado2: "+listado2);
                 CB.revalidate();
                 CB.repaint();
                 listaScroll1.setModel(mlistado);
@@ -120,7 +119,7 @@ public class VistaRuta extends PrimerNivel{
                 mlistado.removeAllElements();
                 listado2.clear();
                 for(String e : listado1) listado2.add(e);
-                listado1 = CVR.obtenerIdRutas();
+                listado1 = CVR.ConsultarIdsRutas(i);
                 for(String e : listado1) mlistado.addElement(e);
                 for(String e : listado2) mlistado.addElement(e);
                 listaScroll2.setModel(mlistado);
@@ -141,7 +140,7 @@ public class VistaRuta extends PrimerNivel{
                 mlistado.removeAllElements();
                 listado1.clear();
                 for(String e : listado2) listado1.add(e);
-                listado2 = CVR.obtenerIdRutas();
+                listado2 = CVR.ConsultarIdsRutas(j);
                 for(String e : listado1) mlistado.addElement(e);
                 for(String e : listado2) mlistado.addElement(e);
                 listaScroll2.setModel(mlistado);
@@ -160,6 +159,8 @@ public class VistaRuta extends PrimerNivel{
         setBackground(Color.WHITE); //Marco
         setBounds(0,0,1000,450);
         setLayout(null);
+        i=0;
+        j=100;
         
         listaScroll1 = new JList<String>();
         listaScroll2 = new JList<String>();
@@ -178,6 +179,21 @@ public class VistaRuta extends PrimerNivel{
         textfield7 = new JTextField();
         textfield8 = new JTextField();
         textfield9 = new JTextField();
+        textfield10 = new JTextField();
+        textfield11 = new JTextField();
+        textfield12 = new JTextField();
+        textfield13 = new JTextField();
+        textfield14 = new JTextField();
+        textfield15 = new JTextField();
+        textfield16 = new JTextField();
+        textfield17 = new JTextField();
+        textfield18 = new JTextField();
+        textfield19 = new JTextField();
+        textfield20 = new JTextField();
+        textfield21 = new JTextField();
+        textfield22 = new JTextField();
+        textfield23 = new JTextField();
+        
         
         label1 = new JLabel();
         label2 = new JLabel();
@@ -233,17 +249,22 @@ public class VistaRuta extends PrimerNivel{
         listaScroll2.addMouseListener(new MouseAdapter () 
         {        
             public void mouseClicked(MouseEvent mouseEvent) {           
-              int index = listaScroll2.locationToIndex(mouseEvent.getPoint()); 
+              int index = listaScroll1.locationToIndex(mouseEvent.getPoint()); 
               if (index >= 0) { 
-                String n = listaScroll2.getModel().getElementAt(index);
+                String n = listaScroll1.getModel().getElementAt(index);
                 
                 try { 
-                    Errores.setText(n);
+                        Errores.setText(n);
                         textfield1.setText(n);
                         textfield2.setText(CVR.ConsultarCapacidadRuta(n));
                         textfield3.setText(CVR.ConsultarDistanciaRuta(n));
                         textfield4.setText(CVR.ConsultarPlanetaARuta(n));
                         textfield5.setText(CVR.ConsultarPlanetaBRuta(n));
+                        textfield14.setText(n);
+                        textfield15.setText(CVR.ConsultarCapacidadRuta(n));
+                        textfield16.setText(CVR.ConsultarDistanciaRuta(n));
+                        textfield17.setText(CVR.ConsultarPlanetaARuta(n));
+                        textfield18.setText(CVR.ConsultarPlanetaBRuta(n));
                 } 
                 catch (Exception e) { 
                     Errores.setText(e.getMessage()); 
@@ -266,7 +287,6 @@ public class VistaRuta extends PrimerNivel{
                         textfield3.setText(CVR.ConsultarDistanciaRuta(n));
                         textfield4.setText(CVR.ConsultarPlanetaARuta(n));
                         textfield5.setText(CVR.ConsultarPlanetaBRuta(n));
-                        actualiza();
                     }   
                 }
                 catch (Exception e) {
@@ -304,6 +324,11 @@ public class VistaRuta extends PrimerNivel{
         AutomaticoCId.setBounds(400, 200, 200, 100);
         AutomaticoCId.setOpaque(false);
         Crear.add(AutomaticoCId);
+        
+        ButtonGroup gb = new ButtonGroup();
+        gb.add(Manual);
+        gb.add(Automatico);
+        gb.add(AutomaticoCId);
         
         int aux1 = 75;
         int aux1_2 = aux1+35+50;
@@ -449,25 +474,20 @@ public class VistaRuta extends PrimerNivel{
                         String d = textfield21.getText();
                         String x = textfield22.getText();
                         String y = textfield23.getText();
-                        System.out.println("VR abans de cridar crearruta");
                         CVR.creaRuta(n,c,d,x,y);
-                        System.out.println("VR despres de cridar crearruta");
-                        actualiza();
                     }
                     if(Automatico.isSelected()) {
                         CVR.creaRutaAut();
-                        actualiza();
                     }
                     else {
                         String n = textfield19.getText();
                         CVR.creaRutaAut_id(n);
-                        actualiza();
                     }
                 }
                 catch (Exception e) {
-                    System.out.println(e);
                     Errores.setText(e.getMessage());
                 }
+                actualiza();
                 textfield19.setText("");
                 textfield20.setText("");
                 textfield21.setText("");
@@ -495,55 +515,55 @@ public class VistaRuta extends PrimerNivel{
         label1.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label1);
         
-        textfield1 = new JTextField();
-        textfield1.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield1.setEnabled(false);
-        Modificar.add(textfield1);
-        textfield1.setColumns(10);  //??????
+        textfield14 = new JTextField();
+        textfield14.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield14.setEnabled(false);
+        Modificar.add(textfield14);
+        textfield14.setColumns(10);  //??????
         
         aux2+=50;
         label2 = new JLabel ("Capacidad :");
         label2.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label2);
         
-        textfield2 = new JTextField();
-        textfield2.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield2.setEnabled(false);
-        Modificar.add(textfield2);
-        textfield2.setColumns(10);
+        textfield15 = new JTextField();
+        textfield15.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield15.setEnabled(false);
+        Modificar.add(textfield15);
+        textfield15.setColumns(10);
         
         aux2+=50;
         label3 = new JLabel ("Distancia :");
         label3.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label3);
         
-        textfield3 = new JTextField();
-        textfield3.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield3.setEnabled(false);
-        Modificar.add(textfield3);
-        textfield3.setColumns(10);
+        textfield16 = new JTextField();
+        textfield16.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield16.setEnabled(false);
+        Modificar.add(textfield16);
+        textfield16.setColumns(10);
         
         aux2+=50;
         label4 = new JLabel("Planeta A :");
         label4.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label4);
         
-        textfield4 = new JTextField();
-        textfield4.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield4.setEnabled(false);
-        Modificar.add(textfield4);
-        textfield4.setColumns(10);
+        textfield17 = new JTextField();
+        textfield17.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield17.setEnabled(false);
+        Modificar.add(textfield17);
+        textfield17.setColumns(10);
         
         aux2+=50;
         label5 = new JLabel("Planeta B :");
         label5.setBounds(aux1,aux2,aux3,aux4); //Esperando
         Modificar.add(label5);
         
-        textfield5 = new JTextField();
-        textfield5.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield5.setEnabled(false);
-        Modificar.add(textfield5);
-        textfield5.setColumns(10);
+        textfield18 = new JTextField();
+        textfield18.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
+        textfield18.setEnabled(false);
+        Modificar.add(textfield18);
+        textfield18.setColumns(10);
         
         
         aux1 = 350;
@@ -608,11 +628,11 @@ public class VistaRuta extends PrimerNivel{
                     if(!d.isEmpty()) CVR.ModificarDistanciaRuta(nac,d);
                     if(!x.isEmpty()) CVR.ModificarPlanetaARuta(nac,x);
                     if(!y.isEmpty()) CVR.ModificarPlanetaBRuta(nac,y);
-                    actualiza();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
+                actualiza();
                 textfield1.setText("");
                 textfield2.setText("");
                 textfield3.setText("");
@@ -708,10 +728,10 @@ public class VistaRuta extends PrimerNivel{
                 String path = Guardar.getSelectedFile().getAbsolutePath(); 
                 try { 
                    CVR.GuardarRutas(path);
-                    actualiza();   
                 } catch (Exception e1) {
                     Errores.setText(e1.getMessage());
-                } 
+                }
+                actualiza();
             } 
         }); 
         Guardar.setBounds(0, 0, 690, 390); 
@@ -732,11 +752,11 @@ public class VistaRuta extends PrimerNivel{
                    
                 String path = Cargar.getSelectedFile().getAbsolutePath(); 
                 try { 
-                    CVR.CargarRutas(path);
-                    actualiza();                    
+                    CVR.CargarRutas(path);                   
                 } catch (Exception e1) {
                     Errores.setText(e1.getMessage());
                 } 
+                actualiza(); 
             } 
         }); 
         Cargar.setBounds(0, 0, 690, 390); 
