@@ -15,13 +15,9 @@ public class ControladorVistaRuta {
     private ControladorRuta CR;
     private VistaRuta VR;
 
-    private ControladorGalaxia CG;
-    private ControladorNave CN;
     private ControladorPlaneta CP;
 
-    private ControladorVistaGalaxia CVG;
     private ControladorVistaPlaneta CVP;
-    private ControladorVistaNave CVN;
 
     
     ControladorVistaRuta() {
@@ -58,11 +54,7 @@ public class ControladorVistaRuta {
         return res;
     }
 	
-    public void inicialitza(ControladorVistaGalaxia cVG, ControladorVistaNave cVN, ControladorVistaPlaneta cVP) {
-       // CG = cVG. .consultarControladorGalaxia();
-        CVG = cVG;
-        CN = cVN.ConsultarControladorNave();
-        CVN = cVN;
+    public void inicialitza(ControladorVistaPlaneta cVP) {
         CP = cVP.ConsultarControladorPlaneta();
         CVP = cVP;
     }
