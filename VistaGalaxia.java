@@ -1,3 +1,5 @@
+package prop;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
@@ -169,7 +171,7 @@ public class VistaGalaxia extends PrimerNivel {
         // COMPOUNDBORDER -> LINEA QUE RODEA EL BOTON CON UN COLOR DETERMINADO
     	// Panel de arriba
         Central.setBackground(SystemColor.control);
-        Central.setBounds(0, 0, 700, 460); // -> mirar valores
+        Central.setBounds(0, 0, 700, 460);
         add(Central);
     	Central.addTab("Crear", Crear); // nombre, icono, panel, mensaje cuando pones el raton encima
     	Central.addTab("Modificar", Modificar);
@@ -219,7 +221,7 @@ public class VistaGalaxia extends PrimerNivel {
         group1.add(AmbForma);
         
         SenseForma.setSelected(false);        
-        SenseForma.setBounds(400, 25, 200, 50); // -> mirar valores
+        SenseForma.setBounds(400, 25, 200, 50);
         SenseForma.setBackground(SystemColor.activeCaption);
         group1.add(SenseForma);
         
@@ -260,12 +262,12 @@ public class VistaGalaxia extends PrimerNivel {
         Modificar.add(label11);
         
         AmbForma1.setSelected(true); // comenco amb forma marcat
-        AmbForma1.setBounds(200, 180, 100, 50); // -> mirar valores
+        AmbForma1.setBounds(200, 180, 100, 50);
         AmbForma1.setBackground(SystemColor.activeCaption);
         group2.add(AmbForma1);
         
         SenseForma1.setSelected(false);        
-        SenseForma1.setBounds(295, 180, 100, 50); // -> mirar valores
+        SenseForma1.setBounds(295, 180, 100, 50);
         SenseForma1.setBackground(SystemColor.activeCaption);
         group2.add(SenseForma1);
         
