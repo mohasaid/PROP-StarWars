@@ -1,7 +1,14 @@
+package prop;
+
+/**
+ *
+ * @author Moha
+ */
 import java.util.*;
 
 public class Dijkstra extends Recorrido {
-	protected int dist[]; // con infinito
+	protected int dist[];
+        private static final int arist = 2000000000;
 	
 	public boolean Recorrido(Grafo g_residual, int origen, int destino, int path[]) {
 		int V = g_residual.sizeGrafo();
@@ -9,7 +16,7 @@ public class Dijkstra extends Recorrido {
 		Arrays.fill(visitados, false);
 		
 		dist = new int[V];
-		Arrays.fill(dist, Integer.MAX_VALUE);
+		Arrays.fill(dist, arist);
 		dist[origen] = 0;
 		
 		PriorityQueue<Pair<Integer, Integer> > pq = new PriorityQueue<Pair<Integer, Integer> >(1, new PriorityQueueComparator()); // coste, nodo
@@ -25,7 +32,7 @@ public class Dijkstra extends Recorrido {
 					int adj = g_residual.consultarSeg(actual, i);
 					int coste = g_residual.consultarPrim(actual, i).ConsultarCoste();
 					int cap = g_residual.consultarPrim(actual, i).ConsultarCapacidad();
-					if((dist[adj] > dist[actual] + coste) && cap > 0 /*&& (coste >= 0)*/) {
+					if((dist[adj] > dist[actual] + coste) && cap > 0 && (coste >= 0)) {
 						dist[adj] = dist[actual] + coste;
 						path[adj] = actual;
 						pq.add(new Pair<Integer,Integer>(dist[adj],adj));
@@ -33,7 +40,7 @@ public class Dijkstra extends Recorrido {
 				}
 			}
 		}
-		if(dist[destino] != Integer.MAX_VALUE) return true;
+		if(dist[destino] != arist) return true;
 		else return false;
 	}
 }
