@@ -26,8 +26,6 @@ public class Main {
                                     cVistaNave.start(cVistaPlaneta);
                                     cVistaMFP.Importar(cVistaGalaxia, cVistaPlaneta, cVistaRuta, cVistaNave);
                                     
-                                    
-                                    
 		                    VistaPrincipal frame = new VistaPrincipal(cVistaGalaxia,cVistaPlaneta,cVistaNave,cVistaRuta,cVistaMFP);
 		                    frame.setVisible(true);                                
 		                }
