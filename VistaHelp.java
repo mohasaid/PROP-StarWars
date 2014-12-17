@@ -1,5 +1,4 @@
 
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -20,11 +19,11 @@ import javafx.scene.control.ComboBox;
 
 public class VistaHelp extends PrimerNivel{
 
-    private String Galaxia = "Opciones de galaxia:";
-    private String Naves = "Opciones de naves:";
-    private String Planetas = "Opciones de planetas:";
-    private String Rutas = "Opciones de Rutas:"; 
-    private String MFlow = "Opciones de Max Flow:";
+    private String Galaxia = "-----------------Opciones de galaxia----------------------";
+    private String Naves = "-------------------Opciones de naves------------------------";
+    private String Planetas = "----------------Opciones de planetas---------------------";
+    private String Rutas = "-------------------Opciones de Rutas------------------------"; 
+    private String MFlow = "-------------------Opciones de Max Flow---------------------";
     private String CrearG = "Creacion de galaxia";
     private String ModifG = "Modificación de galaxia";
     private String ConsultaG = "Consulta de galaxia";
@@ -378,7 +377,6 @@ public class VistaHelp extends PrimerNivel{
         add(Clip);
         add(textfield1);
         add(CB);
-        setVisible(true);
         
     }
      
