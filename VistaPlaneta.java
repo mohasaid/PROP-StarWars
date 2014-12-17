@@ -56,7 +56,6 @@ public class VistaPlaneta extends PrimerNivel {
             listado = CVP.ConsultarNombresPlanetas();
             Errores.setText(String.valueOf(listado1.size()));
             CB.removeAllItems();
-            CB.setEditable(false);
             listaScroll1.removeAll();
             if (listado.size() != 0) {  
                 CB.setEditable(true);
@@ -71,7 +70,7 @@ public class VistaPlaneta extends PrimerNivel {
             }        
         }
         catch (Exception e) {
-            System.out.print(e);
+            Errores.setText(e.getMessage());
         }
     }
     
@@ -103,7 +102,7 @@ public class VistaPlaneta extends PrimerNivel {
                     mlistado.removeAllElements();
                     listado1.clear();
                     for(String e : listado2) listado1.add(e);
-                    listado2 = CVP.ConsultarNombresPlanetas(i);
+                    listado2 = CVP.ConsultarNombresPlanetas(j);
                     for(String e : listado1) mlistado.addElement(e);
                     for(String e : listado2) mlistado.addElement(e);
                     listaScroll2.setModel(mlistado);
@@ -111,7 +110,7 @@ public class VistaPlaneta extends PrimerNivel {
                     listaScroll2.repaint();
                 }
             }
-                        catch (Exception e) {
+            catch (Exception e) {
                 Errores.setText(e.getMessage());
             }
         }
@@ -120,10 +119,13 @@ public class VistaPlaneta extends PrimerNivel {
         setOpaque(false);          
         setBackground(Color.WHITE); //Marco
         setLayout(null);
-        
+        j = 100;
         listado = new ArrayList<String>();
         mlistado = new DefaultListModel<String>();
         listado1 = new ArrayList<String>();
+        listado2 = new ArrayList<String>();
+        listaScroll1 = new JList<String>();
+        listaScroll2 = new JList<String>();
         
         btnMissatge = new JButton("Error");
         btnMissatge.setBounds(0,475,75,25);
@@ -157,14 +159,14 @@ public class VistaPlaneta extends PrimerNivel {
         
         AdjustmentListener adjustmentListener = new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
-                if(Scroll.getVerticalScrollBar().getValue()== Scroll.getVerticalScrollBar().getMaximum()-Scroll.getVerticalScrollBar().getVisibleAmount()){
-                    actualizaListaDown();
+                if(CVP.size() > 200) {  
+                    if(Scroll.getVerticalScrollBar().getValue()== Scroll.getVerticalScrollBar().getMaximum()-Scroll.getVerticalScrollBar().getVisibleAmount()){
+                        actualizaListaDown();
+                    }
+                    if(Scroll.getVerticalScrollBar().getValue()==Scroll.getVerticalScrollBar().getMinimum()){
+                        actualizaListaUP();
+                    }
                 }
-                
-                if(Scroll.getVerticalScrollBar().getValue()==Scroll.getVerticalScrollBar().getMinimum()){
-                    actualizaListaUP();
-                }
-                        
             }
         };
                 
@@ -184,6 +186,10 @@ public class VistaPlaneta extends PrimerNivel {
                     textfield2.setText(CVP.ConsultarCoste(n));
                     textfield3.setText(CVP.ConsultarCoordenadaX(n));
                     textfield4.setText(CVP.ConsultarCoordenadaY(n));
+                    textfield17.setText(n);
+                    textfield18.setText(CVP.ConsultarCoste(n));
+                    textfield19.setText(CVP.ConsultarCoordenadaX(n));
+                    textfield20.setText(CVP.ConsultarCoordenadaY(n));
                 } 
                 catch (Exception e) { 
                     Errores.setText(e.getMessage()); 
@@ -205,7 +211,10 @@ public class VistaPlaneta extends PrimerNivel {
                         textfield2.setText(CVP.ConsultarCoste(n));
                         textfield3.setText(CVP.ConsultarCoordenadaX(n));
                         textfield4.setText(CVP.ConsultarCoordenadaY(n));
-                        actualiza();
+                        textfield17.setText(n);
+                        textfield18.setText(CVP.ConsultarCoste(n));
+                        textfield19.setText(CVP.ConsultarCoordenadaX(n));
+                        textfield20.setText(CVP.ConsultarCoordenadaY(n));
                     }   
                 }
                 catch (Exception e) {
@@ -363,6 +372,7 @@ public class VistaPlaneta extends PrimerNivel {
                     else {
                         String n = textfield1.getText();
                         CVP.CrearPlaneta(n);
+                        actualiza();
                     }
                 }
                 catch (Exception e) {
@@ -393,41 +403,41 @@ public class VistaPlaneta extends PrimerNivel {
         label1.setBounds(50, 115, 60, 30); //Esperando
         Modificar.add(label1);
         
-        textfield1 = new JTextField();
-        textfield1.setBounds(130, 115, 120, 30); //Esperando
-        Modificar.add(textfield1);
-        textfield1.setColumns(10);  //??????
-        textfield1.setEnabled(false);
+        textfield17= new JTextField();
+        textfield17.setBounds(130, 115, 120, 30); //Esperando
+        Modificar.add(textfield17);
+        textfield17.setColumns(10);  //??????
+        textfield17.setEnabled(false);
         
         label2 = new JLabel ("Coste :");
         label2.setBounds(50, 165, 60, 30); //Esperar
         Modificar.add(label2);
         
-        textfield2 = new JTextField();
-        textfield2.setBounds(130, 165, 120, 30); //Esperar
-        Modificar.add(textfield2);
-        textfield2.setColumns(10);
-        textfield2.setEnabled(false);
+        textfield18 = new JTextField();
+        textfield18.setBounds(130, 165, 120, 30); //Esperar
+        Modificar.add(textfield18);
+        textfield18.setColumns(10);
+        textfield18.setEnabled(false);
         
         label3 = new JLabel("X :");
         label3.setBounds(50, 215, 60, 30); //Esperar
         Modificar.add(label3);
         
-        textfield3 = new JTextField();
-        textfield3.setBounds(130, 215, 120, 30); //Esperar
-        Modificar.add(textfield3);
-        textfield3.setColumns(10);
-        textfield3.setEnabled(false);
+        textfield19 = new JTextField();
+        textfield19.setBounds(130, 215, 120, 30); //Esperar
+        Modificar.add(textfield19);
+        textfield19.setColumns(10);
+        textfield19.setEnabled(false);
                 
         label4 = new JLabel("Y :");
         label4.setBounds(50, 265, 60, 30); //Esperar
         Modificar.add(label4);
         
-        textfield4 = new JTextField();
-        textfield4.setBounds(130, 265, 120, 30); //Esperar
-        Modificar.add(textfield4);
-        textfield4.setColumns(10);
-        textfield4.setEnabled(false);
+        textfield20 = new JTextField();
+        textfield20.setBounds(130, 265, 120, 30); //Esperar
+        Modificar.add(textfield20);
+        textfield20.setColumns(10);
+        textfield20.setEnabled(false);
         
         label5 = new JLabel ("Coste :");
         label5.setBounds(400, 165, 50, 30); //Esperar
