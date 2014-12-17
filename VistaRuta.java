@@ -86,9 +86,11 @@ public class VistaRuta extends PrimerNivel{
     
     public void actualiza() {
         try {
+            
             mlistado.removeAllElements();
             listado1 = CVR.ConsultarIdsRutas(i);
             listado2 = CVR.ConsultarIdsRutas(j);
+            int x = 0;
             listado = CVR.ConsultarIdsRutas_string();
             Errores.setText(String.valueOf(listado1.size()));
             CB.removeAllItems();
@@ -447,7 +449,9 @@ public class VistaRuta extends PrimerNivel{
                         String d = textfield21.getText();
                         String x = textfield22.getText();
                         String y = textfield23.getText();
+                        System.out.println("VR abans de cridar crearruta");
                         CVR.creaRuta(n,c,d,x,y);
+                        System.out.println("VR despres de cridar crearruta");
                         actualiza();
                     }
                     if(Automatico.isSelected()) {
@@ -461,6 +465,7 @@ public class VistaRuta extends PrimerNivel{
                     }
                 }
                 catch (Exception e) {
+                    System.out.println(e);
                     Errores.setText(e.getMessage());
                 }
                 textfield19.setText("");
