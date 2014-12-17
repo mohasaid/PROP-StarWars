@@ -8,13 +8,21 @@ public class ControladorPlaneta {
     private static int id = 0;
     private static final String nomG = "Planeta";
     
+    /**
+     * Metodo para conseguir un numero aleatorio
+     * @param min
+     * @param max
+     */
     private int randInt(int min, int max)
     {
     	Random rand = new Random();
     	int randomNum = rand.nextInt((max - min) + 1) + min;
     	return randomNum;
     }
-    
+    /**
+     * Metodo para comprobar si un string contiene caracteres alfanumericos
+     * @param nom
+     */
     private boolean alfa_numeric(String nom)
     {
         if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
@@ -25,37 +33,54 @@ public class ControladorPlaneta {
         return true;
     }
     
-    //Pre: Cierto.
-    //Post: Crea un ControladorPlaneta.
+    /**
+     * Metodo para crear un controlador de planeta
+     */
     public ControladorPlaneta()
     {
         listaPlanetas = new TST<Planeta>();
     }
-    
+    /**
+     * Metodo para anadir un planeta a la listaPlanetas
+     * @param p
+     * @throws Exception
+     */
     public void anadirPlaneta(Planeta p) throws Exception
     {
     	listaPlanetas.add(p.Consultar_nombre(),p);
     }
-    //Pre: Cierto.
-    //Post: Retorna true si el planeta existe y false si no.
+    /**
+     * Metodo para comprobar la existencia de un planeta
+     * @param idP
+     * @throws Exception
+     */
     public boolean ExistePlaneta(String idP) throws Exception 
     {
     	return listaPlanetas.contains(idP);
     }
-    
+    /**
+     * Metodo para borrar un planeta de la listaPlaneta
+     * @param idPlaneta
+     * @throws Exception
+     */
     public void BorraPla(String idPlaneta) throws Exception
     {
     	listaPlanetas.eliminar(idPlaneta);
     }
-    
-    //Pre: Cierto.
-    //Post: Retorna un Planeta con idedentificador "id".
+    /**
+     * Metodo que retorna un Planeta dedo el nombre del planeta.
+     * @param id
+     * @throws Exception
+     */
     public Planeta BuscarPlaneta(String id) throws Exception
     {
 		return listaPlanetas.buscar(id);   
     }
-    //Pre: Cierto.
-    //Post: Crea un planeta automaticamente con atributos aleatorios incluida la id
+    /**
+     * Metodo para crear un Planeta automatico.
+     * @param cg
+     * @throws Exception
+     */
     public void PlanetaAuto(ControladorGalaxia cg) throws Exception 
     {
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
@@ -80,7 +105,12 @@ public class ControladorPlaneta {
         listaPlanetas.add(f,p);
         scan.close();
     }
-    
+    /**
+     * Metodo para crear un Planeta aleatorio con nombre
+     * @param id
+     * @param cg
+     * @throws Exception
+     */
     public void PlanetaAuto(String id, ControladorGalaxia cg) throws Exception 
     {
     	if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
@@ -100,54 +130,75 @@ public class ControladorPlaneta {
         scan.close();
     }
     
-    //Pre: Cierto.
-    //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Asiganado = A.
+    /**
+     * Metodo para crear un Planeta
+     * @param id
+     * @param k
+     * @param Coo
+     * @param cg
+     * @throws Exception
+     */
     public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
     {
         if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
         if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
         
-        cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
+        //cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
         Planeta p = new Planeta (id, k, Coo);
         listaPlanetas.add(id, p);
         
     }
-    //Pre: Cierto.
-    //Post: Retorna el Coste del planeta.
+    /**
+     * Metodo para consultar el coste de un Planeta
+     * @param id
+     * @throws Exception
+     */
     public int Consultar_Coste(String id) throws Exception 
     {
         return BuscarPlaneta(id).Consultar_Coste();
     }
     
-    //Pre: Cierto.
-    //Post: Retorna las Coordenadas del planeta.
+    /**
+     * Metodo para consultar las coordenadas de un planeta
+     * @param id
+     * @throws Exception
+     */
     public Pair<Integer,Integer> Consultar_Coordenadas(String id) throws Exception
     {
         return BuscarPlaneta(id).consultar_coordenades();
     }
     
-    //Pre: Cierto.
-    //Post: Retorna la coordenada X del planeta.
+    /**
+     * Metodo para consultar la coordenada X de un planeta
+     * @param id
+     * @throws Exception
+     */
     public int consultar_X(String id) throws Exception
     {
         return BuscarPlaneta(id).consultar_X();
     }
     
-    //Pre: Cierto.
-    //Post: Retorna la coordenada Y del planeta.
+    /**
+     * Metodo para consultar la coordenada Y de un planeta
+     * @param id
+     * @throws Exception
+     */
     public int consultar_Y(String id) throws Exception
     {
         return BuscarPlaneta(id).consultar_Y();
     }
-    //Pre: Cierto.
-    //Post: Retorna el tamanio de listaPlanetas.
+    /**
+     * Metodo para cosnultar el size de listaPlanetas
+     * @throws Exception
+     */
     public int Consultar_Size() 
     {
         return listaPlanetas.size();
     }
-    
-    //Pre: Cierto.
-    //Post: Retorna listaPlanetas.
+    /**
+     * Metodo para consultar listaPlanetas
+     * @throws Exception
+     */
     public String Consultar_listaPlanetas() throws Exception
     {
     	String res = ""	;
@@ -156,20 +207,28 @@ public class ControladorPlaneta {
     	res +="\n";
     	return res;
     }
-    
+    /**
+     * Metodo para consultar listaPlanetas
+     * @throws Exception
+     */
     public ArrayList<String> consultarPlanetas() throws Exception
     {
     	return listaPlanetas.ConsultarIdentificadores();
     }
-    
-    //Pre: 0 <= X < listaPlanetas.size().
-    //Post: Consulta el elemento X de la listaPlanetas en caso de que exista
+    /**
+     * Metodo para consultar el planeta en la posicion x
+     * @param x
+     * @throws Exception
+     */
     public Planeta Consultar_PlanetaX(int x) throws Exception {
         return listaPlanetas.MostrarElementos().get(x);
     }
-    
-    //Pre: Cierto.
-    //Post: Modifica el coste del planeta.
+    /**
+     * Metodo para modificar el coste de un Planeta
+     * @param id
+     * @param k
+     * @throws Exception
+     */
     public void Modificar_Coste(String id, int k) throws Exception 
     {
         BuscarPlaneta(id).Modificar_Coste(k);
@@ -192,22 +251,20 @@ public class ControladorPlaneta {
     	cg.eliminarPlaneta(c1, c2);
     	a.modificarCoordenades(x, y);
     }
-    //Pre: Cierto.
-    //Post: Borra el planeta.
-    public void Borrar(String id, ControladorRuta cr, ControladorGalaxia cg) throws Exception 
-    {
-    	Planeta p = listaPlanetas.buscar(id);
-    	cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
-    	listaPlanetas.eliminar(id);
-    }
-    
+    /**
+     * Metodo para borrar listaPlanetas
+     * @throws Exception
+     */
     public void BorrarTodos() throws Exception 
     {
     	listaPlanetas.clear();
     }
-    
-  //Pre: Cierto.
-    //Post: 
+    /**
+     * Metodo para cargar Planetas
+     * @param path
+     * @param cg
+     * @throws Exception
+     */
     public void CargarPlanetas (String path, ControladorGalaxia cg) throws Exception 
     {
     	BorrarTodos();
@@ -241,8 +298,11 @@ public class ControladorPlaneta {
     	cdp.CerrarLectura();
     }
     
-    //Pre: Cierto.
-    //Post: 
+    /**
+     * Metodo para guardar Planetas
+     * @param path
+     * @throws Exception
+     */
     public void GuardarPlanetas (String path) throws Exception 
     {
     	String res ="";
@@ -269,7 +329,10 @@ public class ControladorPlaneta {
     		cdp.CerrarEscritura();
     	}
     }
-    
+    /**
+     * Metodo para consultar todos los planetas con su configuracion
+     * @throws Exception
+     */
     
     public String consultarTODO() throws Exception {
     	String res ="";
