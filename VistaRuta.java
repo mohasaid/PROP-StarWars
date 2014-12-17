@@ -31,7 +31,6 @@ public class VistaRuta extends PrimerNivel{
     private ArrayList<String> listado1;
     private ArrayList<String> listado2;
     private DefaultListModel<String> mlistado;
-    private JComboBox<String> CBRutas;
     
     /*
     //Cajas Atributos
@@ -69,6 +68,7 @@ public class VistaRuta extends PrimerNivel{
     //Botones
     private JButton CrearRuta;
     private JButton Modificar_btn;
+    private JButton Eliminar;
     
     //Casillas
     private JRadioButton Manual;
@@ -226,7 +226,7 @@ public class VistaRuta extends PrimerNivel{
         listaScroll2.setBackground(SystemColor.inactiveCaptionBorder); 
         Scroll.setViewportView(listaScroll2); 
         Scroll = new JScrollPane(listaScroll2);
-        Scroll.setBounds(720,65,120,390);
+        Scroll.setBounds(720,65,120,350);
         Scroll.setPreferredSize(new Dimension(152,217));
         add(Scroll);
         
@@ -252,7 +252,6 @@ public class VistaRuta extends PrimerNivel{
               int index = listaScroll1.locationToIndex(mouseEvent.getPoint()); 
               if (index >= 0) { 
                 String n = listaScroll1.getModel().getElementAt(index);
-                
                 try { 
                         Errores.setText(n);
                         textfield1.setText(n);
@@ -273,8 +272,28 @@ public class VistaRuta extends PrimerNivel{
             } 
         });
         
+        Eliminar = new JButton("Eliminar");
+        Eliminar.setBounds(720,65+350+10,120,30);
+        add(Eliminar);
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+            try{
+                int selectedIndex = listaScroll2.getSelectedIndex(); 
+                if (selectedIndex != -1) { 
+                    String n = listaScroll2.getSelectedValue(); 
+                    mlistado.removeElement(n);
+                    CVR.eliminarRuta(n);
+                    actualiza();
+                }
+            }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
+            }
+        });
+        
         CB = new JComboBox<String>();
-        CB.setBounds(720,15 , 120, 30);
+        CB.setBounds(720, 15, 120, 30);
         add(CB);
         CB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
