@@ -268,7 +268,7 @@ public class VistaNave extends PrimerNivel{
         
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBackground(SystemColor.activeCaption);
-        Central.setBounds(0,0,700,450);
+        Central.setBounds(0, 0, 700, 460);
         
         
         
@@ -279,14 +279,17 @@ public class VistaNave extends PrimerNivel{
     
     //CREACION TIPO
         PanelCrearTipo = new JPanel();
+        PanelCrearTipo.setBackground(SystemColor.activeCaption);
         PanelCrearTipo.setLayout(null);
         PanelCreacion.addTab("TipoNave",PanelCrearTipo);
+        
         
         
         
     //TIPO MANUAL    
         ManAutoTipo = new ButtonGroup();
         ManTipo = new JRadioButton();
+        ManTipo.setBackground(SystemColor.activeCaption);
         ManTipo.setText("Crear tipo de nave manualmente:");
         ManTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -296,6 +299,7 @@ public class VistaNave extends PrimerNivel{
         ManTipo.setBounds(225,50,300,25);
         ManTipo.setText("Crear tipo de nave de forma manual: ");
         AutoTipo = new JRadioButton();
+         AutoTipo.setBackground(SystemColor.activeCaption);
         AutoTipo.setBounds(225, 250, 300, 25);
         AutoTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -328,6 +332,7 @@ public class VistaNave extends PrimerNivel{
         
         //RadioButtons Tipo:
         T1 = new JRadioButton();
+        T1.setBackground(SystemColor.activeCaption);
         T1.setBounds(350, 175, 50, 25);
         T1.setText("1");
         T1.setEnabled(false);
@@ -336,6 +341,7 @@ public class VistaNave extends PrimerNivel{
 
         
         T2 = new JRadioButton();
+        T2.setBackground(SystemColor.activeCaption);
         T2.setBounds(405, 175, 50, 25);
         T2.setText("2");
         T2.setEnabled(false);
@@ -343,6 +349,7 @@ public class VistaNave extends PrimerNivel{
         Tipos.add(T2);
         
         T3 = new JRadioButton();
+        T3.setBackground(SystemColor.activeCaption);
         T3.setBounds(460, 175, 50, 25);
         T3.setText("3");
         T3.setEnabled(false);
@@ -351,6 +358,7 @@ public class VistaNave extends PrimerNivel{
         
         
         T4 = new JRadioButton();
+        T4.setBackground(SystemColor.activeCaption);
         T4.setBounds(515, 175, 50, 25);
         T4.setText("4");
         T4.setEnabled(false);
@@ -359,6 +367,7 @@ public class VistaNave extends PrimerNivel{
 
         
         T5 = new JRadioButton();
+        T5.setBackground(SystemColor.activeCaption);
         T5.setBounds(570, 175, 50, 25);
         T5.setText("5");
         T5.setEnabled(false);
@@ -370,12 +379,14 @@ public class VistaNave extends PrimerNivel{
         //Manual!
                 
         PanelCrearNave = new JPanel();
+        PanelCrearNave.setBackground(SystemColor.activeCaption);
         PanelCrearNave.setLayout(null);
         PanelCreacion.addTab("Nave",PanelCrearNave);
         
 
         ManAuto = new ButtonGroup();
         ManNave = new JRadioButton();
+        ManNave.setBackground(SystemColor.activeCaption);
         ManNave.setBounds(225,40,300,25);
         ManNave.setText("Crear una nave manualmente: "); 
         ManNave.addActionListener(new java.awt.event.ActionListener() {
@@ -385,6 +396,7 @@ public class VistaNave extends PrimerNivel{
         });
         
         AutoNave = new JRadioButton();
+        AutoNave.setBackground(SystemColor.activeCaption);
         AutoNave.setBounds(225, 240, 300,25);
         AutoNave.setText("Crear naves de forma automatica: ");
         AutoNave.addActionListener(new java.awt.event.ActionListener() {
@@ -396,6 +408,7 @@ public class VistaNave extends PrimerNivel{
         ManAuto.add(AutoNave);
         PanelCrearNave.add(AutoNave);
         PanelCrearNave.add(ManNave);
+        
         
         label4 = new JLabel("Planeta origen: ");
         label4.setBounds(250,90,200,25);
@@ -412,6 +425,7 @@ public class VistaNave extends PrimerNivel{
         TiposNave = new ButtonGroup();
         
         TT1 = new JRadioButton();
+        TT1.setBackground(SystemColor.activeCaption);
         TT1.setBounds(350, 190, 50, 25);
         TT1.setText("1");
         TT1.setEnabled(false);
@@ -420,6 +434,7 @@ public class VistaNave extends PrimerNivel{
 
         
         TT2 = new JRadioButton();
+        TT2.setBackground(SystemColor.activeCaption);
         TT2.setBounds(405, 190, 50, 25);
         TT2.setText("2");
         TT2.setEnabled(false);
@@ -427,6 +442,7 @@ public class VistaNave extends PrimerNivel{
         TiposNave.add(TT2);
         
         TT3 = new JRadioButton();
+        TT3.setBackground(SystemColor.activeCaption);
         TT3.setBounds(460, 190, 50, 25);
         TT3.setText("3");
         TT3.setEnabled(false);
@@ -435,6 +451,7 @@ public class VistaNave extends PrimerNivel{
         
         
         TT4 = new JRadioButton();
+        TT4.setBackground(SystemColor.activeCaption);
         TT4.setBounds(515, 190, 50, 25);
         TT4.setText("4");
         TT4.setEnabled(false);
@@ -443,6 +460,7 @@ public class VistaNave extends PrimerNivel{
 
         
         TT5 = new JRadioButton();
+        TT5.setBackground(SystemColor.activeCaption);
         TT5.setBounds(570, 190, 50, 25);
         TT5.setText("5");
         TT5.setEnabled(false);
@@ -473,7 +491,7 @@ public class VistaNave extends PrimerNivel{
             
         CrearNave = new JButton("Crear");
         CrearNave.setIcon(null);
-        CrearNave.setBounds(220, 335, 200, 50);
+        CrearNave.setBounds(500, 350, 150, 50);
         PanelCrearNave.add(CrearNave);
         
         CrearNave.addActionListener(new java.awt.event.ActionListener() {
@@ -504,7 +522,7 @@ public class VistaNave extends PrimerNivel{
         
         CrearTipo = new JButton("Crear");
         CrearTipo.setIcon(null);
-        CrearTipo.setBounds(220, 300, 200, 50);
+        CrearTipo.setBounds(500, 350, 150, 50);
         PanelCrearTipo.add(CrearTipo);
         
         CrearTipo.addActionListener(new java.awt.event.ActionListener() {
@@ -543,6 +561,7 @@ public class VistaNave extends PrimerNivel{
     //Modificar tipo nave
         
         PanelModificarTipo = new JPanel();
+        PanelModificarTipo.setBackground(SystemColor.activeCaption);
         PanelModificar.addTab("TipoNave", null,PanelModificarTipo,null);
         PanelModificarTipo.setLayout(null);
         
@@ -578,7 +597,7 @@ public class VistaNave extends PrimerNivel{
         PanelModificarTipo.add(textfield11);
         
         ModificarTipo = new JButton("Modificar");
-        ModificarTipo.setBounds(220, 300, 200, 50);
+        ModificarTipo.setBounds(500, 350, 150, 50);
         PanelModificarTipo.add(ModificarTipo);
                 ModificarTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -600,6 +619,7 @@ public class VistaNave extends PrimerNivel{
         
     //Modificar Nave
         PanelModificarNave = new JPanel();
+        PanelModificarNave.setBackground(SystemColor.activeCaption);
         PanelModificar.addTab("Nave", null,PanelModificarNave,null);
         PanelModificarNave.setLayout(null);
         
@@ -666,7 +686,7 @@ public class VistaNave extends PrimerNivel{
         PanelModificarNave.add(textfield10);
         
         ModificarNave = new JButton("Modificar");
-        ModificarNave.setBounds(220, 320, 200, 50);
+        ModificarNave.setBounds(500, 350, 150, 50);
         PanelModificarNave.add(ModificarNave);
                 ModificarNave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -690,6 +710,7 @@ public class VistaNave extends PrimerNivel{
         Central.addTab("Consultar",PanelConsultar);
         
         PanelConsultarTipo = new JPanel();
+        PanelConsultarTipo.setBackground(SystemColor.activeCaption);
         PanelConsultar.addTab("TipoNave",PanelConsultarTipo);
         PanelConsultarTipo.setLayout(null);
         
@@ -715,6 +736,7 @@ public class VistaNave extends PrimerNivel{
         
 //Consultar Nave
         PanelConsultarNave = new JPanel();
+        PanelModificarNave.setBackground(SystemColor.activeCaption);
         PanelConsultar.addTab("Nave",PanelConsultarNave);
         PanelConsultarNave.setLayout(null);
         
@@ -770,7 +792,7 @@ public class VistaNave extends PrimerNivel{
         listaScroll2.setBackground(SystemColor.inactiveCaptionBorder); 
         Scroll.setViewportView(listaScroll2); 
         Scroll = new JScrollPane(listaScroll2);
-        Scroll.setBounds(720,190,150,260);
+        Scroll.setBounds(720,190,150,235);
         Scroll.setPreferredSize(new Dimension(152,217));
         
         AdjustmentListener adjustmentListener = new AdjustmentListener() {
@@ -846,7 +868,7 @@ public class VistaNave extends PrimerNivel{
             } 
         }); 
                 Eliminar = new JButton("Eliminar");
-                Eliminar.setBounds(830,570,150,25);
+                Eliminar.setBounds(720,435,150,25);
                 add(Eliminar);
                  Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
