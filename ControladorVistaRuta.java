@@ -44,7 +44,6 @@ public class ControladorVistaRuta {
             ++j;
             ++i;
         }
-        
         return res;
     }
     
@@ -56,12 +55,11 @@ public class ControladorVistaRuta {
             String s = ""+aux.get(i);
             res.add(s);
         }
-        System.out.println(res.size());
         return res;
     }
 	
     public void inicialitza(ControladorVistaGalaxia cVG, ControladorVistaNave cVN, ControladorVistaPlaneta cVP) {
-        CG = cVG.consultarControladorGalaxia();
+       // CG = cVG. .consultarControladorGalaxia();
         CVG = cVG;
         CN = cVN.ConsultarControladorNave();
         CVN = cVN;
@@ -167,7 +165,6 @@ public class ControladorVistaRuta {
     public void CargarRutas(String path) throws Exception
     {
         CR.CargarRutas(path, CP);
-        System.out.println(CR.Consultar_Conexiones());
     }
     
     public void ModificarPlanetaBRuta(String id, String id_planetaB_nuevo) throws Exception
