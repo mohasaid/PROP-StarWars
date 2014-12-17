@@ -536,7 +536,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield14 = new JTextField();
         textfield14.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield14.setEnabled(false);
+        textfield14.setEditable(false);
         Modificar.add(textfield14);
         textfield14.setColumns(10);  //??????
         
@@ -547,7 +547,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield15 = new JTextField();
         textfield15.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield15.setEnabled(false);
+        textfield15.setEditable(false);
         Modificar.add(textfield15);
         textfield15.setColumns(10);
         
@@ -558,7 +558,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield16 = new JTextField();
         textfield16.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield16.setEnabled(false);
+        textfield16.setEditable(false);
         Modificar.add(textfield16);
         textfield16.setColumns(10);
         
@@ -569,7 +569,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield17 = new JTextField();
         textfield17.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield17.setEnabled(false);
+        textfield17.setEditable(false);
         Modificar.add(textfield17);
         textfield17.setColumns(10);
         
@@ -580,7 +580,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield18 = new JTextField();
         textfield18.setBounds(aux1_2,aux2,aux3_2,aux4); //Esperando
-        textfield18.setEnabled(false);
+        textfield18.setEditable(false);
         Modificar.add(textfield18);
         textfield18.setColumns(10);
         
@@ -684,7 +684,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield1 = new JTextField();
         textfield1.setColumns(10);
-        textfield1.setEnabled(false);
+        textfield1.setEditable(false);
         textfield1.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield1);
         
@@ -696,7 +696,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield2 = new JTextField();
         textfield2.setColumns(10);
-        textfield2.setEnabled(false);
+        textfield2.setEditable(false);
         textfield2.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield2);
         
@@ -707,7 +707,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield3 = new JTextField();
         textfield3.setColumns(10);
-        textfield3.setEnabled(false);
+        textfield3.setEditable(false);
         textfield3.setBounds(aux1_2,aux2,aux3_2,aux4);;
         Consultar.add(textfield3);
         
@@ -718,7 +718,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield4 = new JTextField();
         textfield4.setColumns(10);
-        textfield4.setEnabled(false);
+        textfield4.setEditable(false);
         textfield4.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield4);
         
@@ -729,7 +729,7 @@ public class VistaRuta extends PrimerNivel{
         
         textfield5 = new JTextField();
         textfield5.setColumns(10);
-        textfield5.setEnabled(false);
+        textfield5.setEditable(false);
         textfield5.setBounds(aux1_2,aux2,aux3_2,aux4);
         Consultar.add(textfield5);
         
