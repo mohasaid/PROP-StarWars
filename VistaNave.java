@@ -1,3 +1,4 @@
+package prop1;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -506,10 +507,13 @@ public class VistaNave extends PrimerNivel{
                 else if(TT4.isSelected()) t="4";
                 else if(TT5.isSelected()) t="5";
                 cvn.CrearNave(t, d, o);
+                textfield3.setText("");
+                textfield4.setText("");
         }
         else if(AutoNave.isSelected()){
             String num = numNaves.getText();
             cvn.CrearNaveAuto(num);
+            numNaves.setText("");
         }
             actualiza();
         }
@@ -536,6 +540,7 @@ public class VistaNave extends PrimerNivel{
                      else if(T4.isSelected()) t=T4.getText();
                      else if(T5.isSelected()) t=T5.getText();
                      cvn.CrearTipo(t,c);
+                     textfield6.setText("");
              }
              else if(AutoTipo.isSelected()){
                  cvn.CrearTipoAuto();
