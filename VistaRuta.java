@@ -211,10 +211,11 @@ public class VistaRuta extends PrimerNivel{
         add(label20);
         Errores = new JTextField();
         Errores.setEditable(false);
-        Errores.setBackground(SystemColor.activeCaption);
-        Errores.setBounds(75,475,700,25);
-        add(Errores);
+        Errores.setBackground(SystemColor.white);
+        Errores.setBounds(75,475,625,25);
         Errores.setVisible(true);
+        Errores.setForeground(Color.red);
+        add(Errores);
         
         Scroll = new JScrollPane();
         listaScroll2 = new JList(mlistado);
