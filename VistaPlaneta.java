@@ -181,8 +181,7 @@ public class VistaPlaneta extends PrimerNivel {
               if (index >= 0) { 
                 String n = listaScroll2.getModel().getElementAt(index);
                 
-                try { 
-                    Errores.setText(n);
+                try {
                     textfield1.setText(n);
                     textfield2.setText(CVP.ConsultarCoste(n));
                     textfield3.setText(CVP.ConsultarCoordenadaX(n));
