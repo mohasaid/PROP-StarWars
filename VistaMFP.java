@@ -1,3 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package prop;
+
+/**
+ *
+ * @author Moha
+ */
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -21,6 +32,7 @@ public class VistaMFP extends PrimerNivel {
     private JRadioButton STotal;
     private JRadioButton SParcial;
     private JButton btnMissatge;
+    
     public VistaMFP (ControladorVistaMFP cv){
         cvMFP = cv;
         setOpaque(false);
@@ -34,8 +46,9 @@ public class VistaMFP extends PrimerNivel {
     	Errores = new JTextField();
     	Errores.setEditable(false);
         Errores.setBackground(SystemColor.white);
-        Errores.setBounds(75,475,700,25);
+        Errores.setBounds(75,475,625,25);
         Errores.setVisible(true);
+        Errores.setForeground(Color.red);
     	add(Errores);
         
         btnMissatge.addActionListener(new ActionListener() {
@@ -190,18 +203,30 @@ public class VistaMFP extends PrimerNivel {
         Ejecutar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
-                    if(FCF.isSelected()) cvMFP.SeleccionarFuncionCoste(1);
-                    if(FCC.isSelected()) cvMFP.SeleccionarFuncionCoste(2);
-                    if(FCD.isSelected()) cvMFP.SeleccionarFuncionCoste(3);
-                    if(FFBFS.isSelected()) cvMFP.SeleccionarAlgoritmo(1);
-                    if(FFD.isSelected()) cvMFP.SeleccionarAlgoritmo(2);
-                    if(PR.isSelected()) cvMFP.SeleccionarAlgoritmo(3);
+                    if(FCF.isSelected()) {
+                        cvMFP.SeleccionarFuncionCoste(1);
+                    }
+                    if(FCC.isSelected()) {
+                        cvMFP.SeleccionarFuncionCoste(2);
+                    }
+                    if(FCD.isSelected()) {
+                        cvMFP.SeleccionarFuncionCoste(3);
+                    }
+                    if(FFBFS.isSelected()) {
+                        cvMFP.SeleccionarAlgoritmo(1);
+                    }
+                    if(FFD.isSelected()) {
+                        cvMFP.SeleccionarAlgoritmo(2);
+                    }
+                    if(PR.isSelected()) {
+                        cvMFP.SeleccionarAlgoritmo(3);
+                    }
+                    cvMFP.Ejecutar();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
             }
-            
         });
         
         Consultar = new JPanel();
@@ -257,16 +282,21 @@ public class VistaMFP extends PrimerNivel {
         TA.setEditable(true);
         TA.setBounds(50, 50, 600, 370);
         JScrollPane Sal = new JScrollPane(TA);
-        Sal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        Sal.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        //Sal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        //Sal.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         Sal.setBounds(50, 50, 600, 300);
         Consultar.add(Sal);
         
         Mostrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
-                    if(STotal.isSelected()) textfield1.setText(cvMFP.ConsultarSalida());
-                    if(SParcial.isSelected()) textfield1.setText(cvMFP.ConsultarSalidaParcial());
+                    TA.setText("");
+                    if(STotal.isSelected()) {
+                        TA.setText(cvMFP.ConsultarSalida());
+                    }
+                    if(SParcial.isSelected()) {
+                        TA.setText(cvMFP.ConsultarSalidaParcial());
+                    }
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -274,5 +304,4 @@ public class VistaMFP extends PrimerNivel {
             }
         });
     }
-    
 }
