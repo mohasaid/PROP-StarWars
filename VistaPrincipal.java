@@ -39,30 +39,30 @@ public class VistaPrincipal extends JFrame {
     private JPanel panel;
 
     /** Controladors Vistes **/
-    private ControladorVistaGalaxia CVG;
+    //private ControladorVistaGalaxia CVG;
     //private ControladorVistaPlaneta CVP;
     //private ControladorVistaNave CVN;
-    //private ControladorVistaRuta CVR;
+    private ControladorVistaRuta CVR;
 
     /** Vistes **/
-    private VistaGalaxia VG;
+    //private VistaGalaxia VG;
     //private VistaPlaneta VP;
     //private VistaNave VN;
-    //private VistaRuta VR;
+    private VistaRuta VR;
  
     private void obtenerVistas() {		
-        VG = CVG.consultarVistaGalaxia();
+        //VG = CVG.consultarVistaGalaxia();
         //VP = CVP.ConsultarVistaPlaneta();
         //VN = CVN.obtenerVistaNave();
-        //VR = CVR.ConsultarVistaRuta();
+        VR = CVR.ConsultarVistaRuta();
     }
     
-    public VistaPrincipal(ControladorVistaGalaxia cVG/*, ControladorVistaPlaneta cVP, ControladorVistaNave cVN, ControladorVistaRuta cVR, ControladrMFP cMFP*/) throws InterruptedException 
+    public VistaPrincipal(/*ControladorVistaGalaxia cVG, ControladorVistaPlaneta cVP, ControladorVistaNave cVN,*/ ControladorVistaRuta cVR/*, ControladrMFP cMFP*/) throws InterruptedException 
     {
-        CVG = cVG;
+        //CVG = cVG;
         //CVP = cVP;
         //CVN = cVN;
-        //CVR = cVR;
+        CVR = cVR;
 
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,7 +74,7 @@ public class VistaPrincipal extends JFrame {
         
         final JPanel panelGrande = new JPanel();
         panelGrande.setOpaque(false);
-        panelGrande.setBounds(50,100,700,500);
+        panelGrande.setBounds(50,100,900,500);
         panel.add(panelGrande);
         panelGrande.setLayout(new GridLayout(1,0,0,0));
                 
@@ -112,7 +112,7 @@ public class VistaPrincipal extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         
-                        panelGrande.add(VG);
+                        //panelGrande.add(VG);
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -128,7 +128,7 @@ public class VistaPrincipal extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                         //colocamos las rutas				
-                        //panelGrande.add(VR);			
+                        panelGrande.add(VR);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
 
@@ -190,7 +190,7 @@ public class VistaPrincipal extends JFrame {
         panel.add(jtb);
         
         final JLabel fons = new JLabel("");
-        fons.setIcon(new ImageIcon(VistaPrincipal.class.getResource("sw.jpg")));
+        fons.setIcon(new ImageIcon(VistaPrincipal.class.getResource("/Imagenes/SW.jpg")));
         fons.setBounds(0, 0, 1035, 648);
         panel.add(fons);
         
