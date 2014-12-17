@@ -20,7 +20,6 @@ class Grid extends JPanel {
     {
         fillCells = new ArrayList<>();
         planetes = new ArrayList<>();
-        N = 0; // evita nullpointerexception
     }
 
     @Override
@@ -65,6 +64,7 @@ class Grid extends JPanel {
     public void setN(String n) 
     {
     	N = Integer.valueOf(n);
+        repaint();
     }
     
     public void PonTodos(String limite) {
@@ -76,6 +76,7 @@ class Grid extends JPanel {
     		fillCells.add(new Point(a,b));
     	}
     	sca.close();
+        repaint();
     }
     
     @Override
@@ -84,6 +85,5 @@ class Grid extends JPanel {
         int tam = N;
         if(tam > 22) tam = 11*N;
         return new Dimension(tam, tam);
-    }
-    
+    }  
 }
