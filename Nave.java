@@ -77,10 +77,5 @@ public abstract class Nave {
 	public abstract int consultar_tipo();
 
 }
-class OrdenTipoNave implements Comparator<Nave>{
-    public int compare(Nave n1, Nave n2){
-            if(n2.consultar_id() < n1.consultar_id()) return 1;
-            else return -1;
-    }
-}
+
 
