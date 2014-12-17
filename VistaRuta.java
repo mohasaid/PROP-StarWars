@@ -90,7 +90,6 @@ public class VistaRuta extends PrimerNivel{
             listado1 = CVR.ConsultarIdsRutas(i);
             listado2 = CVR.ConsultarIdsRutas(j);
             listado = CVR.ConsultarIdsRutas_string();
-            Errores.setText(String.valueOf(listado1.size()));
             CB.removeAllItems();
             listaScroll1.removeAll();
             if (listado.size() != 0) {  
@@ -253,7 +252,6 @@ public class VistaRuta extends PrimerNivel{
               if (index >= 0) { 
                 String n = listaScroll1.getModel().getElementAt(index);
                 try { 
-                        Errores.setText(n);
                         textfield1.setText(n);
                         textfield2.setText(CVR.ConsultarCapacidadRuta(n));
                         textfield3.setText(CVR.ConsultarDistanciaRuta(n));
@@ -782,7 +780,6 @@ public class VistaRuta extends PrimerNivel{
         Cargar.setAutoscrolls(true); 
         Cargar.setMinimumSize(new Dimension(200, 245)); 
         Cargar.setPreferredSize(new Dimension(365, 225)); 
-        FrameCargar.add(Cargar); 
-           
+        FrameCargar.add(Cargar);   
     }
 }
