@@ -10,12 +10,6 @@ import java.util.Scanner;
 public class ControladorVistaGalaxia {
 	private ControladorGalaxia cGalaxia;
 	private VistaGalaxia vg;
-	// private ControladorVistaMFP cVMFP;
-
-	/*public void inicialitza(ControladorVistaMFP cvmp) 
-	{
-		cVMFP = cvmp;
-	}*/
 	
 	ControladorVistaGalaxia()
 	{
@@ -26,6 +20,18 @@ public class ControladorVistaGalaxia {
         public ControladorGalaxia consultarControladorGalaxia()
         {
             return cGalaxia;
+        }
+        
+        public void pintaPlaneta(int x, int y)
+        {
+            vg.pintaPlaneta(x, y);
+        }
+        
+        public void pintaPlaneta(String x, String y) 
+        {
+            int x1 = Integer.valueOf(x);
+            int y1 = Integer.valueOf(y);
+            vg.pintaPlaneta(x1, y1);
         }
         
         public VistaGalaxia consultarVistaGalaxia()
@@ -50,19 +56,19 @@ public class ControladorVistaGalaxia {
 
             info = sca.next();
             int pa_1 = Integer.parseInt(info);
-            if(pa_1 > cGalaxia.consultarLimit() || pa_1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+            if(pa_1 > limit || pa_1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
             info = sca.next();
             int pa_2 = Integer.parseInt(info);
-            if(pa_2 > cGalaxia.consultarLimit() || pa_2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+            if(pa_2 > limit || pa_2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
             Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_1,pa_2);
             pa1.add(primero);  
                 
             info = sca.next();
             int l1 = Integer.parseInt(info);
-            if(l1 > cGalaxia.consultarLimit() || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+            if(l1 > limit || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
             info = sca.next();
             int l2 = Integer.parseInt(info);
-            if(l2 > cGalaxia.consultarLimit() || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+            if(l2 > limit || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
 
             int limite1 = primero.consultarPrimero();
             int limite2 = primero.consultarSegundo();
@@ -80,10 +86,10 @@ public class ControladorVistaGalaxia {
                 
                 info = sca.next();
                 l1 = Integer.parseInt(info);
-                if(l1 > cGalaxia.consultarLimit() || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+                if(l1 > limit || l1 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
                 info = sca.next();
                 l2 = Integer.parseInt(info);
-                if(l2 > cGalaxia.consultarLimit() || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
+                if(l2 > limit || l2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
                 if((l1 == limite1 && l2 == limite2)) trobat = true;
             }
             sca.close();
@@ -106,7 +112,7 @@ public class ControladorVistaGalaxia {
 		return cGalaxia.consultarLimit();
 	}
 	
-	public String consultarLimits() throws Exception // devolver de 100 en 100 
+	public String consultarLimits() //throws Exception // devolver de 100 en 100 
 	{
             int n = cGalaxia.consultarNombreLimits();
             String res = "";
@@ -115,7 +121,7 @@ public class ControladorVistaGalaxia {
                     res += cGalaxia.consultarLimitsGalaxia(i);
                     i += 100;
             }
-            else throw new Exception("La galaxia no tiene forma");
+            //else throw new Exception("La galaxia no tiene forma");
             String resultat = "";
             Scanner sca = new Scanner(res);
             sca.useDelimiter("#|,");
