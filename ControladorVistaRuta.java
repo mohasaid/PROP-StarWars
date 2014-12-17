@@ -1,16 +1,6 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Gerard
- */
 public class ControladorVistaRuta {
     private ControladorRuta CR;
     private VistaRuta VR;
@@ -66,7 +56,6 @@ public class ControladorVistaRuta {
     public  ArrayList<String> obtenerIdRutas() throws Exception 
     {
         ArrayList<String> llistat = new ArrayList<String>();		
-        /* recollim els planetes del controlador de domini*/
         int i = 0;
         int n = CR.Consultar_numero_rutes();
         String s = "";
