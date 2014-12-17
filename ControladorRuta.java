@@ -205,6 +205,9 @@ public class ControladorRuta {
         if ( !Disponibilidad_crear_ruta(planetaA , planetaB) ) {
         	throw new Exception("La Ruta de " + planetaA + " a " + planetaB + " ja existeix \n");
         }
+        if ( capacidad>100000 ) {
+        	throw new Exception("La capacidad de la ruta tiene que ser menor o igual a 100.000 \n");
+        }
         Ruta r = new Ruta(id,capacidad,distancia);
         Conexion c = new Conexion(id, planetaA, planetaB);
         
@@ -224,7 +227,7 @@ public class ControladorRuta {
         Random aleatorio = new Random();
         int id = 0;
         while(ExisteRuta(id)) ++id; 
-        int capacidad = aleatorio.nextInt(2147483647);
+        int capacidad = aleatorio.nextInt(100001);
         int distancia = aleatorio.nextInt(2147483647);
         while (distancia == 0) {
             distancia = aleatorio.nextInt(2147483647);
@@ -241,12 +244,12 @@ public class ControladorRuta {
         while ( !Disponibilidad_crear_ruta(planetaA.Consultar_nombre() , planetaB.Consultar_nombre()) || planetaA.Consultar_nombre().equals(planetaB.Consultar_nombre()) )
         {
 
-        	aux = aleatorio.nextInt(2147483647);
+            aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
             planetaA = cp.Consultar_PlanetaX(aux);
 
             
-        	aux = aleatorio.nextInt(2147483647);
+            aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
             planetaB = cp.Consultar_PlanetaX(aux);
         }
@@ -272,7 +275,7 @@ public class ControladorRuta {
     		throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");
     	}
         Random aleatorio = new Random();
-    	int capacidad = aleatorio.nextInt(2147483647);
+    	int capacidad = aleatorio.nextInt(100001);
         int distancia = aleatorio.nextInt(2147483647);
         while (distancia == 0) {
             distancia = aleatorio.nextInt(2147483647);
@@ -500,6 +503,9 @@ public class ControladorRuta {
     {
         if(ErrorTipografico(capacidad_nueva)){
             throw new Exception("Error : La capacidad debe ser mayor o igual que 0\n");
+        }
+        if ( capacidad_nueva>100000 ) {
+        	throw new Exception("La capacidad de la ruta tiene que ser menor o igual a 100.000 \n");
         }
         BuscarRuta(id).modificar_capacidad(capacidad_nueva);
         
