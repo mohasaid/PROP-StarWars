@@ -1,5 +1,3 @@
-package prop1;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +6,8 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +24,6 @@ public class VistaNave extends PrimerNivel{
     private ArrayList<String> listado2;
     private ArrayList<String> listadoT;
     private ArrayList<String> listadoTotal;
-    private ArrayList<String> listaPlanetas;
     private DefaultListModel<String> mlistado;
     private DefaultListModel<String> mlistadoT;
     private JComboBox<String> CB;
@@ -66,7 +65,7 @@ public class VistaNave extends PrimerNivel{
     private JButton CargarNaves;
     private JButton ConsultarNave;
     private JButton ConsultarTipo;
-        
+    private JButton btnMissatge;
     
     //Listas
     private JList<String> listaScroll1;
@@ -178,7 +177,7 @@ public class VistaNave extends PrimerNivel{
                     mlistado.removeAllElements();
                     listado1.clear();
                     for(String e : listado2) listado1.add(e);
-                    listado2 = cvn.Consulta100Naves(i);
+                    listado2 = cvn.Consulta100Naves(j);
                     for(String e : listado1) mlistado.addElement(e);
                     for(String e : listado2) mlistado.addElement(e);
                     listaScroll2.setModel(mlistado);
@@ -208,14 +207,24 @@ public class VistaNave extends PrimerNivel{
         mlistadoT = new DefaultListModel<String>();
         // list 1
         //scrollPanel
+        
+        btnMissatge = new JButton("Error");
+        btnMissatge.setBounds(0,475,75,25);
+        btnMissatge.setBackground(SystemColor.activeCaption);
+        add(btnMissatge);
+         btnMissatge.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Errores.setText("");
+            }
+        });        
         Errores = new JTextField();
         Errores.setEditable(false);
 
-        Errores.setBounds(80,550,700,25);
+        Errores.setBounds(75,475,700,25);
         
         
         CB = new JComboBox<String>();
-        CB.setBounds(830,260,150,20);
+        CB.setBounds(720,160,150,20);
         CB.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
@@ -238,7 +247,7 @@ public class VistaNave extends PrimerNivel{
             }
         });
         CBTipo = new JComboBox<String>();
-        CBTipo.setBounds(830,20,150,20);
+        CBTipo.setBounds(720,15,150,20);
         CBTipo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
                 try {
@@ -259,7 +268,7 @@ public class VistaNave extends PrimerNivel{
         
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBackground(SystemColor.activeCaption);
-        Central.setBounds(50,50,750,450);
+        Central.setBounds(0,0,700,450);
         
         
         
@@ -367,7 +376,7 @@ public class VistaNave extends PrimerNivel{
 
         ManAuto = new ButtonGroup();
         ManNave = new JRadioButton();
-        ManNave.setBounds(225,50,300,25);
+        ManNave.setBounds(225,40,300,25);
         ManNave.setText("Crear una nave manualmente: "); 
         ManNave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -376,7 +385,7 @@ public class VistaNave extends PrimerNivel{
         });
         
         AutoNave = new JRadioButton();
-        AutoNave.setBounds(225, 250, 300,25);
+        AutoNave.setBounds(225, 240, 300,25);
         AutoNave.setText("Crear naves de forma automatica: ");
         AutoNave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -389,21 +398,21 @@ public class VistaNave extends PrimerNivel{
         PanelCrearNave.add(ManNave);
         
         label4 = new JLabel("Planeta origen: ");
-        label4.setBounds(250,100,200,25);
+        label4.setBounds(250,90,200,25);
         PanelCrearNave.add(label4);
         
         label3 = new JLabel("Planeta destino: ");
-        label3.setBounds(250, 150, 200, 25);
+        label3.setBounds(250, 140, 200, 25);
         PanelCrearNave.add(label3);
         
         label5 = new JLabel("Tipo de nave: ");
-        label5.setBounds(250, 200, 200, 25);
+        label5.setBounds(250, 190, 200, 25);
         PanelCrearNave.add(label5);
         
         TiposNave = new ButtonGroup();
         
         TT1 = new JRadioButton();
-        TT1.setBounds(350, 200, 50, 25);
+        TT1.setBounds(350, 190, 50, 25);
         TT1.setText("1");
         TT1.setEnabled(false);
         PanelCrearNave.add(TT1);
@@ -411,14 +420,14 @@ public class VistaNave extends PrimerNivel{
 
         
         TT2 = new JRadioButton();
-        TT2.setBounds(405, 200, 50, 25);
+        TT2.setBounds(405, 190, 50, 25);
         TT2.setText("2");
         TT2.setEnabled(false);
         PanelCrearNave.add(TT2);
         TiposNave.add(TT2);
         
         TT3 = new JRadioButton();
-        TT3.setBounds(460, 200, 50, 25);
+        TT3.setBounds(460, 190, 50, 25);
         TT3.setText("3");
         TT3.setEnabled(false);
         PanelCrearNave.add(TT3);
@@ -426,7 +435,7 @@ public class VistaNave extends PrimerNivel{
         
         
         TT4 = new JRadioButton();
-        TT4.setBounds(515, 200, 50, 25);
+        TT4.setBounds(515, 190, 50, 25);
         TT4.setText("4");
         TT4.setEnabled(false);
         PanelCrearNave.add(TT4);
@@ -434,7 +443,7 @@ public class VistaNave extends PrimerNivel{
 
         
         TT5 = new JRadioButton();
-        TT5.setBounds(570, 200, 50, 25);
+        TT5.setBounds(570, 190, 50, 25);
         TT5.setText("5");
         TT5.setEnabled(false);
         PanelCrearNave.add(TT5);
@@ -442,29 +451,29 @@ public class VistaNave extends PrimerNivel{
 
         
         textfield4 = new JTextField();
-        textfield4.setBounds(350,100,150,25); 
+        textfield4.setBounds(350,90,150,25); 
         textfield4.setEnabled(false);
         PanelCrearNave.add(textfield4);
         
         textfield3 = new JTextField();
-        textfield3.setBounds(350, 150, 150, 25); 
+        textfield3.setBounds(350, 140, 150, 25); 
         textfield3.setEnabled(false);
         PanelCrearNave.add(textfield3);
         
     //Nave Automatica
         numNaves = new JTextField();
-        numNaves.setBounds(350, 300, 100,25);
+        numNaves.setBounds(350, 290, 100,25);
         numNaves.setEnabled(false);
         PanelCrearNave.add(numNaves);
         
         label19 = new JLabel("Numero de naves: ");
-        label19.setBounds(225, 300, 150,25);
+        label19.setBounds(225, 290, 150,25);
         PanelCrearNave.add(label19);
 
             
         CrearNave = new JButton("Crear");
         CrearNave.setIcon(null);
-        CrearNave.setBounds(600,350,100,25);
+        CrearNave.setBounds(220, 335, 200, 50);
         PanelCrearNave.add(CrearNave);
         
         CrearNave.addActionListener(new java.awt.event.ActionListener() {
@@ -495,7 +504,7 @@ public class VistaNave extends PrimerNivel{
         
         CrearTipo = new JButton("Crear");
         CrearTipo.setIcon(null);
-        CrearTipo.setBounds(600,350,100,25);
+        CrearTipo.setBounds(220, 300, 200, 50);
         PanelCrearTipo.add(CrearTipo);
         
         CrearTipo.addActionListener(new java.awt.event.ActionListener() {
@@ -569,8 +578,7 @@ public class VistaNave extends PrimerNivel{
         PanelModificarTipo.add(textfield11);
         
         ModificarTipo = new JButton("Modificar");
-        ModificarTipo.setIcon(null);
-        ModificarTipo.setBounds(600,350,100,25);
+        ModificarTipo.setBounds(220, 300, 200, 50);
         PanelModificarTipo.add(ModificarTipo);
                 ModificarTipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -658,8 +666,7 @@ public class VistaNave extends PrimerNivel{
         PanelModificarNave.add(textfield10);
         
         ModificarNave = new JButton("Modificar");
-        ModificarNave.setIcon(null);
-        ModificarNave.setBounds(600,350,100,25);
+        ModificarNave.setBounds(220, 320, 200, 50);
         PanelModificarNave.add(ModificarNave);
                 ModificarNave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -763,11 +770,12 @@ public class VistaNave extends PrimerNivel{
         listaScroll2.setBackground(SystemColor.inactiveCaptionBorder); 
         Scroll.setViewportView(listaScroll2); 
         Scroll = new JScrollPane(listaScroll2);
-        Scroll.setBounds(830,290,150,275);
+        Scroll.setBounds(720,190,150,260);
         Scroll.setPreferredSize(new Dimension(152,217));
         
         AdjustmentListener adjustmentListener = new AdjustmentListener() {
             public void adjustmentValueChanged(AdjustmentEvent adjustmentEvent) {
+                if(Integer.parseInt(cvn.size())>200){
                 if(Scroll.getVerticalScrollBar().getValue()== Scroll.getVerticalScrollBar().getMaximum()-Scroll.getVerticalScrollBar().getVisibleAmount()){
                     actualizaListaDown();
                 }
@@ -775,7 +783,7 @@ public class VistaNave extends PrimerNivel{
                 if(Scroll.getVerticalScrollBar().getValue()==Scroll.getVerticalScrollBar().getMinimum()){
                     actualizaListaUP();
                 }
-                        
+                }
             }
         };
                 
@@ -815,7 +823,7 @@ public class VistaNave extends PrimerNivel{
         listaScroll1.setBorder(new BevelBorder(BevelBorder.LOWERED, SystemColor.activeCaptionBorder, null, null, null)); 
         listaScroll1.setBackground(SystemColor.inactiveCaptionBorder); 
         ScrollT = new JScrollPane(listaScroll1);
-        ScrollT.setBounds(830,50,150,200);
+        ScrollT.setBounds(720,45,150,100);
         ScrollT.setPreferredSize(new Dimension(86,153));
         listaScroll1.addMouseListener(new MouseAdapter () 
         {        
@@ -875,7 +883,7 @@ public class VistaNave extends PrimerNivel{
                 } 
             } 
         }); 
-        Cargar.setBounds(0, 0, 725, 395); 
+        Cargar.setBounds(0, 0, 690, 390); 
         Cargar.setAutoscrolls(true); 
         Cargar.setMinimumSize(new Dimension(200, 245)); 
         Cargar.setPreferredSize(new Dimension(365, 225)); 
@@ -905,7 +913,7 @@ public class VistaNave extends PrimerNivel{
                 } 
             } 
         }); 
-        Guardar.setBounds(0, 0, 725, 395); 
+        Guardar.setBounds(0, 0, 690, 390); 
         Guardar.setAutoscrolls(true); 
         Guardar.setMinimumSize(new Dimension(200, 245)); 
         Guardar.setPreferredSize(new Dimension(365, 225)); 
@@ -978,9 +986,5 @@ public class VistaNave extends PrimerNivel{
                     Errores.setText(e.getMessage());
                 }
     }    
-
-
-
-
 
 }
