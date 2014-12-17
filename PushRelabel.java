@@ -1,3 +1,5 @@
+package prop;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -92,7 +94,7 @@ public class PushRelabel extends MFP {
 		int origen = size-2;
 		int destino = size-1;
 		String camino = "";
-		
+		int iteracion = 0;
 		int n = G.sizeGrafo(); 
 		int altura[] = new int[n];  
 		Queue<Integer> LNP = new LinkedList<Integer>();
@@ -106,7 +108,7 @@ public class PushRelabel extends MFP {
 				}
 			}
 		    while (!LNP.isEmpty()) {
-		    	
+		    	camino += "Iteracion " + iteracion + ":\n";
 		        	int i = LNP.poll();
 		        	camino += " => " + i;
 			        pushed = false;
@@ -129,10 +131,10 @@ public class PushRelabel extends MFP {
 			        }
 			        s.AnadirCambio(camino);
 			        camino = "";
+			        ++iteracion;
 		      	}
 		s.AnadirMax_flow(exceso[destino]);
 		long tiempo1 = System.currentTimeMillis() - tiempo;
 		s.AnadirTiempo(tiempo1);
-		
 	}
 }
