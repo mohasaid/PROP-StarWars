@@ -111,7 +111,6 @@ public class VistaNave extends PrimerNivel{
             listado1 = cvn.Consulta100Naves(i);
             listado2 = cvn.Consulta100Naves(j);
             listadoTotal = cvn.ConsultarNaves();
-            Errores.setText(String.valueOf(listado1.size()));
             CB.removeAllItems();
             listaScroll2.removeAll();
             if (listadoTotal.size() != 0) {  
@@ -822,7 +821,6 @@ public class VistaNave extends PrimerNivel{
                 String n = listaScroll2.getModel().getElementAt(index);
                 
                 try { 
-                     Errores.setText(n);
                         textfield20.setText(cvn.ConsultarPlanetaOrigen(n));
                         textfield19.setText(cvn.ConsultarPlanetaDestino(n));
                         textfield21.setText(cvn.ConsultarTipo(n));
