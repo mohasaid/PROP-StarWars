@@ -10,6 +10,7 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import javax.swing.ButtonGroup;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -254,6 +255,11 @@ public class VistaPlaneta extends PrimerNivel {
         AutomaticoCN.setOpaque(false);
         Crear.add(AutomaticoCN);
         
+        ButtonGroup gb = new ButtonGroup();
+        gb.add(Manual);
+        gb.add(Automatico);
+        gb.add(AutomaticoCN);
+        
         label1 = new JLabel("Nombre :");
         label1.setBounds(50, 115, 60, 30); //Esperando
         Crear.add(label1);
@@ -294,7 +300,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield11.setColumns(10);
         textfield11.setEnabled(false);
         
-        Manual.addActionListener(new ActionListener() { 
+        /*Manual.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent a) {
                 try {
                     if(Manual.isSelected()) {
@@ -346,7 +352,7 @@ public class VistaPlaneta extends PrimerNivel {
                     Errores.setText(e.getMessage());
                 }
             }
-        });
+        });*/
         
         CrearPlaneta = new JButton("Crear");
         CrearPlaneta.setIcon(null);
@@ -369,7 +375,7 @@ public class VistaPlaneta extends PrimerNivel {
                         CVP.CrearPlaneta();
                         actualiza();
                     }
-                    else {
+                    if(AutomaticoCN.isSelected()){
                         String n = textfield1.getText();
                         CVP.CrearPlaneta(n);
                         actualiza();
