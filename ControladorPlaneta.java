@@ -30,6 +30,7 @@ public class ControladorPlaneta {
     public ControladorPlaneta()
     {
         listaPlanetas = new TST<Planeta>();
+        cdp = new ControladorDadesPlaneta();
     }
     /**
      * Metodo para anadir un planeta a la listaPlanetas
