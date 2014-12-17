@@ -23,15 +23,6 @@ public class ControladorPlaneta {
      * Metodo para comprobar si un string contiene caracteres alfanumericos
      * @param nom
      */
-    private boolean alfa_numeric(String nom)
-    {
-        if(nom.isEmpty() || nom == null || nom.length() > 20) return false;
-        for(int i = 0; i < nom.length(); ++i) {
-            char c = nom.charAt(i);
-            if(!Character.isLetterOrDigit(c)) return false;
-        }
-        return true;
-    }
     
     /**
      * Metodo para crear un controlador de planeta
@@ -57,15 +48,6 @@ public class ControladorPlaneta {
     public boolean ExistePlaneta(String idP) throws Exception 
     {
     	return listaPlanetas.contains(idP);
-    }
-    /**
-     * Metodo para borrar un planeta de la listaPlaneta
-     * @param idPlaneta
-     * @throws Exception
-     */
-    public void BorraPla(String idPlaneta) throws Exception
-    {
-    	listaPlanetas.eliminar(idPlaneta);
     }
     /**
      * Metodo que retorna un Planeta dedo el nombre del planeta.
@@ -113,7 +95,6 @@ public class ControladorPlaneta {
      */
     public void PlanetaAuto(String id, ControladorGalaxia cg) throws Exception 
     {
-    	if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
     	if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
     	
     	int r1 = randInt(0,Integer.MAX_VALUE-1);
@@ -140,7 +121,6 @@ public class ControladorPlaneta {
      */
     public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
     {
-        if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
         if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
         
         //cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
