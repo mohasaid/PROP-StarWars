@@ -36,7 +36,7 @@ public class ControladorVistaRuta {
     public ArrayList<String> ConsultarIdsRutas(int i)
     {
         ArrayList<String> res = new ArrayList<String>();
-        ArrayList<Integer> aux = CR. Consultar_ids_rutas();
+        ArrayList<Integer> aux = CR.Consultar_ids_rutas();
         int j=0;
         while(i<aux.size() && j<100){
             String a = ""+aux.get(i);
@@ -44,18 +44,19 @@ public class ControladorVistaRuta {
             ++j;
             ++i;
         }
+        
         return res;
     }
     
     public ArrayList<String> ConsultarIdsRutas_string()
     {
         ArrayList<String> res = new ArrayList<String>();
-        ArrayList<Integer> aux = CR. Consultar_ids_rutas();
-        
-        for (Integer i : aux) {
+        ArrayList<Integer> aux = CR.Consultar_ids_rutas();
+        for (int i = 0; i < aux.size(); ++i) {
             String s = ""+aux.get(i);
             res.add(s);
         }
+        System.out.println(res.size());
         return res;
     }
 	
@@ -166,6 +167,7 @@ public class ControladorVistaRuta {
     public void CargarRutas(String path) throws Exception
     {
         CR.CargarRutas(path, CP);
+        System.out.println(CR.Consultar_Conexiones());
     }
     
     public void ModificarPlanetaBRuta(String id, String id_planetaB_nuevo) throws Exception
