@@ -1,5 +1,4 @@
 
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -220,7 +219,7 @@ public class VistaNave extends PrimerNivel{
         });        
         Errores = new JTextField();
         Errores.setEditable(false);
-
+        Errores.setForeground(Color.red);
         Errores.setBounds(75,475,625,25);
         
         
