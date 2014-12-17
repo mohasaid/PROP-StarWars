@@ -1,3 +1,7 @@
+/**
+ *
+ * @author Moha
+ */
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +60,8 @@ public class Galaxia {
      */
     public Galaxia(String nom, int n) throws Exception 
     {
-        if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
-        if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
+        if(!alfa_numeric(nom)) throw new Exception("El nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
+        if(n < 10) throw new Exception("El limite de la galaxia tiene que ser mayor o igual que 10");
         
         nomGalaxia = nom;
         N = new Integer(n);
@@ -74,9 +78,9 @@ public class Galaxia {
      */
     public Galaxia(String nom, int n, List<Pair<Integer, Integer> > l) throws Exception // tendra limites por el usuario
     {
-        if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
-        if(n < 10) throw new Exception("Error: el limite de la galaxia tiene que ser mayor o igual que 10");
-        if(l.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
+        if(!alfa_numeric(nom)) throw new Exception("El nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
+        if(n < 10) throw new Exception("El limite de la galaxia tiene que ser mayor o igual que 10");
+        if(l.size() < 4) throw new Exception("Como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
         
         nomGalaxia = nom;
         gal = new int[n][n]; 
@@ -119,7 +123,7 @@ public class Galaxia {
      * Metodo para consultar el limite maximo de la galaxia
      * @return Limite maximo de la galaxia
      */
-    public Integer consultarLimitGalaxia()
+    public int consultarLimitGalaxia()
     {
         return N;
     }
@@ -133,10 +137,10 @@ public class Galaxia {
      */
     public boolean existeixPlanetaCoordenades(int x, int y) throws Exception
     {
-        if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
-        if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
+        if(x > N || y > N) throw new Exception("Las coordenadas no pueden ser mayores que el limite de la galaxia");
+        if(x < 0 || y < 0) throw new Exception("Las coordenadas no pueden ser menores que 0");
         if(limits.size() > 0) {
-        	if(!dintreLimitUsuari(x,y)) throw new Exception("Error: las coordenadas no pueden estar fuera del limite que da forma a la galaxia");
+        	if(!dintreLimitUsuari(x,y)) throw new Exception("Las coordenadas no pueden estar fuera del limite que da forma a la galaxia");
         }
         
         return (gal[x][y] > 0);
@@ -146,7 +150,8 @@ public class Galaxia {
      * Metodo para consultar si existe algun planeta en la galaxia
      * @return Cierto si existe algun planeta, falso en caso contrario
      */
-    public boolean algunPlaneta() {
+    public boolean algunPlaneta() 
+    {
     	for(int i = 0; i < N; ++i) {
     		for(int j = 0; j < N; ++j) {
     			if(gal[i][j] > 0) return true;
@@ -164,8 +169,8 @@ public class Galaxia {
      */
     public boolean dintreLimitUsuari(int x, int y) throws Exception
 	{
-	     if(x > N || y > N) throw new Exception("Error: las coordenadas no pueden ser mayores que el limite de la galaxia");
-	     if(x < 0 || y < 0) throw new Exception("Error: las coordenadas no pueden ser menores que 0");
+	     if(x > N || y > N) throw new Exception("Las coordenadas no pueden ser mayores que el limite de la galaxia");
+	     if(x < 0 || y < 0) throw new Exception("Las coordenadas no pueden ser menores que 0");
 	     
          int min_first, max_second, min_x, max_y;
          min_first = max_second = min_x = max_y = 0;
@@ -202,7 +207,7 @@ public class Galaxia {
      */
     public void modificar_nomGalaxia(String nom) throws Exception
     {
-        if(!alfa_numeric(nom)) throw new Exception("Error: el nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
+        if(!alfa_numeric(nom)) throw new Exception("El nombre de la galaxia tiene que estar formado por letras o numeros y con menos de 20 caracteres");
         nomGalaxia = nom;
     }
     
@@ -213,8 +218,8 @@ public class Galaxia {
      */
     public void modificarN(int n) throws Exception
     {
-        if(algunPlaneta()) throw new Exception("Error: no se puede modificar el limite de una galaxia que contiene planetas");
-        if(n < 10) throw new Exception("Error: el limite de una galaxia tiene que ser mayor que 10");
+        if(algunPlaneta()) throw new Exception("No se puede modificar el limite de una galaxia que contiene planetas");
+        if(n < 10) throw new Exception("El limite de una galaxia tiene que ser mayor que 10");
         
         gal = new int[n][n]; 
         N = new Integer(n);
@@ -228,8 +233,8 @@ public class Galaxia {
      */
     public void modificarLimitsUsuari(List<Pair<Integer, Integer> > p) throws Exception
     {
-    	if(algunPlaneta()) throw new Exception("Error: no se puede modificar la forma de una galaxia que contiene planetas");
-    	if(p.size() < 4) throw new Exception("Error: como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
+    	if(algunPlaneta()) throw new Exception("No se puede modificar la forma de una galaxia que contiene planetas");
+    	if(p.size() < 4) throw new Exception("Como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
     	
     	limits = p;
     	inicialitzaMatriu();
@@ -243,10 +248,10 @@ public class Galaxia {
     public void afegirPlaneta(int x, int y) throws Exception
     {
     	boolean b = existeixPlanetaCoordenades(x,y);
-    	if(b) throw new Exception("Error: las coordenades del planeta ya estan ocupadas por otro planeta");
+    	if(b) throw new Exception("Las coordenades del planeta ya estan ocupadas por otro planeta");
     	if(limits.size() > 0) {
     		boolean c = dintreLimitUsuari(x,y);
-    		if(!c) throw new Exception("Error: las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
+    		if(!c) throw new Exception("Las coordenades del planeta no estan dentro del limite impuesto que da forma a la galaxia");
     	}
     	gal[x][y] = 1; // pongo un planeta en x,y
     }	
