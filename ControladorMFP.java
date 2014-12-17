@@ -70,40 +70,9 @@ public class ControladorMFP {
 		
 		Grafo g_res = alg.consultaResidual();
 		
-		// COMPROBAR GRAFO RESIDUAL
-		/*System.out.println("GRAFO RESIDUAL");
-		for(int i = 0; i < g_res.sizeGrafo(); ++i) {
-			System.out.println("Del vertice " + i + " sale lo siguiente:");
-			for(int j = 0; j < g_res.sizeGrafo(i); ++j) {
-				System.out.println("Arista de capacidad = " + g_res.consultarPrim(i, j).ConsultarCapacidad()
-								 + " y con coste = " + g_res.consultarPrim(i, j).ConsultarCoste()
-								 + " hacia el vertice "+ g_res.consultarSeg(i, j));
-			}
-		}*/
-		
 		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
-		// COMPROBAR LAS NAVES
-		/*for(int i = 0; i < paor.size(); ++i) {
-			int n = paor.get(i).consultarPrimero();
-			System.out.println("TENEMOS " + n + " naves dirigidas a:");
-			String pla1 = paor.get(i).consultarSegundo().consultarPrimero();
-			System.out.println("Origen: " + pla1);
-			String pla2 = paor.get(i).consultarSegundo().consultarSegundo();
-			System.out.println("Destino: " + pla2);
-		}*/
-		
 		ArrayList<Conexion> con = cr.Consultar_Conexiones();
-		/*System.out.println("-- CONEXIONES --");
-		Conexion act;
-		Iterator<Conexion> it = con.iterator();
-		while(it.hasNext()) {
-			act = it.next();
-			System.out.println("0 idr conexion = " + act.consultar_id());
-			System.out.println("0 planeta a = " + act.consultar_planetaA());
-			System.out.println("0 planeta b = " + act.consultar_planetaB());
-			System.out.println("----");
-		}*/
-		
+	
 		int tam = g_res.sizeGrafo();
 		
 		String way = "";
