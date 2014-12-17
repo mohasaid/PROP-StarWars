@@ -83,7 +83,6 @@ public class DriverControladorRuta {
 	            case 27: TestControladorGuardarRutas(cin,cr);break;
 	            default: System.out.println("Opcion incorrecta");
             }
-            System.out.println("LLegim opcio");
             n = cin.nextInt();
         }
     }
