@@ -1,4 +1,5 @@
 
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -220,7 +221,7 @@ public class VistaNave extends PrimerNivel{
         Errores = new JTextField();
         Errores.setEditable(false);
 
-        Errores.setBounds(75,475,700,25);
+        Errores.setBounds(75,475,625,25);
         
         
         CB = new JComboBox<String>();
@@ -320,7 +321,6 @@ public class VistaNave extends PrimerNivel{
         
         textfield6 = new JTextField();
         textfield6.setBounds(350,125,150,25);
-        textfield6.setEditable(true);
         textfield6.setEnabled(false);
         PanelCrearTipo.add(textfield6);
              
@@ -579,7 +579,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield16 = new JTextField();
         textfield16.setBounds(150, 100, 100, 25);
-        textfield16.setEnabled(false);
+        textfield16.setEditable(false);
         PanelModificarTipo.add(textfield16);
         
         label12 = new JLabel("Consumo :");
@@ -588,7 +588,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield17 = new JTextField();
         textfield17.setBounds(150, 160, 100, 25);
-        textfield17.setEnabled(false);
+        textfield17.setEditable(false);
         PanelModificarTipo.add(textfield17);
         
         
@@ -637,7 +637,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield12 = new JTextField();
         textfield12.setBounds(150, 100, 100, 25);
-        textfield12.setEnabled(false);
+        textfield12.setEditable(false);
         PanelModificarNave.add(textfield12);
         
         label10 = new JLabel("Planeta Origen :");
@@ -647,7 +647,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield14 = new JTextField();
         textfield14.setBounds(150,160,100,25);
-        textfield14.setEnabled(false);
+        textfield14.setEditable(false);
         PanelModificarNave.add(textfield14);
         
         
@@ -661,8 +661,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield13 = new JTextField();
         textfield13.setBounds(150, 220, 100, 25);
-        textfield13.setEnabled(false);
-        //textfield13.setEditable(false);
+        textfield13.setEditable(false);
         PanelModificarNave.add(textfield13);
         
         
@@ -677,7 +676,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield15 = new JTextField();
         textfield15.setBounds(150,280,100,25);
-        textfield15.setEnabled(false);
+        textfield15.setEditable(false);
         PanelModificarNave.add(textfield15);
         
         
@@ -720,8 +719,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield22 = new JTextField();
         textfield22.setBounds(350,100, 150, 25);
-        textfield22.setEnabled(false);
-        textfield22.setEditable(true);
+        textfield22.setEditable(false);
         PanelConsultarTipo.add(textfield22);
         
         label18 = new JLabel("Consumo: ");
@@ -730,13 +728,13 @@ public class VistaNave extends PrimerNivel{
         
         textfield23 = new JTextField();
         textfield23.setBounds(350, 160, 150, 25);
-        textfield23.setEnabled(false);
+        textfield23.setEditable(false);
         PanelConsultarTipo.add(textfield23);
 
         
 //Consultar Nave
         PanelConsultarNave = new JPanel();
-        PanelModificarNave.setBackground(SystemColor.activeCaption);
+        PanelConsultarNave.setBackground(SystemColor.activeCaption);
         PanelConsultar.addTab("Nave",PanelConsultarNave);
         PanelConsultarNave.setLayout(null);
         
@@ -747,7 +745,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield18 = new JTextField();
         textfield18.setBounds(350,100,150,25);
-        textfield18.setEnabled(false);
+        textfield18.setEditable(false);
         PanelConsultarNave.add(textfield18);
         
         label16 = new JLabel("Planeta Origen: ");
@@ -757,8 +755,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield20 = new JTextField();
         textfield20.setBounds(350,160,150,25);
-        textfield20.setEnabled(false);
-        textfield20.setEditable(true);
+        textfield20.setEditable(false);
         PanelConsultarNave.add(textfield20);
         
         label17 = new JLabel("Planeta Destino: ");
@@ -767,8 +764,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield19 = new JTextField();
         textfield19.setBounds(350,220,150,25);
-        textfield19.setEnabled(false);
-        textfield19.setEditable(true);
+        textfield19.setEditable(false);
         PanelConsultarNave.add(textfield19);
 
         label14 = new JLabel("Tipo de nave: ");
@@ -777,7 +773,7 @@ public class VistaNave extends PrimerNivel{
         
         textfield21 = new JTextField();
         textfield21.setBounds(350,290,150,25);
-        textfield21.setEnabled(false);
+        textfield21.setEditable(false);
         PanelConsultarNave.add(textfield21);
 
        
@@ -820,6 +816,7 @@ public class VistaNave extends PrimerNivel{
                 String n = listaScroll2.getModel().getElementAt(index);
                 
                 try { 
+                     Errores.setText(n);
                         textfield20.setText(cvn.ConsultarPlanetaOrigen(n));
                         textfield19.setText(cvn.ConsultarPlanetaDestino(n));
                         textfield21.setText(cvn.ConsultarTipo(n));
