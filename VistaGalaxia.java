@@ -1,5 +1,3 @@
-package prop;
-
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
@@ -453,6 +451,7 @@ public class VistaGalaxia extends PrimerNivel {
                             if(AmbForma1.isSelected()) {
                                  if(!limitsNous.trim().isEmpty() && !limitsNous.equals(cvg.consultarLimits())) {
                                      cvg.modificarLimits(limitsNous);
+                                     teForma = true;
                                  }
                             }
                             actualitza2(teForma);
