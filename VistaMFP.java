@@ -1,15 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package prop;
-
-/**
- *
- * @author Moha
- */
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,6 +20,8 @@ public class VistaMFP extends PrimerNivel {
     private JRadioButton STotal;
     private JRadioButton SParcial;
     private JButton btnMissatge;
+    private ButtonGroup group;
+    private ButtonGroup group1;
     
     public VistaMFP (ControladorVistaMFP cv){
         cvMFP = cv;
@@ -68,6 +58,9 @@ public class VistaMFP extends PrimerNivel {
         Central.addTab("Opciones",null,Crear,null);
         Crear.setLayout(null);
         
+        group1 = new ButtonGroup();
+        group = new ButtonGroup();
+        
         FCF = new JRadioButton("Flujo");
         FCF.setSelected(false);
         FCF.setOpaque(false);
@@ -86,50 +79,13 @@ public class VistaMFP extends PrimerNivel {
         FCD.setBounds(100, 215, 120, 20);
         Crear.add(FCD);
         
+        group.add(FCF);
+        group.add(FCC);
+        group.add(FCD);
+        
         label1 = new JLabel("Funciones de Coste");
         label1.setBounds(100, 50, 120, 20);
         Crear.add(label1);
-        
-        FCF.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(FCF.isSelected()) {
-                        FCC.setSelected(false);
-                        FCD.setSelected(false);
-                    }
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
-        
-        FCC.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(FCC.isSelected()) {
-                        FCF.setSelected(false);
-                        FCD.setSelected(false);
-                    }
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
-        FCD.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(FCD.isSelected()) {
-                        FCF.setSelected(false);
-                        FCC.setSelected(false);
-                    }
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
         
         FFBFS = new JRadioButton("Ford-Fulkerson + BFS");
         FFBFS.setBounds(400, 115, 180, 20);
@@ -149,51 +105,13 @@ public class VistaMFP extends PrimerNivel {
         PR.setBounds(400, 215, 180, 20);
         Crear.add(PR);
         
+        group1.add(FFBFS);
+        group1.add(FFD);
+        group1.add(PR);
+        
         label2 = new JLabel("Algoritmos");
         label2.setBounds(400, 50, 120, 20);
         Crear.add(label2);
-        
-        FFBFS.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(FFBFS.isSelected()) {
-                        FFD.setSelected(false);
-                        PR.setSelected(false);
-                    }
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
-        
-        FFD.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(FFD.isSelected()) {
-                        FFBFS.setSelected(false);
-                        PR.setSelected(false);
-                    }
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
-        
-        PR.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(PR.isSelected()) {
-                        FFBFS.setSelected(false);
-                        FFD.setSelected(false);
-                    }
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
         
         Ejecutar = new JButton("Ejecutar");
         Ejecutar.setIcon(null);
@@ -249,29 +167,7 @@ public class VistaMFP extends PrimerNivel {
         ButtonGroup gb = new ButtonGroup();
         gb.add(STotal);
         gb.add(SParcial);
-        
-        /*STotal.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(STotal.isSelected()) SParcial.setSelected(false);
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });
-        
-        SParcial.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent a) {
-                try {
-                    if(SParcial.isSelected()) STotal.setSelected(false);
-                }
-                catch (Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-        });*/
-        
+                
         Mostrar = new JButton("Mostrar");
         Mostrar.setIcon(null);
         Mostrar.setBounds(250, 360, 200, 50);
@@ -282,8 +178,6 @@ public class VistaMFP extends PrimerNivel {
         TA.setEditable(true);
         TA.setBounds(50, 50, 600, 370);
         JScrollPane Sal = new JScrollPane(TA);
-        //Sal.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        //Sal.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         Sal.setBounds(50, 50, 600, 300);
         Consultar.add(Sal);
         
