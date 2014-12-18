@@ -1,9 +1,3 @@
-package prop;
-
-/**
- *
- * @author Moha
- */
 import java.util.*;
 
 public class ControladorMFP {
@@ -21,14 +15,14 @@ public class ControladorMFP {
 	//CREADORA
 	public ControladorMFP()
 	{
-            FuncionElegida = false;
-            AlgoritmoElegido = false;
-            s = new Salida();
+		FuncionElegida = false;
+		AlgoritmoElegido = false;
+		s = new Salida();
 	}
 	
 	public void AnadirEntrada(Entrada e1)
 	{
-            e = e1;
+		e = e1;
 	}
 	
 	//Seleccion/Ejecucion del algoritmo
@@ -66,8 +60,6 @@ public class ControladorMFP {
 		
 		alg.Ejecutar(r, s);
 		
-		System.out.println("salido del algoritmo");
-		
 		r = new BFS();
 		
 		if(fc instanceof FuncionPrecio || fc instanceof FuncionDistancia) r = new Dijkstra(); // en caso de coste hacer que el recorrido sea un DIJKSTRA
@@ -77,7 +69,7 @@ public class ControladorMFP {
 		Grafo g_res = alg.consultaResidual();
 				
 		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
-
+		
 		ArrayList<Conexion> con = cr.Consultar_Conexiones();
 		
 		int tam = g_res.sizeGrafo();
@@ -110,6 +102,8 @@ public class ControladorMFP {
 				}
 				parcial = toPlanetes(parcial,pla);
 				way += parcial +  " pasan " + n_final + " nave/s";
+				System.out.println(" -- way --");
+				System.out.println(way);
 				s.AnadirCamino(way);
 				parcial = "";
 				way = "";
@@ -119,40 +113,48 @@ public class ControladorMFP {
 		}
 		
 		// SI HAY NAVES QUE VAYAN HACIA UN LUGAR Y NO PUEDEN PASAR ANADIR CUELLO DE BOTELLA
-		
-		// calcular los cuellos de botella
-		int V = g_res.sizeGrafo();
-		int origen = V-2;
-		
-		boolean[] visitados = new boolean[V];
-		Arrays.fill(visitados,false);
-		visitados[origen] = true;
-		
-		Queue<Integer> q1 = new LinkedList<Integer>();
-		q1.add(origen);
-		
-		while(!q1.isEmpty()) {
-			int actual = q1.poll();
-			int size = g_res.sizeGrafo(actual);
-			for(int i = 0; i < size; ++i) {
-				int adj = g_res.consultarSeg(actual, i);
-				int cap = g_res.consultarPrim(actual, i).ConsultarCapacidad();
-				if(cap > 0 && !visitados[adj]) {
-					visitados[adj] = true;
-					q1.add(adj);
-				}
-				else if(cap == 0) {
-						String pa = pla.get(actual);
-						String pb = pla.get(adj);
-						int idr = 0;
-						boolean trobat = false;
-						for(int k = 0; k < con.size() && !trobat; ++k) {
-							if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
-								trobat = true;
-								idr = con.get(k).consultar_id();
+		boolean alguno = false;
+		for(int j = 0; j < paor.size(); ++j) {
+			if(paor.get(j).consultarPrimero() > 0) {
+				alguno = true;
+				break;
+			}
+		}	
+		// calcular los cuellos de botella si queda alguna nave
+		if(alguno) {
+			int V = g_res.sizeGrafo();
+			int origen = V-2;
+			
+			boolean[] visitados = new boolean[V];
+			Arrays.fill(visitados,false);
+			visitados[origen] = true;
+			
+			Queue<Integer> q1 = new LinkedList<Integer>();
+			q1.add(origen);
+			
+			while(!q1.isEmpty()) {
+				int actual = q1.poll();
+				int size = g_res.sizeGrafo(actual);
+				for(int i = 0; i < size; ++i) {
+					int adj = g_res.consultarSeg(actual, i);
+					int cap = g_res.consultarPrim(actual, i).ConsultarCapacidad();
+					if(cap > 0 && !visitados[adj]) {
+						visitados[adj] = true;
+						q1.add(adj);
+					}
+					else if(cap == 0) {
+							String pa = pla.get(actual);
+							String pb = pla.get(adj);
+							int idr = 0;
+							boolean trobat = false;
+							for(int k = 0; k < con.size() && !trobat; ++k) {
+								if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
+									trobat = true;
+									idr = con.get(k).consultar_id();
+								}
 							}
-						}
-						if(trobat) s.AnadirCuello(idr);
+							if(trobat) s.AnadirCuello(idr);
+					}
 				}
 			}
 		}
@@ -173,13 +175,13 @@ public class ControladorMFP {
 		int pos;
 		Stack<String> tmp = new Stack<String>();
 		while(sca.hasNext()) {
-                    pos = Integer.parseInt(sca.next());
-                    a = pl.get(pos);
-                    tmp.add(a);
+			pos = Integer.parseInt(sca.next());
+			a = pl.get(pos);
+			tmp.add(a);
 		}
 		sca.close();
 		while(tmp.size() > 1) {
-                    planetes += tmp.pop() + " => ";
+			planetes += tmp.pop() + " => ";
 		}
 		planetes += tmp.pop();
 		return planetes;
@@ -235,12 +237,12 @@ public class ControladorMFP {
 	
 	public int size()
 	{
-            return s.size();
+		return s.size();
 	}
 	
 	public int sizeCambios()
 	{
-            return s.sizeCambios();
+		return s.sizeCambios();
 	}
 	
 	//Pre:cierto
