@@ -21,7 +21,9 @@ public class TipoNave1 extends Nave{
 			consumo = c;
 			definido = true;
 	}
-
+        public static void Desdefinir(){
+            definido=false;
+        }
 	//pre: cierto
 	//post: crea una nave de tipo 1 inicializada
 	/**
