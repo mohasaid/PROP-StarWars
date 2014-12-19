@@ -1,4 +1,3 @@
-package prop1;
 
 
 import java.util.*;
@@ -131,8 +130,9 @@ public class ControladorVistaNave {
    public void GuardarNaves(String path)throws Exception{
        cn.GuardarNaves(path);
    }
-   public void EliminarNaves(){
-       cn.EliminarNaves();
-   }
+       public void clear() {
+        cn.EliminarNaves();
+        cn.EliminarTipos();
+    }
 }
     
