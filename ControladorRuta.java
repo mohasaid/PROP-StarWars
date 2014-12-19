@@ -663,6 +663,16 @@ public class ControladorRuta {
 	    return res;
   }
   
+  public boolean Array_conte(int id, ArrayList<Integer>l)
+  {
+      boolean b = false;
+      for (int i = 0; i<l.size();++i)
+      {
+          if (l.get(i)==id) return true;
+      }
+      return b;
+  }
+  
   //Pre: Cierto.
   //Post: Carga todas las rutas y conexiones existentes en el sistema en el fichero indicado en el path
   /**
@@ -678,7 +688,6 @@ public class ControladorRuta {
       FileReader fr = new FileReader(path);
       BufferedReader br = new BufferedReader(fr);
       while( !(res = Cdr.cargar(path,100,br) ).equals("")){
-    	  System.out.println(res);
           Scanner sc = new Scanner(res);
           sc.useDelimiter("#|:");
           String s="";
@@ -691,8 +700,7 @@ public class ControladorRuta {
         	      int capacidad = Integer.parseInt(s);
         	      s = sc.next();
         	      int distancia = Integer.parseInt(s);
-        	      s = sc.next();
-                      if (Rutes_afegides.contains(id)) { //si hemos aÃ±adido la conexion, anadimos tambien la ruta
+                      if (Array_conte(id, Rutes_afegides)) { //si hemos aÃ±adido la conexion, anadimos tambien la ruta
                          Ruta r = new Ruta(id,capacidad,distancia);
                          ArbolRutas.add(Integer.toString(r.consultar_id()),r);
                       }
@@ -703,22 +711,12 @@ public class ControladorRuta {
         	      String ida = s;
         	      s = sc.next();
         	      String idb = s;
-                      
-                      if(ExisteRuta(id)){
-                          throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");       
+                      if (!ExisteRuta(id) && cp.ExistePlaneta(ida) && Disponibilidad_crear_ruta(ida , idb) )
+                      {
+                          Conexion c = new Conexion(id,ida,idb);
+                          Rutes_afegides.add(id);
+                          Conexiones.add(Integer.toString(c.consultar_id()),c);
                       }
-                      if ( !cp.ExistePlaneta(ida) ) { 
-                          throw new Exception("Error: El Planeta con id = " + ida + " no existe\n");
-                      }
-                      if ( !cp.ExistePlaneta(idb) ) { 
-                          throw new Exception("Error: El Planeta con id = " + idb + " no existe\n");
-                      }
-                      if ( !Disponibilidad_crear_ruta(ida , idb) ) {
-                          throw new Exception("La Ruta de " + ida + " a " + idb + " ja existeix \n");
-                      }
-        	      Conexion c = new Conexion(id,ida,idb);
-                      Rutes_afegides.add(id);
-        	      Conexiones.add(Integer.toString(c.consultar_id()),c);
     	      }
     	      s= sc.next();
 
@@ -737,14 +735,11 @@ public class ControladorRuta {
    */
   public void GuardarRutas (String path) throws Exception {
     String res = "";
-	System.out.println("entro a guardar");
     //Guardamos toadas las conexiones
     if(!Conexiones.isEmpty()){
-    	System.out.println("entro a conexions");
         int iteracions = 0;
     	ArrayList<Conexion> ac = Conexiones.MostrarElementos();
         for (Conexion c : ac){ 
-        	System.out.println("iteracio");
             res += 1 + ":"; //quiere decir que se trata de una conexion
             res += c.consultar_id() + ":";
             res += c.consultar_planetaA() + ":";
