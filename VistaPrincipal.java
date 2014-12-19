@@ -1,4 +1,4 @@
-package prop;
+
 /**
  *
  * @author Moha
@@ -219,5 +219,24 @@ public class VistaPrincipal extends JFrame {
                         panelGrande.revalidate();
                 }
         }); 
+    
+    JButton Clear = new JButton("   Clear");
+    Clear.setBorder(null);
+    jtb.add(Clear);
+    
+    Clear.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent arg0){
+                       CVN.clear();
+                       VN.actualiza();
+                       VN.actualizaT();
+                       CVR.clear();
+                       VR.actualiza();
+                       CVP.clear();
+                       VP.actualiza();
+                }
+        });
+    
+    
     }
+    
 }
