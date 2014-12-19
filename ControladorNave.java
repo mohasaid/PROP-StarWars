@@ -1,3 +1,4 @@
+
 import java.util.*;
 import java.io.*;
 
@@ -593,29 +594,14 @@ public class ControladorNave{
 			        	Cdn.CerrarEscritura();
 			        }
 			    }
-			    /*
-			    public String consultarTODO() throws Exception {
-			    	String res = "";
-			        if(!listaNaves.isEmpty()){    
-			            int iteracions = 0;
-			            for (Nave r : listaNaves){
-			            	int id = r.consultar_id();
-			                res +=  id + ":";
-			                res += r.consultar_origen() + ":";
-			                res += r.consultar_destino() + ":";
-			                res += r.consultar_tipo() + ":";
-			                res += ConsultarConsumo(id);
-			                res += "#";
-			                ++iteracions;
-			                if(iteracions == 100){
-			                    iteracions = 0;
-			                    res = "";
-			                }
-			            }
-			        }
-			        return res;
-			    }
-			    */
+			    
+                            public void EliminarTipos(){
+                                TipoNave1.Desdefinir();
+                                TipoNave2.Desdefinir();
+                                TipoNave3.Desdefinir();
+                                TipoNave4.Desdefinir();
+                                TipoNave5.Desdefinir();
+                            }
 			    public void BorraNavesDestinoOrigen(String id) throws Exception{
 			    	for(Nave n: listaNaves.MostrarElementos()){
 			    		if(n.consultar_destino().compareTo(id) == 0 || n.consultar_origen().compareTo(id) == 0) EliminarNave(n.consultar_id());
