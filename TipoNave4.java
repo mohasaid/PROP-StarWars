@@ -1,3 +1,4 @@
+
 import java.util.Comparator;
 
 
@@ -21,6 +22,9 @@ public class TipoNave4 extends Nave{
 			consumo = c;
 			definido = true;
 	}
+                public static void Desdefinir(){
+            definido=false;
+        }
 	//pre: cierto
 	//post: crea una nave de tipo 4 inicializada
 	/**
