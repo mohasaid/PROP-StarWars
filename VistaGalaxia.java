@@ -99,6 +99,12 @@ public class VistaGalaxia extends PrimerNivel {
             forma1.PonTodos(cvg.consultarLimits()); // forma consultar
         }   
     }
+    
+    public void borra()
+    {
+        forma.borraLimites();
+        forma1.borraLimites();
+    }
 
     public VistaGalaxia(ControladorVistaGalaxia cVG)
     {    	
@@ -447,13 +453,15 @@ public class VistaGalaxia extends PrimerNivel {
                             }
                             if(!LimitNou.trim().isEmpty() && !LimitNou.equals(String.valueOf(cvg.consultarLimit()))) {
                                 cvg.modificarLimit(LimitNou);
+                                borra();
                             }
                             if(AmbForma1.isSelected()) {
                                  if(!limitsNous.trim().isEmpty() && !limitsNous.equals(cvg.consultarLimits())) {
                                      cvg.modificarLimits(limitsNous);
+                                     borra();
                                      teForma = true;
                                  }
-                            }
+                            } 
                             actualitza2(teForma);
                         }
                         catch (Exception e) { 
@@ -479,6 +487,7 @@ public class VistaGalaxia extends PrimerNivel {
                     finally {
                         Errores.setText("Se ha cargado el archivo " + path);                    
                     }
+                    borra();
                     teForma = (cvg.consultarNombreLimits() > 0);
                     CREADA = true;
                     actualitza(teForma);
