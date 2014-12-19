@@ -159,4 +159,7 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         CR.BorrarRuta(i);
     }
+        public void clear(){
+        CR.BorrarRutas();
+    }
 }
