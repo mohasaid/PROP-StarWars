@@ -472,7 +472,6 @@ public class VistaGalaxia extends PrimerNivel {
                     path = Cargar.getSelectedFile().getAbsolutePath();
                     try {
                         cvg.carregarGalaxia(path);
-                            
                     } 
                     catch (Exception e1) {
                         Errores.setText(e1.getMessage());
@@ -480,7 +479,9 @@ public class VistaGalaxia extends PrimerNivel {
                     finally {
                         Errores.setText("Se ha cargado el archivo " + path);                    
                     }
-                    actualitza(false);
+                    teForma = (cvg.consultarNombreLimits() > 0);
+                    CREADA = true;
+                    actualitza(teForma);
                 }
         });
         
