@@ -135,6 +135,7 @@ public class VistaPlaneta extends PrimerNivel {
     	Errores = new JTextField();
     	Errores.setEditable(false);
         Errores.setBackground(SystemColor.white);
+        Errores.setForeground(Color.red);
         Errores.setBounds(75,475,700,25);
         Errores.setVisible(true);
     	add(Errores);
