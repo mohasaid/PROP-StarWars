@@ -58,6 +58,8 @@ public class VistaHelp extends PrimerNivel{
     public VistaHelp(){
         setLayout(null);
         textfield1 = new JTextArea();
+        textfield1.setText("\n\n\n\n\n\n\tImportante: Es necesario crear una galaxia antes\n"
+                + "\tde crear el resto de elementos o ejecutar el programa\n");
         textfield1.setEditable(false);
         Font font = new Font("Arial",Font.BOLD,15);
         textfield1.setFont(font);
