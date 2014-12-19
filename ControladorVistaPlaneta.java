@@ -1,4 +1,3 @@
-
 import java.util.*;
 
 class ControladorVistaPlaneta {
@@ -14,44 +13,50 @@ class ControladorVistaPlaneta {
         vp = new VistaPlaneta(this);    
     }
     
-    public void ImportarVistas(/*ControladorVistaNave n, ControladorVistaRuta r, */ControladorVistaGalaxia g) {
-        //vn = n.ConsultarVistaNave();
-        //vr = r.ConsultarVistaRuta();
-        //vg = g.ConsultarVistaGalaxia();
+    public void ImportarVistas(ControladorVistaGalaxia g) 
+    {
+        vg = g.consultarVistaGalaxia();
         cg = g.consultarControladorGalaxia();
     }
     
-    public ControladorPlaneta ConsultarControladorPlaneta() {
+    public ControladorPlaneta ConsultarControladorPlaneta() 
+    {
         return cp;
     }
     
-    public VistaPlaneta ConsultarVistaPlaneta() {
+    public VistaPlaneta ConsultarVistaPlaneta() 
+    {
         return vp;
     }
     
-    public void CrearPlaneta(String Nombre, String Coste, String X, String Y) throws Exception{
+    public void CrearPlaneta(String Nombre, String Coste, String X, String Y) throws Exception
+    {
         int c = Integer.parseInt(Coste);
         int x = Integer.parseInt(X);
         int y = Integer.parseInt(Y);
         Pair<Integer,Integer> p = new Pair(x,y);
         cp.Planeta(Nombre,c,p,cg);
-        //vg.ActualizarPlanetas();
-        //vn.ActualizarPlanetas();
-        //vr.ActualizarPlanetas();
+        vg.pintaPlaneta(x, y);
     }
     
-    public void CrearPlaneta() throws Exception {
-       cp.PlanetaAuto(cg);
-       //vg.ActualizarPlanetas();
-      // vn.ActualizarPlanetas();
-       //vr.ActualizarPlanetas();
+    public void CrearPlaneta() throws Exception 
+    {
+       String a = cp.PlanetaAuto(cg);
+       Scanner scan = new Scanner(a);
+       scan.useDelimiter(",");
+       Integer a1 = scan.nextInt();
+       Integer a2 = scan.nextInt();
+       vg.pintaPlaneta(a1, a2);
     }
     
-    public void CrearPlaneta(String Nombre) throws Exception {
-        cp.PlanetaAuto(Nombre,cg);
-        //vg.ActualizarPlanetas();
-        //vn.ActualizarPlanetas();
-        //vr.ActualizarPlanetas();
+    public void CrearPlaneta(String Nombre) throws Exception 
+    {
+        String a = cp.PlanetaAuto(Nombre,cg);
+        Scanner scan = new Scanner(a);
+        scan.useDelimiter(",");
+        Integer a1 = scan.nextInt();
+        Integer a2 = scan.nextInt();
+        vg.pintaPlaneta(a1, a2);
     }
     
     public String ConsultarCoste(String Nombre) throws Exception {
@@ -100,4 +105,3 @@ class ControladorVistaPlaneta {
         cp.GuardarPlanetas(path);
     }
 }
-
