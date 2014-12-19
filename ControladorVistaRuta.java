@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -48,7 +49,9 @@ public class ControladorVistaRuta {
         CP = cVP.ConsultarControladorPlaneta();
         CVP = cVP;
     }
-	
+    public ControladorRuta consultarControladorRuta(){
+        return CR;
+    }
     public VistaRuta obterVistaRuta() {
         return VR;
     }
@@ -159,7 +162,7 @@ public class ControladorVistaRuta {
         int i = Integer.parseInt(id);
         CR.BorrarRuta(i);
     }
-        public void clear(){
+    public void clear(){
         CR.BorrarRutas();
     }
 }
