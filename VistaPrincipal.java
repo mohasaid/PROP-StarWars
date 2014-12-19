@@ -15,6 +15,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
 import javax.swing.GroupLayout;
@@ -231,7 +233,11 @@ public class VistaPrincipal extends JFrame {
                        VN.actualizaT();
                        CVR.clear();
                        VR.actualiza();
-                       CVP.clear();
+                    try {
+                        CVP.clear();
+                    } catch (Exception ex) {
+                        //Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                        VP.actualiza();
                 }
         });
