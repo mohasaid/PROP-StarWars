@@ -161,7 +161,6 @@ public class VistaGalaxia extends PrimerNivel {
         textfield10 = new JTextField(); // nombre
         label15 = new JLabel("Limit :");
         textfield11 = new JTextField(); // limite
-        // -> FORMA DIBUJARLA
         
         forma = new Grid();
         forma1 = new Grid();
@@ -169,15 +168,14 @@ public class VistaGalaxia extends PrimerNivel {
         
     	/* CONFIGURACIONES */
         setOpaque(false);
-        setLayout(null); // no le dejo que elija donde poner las cosas, lo elijo todo yo
-        setBackground(Color.WHITE); // -> ESCOGER COLOR
+        setLayout(null);
+        setBackground(Color.WHITE);
         
-        // COMPOUNDBORDER -> LINEA QUE RODEA EL BOTON CON UN COLOR DETERMINADO
     	// Panel de arriba
         Central.setBackground(SystemColor.control);
         Central.setBounds(0, 0, 700, 460);
         add(Central);
-    	Central.addTab("Crear", Crear); // nombre, icono, panel, mensaje cuando pones el raton encima
+    	Central.addTab("Crear", Crear);
     	Central.addTab("Modificar", Modificar);
     	Central.addTab("Consultar", Consultar);
     	
@@ -214,13 +212,12 @@ public class VistaGalaxia extends PrimerNivel {
         FrameGuardar.add(Guardar); 
         
         // CREAR
-        // BOTON PARA ESCOGER SI TIENE FORMA O NO
         Crear.setBorder(null);
         Crear.setBackground(SystemColor.activeCaption);
         Crear.setLayout(null);
         
-        AmbForma.setSelected(true); // comenco amb forma marcat
-        AmbForma.setBounds(200, 25, 200, 50); // -> mirar valores
+        AmbForma.setSelected(true);
+        AmbForma.setBounds(200, 25, 200, 50);
         AmbForma.setBackground(SystemColor.activeCaption);
         group1.add(AmbForma);
         
@@ -232,7 +229,6 @@ public class VistaGalaxia extends PrimerNivel {
         Crear.add(AmbForma);
         Crear.add(SenseForma);
         
-        // x,y largo horizontal, largo vertical
         label2.setBorder(new CompoundBorder()); // nombre
         label2.setBounds(100, 75, 100, 100); 
         Crear.add(label2);
