@@ -104,4 +104,7 @@ class ControladorVistaPlaneta {
     public void GuardarPlanetas(String path) throws Exception{
         cp.GuardarPlanetas(path);
     }
+        public void clear(){
+        cp.BorrarTodos();
+    }
 }
