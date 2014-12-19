@@ -1,8 +1,3 @@
-package prop;
-/**
- *
- * @author Moha
- */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -307,9 +302,7 @@ public class ControladorGalaxia
      * @throws Exception
      */
     public void carregarConjuntGalaxia(String directori) throws Exception
-    {
-		g.eliminarTotsPlanetes(); // borro los planetas, el resto lo sobreescribo
-		
+    {		
 		String result;
 		cdg.AbrirLectura(directori);
 		FileReader fr = new FileReader(directori);
