@@ -56,6 +56,7 @@ public class VistaHelp extends PrimerNivel{
     private JLabel Clip;
     
     public VistaHelp(){
+        setOpaque(false);
         setLayout(null);
         textfield1 = new JTextArea();
         textfield1.setText("\n\n\n\n\n\n\tImportante: Es necesario crear una galaxia antes\n"
