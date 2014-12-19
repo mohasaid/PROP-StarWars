@@ -64,8 +64,6 @@ public class VistaRuta extends PrimerNivel{
                 for (String s : listado) CB.addItem(s);
                 for (String p : listado1) mlistado.addElement(p);
                 for (String p : listado2) mlistado.addElement(p);
-                System.out.println("listado1: "+listado1);
-                System.out.println("listado2: "+listado2);
                 CB.revalidate();
                 CB.repaint();
                 listaScroll1.setModel(mlistado);
