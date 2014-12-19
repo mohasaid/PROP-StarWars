@@ -1,3 +1,5 @@
+package prop;
+
 import java.util.*;
 
 public class ControladorMFP {
@@ -15,14 +17,14 @@ public class ControladorMFP {
 	//CREADORA
 	public ControladorMFP()
 	{
-		FuncionElegida = false;
-		AlgoritmoElegido = false;
-		s = new Salida();
+            FuncionElegida = false;
+            AlgoritmoElegido = false;
+            s = new Salida();
 	}
 	
 	public void AnadirEntrada(Entrada e1)
 	{
-		e = e1;
+            e = e1;
 	}
 	
 	//Seleccion/Ejecucion del algoritmo
@@ -55,10 +57,17 @@ public class ControladorMFP {
 	
 	public void Executa(ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp) throws Exception 
 	{
+                
 		if(!AlgoritmoElegido) throw new Exception("Error: Es necesario seleccionar un algoritmo antes de ejecutarlo");
 		if(!FuncionElegida) throw new Exception("Error: Es necesario seleccionar una funcion de coste antes de elegir algoritmo");
 		
+                s.EliminarCambios();
+                s.EliminarCaminos();
+                s.EliminarCuellos();
+                        
 		alg.Ejecutar(r, s);
+		
+		System.out.println("salido del algoritmo");
 		
 		r = new BFS();
 		
@@ -69,7 +78,7 @@ public class ControladorMFP {
 		Grafo g_res = alg.consultaResidual();
 				
 		ArrayList<Pair<Integer,Pair<String,String>>> paor = cn.consultaPAOR();
-		
+
 		ArrayList<Conexion> con = cr.Consultar_Conexiones();
 		
 		int tam = g_res.sizeGrafo();
@@ -102,8 +111,6 @@ public class ControladorMFP {
 				}
 				parcial = toPlanetes(parcial,pla);
 				way += parcial +  " pasan " + n_final + " nave/s";
-				System.out.println(" -- way --");
-				System.out.println(way);
 				s.AnadirCamino(way);
 				parcial = "";
 				way = "";
@@ -112,7 +119,6 @@ public class ControladorMFP {
 			}
 		}
 		
-		// SI HAY NAVES QUE VAYAN HACIA UN LUGAR Y NO PUEDEN PASAR ANADIR CUELLO DE BOTELLA
 		boolean alguno = false;
 		for(int j = 0; j < paor.size(); ++j) {
 			if(paor.get(j).consultarPrimero() > 0) {
@@ -175,13 +181,13 @@ public class ControladorMFP {
 		int pos;
 		Stack<String> tmp = new Stack<String>();
 		while(sca.hasNext()) {
-			pos = Integer.parseInt(sca.next());
-			a = pl.get(pos);
-			tmp.add(a);
+                    pos = Integer.parseInt(sca.next());
+                    a = pl.get(pos);
+                    tmp.add(a);
 		}
 		sca.close();
 		while(tmp.size() > 1) {
-			planetes += tmp.pop() + " => ";
+                    planetes += tmp.pop() + " => ";
 		}
 		planetes += tmp.pop();
 		return planetes;
@@ -237,12 +243,12 @@ public class ControladorMFP {
 	
 	public int size()
 	{
-		return s.size();
+            return s.size();
 	}
 	
 	public int sizeCambios()
 	{
-		return s.sizeCambios();
+            return s.sizeCambios();
 	}
 	
 	//Pre:cierto
