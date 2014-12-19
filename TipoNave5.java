@@ -1,3 +1,4 @@
+package propfinal;
 import java.util.Comparator;
 
 
@@ -21,6 +22,9 @@ public class TipoNave5 extends Nave{
 			consumo = c;
 			definido = true;
 	}
+                public static void Desdefinir(){
+            definido=false;
+        }
 	//pre: cierto
 	//post: crea una nave de tipo 5 inicializada
 	/**
