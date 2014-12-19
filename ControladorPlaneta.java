@@ -237,7 +237,7 @@ public class ControladorPlaneta {
     		s = "";
     		if(sc.hasNext()) s = sc.next();
     		while(sc.hasNext()){
-				id = sc.next();
+				id = s;
 				s = sc.next();
 				k = Integer.parseInt(s);
 				s = sc.next();
