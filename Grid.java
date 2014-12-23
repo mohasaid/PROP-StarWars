@@ -52,7 +52,7 @@ class Grid extends JPanel {
     public void fillCell(int x, int y) 
     {
         fillCells.add(new Point(x, y));
-        repaint(); // LLAMA A PAINTCOMPONENT
+        repaint();
     }
     
     public void planetaCell(int x, int y)
@@ -64,6 +64,25 @@ class Grid extends JPanel {
     public void setN(String n) 
     {
     	N = Integer.valueOf(n);
+        repaint();
+    }
+    
+    public void borraLimites()
+    {
+        fillCells.clear();
+        repaint();
+    }
+    
+    public void borraPlanetas()
+    {
+        planetes.clear();
+        repaint();
+    }
+    
+    public void borraPlaneta(int x, int y)
+    {
+        Point p = new Point(x,y);
+        planetes.remove(p);
         repaint();
     }
     
@@ -85,5 +104,5 @@ class Grid extends JPanel {
         int tam = N;
         if(tam > 22) tam = 11*N;
         return new Dimension(tam, tam);
-    }  
+    }
 }
