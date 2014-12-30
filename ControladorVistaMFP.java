@@ -1,4 +1,3 @@
-package prop;
 /**
  *
  * @author Moha
@@ -31,6 +30,16 @@ public class ControladorVistaMFP {
     {
         vMFP = new VistaMFP(this);
         cmfp = new ControladorMFP();        
+    }
+    
+    public Grafo consultarGrafoOriginal()
+    {
+        return E.Consultar_grafo();
+    }
+    
+    public Grafo consultarGrafoResidual()
+    {
+        return cmfp.consultarGrafoResidual();
     }
     
     public void SeleccionarAlgoritmo(int i) throws Exception 
