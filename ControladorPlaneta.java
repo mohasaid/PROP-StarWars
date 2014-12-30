@@ -9,7 +9,7 @@ import java.util.*;
 public class ControladorPlaneta {
     private TST<Planeta> listaPlanetas;
     private ControladorDadesPlaneta cdp;
-    private static int id = 0;
+    private static int idp = 0;
     private static final String nomG = "Planeta";
     
     private int randInt(int min, int max)
@@ -44,7 +44,7 @@ public class ControladorPlaneta {
     
     public int consultarIDTOTALES()
     {
-        return id;
+        return idp;
     }
     
     //Pre: Cierto.
@@ -72,11 +72,11 @@ public class ControladorPlaneta {
     {
     	int r1 = randInt(0,1000);
     	
-        String seg = Integer.toString(id);
+        String seg = Integer.toString(idp);
         String f = nomG + seg;
         while(listaPlanetas.contains(f)) {
-            ++id;
-            seg = Integer.toString(id);
+            ++idp;
+            seg = Integer.toString(idp);
             f = nomG + seg;
         }
 		
@@ -214,24 +214,28 @@ public class ControladorPlaneta {
     }
     //Pre: Cierto.
     //Post: Borra el planeta.
-    public void Borrar(String id, ControladorRuta cr, ControladorGalaxia cg) throws Exception 
+    public void Borrar(String id, ControladorRuta cr, ControladorNave cn, ControladorGalaxia cg) throws Exception 
     {
     	Planeta p = listaPlanetas.buscar(id);
     	cg.eliminarPlaneta(p.consultar_X(), p.consultar_Y());
+        cr.BorrarRutaConexions(id);
+        cn.BorraNavesDestinoOrigen(id);
     	listaPlanetas.eliminar(id);
     }
     
-    public void BorrarTodos() 
+    public void BorrarTodos(ControladorGalaxia cg) 
     {
+        cg.eliminarPlanetes();
     	listaPlanetas.clear();
+        idp = 0;
     }
     
   //Pre: Cierto.
     //Post: 
     public void CargarPlanetas(String path, ControladorGalaxia cg) throws Exception 
     {
-    	BorrarTodos();
-        id = 0;
+    	BorrarTodos(cg);
+        idp = 0;
         
     	String res = "";
     	cdp.AbrirLectura(path);
