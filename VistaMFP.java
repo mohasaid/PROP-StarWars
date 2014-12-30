@@ -1,16 +1,24 @@
+/**
+ *
+ * @author Moha
+ */
+import edu.uci.ics.jung.algorithms.layout.KKLayout;
+import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.graph.Graph;
+import edu.uci.ics.jung.visualization.BasicVisualizationServer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.*;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
+import org.apache.commons.collections15.Transformer;
 
 public class VistaMFP extends PrimerNivel {
     private ControladorVistaMFP cvMFP;
     
     private JButton Ejecutar;
     private JButton Mostrar;
-    
+    private JButton MGrafo;
+        
     private JRadioButton FCF;
     private JRadioButton FCC;
     private JRadioButton FCD;
@@ -23,6 +31,8 @@ public class VistaMFP extends PrimerNivel {
     private ButtonGroup group;
     private ButtonGroup group1;
     
+    private DibujoGrafo dg;
+    
     public VistaMFP (ControladorVistaMFP cv){
         cvMFP = cv;
         setOpaque(false);
@@ -33,6 +43,7 @@ public class VistaMFP extends PrimerNivel {
         btnMissatge.setBounds(0,475,75,25);
         btnMissatge.setBackground(SystemColor.activeCaption);
         add(btnMissatge);
+        
     	Errores = new JTextField();
     	Errores.setEditable(false);
         Errores.setBackground(SystemColor.white);
@@ -48,14 +59,13 @@ public class VistaMFP extends PrimerNivel {
         }); 
         
         Central = new JTabbedPane(JTabbedPane.TOP);
-        Central.setBackground(SystemColor.activeCaption);
         Central.setBounds(0, 0, 700, 450);
         add(Central);
         
         Crear = new JPanel();
         Crear.setBackground(SystemColor.activeCaption);
         Crear.setBounds(0, 0, 700, 500);
-        Central.addTab("Opciones",null,Crear,null);
+        Central.addTab("Opciones",Crear);
         Crear.setLayout(null);
         
         group1 = new ButtonGroup();
@@ -139,7 +149,16 @@ public class VistaMFP extends PrimerNivel {
                     if(PR.isSelected()) {
                         cvMFP.SeleccionarAlgoritmo(3);
                     }
-                    cvMFP.Ejecutar();
+                    // cambia raton mientras se ejecuta
+                    boolean ejecutando = true;
+                    if(ejecutando) {
+                       setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                       Errores.setText("-- EJECUTANDO --");
+                       cvMFP.Ejecutar();
+                       Errores.setText("-- EJECUTADO --");
+                       ejecutando = false;
+                       setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+                    }
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -149,7 +168,7 @@ public class VistaMFP extends PrimerNivel {
         
         Consultar = new JPanel();
         Consultar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Salida", null,Consultar,null);
+        Central.addTab("Salida",Consultar);
         Consultar.setLayout(null);
         Consultar.setBounds(0, 0, 700, 500);
         
@@ -169,7 +188,6 @@ public class VistaMFP extends PrimerNivel {
         gb.add(SParcial);
                 
         Mostrar = new JButton("Mostrar");
-        Mostrar.setIcon(null);
         Mostrar.setBounds(250, 360, 200, 50);
         Consultar.add(Mostrar);
        
@@ -195,6 +213,77 @@ public class VistaMFP extends PrimerNivel {
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
+            }
+        });
+        
+        Modificar = new JPanel();
+        Modificar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Grafo",Modificar);
+        Modificar.setLayout(null);
+        Modificar.setBounds(0, 0, 700, 500);
+        
+        MGrafo = new JButton("Mostrar Grafo");
+        MGrafo.setBounds(250, 360, 200, 50);
+        Modificar.add(MGrafo);
+        
+        MGrafo.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent a) {
+                Grafo residual = cvMFP.consultarGrafoResidual();
+                dg = new DibujoGrafo(residual);
+
+                Graph<String, String> g = dg.consultaGrafo();
+                Layout<String, String> layout = new KKLayout(g);
+                layout.setSize(new Dimension(700,360)); 
+
+                BasicVisualizationServer<String,String> vv = new BasicVisualizationServer<String,String>(layout);
+                vv.setPreferredSize(new Dimension(700,360));
+                
+                vv.getRenderContext().setVertexLabelTransformer
+                (
+                    new Transformer<String, String>() {
+                        @Override
+                        public String transform(String nom) {
+                            return nom;
+                        }
+                });
+                
+                /*vv.getRenderContext().setEdgeLabelTransformer
+                (
+                    new Transformer<String, String>() {
+                        @Override
+                        public String transform(String nom) {
+                            return nom;
+                        }
+                });*/
+                                
+                vv.getRenderContext().setVertexFillPaintTransformer
+                (
+                    new Transformer<String,Paint>() {
+                        @Override
+                        public Paint transform(String i) {
+                            if((i.equals("OF") || (i.equals("DF")))) return Color.GREEN;
+                            return Color.RED;
+                        }
+                    }
+                );
+                
+                //vv.getRenderContext().setLabelOffset(20);
+                
+                vv.getRenderContext().setVertexFontTransformer
+                (
+                    new Transformer<String,Font>() {
+                        @Override
+                        public Font transform(String i) {
+                            if((i.equals("OF") || (i.equals("DF")))) return new Font("Helvetica", Font.PLAIN, 12);
+                            return new Font("Helvetica", Font.PLAIN, 9);
+                        }
+                    }
+                );
+                
+                vv.setBackground(SystemColor.activeCaption);
+                vv.setBounds(0, 0, 700, 360);
+                Modificar.add(vv);
+
             }
         });
     }
