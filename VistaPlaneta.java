@@ -1,5 +1,7 @@
-
-
+/**
+ *
+ * @author Moha
+ */
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.SystemColor;
@@ -47,7 +49,6 @@ public class VistaPlaneta extends PrimerNivel {
     private JRadioButton Manual;
     private JRadioButton Automatico;
     private JRadioButton AutomaticoCN;
-
     
     public void actualiza() {
         try {
@@ -55,7 +56,6 @@ public class VistaPlaneta extends PrimerNivel {
             listado1 = CVP.ConsultarNombresPlanetas(i);
             listado2 = CVP.ConsultarNombresPlanetas(j);
             listado = CVP.ConsultarNombresPlanetas();
-            Errores.setText(String.valueOf(listado1.size()));
             CB.removeAllItems();
             listaScroll1.removeAll();
             if (listado.size() != 0) {  
@@ -132,14 +132,15 @@ public class VistaPlaneta extends PrimerNivel {
         btnMissatge.setBounds(0,475,75,25);
         btnMissatge.setBackground(SystemColor.activeCaption);
         add(btnMissatge);
+        
     	Errores = new JTextField();
     	Errores.setEditable(false);
         Errores.setBackground(SystemColor.white);
-        Errores.setForeground(Color.red);
-        Errores.setBounds(75,475,700,25);
+        Errores.setBounds(75,475,625,25);
         Errores.setVisible(true);
+        Errores.setForeground(Color.red);
     	add(Errores);
-        
+                
         btnMissatge.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 Errores.setText("");
@@ -182,7 +183,8 @@ public class VistaPlaneta extends PrimerNivel {
               if (index >= 0) { 
                 String n = listaScroll2.getModel().getElementAt(index);
                 
-                try {
+                try { 
+                    Errores.setText(n);
                     textfield1.setText(n);
                     textfield2.setText(CVP.ConsultarCoste(n));
                     textfield3.setText(CVP.ConsultarCoordenadaX(n));
@@ -227,7 +229,6 @@ public class VistaPlaneta extends PrimerNivel {
         
         Central = new JTabbedPane(JTabbedPane.TOP);
         Central.setBorder(null);
-        Central.setBackground(SystemColor.activeCaption);
         Central.setBounds(0, 0, 700, 450); //A la espera de consenso
         add(Central);
         
@@ -553,17 +554,20 @@ public class VistaPlaneta extends PrimerNivel {
         Guardar.setMinimumSize(new Dimension(200, 245)); 
         Guardar.setPreferredSize(new Dimension(365, 200));
         FrameGuardar.add(Guardar);
-        Guardar.setDialogTitle("Guardar");
         
         Guardar.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent a) {
+                String path = "";
                 try {
-                    String path = Guardar.getSelectedFile().getAbsolutePath();
+                    path = Guardar.getSelectedFile().getAbsolutePath();
                     CVP.GuardarPlanetas(path);
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
+                finally {
+                    Errores.setText("Se ha guardado el archivo en " + path);                    
+                }  
             }
         });
         
@@ -578,18 +582,22 @@ public class VistaPlaneta extends PrimerNivel {
         Cargar.setMinimumSize(new Dimension(200, 245)); 
         Cargar.setPreferredSize(new Dimension(365, 200));
         FrameCargar.add(Cargar);
-        Cargar.setDialogTitle("Cargr");
         
         Cargar.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent a) {
+                String path = "";
                 try{
-                    String path = Cargar.getSelectedFile().getAbsolutePath();
+                    path = Cargar.getSelectedFile().getAbsolutePath();
                     CVP.CargarPlanetas(path);
-                    actualiza();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
+                finally {
+                    actualiza();
+                    Errores.setText("Se ha cargado el archivo " + path); // EN LUGAR DEL ERROR SACA ESTO, SI FALLA                 
+                }
+                
             }
         });
     }
