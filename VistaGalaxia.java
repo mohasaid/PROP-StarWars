@@ -50,12 +50,28 @@ public class VistaGalaxia extends PrimerNivel {
         forma1.planetaCell(x, y);
     }
     
+    public void borraPlaneta(int x, int y)
+    {
+        forma1.borraPlaneta(x, y);
+    }
+    
+    public void borra()
+    {
+        forma.borraLimites();
+        forma1.borraLimites();
+    }
+    
     public boolean consultarCreada()
     {
         return CREADA;
     }
     
-    private void actualitza(boolean teforma) // ya se ha creado
+    public void setCreada(boolean b)
+    {
+        CREADA = b;
+    }
+    
+    public void actualitza(boolean teforma) // ya se ha creado
     {
         textfield4.setText(cvg.consultarNomGalaxia()); // nombre actual modificar
         textfield6.setText(String.valueOf(cvg.consultarLimit())); // limite actual modificar
@@ -98,12 +114,6 @@ public class VistaGalaxia extends PrimerNivel {
             forma.PonTodos(cvg.consultarLimits()); // forma modificar
             forma1.PonTodos(cvg.consultarLimits()); // forma consultar
         }   
-    }
-    
-    public void borra()
-    {
-        forma.borraLimites();
-        forma1.borraLimites();
     }
 
     public VistaGalaxia(ControladorVistaGalaxia cVG)
@@ -184,6 +194,7 @@ public class VistaGalaxia extends PrimerNivel {
         btnMissatge.setBounds(0,475,75,25);
         btnMissatge.setBackground(SystemColor.activeCaption);
         add(btnMissatge);
+        
     	Errores = new JTextField();
     	Errores.setEditable(false);
         Errores.setBackground(SystemColor.white);
@@ -359,24 +370,24 @@ public class VistaGalaxia extends PrimerNivel {
         // ACTIVAR O DESACTIVAR CAMPO FORMA
         AmbForma.addActionListener
         (
-    		new ActionListener() {
-		        public void actionPerformed(ActionEvent ae) {
-		        	if(!textfield3.isEditable()) {
-		        		textfield3.setText("");
-		        		textfield3.setEditable(true);
-		        	}
-		        }
+            new ActionListener() {
+                    public void actionPerformed(ActionEvent ae) {
+                            if(!textfield3.isEditable()) {
+                                    textfield3.setText("");
+                                    textfield3.setEditable(true);
+                            }
+                    }
 	});
         
         SenseForma.addActionListener
         (
-    		new ActionListener() {
-		        public void actionPerformed(ActionEvent ae) {
-		        	if(textfield3.isEditable()) {
-		        		textfield3.setText("");
-		        		textfield3.setEditable(false);
-		        	}
-		        }
+            new ActionListener() {
+                    public void actionPerformed(ActionEvent ae) {
+                            if(textfield3.isEditable()) {
+                                    textfield3.setText("");
+                                    textfield3.setEditable(false);
+                            }
+                    }
 	});
         
         AmbForma1.addActionListener
@@ -457,7 +468,11 @@ public class VistaGalaxia extends PrimerNivel {
                                      borra();
                                      teForma = true;
                                  }
-                            } 
+                            }
+                            if(SenseForma1.isSelected()) {
+                                borra();
+                                teForma = false;
+                            }
                             actualitza2(teForma);
                         }
                         catch (Exception e) { 
@@ -496,10 +511,10 @@ public class VistaGalaxia extends PrimerNivel {
                 public void actionPerformed(ActionEvent e) { 
                     path = Guardar.getSelectedFile().getAbsolutePath();
                     try {
-                            cvg.guardarGalaxia(path);
+                        cvg.guardarGalaxia(path);
                     } 
                     catch (Exception e1) {
-                            Errores.setText(e1.getMessage());
+                        Errores.setText(e1.getMessage());
                     }
                     finally {
                         Errores.setText("Se ha guardado el archivo en " + path);                    
