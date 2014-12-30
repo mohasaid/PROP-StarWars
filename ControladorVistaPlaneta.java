@@ -1,3 +1,5 @@
+package prop;
+
 import java.util.*;
 
 class ControladorVistaPlaneta {
@@ -7,16 +9,22 @@ class ControladorVistaPlaneta {
     private VistaRuta vr;
     private VistaGalaxia vg;
     private ControladorGalaxia cg;
+    private ControladorNave cn;
+    private ControladorRuta cr;
 
     ControladorVistaPlaneta() {
         cp = new ControladorPlaneta();
         vp = new VistaPlaneta(this);    
     }
     
-    public void ImportarVistas(ControladorVistaGalaxia g) 
+    public void ImportarVistas(ControladorVistaGalaxia g, ControladorVistaRuta r, ControladorVistaNave n) 
     {
         vg = g.consultarVistaGalaxia();
         cg = g.consultarControladorGalaxia();
+        cn = n.ConsultarControladorNave();
+        vn = n.ConsultarVistaNave();
+        cr = r.consultarControladorRuta();
+        vr = r.obterVistaRuta();
     }
     
     public ControladorPlaneta ConsultarControladorPlaneta() 
@@ -99,12 +107,41 @@ class ControladorVistaPlaneta {
     }
     public void CargarPlanetas(String path) throws Exception {
         cp.CargarPlanetas(path, cg);
+        /*ArrayList<String> sa = cp.consultarPlanetas();
+        for(String pl : sa) {
+            int x = cp.consultar_X(pl);
+            int y = cp.consultar_Y(pl);
+            vg.pintaPlaneta(x, y);
+        }*/
+        String s = cp.Consultar_listaPlanetas();
+        Scanner sca = new Scanner(s);
+        sca.useDelimiter("-");
+        while(sca.hasNext()) {
+            String info = sca.next();
+            int x = cp.consultar_X(info);
+            int y = cp.consultar_Y(info);
+            vg.pintaPlaneta(x, y);
+        }
+        sca.close();
     }
     
     public void GuardarPlanetas(String path) throws Exception{
         cp.GuardarPlanetas(path);
     }
-        public void clear() throws Exception{
-        cp.BorrarTodos();
+    
+    public void clear()
+    {
+        cp.BorrarTodos(cg);
+        vg.borraPlanetas();
+    }
+    
+    public void eliminarPlaneta(String id) throws Exception
+    {
+        int x = cp.consultar_X(id);
+        int y = cp.consultar_Y(id);
+        vg.borraPlaneta(x, y);
+        cp.Borrar(id, cr, cn, cg);
+        vn.actualiza();
+        vr.actualiza();
     }
 }
