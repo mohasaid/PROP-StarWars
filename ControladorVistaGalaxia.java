@@ -1,4 +1,3 @@
-package prop;
 /**
  *
  * @author Moha
@@ -32,6 +31,18 @@ public class ControladorVistaGalaxia {
             int x1 = Integer.valueOf(x);
             int y1 = Integer.valueOf(y);
             vg.pintaPlaneta(x1, y1);
+        }
+        
+        public void borraPlaneta(int x, int y)
+        {
+            vg.borraPlaneta(x, y);
+        }
+        
+        public void borraPlaneta(String x, String y)
+        {
+            int x1 = Integer.valueOf(x);
+            int y1 = Integer.valueOf(y);
+            vg.borraPlaneta(x1, y1);
         }
         
         public VistaGalaxia consultarVistaGalaxia()
@@ -112,7 +123,7 @@ public class ControladorVistaGalaxia {
 		return cGalaxia.consultarLimit();
 	}
 	
-	public String consultarLimits() //throws Exception // devolver de 100 en 100 
+	public String consultarLimits()
 	{
             int n = cGalaxia.consultarNombreLimits();
             String res = "";
@@ -156,13 +167,12 @@ public class ControladorVistaGalaxia {
 	{
             int x1 = Integer.parseInt(x);
             int y1 = Integer.parseInt(y);
-            boolean b;
+            boolean b = false;
             if(cGalaxia.consultarNombreLimits() > 0) {
-                    b = cGalaxia.dintreLimitUsuari(x1, y1);
+                b = cGalaxia.dintreLimitUsuari(x1, y1);
             }
             else {
-                    if((cGalaxia.consultarLimit() > x1 && x1 > 0) && (cGalaxia.consultarLimit() > y1 && y1 > 0)) b = true;
-                    else b = false;
+                b = ((cGalaxia.consultarLimit() > x1 && x1 > 0) && (cGalaxia.consultarLimit() > y1 && y1 > 0));
             }
             return b;
 	}
