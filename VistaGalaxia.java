@@ -59,6 +59,7 @@ public class VistaGalaxia extends PrimerNivel {
     {
         forma.borraLimites();
         forma1.borraLimites();
+        forma1.borraPlanetas();
     }
     
     public boolean consultarCreada()
