@@ -235,7 +235,7 @@ public class VistaRuta extends PrimerNivel{
         });
         
         Eliminar = new JButton("Eliminar");
-        Eliminar.setBounds(720,65+350+10,120,30);
+        Eliminar.setBounds(720,425,120,30);
         add(Eliminar);
         Eliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -457,11 +457,11 @@ public class VistaRuta extends PrimerNivel{
                         String n = textfield19.getText();
                         CVR.creaRutaAut_id(n);
                     }
-                    actualiza();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
+                actualiza();
                 textfield19.setText("");
                 textfield20.setText("");
                 textfield21.setText("");
@@ -602,11 +602,11 @@ public class VistaRuta extends PrimerNivel{
                     if(!d.isEmpty()) CVR.ModificarDistanciaRuta(nac,d);
                     if(!x.isEmpty()) CVR.ModificarPlanetaARuta(nac,x);
                     if(!y.isEmpty()) CVR.ModificarPlanetaBRuta(nac,y);
-                    actualiza();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
+                actualiza();
                 textfield1.setText("");
                 textfield2.setText("");
                 textfield3.setText("");
