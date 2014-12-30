@@ -1,4 +1,4 @@
-
+package prop;
 /**
  *
  * @author Moha
@@ -23,14 +23,22 @@ import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
 import static sun.security.ssl.Debug.Help;
 import static sun.security.util.Debug.Help;
+import javax.swing.*;
+import javax.swing.border.CompoundBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author Gerard
@@ -91,12 +99,7 @@ public class VistaPrincipal extends JFrame {
         JButton Btn_Galaxia = new javax.swing.JButton("Galaxia");
         JButton Btn_Rutas = new javax.swing.JButton("Rutas");
         
-             
-        /** Obtenim els objectes de les diferents vistes
-         * que han creat els controladors de vistes **/
         obtenerVistas();
-
-        //help = new Help();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         Btn_Galaxia.setBounds(50,50,120,40);        
@@ -220,27 +223,68 @@ public class VistaPrincipal extends JFrame {
                         panelGrande.repaint();
                         panelGrande.revalidate();
                 }
-        }); 
+        });
+        
+    /*JButton Cargar = new JButton("   Cargar/Guardar");
+    Cargar.setBorder(null);
+    jtb.add(Cargar);
+    
+    JTabbedPane Central1 = new JTabbedPane(JTabbedPane.TOP);
+    
+    JInternalFrame FrameGuardar1 = new JInternalFrame();
+    JInternalFrame FrameCargar1 = new JInternalFrame();
+    JFileChooser Cargar1 = new JFileChooser();
+    JFileChooser Guardar1 = new JFileChooser();
+    
+    Central1.setBackground(SystemColor.control);
+    Central1.setBounds(0, 0, 700, 460);
+    Central1.add(FrameCargar1,"Cargar");
+    Central1.add(FrameGuardar1,"Guardar");
+        
+    Cargar.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent arg0){
+            panelGrande.removeAll();
+            panelGrande.repaint();
+            panelGrande.revalidate();
+                        
+            panelGrande.add(Central1);
+            panelGrande.repaint();
+            panelGrande.revalidate();
+        }
+    });
+    
+    Cargar1.addActionListener
+        (
+            new ActionListener() {
+                public void actionPerformed(ActionEvent e) { 
+                    String path = Cargar1.getSelectedFile().getAbsolutePath();
+                    try{
+                        // Galaxia
+                        CVG.carregarGalaxia(path);
+                        VG.borra();
+                        boolean teForma = (CVG.consultarNombreLimits() > 0);
+                        VG.setCreada(true);
+                        VG.actualitza(teForma);
+                    }
+                    catch (Exception ex) {}
+                }
+        });*/
     
     JButton Clear = new JButton("   Clear");
     Clear.setBorder(null);
     jtb.add(Clear);
     
     Clear.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent arg0){
-                       CVN.clear();
-                       VN.actualiza();
-                       VN.actualizaT();
-                       CVR.clear();
-                       VR.actualiza();
-                    try {
-                        CVP.clear();
-                    } catch (Exception ex) {
-                        //Logger.getLogger(VistaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                       VP.actualiza();
-                }
-        });
+        public void actionPerformed(ActionEvent arg0){
+            CVN.clear();
+            VN.actualiza();
+            VN.actualizaT();
+            CVR.clear();
+            VR.actualiza();
+            CVP.clear();
+            VP.actualiza();
+        }
+    });
     
     
     }
