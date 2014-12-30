@@ -50,6 +50,8 @@ public class VistaPlaneta extends PrimerNivel {
     private JRadioButton Automatico;
     private JRadioButton AutomaticoCN;
     
+    private JButton Eliminar;
+    
     public void actualiza() {
         try {
             mlistado.removeAllElements();
@@ -156,7 +158,7 @@ public class VistaPlaneta extends PrimerNivel {
         listaScroll2.setBackground(SystemColor.inactiveCaptionBorder); 
         Scroll.setViewportView(listaScroll2); 
         Scroll = new JScrollPane(listaScroll2);
-        Scroll.setBounds(720,65,120,390);
+        Scroll.setBounds(720,65,120,350);
         Scroll.setPreferredSize(new Dimension(152,217));
         add(Scroll);
         
@@ -184,7 +186,6 @@ public class VistaPlaneta extends PrimerNivel {
                 String n = listaScroll2.getModel().getElementAt(index);
                 
                 try { 
-                    Errores.setText(n);
                     textfield1.setText(n);
                     textfield2.setText(CVP.ConsultarCoste(n));
                     textfield3.setText(CVP.ConsultarCoordenadaX(n));
@@ -598,6 +599,27 @@ public class VistaPlaneta extends PrimerNivel {
                     Errores.setText("Se ha cargado el archivo " + path); // EN LUGAR DEL ERROR SACA ESTO, SI FALLA                 
                 }
                 
+            }
+        });
+        
+        Eliminar = new JButton("Eliminar");
+        Eliminar.setBounds(720,425,120,30);
+        add(Eliminar);
+        
+        Eliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                try{
+                    int selectedIndex = listaScroll2.getSelectedIndex(); 
+                    if (selectedIndex != -1) { 
+                        String n = listaScroll2.getSelectedValue();
+                        mlistado.removeElement(n);
+                        CVP.eliminarPlaneta(n);
+                        actualiza();
+                    }
+                }
+                catch (Exception e) {
+                    Errores.setText(e.getMessage());
+                }
             }
         });
     }
