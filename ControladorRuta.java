@@ -38,6 +38,13 @@ public class ControladorRuta {
         return true;
     }
     
+    private int randInt(int min, int max)
+    {
+    	Random rand = new Random();
+    	int randomNum = rand.nextInt((max - min) + 1) + min;
+    	return randomNum;
+    }
+    
     //Pre: Entra como parametros dos strings
     //Post: Te devuelve true en caso que se pueda crear una ruta del planeta idA al planeta idB, en caso contrario, devuelve false ya que no es posible crearla
     /**
@@ -227,23 +234,20 @@ public class ControladorRuta {
         Random aleatorio = new Random();
         int id = 0;
         while(ExisteRuta(id)) ++id; 
-        int capacidad = aleatorio.nextInt(100001);
-        int distancia = aleatorio.nextInt(2147483647);
-        while (distancia == 0) {
-            distancia = aleatorio.nextInt(2147483647);
-        }
+        int capacidad = randInt(1,1000);
+        int distancia = randInt(1,1000);
+
         int aux;
-    	aux = aleatorio.nextInt(2147483647);
+    	aux = randInt(0,1000);
         aux = aux%cp.Consultar_Size();
         Planeta planetaA = cp.Consultar_PlanetaX(aux);
         
-    	aux = aleatorio.nextInt(2147483647);
+    	aux = randInt(0,1000);
         aux = aux%cp.Consultar_Size();
         Planeta planetaB = cp.Consultar_PlanetaX(aux);
 	        
         while ( !Disponibilidad_crear_ruta(planetaA.Consultar_nombre() , planetaB.Consultar_nombre()) || planetaA.Consultar_nombre().equals(planetaB.Consultar_nombre()) )
         {
-
             aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
             planetaA = cp.Consultar_PlanetaX(aux);
@@ -275,35 +279,33 @@ public class ControladorRuta {
     		throw new Exception("Error: Ya existe una ruta con el mismo identificador\n");
     	}
         Random aleatorio = new Random();
-    	int capacidad = aleatorio.nextInt(100001);
-        int distancia = aleatorio.nextInt(2147483647);
-        while (distancia == 0) {
-            distancia = aleatorio.nextInt(2147483647);
-        }
+    	int capacidad = randInt(1,1000);
+        int distancia = randInt(1,1000);
+
         int aux;
-    	aux = aleatorio.nextInt(2147483647);
+    	aux = randInt(0,1000);
         aux = aux%cp.Consultar_Size();
         Planeta planetaA = cp.Consultar_PlanetaX(aux);
         
-    	aux = aleatorio.nextInt(2147483647);
+    	aux = randInt(0,1000);
         aux = aux%cp.Consultar_Size();
         Planeta planetaB = cp.Consultar_PlanetaX(aux);
         
         while ( !Disponibilidad_crear_ruta(planetaA.Consultar_nombre() , planetaB.Consultar_nombre()) || planetaA.Consultar_nombre().equals(planetaB.Consultar_nombre()) )
         {
-        	aux = aleatorio.nextInt(2147483647);
+            aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
             planetaA = cp.Consultar_PlanetaX(aux);
             
-        	aux = aleatorio.nextInt(2147483647);
+            aux = aleatorio.nextInt(2147483647);
             aux = aux%cp.Consultar_Size();
             planetaB = cp.Consultar_PlanetaX(aux);
         }
         
         Ruta r = new Ruta(id,capacidad, distancia);
         Conexion c = new Conexion(id, planetaA.Consultar_nombre(), planetaB.Consultar_nombre());
-		ArbolRutas.add(Integer.toString(r.consultar_id()),r);
-		Conexiones.add(Integer.toString(c.consultar_id()),c);
+        ArbolRutas.add(Integer.toString(r.consultar_id()),r);
+        Conexiones.add(Integer.toString(c.consultar_id()),c);
     }
       
     //CONSULTORAS   
@@ -504,7 +506,7 @@ public class ControladorRuta {
         if(ErrorTipografico(capacidad_nueva)){
             throw new Exception("Error : La capacidad debe ser mayor o igual que 0\n");
         }
-        if ( capacidad_nueva>100000 ) {
+        if ( capacidad_nueva > 100000 ) {
         	throw new Exception("La capacidad de la ruta tiene que ser menor o igual a 100.000 \n");
         }
         BuscarRuta(id).modificar_capacidad(capacidad_nueva);
@@ -522,7 +524,10 @@ public class ControladorRuta {
     public void ModificarDistanciaRuta(int id, int distancia_nueva)throws Exception
     {
         if(ErrorTipografico(distancia_nueva) || distancia_nueva == 0){
-            throw new Exception("Error : La distancia entre planeas debe ser mayor que 0\n");
+            throw new Exception("Error : La distancia entre planetas debe ser mayor que 0\n");
+        }
+        if ( distancia_nueva > 100000 ) {
+        	throw new Exception("La distancia de la ruta tiene que ser menor o igual a 100.000 \n");
         }
         BuscarRuta(id).modificar_distancia(distancia_nueva);
     }
