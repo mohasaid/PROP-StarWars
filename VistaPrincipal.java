@@ -38,10 +38,7 @@ import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/**
- *
- * @author Gerard
- */
+
 public class VistaPrincipal extends JFrame {
 
     private JPanel panel;
