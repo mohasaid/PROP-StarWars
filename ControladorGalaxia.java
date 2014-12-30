@@ -1,3 +1,7 @@
+/**
+ *
+ * @author Moha
+ */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -62,7 +66,7 @@ public class ControladorGalaxia
      * @return Las coordenadas que dan forma a la galaxia
      * @throws Exception
      */
-    public String consultarLimitsGalaxia(int i) //throws Exception
+    public String consultarLimitsGalaxia(int i)
     {
     	String res = "";
     	List<Pair<Integer, Integer> > lp = g.consultarValorLimits();
@@ -303,44 +307,44 @@ public class ControladorGalaxia
      */
     public void carregarConjuntGalaxia(String directori) throws Exception
     {		
-		String result;
-		cdg.AbrirLectura(directori);
-		FileReader fr = new FileReader(directori);
-		BufferedReader br = new BufferedReader(fr);
-		boolean first = true;
-		boolean tiene = false;
-		String nomG = "";
-		int N = 0;
-		List<Pair<Integer, Integer> > lpa = new ArrayList<Pair<Integer,Integer> >();
-		while((result = cdg.cargar(directori,100,br))!= "") {
-			Scanner cin = new Scanner(result);
-			cin.useDelimiter("#|,");
-			String info = "";
-			if(cin.hasNext()) info = cin.next();
-			while(cin.hasNext()) {
-				if(first) {
-					nomG = info;
-					info = cin.next();
-					N = Integer.parseInt(info);
-					first = false;
-				}
-				if(!cin.hasNext()) break;
-				tiene = true;
-				while(cin.hasNext()) {
-					info = cin.next();
-					Integer a = Integer.parseInt(info);
-					info = cin.next();
-					Integer b = Integer.parseInt(info);
-					Pair<Integer,Integer> paird = new Pair<Integer,Integer>(a,b);
-					lpa.add(paird);
-				}
-			}
-			cin.close();
-		}
-		if(tiene) g = new Galaxia(nomG,N,lpa);
-		else g = new Galaxia(nomG,N);
-		
-		cdg.CerrarLectura();
+        String result;
+        cdg.AbrirLectura(directori);
+        FileReader fr = new FileReader(directori);
+        BufferedReader br = new BufferedReader(fr);
+        boolean first = true;
+        boolean tiene = false;
+        String nomG = "";
+        int N = 0;
+        List<Pair<Integer, Integer> > lpa = new ArrayList<Pair<Integer,Integer> >();
+        while((result = cdg.cargar(directori,100,br))!= "") {
+                Scanner cin = new Scanner(result);
+                cin.useDelimiter("#|,");
+                String info = "";
+                if(cin.hasNext()) info = cin.next();
+                while(cin.hasNext()) {
+                        if(first) {
+                                nomG = info;
+                                info = cin.next();
+                                N = Integer.parseInt(info);
+                                first = false;
+                        }
+                        if(!cin.hasNext()) break;
+                        tiene = true;
+                        while(cin.hasNext()) {
+                            info = cin.next();
+                            Integer a = Integer.parseInt(info);
+                            info = cin.next();
+                            Integer b = Integer.parseInt(info);
+                            Pair<Integer,Integer> paird = new Pair<Integer,Integer>(a,b);
+                            lpa.add(paird);
+                        }
+                }
+                cin.close();
+        }
+        if(tiene) g = new Galaxia(nomG,N,lpa);
+        else g = new Galaxia(nomG,N);
+
+        cdg.CerrarLectura();
     }
     
     /**
@@ -360,15 +364,15 @@ public class ControladorGalaxia
     	int i = 0;
     	int n = g.consulta_nombreLimits();
     	if(n != 0) {
-	    	while(i < n) {
-	    		result += consultarLimitsGalaxia(i);
-	    		i += 100;
-	        	cdg.guardar(directori,result);
-	        	result = "";
-	    	}
+            while(i < n) {
+                    result += consultarLimitsGalaxia(i);
+                    i += 100;
+                    cdg.guardar(directori,result);
+                    result = "";
+            }
     	}
     	else {
-    		cdg.guardar(directori,result);
+            cdg.guardar(directori,result);
     	}
     	cdg.CerrarEscritura();
    	}
