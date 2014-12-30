@@ -899,7 +899,8 @@ public class VistaNave extends PrimerNivel{
                 String path = Cargar.getSelectedFile().getAbsolutePath(); 
                 try { 
                     cvn.CargarNaves(path);
-                    actualiza();                    
+                    actualiza();  
+                    actualizaT();
                 } catch (Exception e1) {
                     Errores.setText(e1.getMessage());
                 } 
