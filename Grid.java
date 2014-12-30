@@ -11,7 +11,7 @@ import java.awt.*;
 import javax.swing.JPanel;
 
 class Grid extends JPanel {
-	//private static final long serialVersionUID = 1L;
+    //private static final long serialVersionUID = 1L;
     private ArrayList<Point> fillCells; // FORMA
     private ArrayList<Point> planetes;
     private int N;
@@ -33,7 +33,7 @@ class Grid extends JPanel {
             g.fillRect(cellY, cellX, 10, 10); // cambiado va normal
         }
         for(Point planet : planetes) { // pinto planetas
-        	int cellX = 10 + (planet.x * 10);
+            int cellX = 10 + (planet.x * 10);
             int cellY = 10 + (planet.y * 10);
             g.setColor(Color.BLUE);
             g.fillRect(cellY, cellX, 10, 10);
@@ -105,4 +105,5 @@ class Grid extends JPanel {
         if(tam > 22) tam = 11*N;
         return new Dimension(tam, tam);
     }
+    
 }
