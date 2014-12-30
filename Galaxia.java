@@ -1,5 +1,3 @@
-package prop;
-
 /**
  *
  * @author Moha
@@ -32,14 +30,14 @@ public class Galaxia {
 	/**
 	 * Metodo para reiniciar los valores de la matriz, en aquellas posiciones en las que habia un planeta, este desaparece
 	 */
-	private void reiniciaMatriu()
-	{
-		 for(int i = 0; i < N; ++i) {
-			 for(int j = 0; j < N; ++j) {
-				 if(gal[i][j] > 0) gal[i][j] = 0;
-			 }
-		 }
-	 }
+    private void reiniciaMatriu()
+    {
+             for(int i = 0; i < N; ++i) {
+                     for(int j = 0; j < N; ++j) {
+                             if(gal[i][j] > 0) gal[i][j] = 0;
+                     }
+             }
+     }
     
 	/**
 	 * Metodo para marcar el limite que da forma la galaxia
@@ -195,8 +193,7 @@ public class Galaxia {
          	if(gal[i][y] == -1) max_y = i;
          }
          
-         if((min_first < y  &&  y < max_second) && (min_x < x && x < max_y)) return true;
-         else return false;
+         return ((min_first < y  &&  y < max_second) && (min_x < x && x < max_y));
 	 }
 
   
@@ -270,32 +267,32 @@ public class Galaxia {
     	tmp1 = tmp2 = 0;
     	boolean posible = false;
     	if(limits.size() > 0) {  // Galaxia con limites impuestos
-    		for(int i = 0; i < N && !posible; ++i) {
-    			for(int j = 0; j < N && !posible; ++j) {
-    				if(dintreLimitUsuari(i,j) && (gal[i][j] == 0)) {
-    					posible = true;
-    					tmp1 = i;
-    					tmp2 = j;
-    				}
-    			}
-    		}
+            for(int i = 0; i < N && !posible; ++i) {
+                for(int j = 0; j < N && !posible; ++j) {
+                    if(dintreLimitUsuari(i,j) && (gal[i][j] == 0)) {
+                        posible = true;
+                        tmp1 = i;
+                        tmp2 = j;
+                    }
+                }
+            }
     	}
     	else { 	// Galaxia sin limites
-    		for(int i = 0; i < N && !posible; ++i) {
-    			for(int j = 0; j < N && !posible; ++j) {
-    				if(gal[i][j] == 0) {
-    					posible = true;
-    					tmp1 = i;
-    					tmp2 = j;
-    				}
-    			}
-    				
-    		}
+            for(int i = 0; i < N && !posible; ++i) {
+                for(int j = 0; j < N && !posible; ++j) {
+                    if(gal[i][j] == 0) {
+                        posible = true;
+                        tmp1 = i;
+                        tmp2 = j;
+                    }
+                }
+
+            }
     	}
- 		if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
-		Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
-		gal[tmp1][tmp2] = 1;
-		return par;
+        if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
+        Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
+        gal[tmp1][tmp2] = 1;
+        return par;
     }
     
     /**
