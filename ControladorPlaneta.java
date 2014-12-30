@@ -1,3 +1,7 @@
+/**
+ *
+ * @author Moha
+ */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
@@ -66,7 +70,7 @@ public class ControladorPlaneta {
     //Post: Crea un planeta automaticamente con atributos aleatorios incluida la id
     public String PlanetaAuto(ControladorGalaxia cg) throws Exception 
     {
-    	int r1 = randInt(0,Integer.MAX_VALUE-1);
+    	int r1 = randInt(0,1000);
     	
         String seg = Integer.toString(id);
         String f = nomG + seg;
@@ -96,7 +100,7 @@ public class ControladorPlaneta {
     	if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
     	if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
     	
-    	int r1 = randInt(0,Integer.MAX_VALUE-1);
+    	int r1 = randInt(0,1000);
     	
     	String a11 = cg.afegirPlanetaAutomatic();
         
@@ -117,8 +121,9 @@ public class ControladorPlaneta {
     //Post: Crea un planeta con idPlaneta = id, Capacidad = c, Coste = k, Coordenadas = Coo, Asiganado = A.
     public void Planeta(String id, int k, Pair<Integer,Integer> Coo, ControladorGalaxia cg) throws Exception 
     {
-        if(!alfa_numeric(id)) throw new Exception("Error: El nombre de un Planeta tiene que ser alfanumerico");
+        if(!alfa_numeric(id)) throw new Exception("El nombre de un Planeta tiene que ser alfanumerico");
         if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
+        if(k > 2000000000) throw new Exception("Coste demasiado elevado");
         
         cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
         Planeta p = new Planeta (id, k, Coo);
@@ -165,7 +170,9 @@ public class ControladorPlaneta {
     {
     	String res = ""	;
     	ArrayList<String> lp = listaPlanetas.ConsultarIdentificadores();
-    	for(int i = 0; i < listaPlanetas.size(); ++i) res += lp.get(i)+"-";
+    	for(int i = 0; i < listaPlanetas.size(); ++i) {
+            res += lp.get(i)+ "-";
+        }
     	res +="\n";
     	return res;
     }
@@ -214,42 +221,39 @@ public class ControladorPlaneta {
     	listaPlanetas.eliminar(id);
     }
     
-    public void BorrarTodos() throws Exception 
+    public void BorrarTodos() 
     {
     	listaPlanetas.clear();
     }
     
   //Pre: Cierto.
     //Post: 
-    public void CargarPlanetas (String path, ControladorGalaxia cg) throws Exception 
+    public void CargarPlanetas(String path, ControladorGalaxia cg) throws Exception 
     {
     	BorrarTodos();
-    	
-    	String res, s, id;
+        id = 0;
+        
+    	String res = "";
     	cdp.AbrirLectura(path);
     	FileReader file = new FileReader(path);
     	BufferedReader buffer = new BufferedReader(file);
-    	Scanner sc;
-    	int k, x, y;
     	while((res = cdp.cargar(path,100,buffer))!= "") {
-    		sc = new Scanner(res);
-    		sc.useDelimiter("#|:");
-    		s = "";
-    		if(sc.hasNext()) s = sc.next();
-    		while(sc.hasNext()){
-				id = s;
-				s = sc.next();
-				k = Integer.parseInt(s);
-				s = sc.next();
-				x = Integer.parseInt(s);
-				s = sc.next();
-				y = Integer.parseInt(s);
-				sc.next();
-				Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
-				cg.afegirPlaneta(x, y);
-				Planeta p = new Planeta(id,k,Coo);
-				listaPlanetas.add(id,p);
-    		}
+            Scanner cin = new Scanner(res);
+            cin.useDelimiter(":|#");
+            String s = "";
+            while(cin.hasNext()){
+                String id = cin.next();
+                s = cin.next();
+                Integer k = Integer.parseInt(s);
+                s = cin.next();
+                Integer x = Integer.parseInt(s);
+                s = cin.next();
+                Integer y = Integer.parseInt(s);
+                Pair<Integer,Integer> Coo = new Pair<Integer,Integer>(x,y);
+                cg.afegirPlaneta(x, y);
+                Planeta p = new Planeta(id,k,Coo);
+                listaPlanetas.add(id,p);
+            }
     	}
     	cdp.CerrarLectura();
     }
@@ -260,39 +264,35 @@ public class ControladorPlaneta {
     {
     	String res ="";
     	int iter = 0;
+        boolean primer = true;
     	if(!listaPlanetas.isEmpty()){
-    		cdp.AbrirEscritura(path);
-    		res = "";
-    		for(Planeta p : listaPlanetas.MostrarElementos()) {
-    			res +=p.Consultar_nombre()+":";
-    			res +=p.Consultar_Coste()+":";
-    			res +=p.consultar_X()+":";
-    			res +=p.consultar_Y();
-    			res +="#";
-    			++iter;
-    			if(iter == 100){
-    				cdp.guardar(path, res);
-    				iter = 0;
-    				res ="";
-    			}
-    		}
+            cdp.AbrirEscritura(path);
+            res = "";            
+            for(Planeta p : listaPlanetas.MostrarElementos()) {
+                if(primer) {
+                    res += p.Consultar_nombre();
+                    res += ":" + p.Consultar_Coste();
+                    res += ":" + p.consultar_X();
+                    res += ":" + p.consultar_Y();
+                    primer = false;
+                }
+                else {
+                    res += ":" + p.Consultar_nombre();
+                    res += ":" + p.Consultar_Coste();
+                    res += ":" + p.consultar_X();
+                    res += ":" + p.consultar_Y();
+                }
+                ++iter;
+                if(iter == 100){
+                    cdp.guardar(path, res);
+                    iter = 0;
+                    res ="";
+                }
+            }
     	}
     	if(res != ""){
     		cdp.guardar(path, res);
     		cdp.CerrarEscritura();
     	}
-    }
-    
-    
-    public String consultarTODO() throws Exception {
-    	String res ="";
-    	for(Planeta p : listaPlanetas.MostrarElementos()) {
-			res +=p.Consultar_nombre()+":";
-			res +=p.Consultar_Coste()+":";
-			res +=p.consultar_X()+":";
-			res +=p.consultar_Y();
-			res +="#";
-		}
-    	return res;
     }
 }
