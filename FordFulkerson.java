@@ -1,4 +1,3 @@
-package prop;
 /**
  *
  * @author Moha
@@ -7,6 +6,7 @@ import java.util.*;
 
 public class FordFulkerson extends MFP {
     private static final int arist = 2000000000;
+    private static final String nom = "FORD FULKERSON + ";
 	
 	public FordFulkerson(Entrada e) throws CloneNotSupportedException
 	{
@@ -62,25 +62,30 @@ public class FordFulkerson extends MFP {
 	            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
 	            ar.add(ad);
 	    }
-		Grafo parcial = new Grafo(ar);
-		int v;
-		for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
-			for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
-				v = g_residual.consultarSeg(i, j);
-				if(G.ExisteV(i, v)) {
-					Arco a = new Arco();
-	                a.ModificarCoste(g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
-	                a.ModificarCapacidad(g_residual.consultaPairUn(v, i).consultarPrimero().ConsultarCapacidad());
-	                Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
-	                parcial.consultarCosteDestinos(i).add(p);
-				}
-			}
-		}
-		g_residual = parcial;
+            Grafo parcial = new Grafo(ar);
+            int v;
+            for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
+                for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
+                    v = g_residual.consultarSeg(i, j);
+                    if(G.ExisteV(i, v)) {
+                        Arco a = new Arco();
+                        a.ModificarCoste(g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
+                        a.ModificarCapacidad(g_residual.consultaPairUn(v, i).consultarPrimero().ConsultarCapacidad());
+                        Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
+                        parcial.consultarCosteDestinos(i).add(p);
+                    }
+                }
+            }
+            g_residual = parcial;
 	}
 	
 	public void Ejecutar(Recorrido r, Salida s)
 	{
+                String t = "";
+                if(r instanceof BFS) t = "-- FORD FULKERSON + BFS --";    
+                if(r instanceof Dijkstra) t = "-- FORD FULKERSON + DIJKSTRA --";
+                s.AnadirAlgoritmo(t);
+                
 		// CONSULTAR TIEMPO
 		long timeMillis = System.currentTimeMillis();
 		
@@ -95,29 +100,26 @@ public class FordFulkerson extends MFP {
 		int u,v;
 		int max_flow = 0;
 		String camino = ""; // Contiene el camino en orden inverso
-		int iteracion = 0;
 		while(r.Recorrido(g_residual,origen,destino,path)) {
-			int pathflow = arist;
-                        camino += "Iteracion " + iteracion + ":\n";
-			camino += destino;
-			for(v = destino; v != origen; v = path[v]) {
-				u = path[v];
-				camino += "<=" + u;
-				pathflow = Math.min(pathflow, g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
-			}
-			for(v = destino; v != origen; v = path[v]) {
-				u = path[v];
-				int tmp = g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
-				tmp = tmp - pathflow;
-				g_residual.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(tmp);
-				int tmp1 = g_residual.consultaPairUn(v, u).consultarPrimero().ConsultarCapacidad();
-				tmp1 = tmp1 + pathflow;
-				g_residual.consultaPairUn(v, u).consultarPrimero().ModificarCapacidad(tmp1);
-			}
-			if(pathflow != arist) max_flow = max_flow + pathflow;
-			s.AnadirCambio(camino);
-			camino = "";
-                        ++iteracion;
+                    int pathflow = arist;
+                    camino += destino;
+                    for(v = destino; v != origen; v = path[v]) {
+                        u = path[v];
+                        camino += "<=" + u;
+                        pathflow = Math.min(pathflow, g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
+                    }
+                    for(v = destino; v != origen; v = path[v]) {
+                        u = path[v];
+                        int tmp = g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
+                        tmp = tmp - pathflow;
+                        g_residual.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(tmp);
+                        int tmp1 = g_residual.consultaPairUn(v, u).consultarPrimero().ConsultarCapacidad();
+                        tmp1 = tmp1 + pathflow;
+                        g_residual.consultaPairUn(v, u).consultarPrimero().ModificarCapacidad(tmp1);
+                    }
+                    if(pathflow != arist) max_flow = max_flow + pathflow;
+                    s.AnadirCambio(camino);
+                    camino = "";
 		}
 		s.AnadirMax_flow(max_flow);
 		
