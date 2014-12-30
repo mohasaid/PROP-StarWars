@@ -1,5 +1,8 @@
+/**
+ *
+ * @author Moha
+ */
 import java.io.*;
-
 
 public class ControladorDadesPlaneta extends ControladorDades {
 	
@@ -12,8 +15,8 @@ public class ControladorDadesPlaneta extends ControladorDades {
     	String res = "";
     	String aux = "";
     	aux = br.readLine();
-        while ((aux!=null) && i>0){
-        	res+=aux+"@";
+        while ((aux != null) && i>0){
+        	res+=aux+"#";
         	--i;
         	aux = br.readLine();
         }
