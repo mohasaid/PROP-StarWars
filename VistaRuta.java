@@ -1,4 +1,3 @@
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -9,13 +8,6 @@ import java.awt.event.MouseEvent;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  *
  * @author Gerard
@@ -50,6 +42,8 @@ public class VistaRuta extends PrimerNivel{
     private int i;
     private int j;
     
+    private JButton btnMissatge;
+    
     
     public void actualiza() {
         try {
@@ -72,7 +66,7 @@ public class VistaRuta extends PrimerNivel{
             }        
         }
         catch (Exception e) {
-            System.out.print(e);
+            Errores.setText(e.getMessage());
         }
     }
     public void actualizaListaUP(){
@@ -121,7 +115,6 @@ public class VistaRuta extends PrimerNivel{
         CVR = ControladorVR;
         setOpaque(false);      
         setBackground(Color.WHITE);
-        setBounds(0,0,1000,450);
         setLayout(null);
         i=0;
         j=100;
@@ -158,7 +151,6 @@ public class VistaRuta extends PrimerNivel{
         textfield22 = new JTextField();
         textfield23 = new JTextField();
         
-        
         label1 = new JLabel();
         label2 = new JLabel();
         label3 = new JLabel();
@@ -169,11 +161,17 @@ public class VistaRuta extends PrimerNivel{
         label8 = new JLabel();
         label9 = new JLabel();
 
-        label20 = new JLabel("   Error");
-        label20.setBounds(0,475,75,25);
-        label20.setOpaque(true);
-        label20.setBackground(SystemColor.activeCaption);
-        add(label20);
+        btnMissatge = new JButton("Error");
+        btnMissatge.setBounds(0,475,75,25);
+        btnMissatge.setBackground(SystemColor.activeCaption);
+        add(btnMissatge);
+        
+        btnMissatge.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Errores.setText("");
+            }
+        });
+        
         Errores = new JTextField();
         Errores.setEditable(false);
         Errores.setBackground(SystemColor.white);
@@ -181,7 +179,7 @@ public class VistaRuta extends PrimerNivel{
         Errores.setVisible(true);
         Errores.setForeground(Color.red);
         add(Errores);
-        
+                        
         Scroll = new JScrollPane();
         listaScroll2 = new JList(mlistado);
         listaScroll2.setVisibleRowCount(10);
@@ -250,9 +248,9 @@ public class VistaRuta extends PrimerNivel{
                     actualiza();
                 }
             }
-                catch (Exception e) {
-                    Errores.setText(e.getMessage());
-                }
+            catch (Exception e) {
+                Errores.setText(e.getMessage());
+            }
             }
         });
         
@@ -280,7 +278,6 @@ public class VistaRuta extends PrimerNivel{
 
         
         Central = new JTabbedPane(JTabbedPane.TOP);
-        Central.setBackground(SystemColor.activeCaption);
         Central.setBounds(0,0,700,450);
         add(Central);
         
@@ -460,11 +457,11 @@ public class VistaRuta extends PrimerNivel{
                         String n = textfield19.getText();
                         CVR.creaRutaAut_id(n);
                     }
+                    actualiza();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
-                actualiza();
                 textfield19.setText("");
                 textfield20.setText("");
                 textfield21.setText("");
@@ -605,11 +602,11 @@ public class VistaRuta extends PrimerNivel{
                     if(!d.isEmpty()) CVR.ModificarDistanciaRuta(nac,d);
                     if(!x.isEmpty()) CVR.ModificarPlanetaARuta(nac,x);
                     if(!y.isEmpty()) CVR.ModificarPlanetaBRuta(nac,y);
+                    actualiza();
                 }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
                 }
-                actualiza();
                 textfield1.setText("");
                 textfield2.setText("");
                 textfield3.setText("");
@@ -621,6 +618,7 @@ public class VistaRuta extends PrimerNivel{
                 textfield9.setText("");
             }
         });
+        
         Modificar_btn.setBounds(220, 300, 200, 50);
         Modificar.add(Modificar_btn);
         
@@ -689,8 +687,7 @@ public class VistaRuta extends PrimerNivel{
         textfield5.setColumns(10);
         textfield5.setEditable(false);
         textfield5.setBounds(aux1_2,aux2,aux3_2,aux4);
-        Consultar.add(textfield5);
-        
+        Consultar.add(textfield5);  
         
         //Guardar y Cargar
         FrameGuardar = new JInternalFrame();
@@ -705,10 +702,15 @@ public class VistaRuta extends PrimerNivel{
                 String path = Guardar.getSelectedFile().getAbsolutePath(); 
                 try { 
                    CVR.GuardarRutas(path);
-                } catch (Exception e1) {
+                   actualiza();
+                } 
+                catch (Exception e1) {
                     Errores.setText(e1.getMessage());
                 }
-                actualiza();
+                finally {
+                    Errores.setText("Se ha guardado el archivo en " + path);                     
+                }
+                
             } 
         }); 
         Guardar.setBounds(0, 0, 690, 390); 
@@ -729,11 +731,16 @@ public class VistaRuta extends PrimerNivel{
                    
                 String path = Cargar.getSelectedFile().getAbsolutePath(); 
                 try { 
-                    CVR.CargarRutas(path);                   
-                } catch (Exception e1) {
-                    Errores.setText(e1.getMessage());
+                    CVR.CargarRutas(path);
+                    actualiza();
                 } 
-                actualiza(); 
+                catch (Exception e1) {
+                    Errores.setText(e1.getMessage());
+                }
+                finally {
+                    Errores.setText("Se ha cargado el archivo " + path);                    
+                }
+                
             } 
         }); 
         Cargar.setBounds(0, 0, 690, 390); 
