@@ -6,12 +6,8 @@ import java.awt.event.AdjustmentListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.EmptyBorder;
- 
  
 public class VistaNave extends PrimerNivel{
 
@@ -901,18 +897,17 @@ public class VistaNave extends PrimerNivel{
                     actualizaT();
                 } catch (Exception e1) {
                     Errores.setText(e1.getMessage());
-                } 
+                }
+                finally {
+                    Errores.setText("Se ha cargado el archivo " + path);
+                }
             } 
         }); 
         Cargar.setBounds(0, 0, 690, 390); 
         Cargar.setAutoscrolls(true); 
         Cargar.setMinimumSize(new Dimension(200, 245)); 
         Cargar.setPreferredSize(new Dimension(365, 225)); 
-        FrameCargar.add(Cargar); 
-           
-
-           
-   
+        FrameCargar.add(Cargar);
         
 //GUARDAR
         FrameGuardar = new JInternalFrame();
@@ -931,7 +926,10 @@ public class VistaNave extends PrimerNivel{
                     actualizaT();
                 } catch (Exception e1) {
                     Errores.setText(e1.getMessage());
-                } 
+                }
+                finally {
+                    Errores.setText("Se ha guardado el archivo en " + path);
+                }
             } 
         }); 
         Guardar.setBounds(0, 0, 690, 390); 
