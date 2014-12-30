@@ -1,10 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package prop;
-
 /**
  *
  * @author Moha
@@ -17,6 +10,7 @@ public class Salida {
 	private ArrayList<String> Cambios;
 	private long tiempo;
 	private int max_flow;
+        private String algoritmo;
 	
 	//CREADORA
 
@@ -27,6 +21,7 @@ public class Salida {
 		Cambios = new ArrayList<String>();
 		max_flow = 0;
 		tiempo = 0;
+                algoritmo = "";
 	}
 
 	// CONSULTORAS
@@ -46,6 +41,10 @@ public class Salida {
 	{
 		return tiempo;
 	}
+        public String consultarAlgoritmo()
+        {
+            return algoritmo;
+        }
 	
 	/**
 	 * Metodo para consultar la capacidad que hay en el camino entre origen y destino
@@ -91,12 +90,12 @@ public class Salida {
 	//Pre:cierto
 	//Post: devuelve la suma del numero de elementos en Flujos, y cuellosB
 	public int size(){
-		return Caminos.size()+CuellosB.size();
+            return Caminos.size()+CuellosB.size();
 	}
 	//Pre:cierto
 	//Post: devuelve el numero de elementos en Cambios
 	public int sizeCambios(){
-		return Cambios.size();
+            return Cambios.size();
 	}
 	//MODIFICADORAS
 	public void AnadirCuello(int idr){
@@ -116,6 +115,10 @@ public class Salida {
 	{
 		tiempo = t;
 	}
+        public void AnadirAlgoritmo(String a)
+        {
+            algoritmo = a;
+        }
 	
 	public void EliminarCuellos(){
 		CuellosB.clear();
