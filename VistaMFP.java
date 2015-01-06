@@ -1,3 +1,5 @@
+package prop.definitivo;
+
 /**
  *
  * @author Moha
@@ -130,8 +132,10 @@ public class VistaMFP extends PrimerNivel {
         
         Ejecutar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
-                try {
-                    if(FCF.isSelected()) {
+            Thread worker = new Thread(){
+            public void run(){  
+                try{
+                     if(FCF.isSelected()) {
                         cvMFP.SeleccionarFuncionCoste(1);
                     }
                     if(FCC.isSelected()) {
@@ -149,21 +153,15 @@ public class VistaMFP extends PrimerNivel {
                     if(PR.isSelected()) {
                         cvMFP.SeleccionarAlgoritmo(3);
                     }
-                    // cambia raton mientras se ejecuta
-                    boolean ejecutando = true;
-                    if(ejecutando) {
-                       setCursor(new Cursor(Cursor.WAIT_CURSOR));
-                       Errores.setText("-- EJECUTANDO --");
-                       cvMFP.Ejecutar();
-                       Errores.setText("-- EJECUTADO --");
-                       ejecutando = false;
-                       setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-                    }
+                    cvMFP.Ejecutar();
                 }
-                catch (Exception e) {
+                catch(Exception e){
                     Errores.setText(e.getMessage());
                 }
             }
+            };
+            worker.start(); 
+            } 
         });
         
         Consultar = new JPanel();
