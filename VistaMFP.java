@@ -1,5 +1,3 @@
-package prop.definitivo;
-
 /**
  *
  * @author Moha
@@ -153,7 +151,11 @@ public class VistaMFP extends PrimerNivel {
                     if(PR.isSelected()) {
                         cvMFP.SeleccionarAlgoritmo(3);
                     }
+                    setCursor(new Cursor(Cursor.WAIT_CURSOR));
+                    Errores.setText("Ejecutando algoritmo ...");
                     cvMFP.Ejecutar();
+                    Errores.setText("-- ALGORITMO EJECUTADO --");
+                    setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
                 catch(Exception e){
                     Errores.setText(e.getMessage());
