@@ -1,5 +1,3 @@
-package prop;
-
 import java.util.*;
 
 class ControladorVistaPlaneta {
