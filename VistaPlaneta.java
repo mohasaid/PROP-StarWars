@@ -1,3 +1,5 @@
+
+
 /**
  *
  * @author Moha
@@ -558,18 +560,23 @@ public class VistaPlaneta extends PrimerNivel {
         
         Guardar.addActionListener(new ActionListener() {
             public void actionPerformed (ActionEvent a) {
-                String path = "";
-                try {
+                      Thread worker = new Thread(){
+            public void run(){ 
+                 String path = "";
+                try{
+                    Errores.setText("Guardando planetas...");
                     path = Guardar.getSelectedFile().getAbsolutePath();
                     CVP.GuardarPlanetas(path);
-                }
-                catch (Exception e) {
+                    actualiza();
+                    Errores.setText("Se ha guardado el archivo en" + path); 
+                     }
+                catch(Exception e){
                     Errores.setText(e.getMessage());
                 }
-                finally {
-                    Errores.setText("Se ha guardado el archivo en " + path);                    
-                }  
             }
+            };
+            worker.start(); 
+            } 
         });
         
         FrameCargar = new JInternalFrame();
@@ -586,20 +593,22 @@ public class VistaPlaneta extends PrimerNivel {
         
         Cargar.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent a) {
-                String path = "";
+            Thread worker = new Thread(){
+            public void run(){ 
+                 String path = Cargar.getSelectedFile().getAbsolutePath();
                 try{
-                    path = Cargar.getSelectedFile().getAbsolutePath();
+                    Errores.setText("Cargando planetas...");
                     CVP.CargarPlanetas(path);
-                }
-                catch (Exception e) {
+                    actualiza();
+                    Errores.setText("Se ha cargado el archivo " + path); 
+                     }
+                catch(Exception e){
                     Errores.setText(e.getMessage());
                 }
-                finally {
-                    actualiza();
-                    Errores.setText("Se ha cargado el archivo " + path); // EN LUGAR DEL ERROR SACA ESTO, SI FALLA                 
-                }
-                
             }
+            };
+            worker.start(); 
+            } 
         });
         
         Eliminar = new JButton("Eliminar");
