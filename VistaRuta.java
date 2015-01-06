@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -698,21 +699,24 @@ public class VistaRuta extends PrimerNivel{
            
         Guardar.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {                  
-                   
-                String path = Guardar.getSelectedFile().getAbsolutePath(); 
-                try { 
+            Thread worker = new Thread(){
+                String path = Guardar.getSelectedFile().getAbsolutePath();
+            public void run(){  
+                try{
+                    Errores.setText("Guardando rutas...");
                    CVR.GuardarRutas(path);
                    actualiza();
-                } 
-                catch (Exception e1) {
-                    Errores.setText(e1.getMessage());
+                   Errores.setText("Se ha guardado el archivo en " + path); 
+                     }
+                catch(Exception e){
+                    Errores.setText(e.getMessage());
                 }
-                finally {
-                    Errores.setText("Se ha guardado el archivo en " + path);                     
-                }
-                
-            } 
+            }
+            };
+            worker.start(); 
+            }  
         }); 
+        
         Guardar.setBounds(0, 0, 690, 390); 
         Guardar.setAutoscrolls(true); 
         Guardar.setMinimumSize(new Dimension(200, 245)); 
@@ -728,20 +732,22 @@ public class VistaRuta extends PrimerNivel{
            
         Cargar.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {                  
-                   
-                String path = Cargar.getSelectedFile().getAbsolutePath(); 
-                try { 
+            Thread worker = new Thread(){
+            public void run(){  
+                String path = Cargar.getSelectedFile().getAbsolutePath();
+                try{
+                    Errores.setText("Cargando rutas...");
                     CVR.CargarRutas(path);
                     actualiza();
-                } 
-                catch (Exception e1) {
-                    Errores.setText(e1.getMessage());
+                     Errores.setText("Se ha cargado el archivo " + path); 
+                     }
+                catch(Exception e){
+                    Errores.setText(e.getMessage());
                 }
-                finally {
-                    Errores.setText("Se ha cargado el archivo " + path);                    
-                }
-                
-            } 
+            }
+            };
+            worker.start(); 
+            }                   
         }); 
         Cargar.setBounds(0, 0, 690, 390); 
         Cargar.setAutoscrolls(true); 
