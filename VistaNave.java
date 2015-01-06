@@ -1,3 +1,4 @@
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -503,13 +504,26 @@ public class VistaNave extends PrimerNivel{
                 cvn.CrearNave(t, d, o);
                 textfield3.setText("");
                 textfield4.setText("");
+                actualiza();
         }
         else if(AutoNave.isSelected()){
-            String num = numNaves.getText();
-            cvn.CrearNaveAuto(num);
-            numNaves.setText("");
-        }
-            actualiza();
+            Thread worker = new Thread(){
+            public void run(){  
+                try{
+                    Errores.setText("Creando Naves...");
+                    String num = numNaves.getText();
+                    cvn.CrearNaveAuto(num);
+                    numNaves.setText("");
+                    actualiza();
+                    Errores.setText("Las naves han sido creadas.");
+                     }
+                catch(Exception e){
+                    Errores.setText(e.getMessage());
+                }
+            }
+            };
+            worker.start(); 
+            }   
         }
                 catch (Exception e) {
                     Errores.setText(e.getMessage());
@@ -889,18 +903,22 @@ public class VistaNave extends PrimerNivel{
            
         Cargar.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {                  
-                   
-                String path = Cargar.getSelectedFile().getAbsolutePath(); 
-                try { 
+            Thread worker = new Thread(){
+            public void run(){ 
+                String path = Cargar.getSelectedFile().getAbsolutePath();
+                try{
+                    Errores.setText("Cargando...");
                     cvn.CargarNaves(path);
                     actualiza();  
                     actualizaT();
-                } catch (Exception e1) {
-                    Errores.setText(e1.getMessage());
-                }
-                finally {
                     Errores.setText("Se ha cargado el archivo " + path);
+                     }
+                catch(Exception e){
+                    Errores.setText(e.getMessage());
                 }
+            }
+            };
+            worker.start(); 
             } 
         }); 
         Cargar.setBounds(0, 0, 690, 390); 
@@ -918,18 +936,22 @@ public class VistaNave extends PrimerNivel{
            
         Guardar.addActionListener(new ActionListener() { 
             public void actionPerformed(ActionEvent e) {                  
-                   
-                String path = Guardar.getSelectedFile().getAbsolutePath(); 
-                try { 
-                    cvn.GuardarNaves(path);
-                    actualiza();   
-                    actualizaT();
-                } catch (Exception e1) {
-                    Errores.setText(e1.getMessage());
+                 Thread worker = new Thread(){
+            public void run(){  
+                 String path = Guardar.getSelectedFile().getAbsolutePath();
+                try{
+                     Errores.setText("Guardando...");
+                     cvn.GuardarNaves(path);
+                     actualiza();   
+                     actualizaT();
+                     Errores.setText("Se ha guardado el archivo en " + path);
                 }
-                finally {
-                    Errores.setText("Se ha guardado el archivo en " + path);
+                catch(Exception e){
+                    Errores.setText(e.getMessage());
                 }
+            }
+            };
+            worker.start(); 
             } 
         }); 
         Guardar.setBounds(0, 0, 690, 390); 
