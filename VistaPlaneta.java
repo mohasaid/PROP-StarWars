@@ -1,5 +1,3 @@
-
-
 /**
  *
  * @author Moha
@@ -599,12 +597,12 @@ public class VistaPlaneta extends PrimerNivel {
                 try{
                     Errores.setText("Cargando planetas...");
                     CVP.CargarPlanetas(path);
-                    actualiza();
                     Errores.setText("Se ha cargado el archivo " + path); 
                      }
                 catch(Exception e){
                     Errores.setText(e.getMessage());
                 }
+                actualiza();
             }
             };
             worker.start(); 
