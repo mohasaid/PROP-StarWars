@@ -268,35 +268,25 @@ public class ControladorPlaneta {
     {
     	String res ="";
     	int iter = 0;
-        boolean primer = true;
     	if(!listaPlanetas.isEmpty()){
-            cdp.AbrirEscritura(path);
-            res = "";            
-            for(Planeta p : listaPlanetas.MostrarElementos()) {
-                if(primer) {
-                    res += p.Consultar_nombre();
-                    res += ":" + p.Consultar_Coste();
-                    res += ":" + p.consultar_X();
-                    res += ":" + p.consultar_Y();
-                    primer = false;
-                }
-                else {
-                    res += ":" + p.Consultar_nombre();
-                    res += ":" + p.Consultar_Coste();
-                    res += ":" + p.consultar_X();
-                    res += ":" + p.consultar_Y();
-                }
-                ++iter;
-                if(iter == 100){
-                    cdp.guardar(path, res);
-                    iter = 0;
-                    res ="";
-                }
-            }
+    		cdp.AbrirEscritura(path);
+    		res = "";
+    		for(Planeta p : listaPlanetas.MostrarElementos()) {
+    			res +=p.Consultar_nombre()+":";
+    			res +=p.Consultar_Coste()+":";
+    			res +=p.consultar_X()+":";
+    			res +=p.consultar_Y();
+    			res +="#";
+    			++iter;
+    			if(iter == 100){
+    				cdp.guardar(path, res);
+    				iter = 0;
+    				res ="";
+    			}
+    		}
     	}
     	if(res != ""){
     		cdp.guardar(path, res);
     		cdp.CerrarEscritura();
     	}
     }
-}
