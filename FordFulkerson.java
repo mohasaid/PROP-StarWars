@@ -6,7 +6,6 @@ import java.util.*;
 
 public class FordFulkerson extends MFP {
     private static final int arist = 2000000000;
-    private static final String nom = "FORD FULKERSON + ";
 	
 	public FordFulkerson(Entrada e) throws CloneNotSupportedException
 	{
