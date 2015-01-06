@@ -1,8 +1,12 @@
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.*;
+import java.util.*;
+import java.lang.reflect.Method;
 
 public class VistaGalaxia extends PrimerNivel {
 	/* VARIABLES */
@@ -58,9 +62,7 @@ public class VistaGalaxia extends PrimerNivel {
         forma1.borraLimites();
         forma1.borraPlanetas();
     }
-    
-    public void borraPlanetas()
-    {
+    public void borraPlanetas(){
         forma1.borraPlanetas();
     }
     
@@ -491,33 +493,46 @@ public class VistaGalaxia extends PrimerNivel {
         (
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) { 
+                Thread worker = new Thread(){
+                public void run(){ 
                     path = Cargar.getSelectedFile().getAbsolutePath();
-                    try {
-                        cvg.carregarGalaxia(path);
-                        borra();
-                        teForma = (cvg.consultarNombreLimits() > 0);
-                        CREADA = true;
-                        actualitza(teForma);
-                        Errores.setText("Se ha cargado el archivo " + path);
-                    } 
-                    catch (Exception e1) {
-                        Errores.setText(e1.getMessage());
-                    }
+                try{
+                    Errores.setText("Cargando la galaxia...");
+                    cvg.carregarGalaxia(path);
+                    Errores.setText("Se ha cargado el archivo " + path);
+                     }
+                catch(Exception e){
+                    Errores.setText(e.getMessage());
                 }
+                    borra();
+                    teForma = (cvg.consultarNombreLimits() > 0);
+                    CREADA = true;
+                    actualitza(teForma);
+            }
+            };
+            worker.start(); 
+            } 
         });
         
         Guardar.addActionListener
         (
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) { 
-                    path = Guardar.getSelectedFile().getAbsolutePath();
-                    try {
-                        cvg.guardarGalaxia(path);
-                        Errores.setText("Se ha guardado el archivo en " + path); 
-                    } 
-                    catch (Exception e1) {
-                        Errores.setText(e1.getMessage());
-                    }            
+                Thread worker = new Thread(){
+            public void run(){ 
+                path = Guardar.getSelectedFile().getAbsolutePath();
+                try{
+                    Errores.setText("Guardando la galaxia...");
+                    cvg.guardarGalaxia(path);
+                    Errores.setText("Se ha guardado el archivo en " + path);  
+                     }
+                catch(Exception e){
+                    Errores.setText(e.getMessage());
+                }
+            }
+            };
+            worker.start(); 
+             
                 }
         });
         
