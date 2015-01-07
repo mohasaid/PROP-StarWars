@@ -152,7 +152,9 @@ public class ControladorMFP {
                             visitados[adj] = true;
                             q1.add(adj);
                         }
-                        else if(cap == 0) {
+                        else if(cap == 0 && !visitados[adj]) {
+                            visitados[adj] = true;
+                            q1.add(adj);
                             String pa = pla.get(actual);
                             String pb = pla.get(adj);
                             int idr = 0;
