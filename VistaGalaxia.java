@@ -1,15 +1,11 @@
-
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.Method;
 
 public class VistaGalaxia extends PrimerNivel {
-	/* VARIABLES */
+    /* VARIABLES */
     private boolean CREADA = false;
     private boolean teForma = false;
     private ControladorVistaGalaxia cvg;
@@ -28,18 +24,18 @@ public class VistaGalaxia extends PrimerNivel {
     private JRadioButton SenseForma1;
     private JRadioButton AmbForma1;
 
-    private JButton btnModificarGalaxia;
-    private JButton btnMissatge;
-    private JButton btnCrearNovaGalaxia;
+    private final JButton btnModificarGalaxia;
+    private final JButton btnMissatge;
+    private final JButton btnCrearNovaGalaxia;
     
-    private ButtonGroup group1;
-    private ButtonGroup group2;
+    private final ButtonGroup group1;
+    private final ButtonGroup group2;
 
     private JScrollPane dibujo;
     private JScrollPane dibujo1;
     
-    private Grid forma; // limites + planetas
-    private Grid forma1; // solo limites
+    private final Grid forma; // limites + planetas
+    private final Grid forma1; // solo limites
     
     public VistaGalaxia consultaVistaGalaxia()
     {
@@ -492,7 +488,7 @@ public class VistaGalaxia extends PrimerNivel {
         Cargar.addActionListener
         (
             new ActionListener() {
-                public void actionPerformed(ActionEvent e) { 
+                public void actionPerformed(ActionEvent e) {
                 Thread worker = new Thread(){
                 public void run(){ 
                     path = Cargar.getSelectedFile().getAbsolutePath();
@@ -519,20 +515,19 @@ public class VistaGalaxia extends PrimerNivel {
             new ActionListener() {
                 public void actionPerformed(ActionEvent e) { 
                 Thread worker = new Thread(){
-            public void run(){ 
-                path = Guardar.getSelectedFile().getAbsolutePath();
-                try{
-                    Errores.setText("Guardando la galaxia...");
-                    cvg.guardarGalaxia(path);
-                    Errores.setText("Se ha guardado el archivo en " + path);  
-                     }
-                catch(Exception e){
-                    Errores.setText(e.getMessage());
-                }
-            }
-            };
-            worker.start(); 
-             
+		        public void run(){ 
+		            path = Guardar.getSelectedFile().getAbsolutePath();
+		            try{
+		                Errores.setText("Guardando la galaxia...");
+		                cvg.guardarGalaxia(path);
+		                Errores.setText("Se ha guardado el archivo en " + path);  
+		                 }
+		            catch(Exception e){
+		                Errores.setText(e.getMessage());
+		            }
+		        }
+                };
+            	worker.start(); 
                 }
         });
         
