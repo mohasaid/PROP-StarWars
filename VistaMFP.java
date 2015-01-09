@@ -12,8 +12,10 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import org.apache.commons.collections15.Transformer;
 
+
 public class VistaMFP extends PrimerNivel {
     private ControladorVistaMFP cvMFP;
+    boolean EJECUTADO = false;
     
     private JButton Ejecutar;
     private JButton Mostrar;
@@ -154,6 +156,7 @@ public class VistaMFP extends PrimerNivel {
                     setCursor(new Cursor(Cursor.WAIT_CURSOR));
                     Errores.setText("Ejecutando algoritmo ...");
                     cvMFP.Ejecutar();
+                    EJECUTADO = true;
                     Errores.setText("-- ALGORITMO EJECUTADO --");
                     setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                 }
@@ -191,7 +194,7 @@ public class VistaMFP extends PrimerNivel {
         Mostrar.setBounds(250, 360, 200, 50);
         Consultar.add(Mostrar);
        
-        JTextArea TA = new JTextArea(); 
+        final JTextArea TA = new JTextArea(); 
         TA.setEnabled(true);
         TA.setEditable(true);
         TA.setBounds(50, 50, 600, 370);
@@ -228,62 +231,63 @@ public class VistaMFP extends PrimerNivel {
         
         MGrafo.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
-                Grafo residual = cvMFP.consultarGrafoResidual();
-                dg = new DibujoGrafo(residual);
-
-                Graph<String, String> g = dg.consultaGrafo();
-                Layout<String, String> layout = new KKLayout(g);
-                layout.setSize(new Dimension(700,360)); 
-
-                BasicVisualizationServer<String,String> vv = new BasicVisualizationServer<String,String>(layout);
-                vv.setPreferredSize(new Dimension(700,360));
-                
-                vv.getRenderContext().setVertexLabelTransformer
-                (
-                    new Transformer<String, String>() {
-                        @Override
-                        public String transform(String nom) {
-                            return nom;
-                        }
-                });
-                
-                /*vv.getRenderContext().setEdgeLabelTransformer
-                (
-                    new Transformer<String, String>() {
-                        @Override
-                        public String transform(String nom) {
-                            return nom;
-                        }
-                });*/
-                                
-                vv.getRenderContext().setVertexFillPaintTransformer
-                (
-                    new Transformer<String,Paint>() {
-                        @Override
-                        public Paint transform(String i) {
-                            if((i.equals("OF") || (i.equals("DF")))) return Color.GREEN;
-                            return Color.RED;
-                        }
-                    }
-                );
-                
-                //vv.getRenderContext().setLabelOffset(20);
-                
-                vv.getRenderContext().setVertexFontTransformer
-                (
-                    new Transformer<String,Font>() {
-                        @Override
-                        public Font transform(String i) {
-                            if((i.equals("OF") || (i.equals("DF")))) return new Font("Helvetica", Font.PLAIN, 12);
-                            return new Font("Helvetica", Font.PLAIN, 9);
-                        }
-                    }
-                );
-                
-                vv.setBackground(SystemColor.activeCaption);
-                vv.setBounds(0, 0, 700, 360);
-                Modificar.add(vv);
-
+            	if(EJECUTADO) {
+	                Grafo residual = cvMFP.consultarGrafoResidual();
+	                dg = new DibujoGrafo(residual);
+	
+	                Graph<String, String> g = dg.consultaGrafo();
+	                Layout<String, String> layout = new KKLayout(g);
+	                layout.setSize(new Dimension(700,360)); 
+	
+	                BasicVisualizationServer<String,String> vv = new BasicVisualizationServer<String,String>(layout);
+	                vv.setPreferredSize(new Dimension(700,360));
+	                
+	                vv.getRenderContext().setVertexLabelTransformer
+	                (
+	                    new Transformer<String, String>() {
+	                        @Override
+	                        public String transform(String nom) {
+	                            return nom;
+	                        }
+	                });
+	                
+	                /*vv.getRenderContext().setEdgeLabelTransformer
+	                (
+	                    new Transformer<String, String>() {
+	                        @Override
+	                        public String transform(String nom) {
+	                            return nom;
+	                        }
+	                });*/
+	                                
+	                vv.getRenderContext().setVertexFillPaintTransformer
+	                (
+	                    new Transformer<String,Paint>() {
+	                        @Override
+	                        public Paint transform(String i) {
+	                            if((i.equals("OF") || (i.equals("DF")))) return Color.GREEN;
+	                            return Color.RED;
+	                        }
+	                    }
+	                );
+	                
+	                //vv.getRenderContext().setLabelOffset(20);
+	                
+	                vv.getRenderContext().setVertexFontTransformer
+	                (
+	                    new Transformer<String,Font>() {
+	                        @Override
+	                        public Font transform(String i) {
+	                            if((i.equals("OF") || (i.equals("DF")))) return new Font("Helvetica", Font.PLAIN, 12);
+	                            return new Font("Helvetica", Font.PLAIN, 9);
+	                        }
+	                    }
+	                );
+	                
+	                vv.setBackground(SystemColor.activeCaption);
+	                vv.setBounds(0, 0, 700, 360);
+	                Modificar.add(vv);
+            	}
             }
         });
     }
