@@ -286,7 +286,7 @@ public class DriverGalaxia {
 	    	int x = cin.nextInt();
 	    	int y = cin.nextInt();
 	    	int coste = cin.nextInt();
-	    	
+	    	if(coste > 1000) throw new Exception("Coste demasiado elevado");
 	    	Pair<Integer, Integer> co = new Pair<Integer, Integer>(x,y);
 	    	
 	    	Planeta a = new Planeta(idPlaneta,coste, co);
@@ -305,7 +305,7 @@ public class DriverGalaxia {
     	try {
     		if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 	    	Random rand = new Random();
-	    	int capacidad = rand.nextInt(Integer.MAX_VALUE-1);
+	    	int coste = rand.nextInt(1000);
 	    	
 	        String nom = "Planeta";
 			int id = 0;
@@ -318,7 +318,7 @@ public class DriverGalaxia {
 			}
 			
 	        Pair<Integer, Integer> co_nuevas = g.afegirPlanetaAutomatic(); // saca excepcion si no se puede crear
-	        Planeta p = new Planeta(f, capacidad, co_nuevas);
+	        Planeta p = new Planeta(f, coste, co_nuevas);
 	        cp.anadirPlaneta(p); // saca excepcion si existe
     	}
     	catch(Exception e) {
@@ -332,7 +332,7 @@ public class DriverGalaxia {
     		if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 	    	String idPlaneta = cin.next();
 	    	Random rand = new Random();
-	    	int randomNum = rand.nextInt(Integer.MAX_VALUE);
+	    	int randomNum = rand.nextInt(1000);
 	    	
 	    	if(cp.ExistePlaneta(idPlaneta)) throw new Exception("Ya hay un planeta con este identificador");
 	    	
