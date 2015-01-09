@@ -32,11 +32,11 @@ public class Galaxia {
 	 */
     private void reiniciaMatriu()
     {
-             for(int i = 0; i < N; ++i) {
-                     for(int j = 0; j < N; ++j) {
-                             if(gal[i][j] > 0) gal[i][j] = 0;
-                     }
+	     for(int i = 0; i < N; ++i) {
+             for(int j = 0; j < N; ++j) {
+                 if(gal[i][j] > 0) gal[i][j] = 0;
              }
+	     }
      }
     
 	/**
@@ -45,8 +45,8 @@ public class Galaxia {
     private void inicialitzaMatriu()
     {
     	for(int i = 0; i < limits.size(); ++i) {
-    		int a = limits.get(i).consultarPrimero().intValue();
-    		int b = limits.get(i).consultarSegundo().intValue();
+    		int a = limits.get(i).consultarPrimero();
+    		int b = limits.get(i).consultarSegundo();
     		gal[a][b] = -1;
     	}
     }
@@ -64,8 +64,8 @@ public class Galaxia {
         if(n < 10) throw new Exception("El limite de la galaxia tiene que ser mayor o igual que 10");
         
         nomGalaxia = nom;
-        N = new Integer(n);
-        limits = new ArrayList<Pair<Integer,Integer> >();
+        N = n;
+        limits = new ArrayList<>();
         gal = new int[n][n];
     }
     
@@ -84,7 +84,7 @@ public class Galaxia {
         
         nomGalaxia = nom;
         gal = new int[n][n]; 
-        N = new Integer(n);
+        N = n;
         limits = l;
         inicialitzaMatriu();
     }
@@ -112,7 +112,6 @@ public class Galaxia {
     /**
      * Metodo para consultar las coordenadas que dan forma a la galaxia
      * @return Coordenadas que dan forma a la galaxia
-     * @throws Exception 
      */
     public List<Pair<Integer, Integer> > consultarValorLimits()
     {
@@ -142,7 +141,6 @@ public class Galaxia {
         if(limits.size() > 0) {
         	if(!dintreLimitUsuari(x,y)) throw new Exception("Las coordenadas no pueden estar fuera del limite que da forma a la galaxia");
         }
-        
         return (gal[x][y] > 0);
     }
         
@@ -168,33 +166,33 @@ public class Galaxia {
      * @throws Exception
      */
     public boolean dintreLimitUsuari(int x, int y) throws Exception
-	{
-	     if(x > N || y > N) throw new Exception("Las coordenadas no pueden ser mayores que el limite de la galaxia");
-	     if(x < 0 || y < 0) throw new Exception("Las coordenadas no pueden ser menores que 0");
+    {
+        if(x > N || y > N) throw new Exception("Las coordenadas no pueden ser mayores que el limite de la galaxia");
+        if(x < 0 || y < 0) throw new Exception("Las coordenadas no pueden ser menores que 0");
 	     
-         int min_first, max_second, min_x, max_y;
-         min_first = max_second = min_x = max_y = 0;
-         for(int i = 0; i < N; ++i) {
-         	if(gal[x][i] == -1) {
-         		min_first = i;
-         		break;
-         	}
-         }
-         for(int i = min_first + 1; i < N; ++i) {
-         	if(gal[x][i] == -1) max_second = i;
-         }
-         for(int i = 0; i < N; ++i) {
-         	if(gal[i][y] == -1) {
-         		min_x = i;
-             	break;
-         	}
-         }
-         for(int i = min_x + 1; i < N; ++i) {
-         	if(gal[i][y] == -1) max_y = i;
-         }
-         
-         return ((min_first < y  &&  y < max_second) && (min_x < x && x < max_y));
-	 }
+        int min_first, max_second, min_x, max_y;
+        min_first = max_second = min_x = max_y = 0;
+        for(int i = 0; i < N; ++i) {
+           if(gal[x][i] == -1) {
+               min_first = i;
+               break;
+           }
+        }
+        for(int i = min_first + 1; i < N; ++i) {
+           if(gal[x][i] == -1) max_second = i;
+        }
+        for(int i = 0; i < N; ++i) {
+           if(gal[i][y] == -1) {
+               min_x = i;
+               break;
+           }
+        }
+        for(int i = min_x + 1; i < N; ++i) {
+               if(gal[i][y] == -1) max_y = i;
+        }
+
+        return ((min_first < y  &&  y < max_second) && (min_x < x && x < max_y));
+    }
 
   
     // MODIFICADORAS
@@ -221,8 +219,8 @@ public class Galaxia {
         if(n < 10) throw new Exception("El limite de una galaxia tiene que ser mayor que 10");
         
         gal = new int[n][n]; 
-        N = new Integer(n);
-        limits = new ArrayList<Pair<Integer,Integer> >(); // Pierde la forma que tenia
+        N = n;
+        limits = new ArrayList<>(); // Pierde la forma que tenia
     }
     
     /**
@@ -233,7 +231,7 @@ public class Galaxia {
     public void modificarLimitsUsuari(List<Pair<Integer, Integer> > p) throws Exception
     {
     	if(algunPlaneta()) throw new Exception("No se puede modificar la forma de una galaxia que contiene planetas");
-    	if(p.size() < 4) throw new Exception("Como minimo se tiene que tener 4 coordenadas para dar forma a la galaxia");
+    	if(p.size() < 4) throw new Exception("Como minimo se tiene que tener 4 coordenadas contiguas para dar forma a la galaxia");
     	
     	limits = p;
     	inicialitzaMatriu();
@@ -241,8 +239,9 @@ public class Galaxia {
     
     /**
      * Metodo para anadir un planeta en la galaxia en unas determinadas coordenadas
-     * @param p
-     * @throws Exception
+     * @param x
+     * @param y
+     * @throws Exception 
      */
     public void afegirPlaneta(int x, int y) throws Exception
     {
@@ -257,9 +256,8 @@ public class Galaxia {
    
     /**
      * Metodo para anadir un planeta en la galaxia aleatoriamente
-     * @param p
-     * @return Las coordenadas del planeta introducidas en la galaxia
-     * @throws Exception
+     * @return Las coordenadas del planeta introducidas en la galaxia, en caso de que se haya podido
+     * @throws Exception 
      */
     public Pair<Integer, Integer> afegirPlanetaAutomatic() throws Exception
     {
@@ -290,7 +288,7 @@ public class Galaxia {
             }
     	}
         if(!posible) throw new Exception("No se puede crear un planeta aleatorio ya que estan todas las coordenadas ocupadas");
-        Pair<Integer, Integer> par = new Pair<Integer, Integer>(tmp1, tmp2);
+        Pair<Integer, Integer> par = new Pair<>(tmp1, tmp2);
         gal[tmp1][tmp2] = 1;
         return par;
     }
