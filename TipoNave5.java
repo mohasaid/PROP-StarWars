@@ -1,6 +1,4 @@
-package propfinal;
 import java.util.Comparator;
-
 
 //TIPO 5:
 
