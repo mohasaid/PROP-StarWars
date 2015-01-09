@@ -12,15 +12,14 @@ import java.util.Scanner;
 public class ControladorGalaxia
 {
     private Galaxia g;
-    private ControladorDadesGalaxia cdg;
+    private final ControladorDadesGalaxia cdg;
     private Iterator<Pair<Integer, Integer> > itp;
     private static final int arist = 2000000000;
  
     //CONSTRUCTORAS
  
     /**
-     * Metodo para crear el controlador de la galaxia, un controlador de datos y una galaxia con nombre y limite
-     * @throws Exception 
+     *  Metodo para crear el controlador de la galaxia, un controlador de datos
      */
     public ControladorGalaxia()
     {
@@ -62,9 +61,9 @@ public class ControladorGalaxia
     }
     
     /**
-     * Metodo para consultar las coordenadas que dan forma a la galaxia
+     * Metodo para consultar las coordenadas que dan forma a la galaxia, de 100 en 100
+     * @param i
      * @return Las coordenadas que dan forma a la galaxia
-     * @throws Exception
      */
     public String consultarLimitsGalaxia(int i)
     {
@@ -92,7 +91,6 @@ public class ControladorGalaxia
     /**
      * Metodo para consultar el limite maximo de la galaxia
      * @return Limite maximo de la galaxia
-     * @throws Exception
      */
     public int consultarLimit()
     {
@@ -166,11 +164,9 @@ public class ControladorGalaxia
 
     /**
      * Metodo para anadir un planeta en la galaxia en las coordenadas "x" y "y"
-     * @param cp
-     * @param idPlaneta
      * @param x
      * @param y
-     * @throws Exception
+     * @throws Exception 
      */
     public void afegirPlaneta(int x, int y) throws Exception
     {
@@ -178,15 +174,13 @@ public class ControladorGalaxia
     }
     
     /**
-     * Metodo para anadir un planeta creado automaticamente
-     * @param cp
-     * @param idPlaneta
-     * @returnDevuelve las coordenadas con las que se ha introducido en la galaxia
-     * @throws Exception
+     * Metodo para anadir un planeta automaticamente
+     * @return Las coordenadas donde se ha situado, en caso de que haya sido posible
+     * @throws Exception 
      */
     public String afegirPlanetaAutomatic() throws Exception
     {
-    	String res = "";
+    	String res;
     	Pair<Integer, Integer> p = g.afegirPlanetaAutomatic();
     	res = p.consultarPrimero() + "," + p.consultarSegundo();
     	return res;
@@ -194,18 +188,17 @@ public class ControladorGalaxia
     
     /**
      * Metodo para eliminar un planeta de la galaxia
-     * @param idPlaneta
-     * @param cp
-     * @throws Exception
+     * @param x
+     * @param y
+     * @throws Exception 
      */
     public void eliminarPlaneta(int x, int y) throws Exception
     {
 	    g.eliminarPlaneta(x,y);
     }
-    
+
     /**
-     * Metodo para eliminar todos los plaentas de una galaxia
-     * @throws Exception
+     * Metodo para eliminar todos los planetas de una galaxia
      */
     public void eliminarPlanetes()
     {
@@ -213,8 +206,13 @@ public class ControladorGalaxia
     }
     
     /**
-     * Metodo para transformar los elementos de la galaxia en un grafo
-     * @throws Exception
+     * Metodo para transformar los elementos de una galaxia en un grafo
+     * @param cr
+     * @param cp
+     * @param cn
+     * @param fc
+     * @return Grafo formado por los elementos de una galaxia
+     * @throws Exception 
      */
     public Entrada transformaGrafo(ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn,  FuncionesCoste fc) throws Exception 
     {
@@ -226,7 +224,7 @@ public class ControladorGalaxia
     	int tam1 = ac1.size();
     	for(int i = 0; i < pl.size(); ++i) {
     		String idPlaneta = pl.get(i);
-    		ArrayList<Pair<Arco, Integer> > ara = new ArrayList<Pair<Arco, Integer> >();
+    		ArrayList<Pair<Arco, Integer> > ara = new ArrayList<>();
     		for(int j = 0; j < tam1; ++j) {
     			if(ac1.get(j).consultar_planetaA().compareTo(idPlaneta) == 0) {
     				int rut = ac1.get(j).consultar_id();
@@ -248,7 +246,7 @@ public class ControladorGalaxia
     					fc.ModificarPlaneta(a);
     					arc.ModificarCoste(fc.CalcularCoste());
     				}
-    				Pair<Arco, Integer> paira = new Pair<Arco, Integer>(arc,tmp);
+    				Pair<Arco, Integer> paira = new Pair<>(arc,tmp);
     				int tama1 = ara.size();
     				int va = 0;
     				boolean anadido = false;
@@ -266,20 +264,20 @@ public class ControladorGalaxia
     	}
     	
     	ArrayList<String> origenes = cn.PlanetasOrigen(); // Penultimo Nodo = nodo virtual -> origen general, size - 2
-    	ArrayList<Pair<Arco, Integer> > apai = new ArrayList<Pair<Arco, Integer> >();
+    	ArrayList<Pair<Arco, Integer> > apai = new ArrayList<>();
     	
     	for(int i = 0; i < origenes.size(); ++i) {
     		String o = origenes.get(i);
     		int tmp2 = pl.indexOf(o);
     		Arco c = new Arco(arist);
     		c.ModificarCoste(0);
-    		Pair<Arco, Integer> pac = new Pair<Arco,Integer>(c,tmp2);
+    		Pair<Arco, Integer> pac = new Pair<>(c,tmp2);
     		apai.add(pac);
     	}
     	g.ponG(apai);
     	
     	ArrayList<String> destinos = cn.PlanetasDestino(); // Ultimo nodo = nodo virtual -> destino general, size - 1
-    	ArrayList<Pair<Arco,Integer>> nulo = new ArrayList<Pair<Arco, Integer> >();
+    	ArrayList<Pair<Arco,Integer>> nulo = new ArrayList<>();
     	g.ponG(nulo);
     	
     	int size_g = g.sizeGrafo();
@@ -289,7 +287,7 @@ public class ControladorGalaxia
     		int tmp3 = pl.indexOf(d);
     		Arco c = new Arco(arist);
     		c.ModificarCoste(0);
-    		Pair<Arco, Integer> pac1 = new Pair<Arco,Integer>(c,size_g-1);
+    		Pair<Arco, Integer> pac1 = new Pair<>(c,size_g-1);
     		g.consultarCosteDestinos(tmp3).add(0, pac1);
     	}
         
@@ -297,13 +295,11 @@ public class ControladorGalaxia
     	return ent;
     }
     	
+
     /**
      * Metodo para cargar los elementos que forman la galaxia
      * @param directori
-     * @param cp
-     * @param cn
-     * @param cr
-     * @throws Exception
+     * @throws Exception 
      */
     public void carregarConjuntGalaxia(String directori) throws Exception
     {		
@@ -316,7 +312,7 @@ public class ControladorGalaxia
         String nomG = "";
         int N = 0;
         List<Pair<Integer, Integer> > lpa = new ArrayList<Pair<Integer,Integer> >();
-        while((result = cdg.cargar(directori,100,br))!= "") {
+        while(!(result = cdg.cargar(directori,100,br)).equals("")) {
                 Scanner cin = new Scanner(result);
                 cin.useDelimiter("#|,");
                 String info = "";
@@ -335,7 +331,7 @@ public class ControladorGalaxia
                             Integer a = Integer.parseInt(info);
                             info = cin.next();
                             Integer b = Integer.parseInt(info);
-                            Pair<Integer,Integer> paird = new Pair<Integer,Integer>(a,b);
+                            Pair<Integer,Integer> paird = new Pair<>(a,b);
                             lpa.add(paird);
                         }
                 }
@@ -350,10 +346,7 @@ public class ControladorGalaxia
     /**
      * Metodo para guardar los elementos que forman la galaxia
      * @param directori
-     * @param cp
-     * @param cr
-     * @param cn
-     * @throws Exception
+     * @throws Exception 
      */
     public void guardarConjuntGalaxia(String directori) throws Exception
     {
