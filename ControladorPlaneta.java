@@ -87,7 +87,7 @@ public class ControladorPlaneta {
         Integer a1 = scan.nextInt();
         Integer a2 = scan.nextInt();
         Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
-	scan.close();
+        scan.close();
         
         Planeta p = new Planeta(f, r1, co_nuevas);
         listaPlanetas.add(f,p);
@@ -109,7 +109,7 @@ public class ControladorPlaneta {
         Integer a1 = scan.nextInt();
         Integer a2 = scan.nextInt();
         Pair<Integer, Integer> co_nuevas = new Pair<Integer, Integer>(a1,a2);
-	scan.close();
+        scan.close();
         
         Planeta p = new Planeta(id, r1, co_nuevas);
         listaPlanetas.add(id,p);
@@ -123,7 +123,7 @@ public class ControladorPlaneta {
     {
         if(!alfa_numeric(id)) throw new Exception("El nombre de un Planeta tiene que ser alfanumerico");
         if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
-        if(k > 2000000000) throw new Exception("Coste demasiado elevado");
+        if(k > 10000) throw new Exception("Coste demasiado elevado");
         
         cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
         Planeta p = new Planeta (id, k, Coo);
@@ -230,7 +230,7 @@ public class ControladorPlaneta {
         idp = 0;
     }
     
-  //Pre: Cierto.
+    //Pre: Cierto.
     //Post: 
     public void CargarPlanetas(String path, ControladorGalaxia cg) throws Exception 
     {
