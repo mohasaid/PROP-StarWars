@@ -212,8 +212,8 @@ public class ControladorRuta {
         if ( !Disponibilidad_crear_ruta(planetaA , planetaB) ) {
         	throw new Exception("La Ruta de " + planetaA + " a " + planetaB + " ja existeix \n");
         }
-        if ( capacidad>100000 ) {
-        	throw new Exception("La capacidad de la ruta tiene que ser menor o igual a 100.000 \n");
+        if ( capacidad > 10000 ) {
+        	throw new Exception("La capacidad de la ruta tiene que ser menor o igual a 10.000 \n");
         }
         Ruta r = new Ruta(id,capacidad,distancia);
         Conexion c = new Conexion(id, planetaA, planetaB);
@@ -506,8 +506,8 @@ public class ControladorRuta {
         if(ErrorTipografico(capacidad_nueva)){
             throw new Exception("Error : La capacidad debe ser mayor o igual que 0\n");
         }
-        if ( capacidad_nueva > 100000 ) {
-        	throw new Exception("La capacidad de la ruta tiene que ser menor o igual a 100.000 \n");
+        if ( capacidad_nueva > 10000 ) {
+        	throw new Exception("La capacidad de la ruta tiene que ser menor o igual a 10.000 \n");
         }
         BuscarRuta(id).modificar_capacidad(capacidad_nueva);
         
@@ -526,8 +526,8 @@ public class ControladorRuta {
         if(ErrorTipografico(distancia_nueva) || distancia_nueva == 0){
             throw new Exception("Error : La distancia entre planetas debe ser mayor que 0\n");
         }
-        if ( distancia_nueva > 100000 ) {
-        	throw new Exception("La distancia de la ruta tiene que ser menor o igual a 100.000 \n");
+        if ( distancia_nueva > 1000 ) {
+        	throw new Exception("La distancia de la ruta tiene que ser menor o igual a 1.000 \n");
         }
         BuscarRuta(id).modificar_distancia(distancia_nueva);
     }
