@@ -2,42 +2,17 @@
  *
  * @author Moha
  */
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JInternalFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenu;
 import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.border.EmptyBorder;
-import static sun.security.ssl.Debug.Help;
-import static sun.security.util.Debug.Help;
-import javax.swing.*;
-import javax.swing.border.CompoundBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class VistaPrincipal extends JFrame {
 
@@ -113,10 +88,10 @@ public class VistaPrincipal extends JFrame {
         /** Boton Galaxia **/
         Btn_Galaxia.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
-                        // eliminem el panel actual
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
+                        
                         panelGrande.add(VG);
                         panelGrande.repaint();
                         panelGrande.revalidate();
@@ -128,12 +103,11 @@ public class VistaPrincipal extends JFrame {
         /** Boton Rutas **/
         Btn_Rutas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
-                        // eliminem el panel actual
                    if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
-                        //colocamos las rutas				
+
                         panelGrande.add(VR);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
@@ -145,12 +119,10 @@ public class VistaPrincipal extends JFrame {
         /** Boton Naves **/
         Btn_Naves.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
-                        // eliminem el panel actual
                     if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
-                        // colocamos naves
                         panelGrande.add(VN);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
@@ -162,12 +134,11 @@ public class VistaPrincipal extends JFrame {
         /** Boton Planetas **/
         Btn_Planetas.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
-                        // eliminem el panel actual
                     if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
-                        // coloquem planetas					
+
                         panelGrande.add(VP);			
                         panelGrande.repaint();
                         panelGrande.revalidate();
@@ -179,12 +150,11 @@ public class VistaPrincipal extends JFrame {
         /** Boton MF **/
         Btn_MFP.addActionListener(new ActionListener() {
                 public void actionPerformed(ActionEvent arg0) {				
-                        // eliminem el panel actual
                     if(VG.consultarCreada()) {
                         panelGrande.removeAll();
                         panelGrande.repaint();
                         panelGrande.revalidate();
-                        // col�loquem el de galaxia					
+
                         panelGrande.add(vMFP);
                         panelGrande.repaint();
                         panelGrande.revalidate();
@@ -220,52 +190,7 @@ public class VistaPrincipal extends JFrame {
                         panelGrande.revalidate();
                 }
         });
-        
-    /*JButton Cargar = new JButton("   Cargar/Guardar");
-    Cargar.setBorder(null);
-    jtb.add(Cargar);
-    
-    JTabbedPane Central1 = new JTabbedPane(JTabbedPane.TOP);
-    
-    JInternalFrame FrameGuardar1 = new JInternalFrame();
-    JInternalFrame FrameCargar1 = new JInternalFrame();
-    JFileChooser Cargar1 = new JFileChooser();
-    JFileChooser Guardar1 = new JFileChooser();
-    
-    Central1.setBackground(SystemColor.control);
-    Central1.setBounds(0, 0, 700, 460);
-    Central1.add(FrameCargar1,"Cargar");
-    Central1.add(FrameGuardar1,"Guardar");
-        
-    Cargar.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent arg0){
-            panelGrande.removeAll();
-            panelGrande.repaint();
-            panelGrande.revalidate();
-                        
-            panelGrande.add(Central1);
-            panelGrande.repaint();
-            panelGrande.revalidate();
-        }
-    });
-    
-    Cargar1.addActionListener
-        (
-            new ActionListener() {
-                public void actionPerformed(ActionEvent e) { 
-                    String path = Cargar1.getSelectedFile().getAbsolutePath();
-                    try{
-                        // Galaxia
-                        CVG.carregarGalaxia(path);
-                        VG.borra();
-                        boolean teForma = (CVG.consultarNombreLimits() > 0);
-                        VG.setCreada(true);
-                        VG.actualitza(teForma);
-                    }
-                    catch (Exception ex) {}
-                }
-        });*/
-    
+
     JButton Clear = new JButton("   Clear");
     Clear.setBorder(null);
     jtb.add(Clear);
@@ -281,8 +206,5 @@ public class VistaPrincipal extends JFrame {
             VP.actualiza();
         }
     });
-    
-    
     }
-    
 }
