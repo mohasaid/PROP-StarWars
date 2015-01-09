@@ -173,7 +173,7 @@ public class DriverControladorPlaneta {
     	try {
     		String s;
     		String id = sc.next();
-    		cp.Borrar(id, cr, cg);
+    		cp.BorraPla(id);
     	}
     	catch (Exception e){
     		System.out.print(e);
