@@ -309,7 +309,7 @@ public class DriverControladorGalaxia {
 			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			int coste = cin.nextInt();
-			if(coste > 10000) throw new Exception("Coste demasiado elevado");
+			if(coste > 1000) throw new Exception("Coste demasiado elevado");
 			int x = cin.nextInt();
 			int y = cin.nextInt();
 			Pair<Integer, Integer> co = new Pair<Integer, Integer>(x,y);
