@@ -40,7 +40,7 @@ class ControladorVistaPlaneta {
         int c = Integer.parseInt(Coste);
         int x = Integer.parseInt(X);
         int y = Integer.parseInt(Y);
-        Pair<Integer,Integer> p = new Pair(x,y);
+        Pair<Integer,Integer> p = new Pair<Integer, Integer>(x,y);
         cp.Planeta(Nombre,c,p,cg);
         vg.pintaPlaneta(x, y);
     }
@@ -52,6 +52,7 @@ class ControladorVistaPlaneta {
        scan.useDelimiter(",");
        Integer a1 = scan.nextInt();
        Integer a2 = scan.nextInt();
+       scan.close();
        vg.pintaPlaneta(a1, a2);
     }
     
@@ -62,6 +63,7 @@ class ControladorVistaPlaneta {
         scan.useDelimiter(",");
         Integer a1 = scan.nextInt();
         Integer a2 = scan.nextInt();
+        scan.close();
         vg.pintaPlaneta(a1, a2);
     }
     
@@ -98,11 +100,17 @@ class ControladorVistaPlaneta {
         int c = Integer.parseInt(Coste);
         cp.Modificar_Coste(Nombre,c);
     }
+    
     public void ModificarCoordenadas(String Nombre, String X, String Y) throws Exception {
         int x = Integer.parseInt(X);
         int y = Integer.parseInt(Y);
+        int x1 = cp.consultar_X(Nombre);
+        int y1 = cp.consultar_Y(Nombre);
         cp.modificar_coordenadas(Nombre, x,y,cg);
+        vg.borraPlaneta(x1, y1);
+        vg.pintaPlaneta(x, y);
     }
+    
     public void CargarPlanetas(String path) throws Exception {
         cp.CargarPlanetas(path, cg);
         /*ArrayList<String> sa = cp.consultarPlanetas();
