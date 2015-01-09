@@ -77,7 +77,7 @@ public class DriverGalaxia {
 				+ "- Opcion 12: consultarPlaneta(String idPlaneta)                    		    \n"
 	            + "- Opcion 13: algunPlaneta()												    \n"
 				
-				+ "- Opcion 14: CrearPlaneta(String, x, y, coste)  								\n"
+				+ "- Opcion 14: CrearPlaneta(String, x, y)  								    \n"
 				+ "- Opcion 15: CrearPlanetaAutomatic(String idPlaneta) 					    \n"
 				+ "- Opcion 16: PlanetaAuto()  												    \n"
 				
@@ -370,7 +370,8 @@ public class DriverGalaxia {
     		if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
     		if(g.algunPlaneta()) {
 		    	g.eliminarTotsPlanetes();
-		    	cp.BorrarTodos(); // no saca excepcion si no hay planetas
+		    	ArrayList<String> pla = cp.consultarPlanetas();
+		    	for(String p : pla) cp.BorraPla(p);
     		}
     	}
     	catch(Exception e) {
