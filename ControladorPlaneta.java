@@ -1,7 +1,3 @@
-/**
- *
- * @author Moha
- */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
@@ -123,7 +119,7 @@ public class ControladorPlaneta {
     {
         if(!alfa_numeric(id)) throw new Exception("El nombre de un Planeta tiene que ser alfanumerico");
         if(ExistePlaneta(id)) throw new Exception("Ya existe un planeta co este identificador");
-        if(k > 10000) throw new Exception("Coste demasiado elevado");
+        if(k > 1000) throw new Exception("Coste demasiado elevado");
         
         cg.afegirPlaneta(Coo.consultarPrimero(), Coo.consultarSegundo());
         Planeta p = new Planeta (id, k, Coo);
@@ -192,6 +188,7 @@ public class ControladorPlaneta {
     //Post: Modifica el coste del planeta.
     public void Modificar_Coste(String id, int k) throws Exception 
     {
+    	if(k > 1000) throw new Exception("Coste demasiado elevado");
         BuscarPlaneta(id).Modificar_Coste(k);
     }
     
@@ -212,6 +209,7 @@ public class ControladorPlaneta {
     	cg.eliminarPlaneta(c1, c2);
     	a.modificarCoordenades(x, y);
     }
+    
     //Pre: Cierto.
     //Post: Borra el planeta.
     public void Borrar(String id, ControladorRuta cr, ControladorNave cn, ControladorGalaxia cg) throws Exception 
