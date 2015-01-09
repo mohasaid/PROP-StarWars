@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ControladorVistaGalaxia {
-	private ControladorGalaxia cGalaxia;
-	private VistaGalaxia vg;
+	private final ControladorGalaxia cGalaxia;
+	private final VistaGalaxia vg;
 	
 	ControladorVistaGalaxia()
 	{
@@ -60,10 +60,10 @@ public class ControladorVistaGalaxia {
 	{
             int limit = Integer.parseInt(n);
 
-            List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
+            List<Pair<Integer, Integer> > pa1 = new ArrayList<>();
             Scanner sca = new Scanner(limits);
             sca.useDelimiter(",");
-            String info = "";
+            String info;
 
             info = sca.next();
             int pa_1 = Integer.parseInt(info);
@@ -71,7 +71,7 @@ public class ControladorVistaGalaxia {
             info = sca.next();
             int pa_2 = Integer.parseInt(info);
             if(pa_2 > limit || pa_2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
-            Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_1,pa_2);
+            Pair<Integer, Integer> primero = new Pair<>(pa_1,pa_2);
             pa1.add(primero);  
                 
             info = sca.next();
@@ -90,7 +90,7 @@ public class ControladorVistaGalaxia {
                 int seg = pa1.get(size-1).consultarSegundo();
 
                 if((((l1+1) == prim) || ((l1-1) == prim) || (l1 == prim)) && (((l2+1) == seg) || ((l2-1) == seg) || (l2 == seg))) {
-                Pair<Integer, Integer> pa = new Pair<Integer, Integer>(l1, l2);
+                Pair<Integer, Integer> pa = new Pair<>(l1, l2);
                 pa1.add(pa);
                 }
                 else throw new Exception("Las coordenadas no son secuenciales");
@@ -132,11 +132,10 @@ public class ControladorVistaGalaxia {
                     res += cGalaxia.consultarLimitsGalaxia(i);
                     i += 100;
             }
-            //else throw new Exception("La galaxia no tiene forma");
             String resultat = "";
             Scanner sca = new Scanner(res);
             sca.useDelimiter("#|,");
-            String info = "";
+            String info;
             if(sca.hasNext()) resultat += sca.next();
             while(sca.hasNext()) {
                     info = sca.next();
@@ -167,7 +166,7 @@ public class ControladorVistaGalaxia {
 	{
             int x1 = Integer.parseInt(x);
             int y1 = Integer.parseInt(y);
-            boolean b = false;
+            boolean b;
             if(cGalaxia.consultarNombreLimits() > 0) {
                 b = cGalaxia.dintreLimitUsuari(x1, y1);
             }
@@ -190,10 +189,10 @@ public class ControladorVistaGalaxia {
 	
 	public void modificarLimits(String limits) throws Exception
 	{
-            List<Pair<Integer, Integer> > pa1 = new ArrayList<Pair<Integer, Integer> >();
+            List<Pair<Integer, Integer> > pa1 = new ArrayList<>();
             Scanner sca = new Scanner(limits);
             sca.useDelimiter(",");
-            String info = "";
+            String info;
 
             info = sca.next();
             int pa_1 = Integer.parseInt(info);
@@ -201,7 +200,7 @@ public class ControladorVistaGalaxia {
             info = sca.next();
             int pa_2 = Integer.parseInt(info);
             if(pa_2 > cGalaxia.consultarLimit() || pa_2 < 0) throw new Exception("Las coordenadas no pueden ser ni mayores que el limite maximo de la galaxia ni menores que 0");
-            Pair<Integer, Integer> primero = new Pair<Integer,Integer>(pa_1,pa_2);
+            Pair<Integer, Integer> primero = new Pair<>(pa_1,pa_2);
             pa1.add(primero);
 
             info = sca.next();
@@ -220,7 +219,7 @@ public class ControladorVistaGalaxia {
                 int seg = pa1.get(size-1).consultarSegundo();
 
                 if((((l1+1) == prim) || ((l1-1) == prim) || (l1 == prim)) && (((l2+1) == seg) || ((l2-1) == seg) || (l2 == seg))){
-                Pair<Integer, Integer> pa = new Pair<Integer, Integer>(l1, l2);
+                Pair<Integer, Integer> pa = new Pair<>(l1, l2);
                 pa1.add(pa);
                 }
                 else throw new Exception("Las coordenadas no son secuenciales");
