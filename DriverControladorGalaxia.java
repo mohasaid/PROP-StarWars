@@ -309,6 +309,7 @@ public class DriverControladorGalaxia {
 			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			int coste = cin.nextInt();
+			if(coste > 10000) throw new Exception("Coste demasiado elevado");
 			int x = cin.nextInt();
 			int y = cin.nextInt();
 			Pair<Integer, Integer> co = new Pair<Integer, Integer>(x,y);
@@ -327,7 +328,7 @@ public class DriverControladorGalaxia {
 			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			String idPlaneta = cin.next();
 			Random rand = new Random();
-	    	int coste = rand.nextInt((Integer.MAX_VALUE - 0) + 1); 
+	    	int coste = rand.nextInt(1000); 
 	    	
 	    	String a11 = cGalaxia.afegirPlanetaAutomatic();
 			Scanner sc = new Scanner(a11);
@@ -350,7 +351,7 @@ public class DriverControladorGalaxia {
 		try {
 			if(!creado) throw new Exception("Error: todavia no se ha creado ninguna galaxia");
 			Random rand = new Random();
-	    	int capacidad = rand.nextInt(Integer.MAX_VALUE-1);
+	    	int coste = rand.nextInt(1000);
 	    	String nom = "Planeta";
 			int id = 0;
 			String seg = Integer.toString(id);
@@ -366,7 +367,7 @@ public class DriverControladorGalaxia {
 			Integer a1 = sc.nextInt();
 			Integer a2 = sc.nextInt();
 			Pair<Integer, Integer> pa = new Pair<Integer, Integer>(a1,a2);
-	        Planeta p = new Planeta(f, capacidad, pa);
+	        Planeta p = new Planeta(f, coste, pa);
 	        
 	        cp.anadirPlaneta(p);
 	        sc.close();
