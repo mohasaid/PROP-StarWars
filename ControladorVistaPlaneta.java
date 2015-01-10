@@ -89,7 +89,8 @@ class ControladorVistaPlaneta {
         int j=0;
         while(i<aux.size() && j<100){
             String a = aux.get(i);
-            res.add(a);
+            String ad = a + "  (" + Integer.toString(cp.consultar_X(a)) + "," + Integer.toString(cp.consultar_Y(a)) +")"; 
+            res.add(ad);
             ++j;
             ++i;
         }
