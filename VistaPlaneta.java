@@ -185,15 +185,22 @@ public class VistaPlaneta extends PrimerNivel {
               if (index >= 0) { 
                 String n = listaScroll2.getModel().getElementAt(index);
                 
-                try { 
-                    textfield1.setText(n);
-                    textfield2.setText(CVP.ConsultarCoste(n));
-                    textfield3.setText(CVP.ConsultarCoordenadaX(n));
-                    textfield4.setText(CVP.ConsultarCoordenadaY(n));
-                    textfield17.setText(n);
-                    textfield18.setText(CVP.ConsultarCoste(n));
-                    textfield19.setText(CVP.ConsultarCoordenadaX(n));
-                    textfield20.setText(CVP.ConsultarCoordenadaY(n));
+                try {
+                    String id = "";
+                     for(int i = 0; i < n.length(); ++i) {
+                        char c = n.charAt(i);
+                    if(!Character.isWhitespace(c)) id += c;
+                    else i = n.length();
+                    
+        }
+                    textfield1.setText(id);
+                    textfield2.setText(CVP.ConsultarCoste(id));
+                    textfield3.setText(CVP.ConsultarCoordenadaX(id));
+                    textfield4.setText(CVP.ConsultarCoordenadaY(id));
+                    textfield17.setText(id);
+                    textfield18.setText(CVP.ConsultarCoste(id));
+                    textfield19.setText(CVP.ConsultarCoordenadaX(id));
+                    textfield20.setText(CVP.ConsultarCoordenadaY(id));
                 } 
                 catch (Exception e) { 
                     Errores.setText(e.getMessage()); 
@@ -484,6 +491,7 @@ public class VistaPlaneta extends PrimerNivel {
                     if(!x.isEmpty() && !y.isEmpty()) CVP.ModificarCoordenadas(nac, x, y);
                     else if(x.isEmpty() && !y.isEmpty()) CVP.ModificarCoordenadas(nac, CVP.ConsultarCoordenadaX(nac), y);
                     else if(y.isEmpty() && !x.isEmpty()) CVP.ModificarCoordenadas(nac, x, CVP.ConsultarCoordenadaY(nac));
+                    actualiza();
                     
                 }
                 catch (Exception e) {
@@ -511,7 +519,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield1 = new JTextField();
         textfield1.setColumns(10);
         textfield1.setBounds(380, 115, 120, 30);
-        textfield1.setEnabled(false);
+        textfield1.setEditable(false);
         Consultar.add(textfield1);
         
         label2 = new JLabel("Coste :");
@@ -521,7 +529,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield2 = new JTextField();
         textfield2.setColumns(10);
         textfield2.setBounds(380, 165, 120, 30);
-        textfield2.setEnabled(false);
+        textfield2.setEditable(false);
         Consultar.add(textfield2);
         
         label3 = new JLabel("X :");
@@ -532,7 +540,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield3.setColumns(10);
         textfield3.setBounds(380, 215, 120, 30);
         Consultar.add(textfield3);
-        textfield3.setEnabled(false);
+        textfield3.setEditable(false);
         
         label3 = new JLabel("Y :");
         label3.setBounds(200, 265, 50, 30);
@@ -542,7 +550,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield4.setColumns(10);
         textfield4.setBounds(380, 265, 120, 30);
         Consultar.add(textfield4);
-        textfield4.setEnabled(false);
+        textfield4.setEditable(false);
         
         FrameGuardar = new JInternalFrame();
         FrameGuardar.setBackground(SystemColor.activeCaption);
@@ -620,6 +628,7 @@ public class VistaPlaneta extends PrimerNivel {
                     if (selectedIndex != -1) { 
                         String n = listaScroll2.getSelectedValue();
                         mlistado.removeElement(n);
+                        System.out.println(n);
                         CVP.eliminarPlaneta(n);
                         actualiza();
                     }
