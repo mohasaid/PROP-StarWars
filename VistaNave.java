@@ -548,7 +548,7 @@ public class VistaNave extends PrimerNivel{
     //MODIFICAR!
         
         PanelModificar = new JTabbedPane();
-        PanelModificar.setBackground(SystemColor.activeCaption);
+        PanelModificar.setBackground(SystemColor.control);
         Central.addTab("Modificar",PanelModificar);
         
         
@@ -699,7 +699,7 @@ public class VistaNave extends PrimerNivel{
         
         
         PanelConsultar = new JTabbedPane();
-        PanelConsultar.setBackground(SystemColor.activeCaption);
+        PanelConsultar.setBackground(SystemColor.control);
         Central.addTab("Consultar",PanelConsultar);
         
         PanelConsultarTipo = new JPanel();
