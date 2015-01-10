@@ -88,6 +88,10 @@ public class PushRelabel extends MFP {
 	}
 	
 	public void Ejecutar(Recorrido r, Salida s) {
+		
+		String t = "-- PUSH RELABEL --";    
+        s.AnadirAlgoritmo(t);
+        
 		long tiempo = System.currentTimeMillis();
 		int size = G.sizeGrafo();
 		int origen = size-2;
