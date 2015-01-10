@@ -72,7 +72,7 @@ public class PushRelabel extends MFP {
 		exceso[j] += df;
 	}
 	
-	private void Relabel(int altura[],int i) {
+	private void Relabel(int altura[],int i, boolean camino) {
 		altura[i] = Integer.MAX_VALUE;
       	int aux,aux1,v;
 		for (int j = 0; j < g_residual.sizeGrafo(i); ++j){
@@ -82,6 +82,7 @@ public class PushRelabel extends MFP {
 			aux1 = g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCapacidad();
       			if (altura[i] > altura[v] + 1 && (aux - aux1)> 0 && i != v) {
       				altura[i] = altura[v] + 1;
+                                camino = true;
       			}
 		}
 	}
@@ -99,7 +100,8 @@ public class PushRelabel extends MFP {
 		int exceso[] = new int[n];
 		Inicializar(altura, exceso, origen);
 		int aux, aux1, v;
-		boolean pushed;
+		boolean pushed, pushcamino;
+                boolean relabelcamino = false;
 			for (int i = 0; i < G.sizeGrafo(); ++i){
 				if (i != origen && i != destino && exceso[i] > 0) {
 			        LNP.add(i);
@@ -108,24 +110,27 @@ public class PushRelabel extends MFP {
 		    while (!LNP.isEmpty()) {
 		    	camino += "Iteracion " + iteracion + ":\n";
 		        	int i = LNP.poll();
-		        	camino += " => " + i;
+		        	camino += "Tratamos Nodo " + i + "\n";
 			        pushed = false;
 			        for (int j = 0; j < g_residual.sizeGrafo(i) && exceso[i] != 0; ++j) {
-			        	v = g_residual.consultarSeg(i, j);
+                                        v = g_residual.consultarSeg(i, j);
 			        	if(G.ExisteV(i, v)) aux = G.consultaPairUn(i, v).consultarPrimero().ConsultarCapacidad();
 			        	else aux = 0;
 			        	aux1 = g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCapacidad();
 			        	if (altura[i] == altura[v] + 1 && (aux - aux1) > 0 && i != v) {
-			        		Push(exceso, aux, aux1, i, v);
-		            		if(exceso[v] != 0 && v != destino && v != origen) LNP.add(v);
-			        		camino += " => " + v;
-		            		pushed = true;
+                                            Push(exceso, aux, aux1, i, v);
+                                            if(exceso[v] != 0 && v != destino && v != origen) LNP.add(v);
+                                            camino += "Push a " + v + "\n";
+                                            pushed = true;
 			        	}
 			        	if (!pushed) {
-				        	Relabel(altura,i);
+                                                camino += "El Nodo " + v + " no cumple las condiciones para el Push \n";
+				        	Relabel(altura,i,relabelcamino);
+                                                if(!relabelcamino) camino += "El Nodo " + v + " no cumple la condiciones para el Relabel \n";
+                                                else camino += "Relabel " + v +"\n";
 				        	LNP.add(i);
-				        	pushed = false;
 				        }
+                                        pushed = false;
 			        }
 			        s.AnadirCambio(camino);
 			        camino = "";
