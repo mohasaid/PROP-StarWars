@@ -30,12 +30,18 @@ public class DibujoGrafo {
                 if(i == of) {
                     g.addEdge("f"+i, orf, nodo+v);
                 }
+                else if(i == df) {
+                	g.addEdge("f"+i, def, nodo+v);
+                }
+                else if(v == of) {
+                	g.addEdge("f"+i, nodo+i,orf);
+                }
+                else if(v == df){
+                    g.addEdge("f"+i, nodo+i, def);
+                }
                 else if(v != df) {
                     String a = i +""+ v;
                     g.addEdge(a, nodo+i, nodo+v);
-                }
-                else {
-                    g.addEdge("f"+i, nodo+i, def);
                 }
             }
         }
