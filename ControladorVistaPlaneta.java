@@ -168,7 +168,6 @@ class ControladorVistaPlaneta {
             if(!Character.isWhitespace(c)) id += c;
             else i = nom.length();
         }
-        System.out.println(id);
         int x = cp.consultar_X(id);
         int y = cp.consultar_Y(id);
         vg.borraPlaneta(x, y);
