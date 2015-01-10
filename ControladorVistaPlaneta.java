@@ -68,13 +68,31 @@ class ControladorVistaPlaneta {
     }
     
     public String ConsultarCoste(String Nombre) throws Exception {
-        return Integer.toString(cp.Consultar_Coste(Nombre));
+        String id = "";
+        for(int i = 0; i < Nombre.length(); ++i) {
+            char c = Nombre.charAt(i);
+            if(!Character.isWhitespace(c)) id += c;
+            else i = Nombre.length();
+        }
+        return Integer.toString(cp.Consultar_Coste(id));
     }
     
     public String ConsultarCoordenadaX(String Nombre) throws Exception {
-        return Integer.toString(cp.consultar_X(Nombre));
+        String id = "";
+        for(int i = 0; i < Nombre.length(); ++i) {
+            char c = Nombre.charAt(i);
+            if(!Character.isWhitespace(c)) id += c;
+            else i = Nombre.length();
+        }
+        return Integer.toString(cp.consultar_X(id));
     }
     public String ConsultarCoordenadaY(String Nombre) throws Exception {
+        String id = "";
+        for(int i = 0; i < Nombre.length(); ++i) {
+            char c = Nombre.charAt(i);
+            if(!Character.isWhitespace(c)) id += c;
+            else i = Nombre.length();
+        }
         return Integer.toString(cp.consultar_Y(Nombre));
     }
     public int size() {
@@ -142,8 +160,15 @@ class ControladorVistaPlaneta {
         vg.borraPlanetas();
     }
     
-    public void eliminarPlaneta(String id) throws Exception
+    public void eliminarPlaneta(String nom) throws Exception
     {
+        String id = "";
+        for(int i = 0; i < nom.length(); ++i) {
+            char c = nom.charAt(i);
+            if(!Character.isWhitespace(c)) id += c;
+            else i = nom.length();
+        }
+        System.out.println(id);
         int x = cp.consultar_X(id);
         int y = cp.consultar_Y(id);
         vg.borraPlaneta(x, y);
