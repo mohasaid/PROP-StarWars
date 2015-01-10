@@ -16,7 +16,7 @@ public class ControladorVistaNave {
     private ControladorNave cn;
     private ControladorVistaPlaneta cvp;
     private VistaNave vn;
-
+    private ControladorPlaneta cp;
 
     public ControladorVistaNave(){
         cn = new ControladorNave();
@@ -24,6 +24,7 @@ public class ControladorVistaNave {
     }
     public void start(ControladorVistaPlaneta c){
         cvp = c;
+        cp = c.ConsultarControladorPlaneta();
     }
     public ControladorNave ConsultarControladorNave(){
         return cn;
@@ -125,7 +126,7 @@ public class ControladorVistaNave {
        return res;
    }
    public void CargarNaves(String path)throws Exception{
-       cn.CargarNaves(path);
+       cn.CargarNaves(path,cp);
    }
    public void GuardarNaves(String path)throws Exception{
        cn.GuardarNaves(path);
