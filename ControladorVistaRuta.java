@@ -1,15 +1,10 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ControladorVistaRuta {
     private ControladorRuta CR;
     private VistaRuta VR;
-
     private ControladorPlaneta CP;
-
-    private ControladorVistaPlaneta CVP;
-
     
     ControladorVistaRuta() {
         CR = new ControladorRuta();
@@ -47,8 +42,8 @@ public class ControladorVistaRuta {
 	
     public void inicialitza(ControladorVistaPlaneta cVP) {
         CP = cVP.ConsultarControladorPlaneta();
-        CVP = cVP;
     }
+    
     public ControladorRuta consultarControladorRuta(){
         return CR;
     }
@@ -56,7 +51,7 @@ public class ControladorVistaRuta {
         return VR;
     }
     
-    public  ArrayList<String> obtenerIdRutas() throws Exception 
+    public ArrayList<String> obtenerIdRutas() throws Exception 
     {
         ArrayList<String> llistat = new ArrayList<String>();		
         int i = 0;
