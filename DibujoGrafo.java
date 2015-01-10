@@ -45,10 +45,6 @@ public class DibujoGrafo {
                 }
             }
         }
-        for(int i = 0; i < g1.sizeGrafo(of); ++i) {
-            int v = g1.consultarSeg(of, i);
-            g.addEdge("ff"+i,orf,nodo+v);
-        }
     }
    
     public Graph<String, String> consultaGrafo()
