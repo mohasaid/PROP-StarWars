@@ -12,7 +12,6 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import org.apache.commons.collections15.Transformer;
 
-
 public class VistaMFP extends PrimerNivel {
     private ControladorVistaMFP cvMFP;
     boolean EJECUTADO = false;
@@ -196,7 +195,7 @@ public class VistaMFP extends PrimerNivel {
        
         final JTextArea TA = new JTextArea(); 
         TA.setEnabled(true);
-        TA.setEditable(true);
+        TA.setEditable(false);
         TA.setBounds(50, 50, 600, 370);
         JScrollPane Sal = new JScrollPane(TA);
         Sal.setBounds(50, 50, 600, 300);
