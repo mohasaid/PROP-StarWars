@@ -12,7 +12,6 @@ import javax.swing.border.BevelBorder;
  
 public class VistaNave extends PrimerNivel{
 
-    
     //Componentes vista
     private int i;
     private int j;
@@ -26,9 +25,6 @@ public class VistaNave extends PrimerNivel{
     private JComboBox<String> CB;
     private JComboBox<String> CBTipo;
 
-
-
-    
     //Paneles
     private JTabbedPane PanelCreacion;
     private JTabbedPane PanelModificar;
@@ -67,20 +63,13 @@ public class VistaNave extends PrimerNivel{
     //Listas
     private JList<String> listaScroll1;
     private JList<String> listaScroll2;
-    private JList<String> listaScroll3;
-    
     
     //RadioButton
     private JRadioButton T1;
-    private JRadioButton T10;
     private JRadioButton T2;
     private JRadioButton T3;
     private JRadioButton T4;
     private JRadioButton T5;
-    private JRadioButton T6;
-    private JRadioButton T7;
-    private JRadioButton T8;
-    private JRadioButton T9;
     private JRadioButton TT1;
     private JRadioButton TT2;
     private JRadioButton TT3;
@@ -187,7 +176,7 @@ public class VistaNave extends PrimerNivel{
         }
     public VistaNave(ControladorVistaNave ControladorVN) {
    
-    Central = new JTabbedPane();
+    	Central = new JTabbedPane();
 
         i=0;
         j=100;
@@ -263,14 +252,12 @@ public class VistaNave extends PrimerNivel{
         }); 
         
         Central = new JTabbedPane(JTabbedPane.TOP);
-        Central.setBackground(SystemColor.activeCaption);
+        Central.setBackground(SystemColor.control);
         Central.setBounds(0, 0, 700, 460);
-        
-        
         
     //CREACION
         PanelCreacion = new JTabbedPane();
-        PanelCreacion.setBackground(SystemColor.activeCaption);
+        PanelCreacion.setBackground(SystemColor.control);
         Central.addTab("Crear",PanelCreacion);
     
     //CREACION TIPO
@@ -278,9 +265,6 @@ public class VistaNave extends PrimerNivel{
         PanelCrearTipo.setBackground(SystemColor.activeCaption);
         PanelCrearTipo.setLayout(null);
         PanelCreacion.addTab("TipoNave",PanelCrearTipo);
-        
-        
-        
         
     //TIPO MANUAL    
         ManAutoTipo = new ButtonGroup();
@@ -322,8 +306,6 @@ public class VistaNave extends PrimerNivel{
         label2 = new JLabel("Tipo de nave: ");
         label2.setBounds(250, 175, 200, 25);
         PanelCrearTipo.add(label2);
-        
-        
         
         //RadioButtons Tipo:
         T1 = new JRadioButton();
