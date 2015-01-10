@@ -628,7 +628,6 @@ public class VistaPlaneta extends PrimerNivel {
                     if (selectedIndex != -1) { 
                         String n = listaScroll2.getSelectedValue();
                         mlistado.removeElement(n);
-                        System.out.println(n);
                         CVP.eliminarPlaneta(n);
                         actualiza();
                     }
