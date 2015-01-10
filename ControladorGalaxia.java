@@ -206,7 +206,7 @@ public class ControladorGalaxia
     }
     
     /**
-     * Metodo para transformar los elementos de una galaxia en un grafo
+     * Metodo para transformar los elementos de una galaxia en un grafo, con las listas de adyacencia de cada vertice ordenadas por coste
      * @param cr
      * @param cp
      * @param cn
