@@ -499,7 +499,7 @@ public class ControladorNave{
 				 * @param path
 				 * @throws Exception
 				 */
-				public void CargarNaves(String path) throws Exception {
+				public void CargarNaves(String path, ControladorPlaneta cp) throws Exception {
 				EliminarNaves();			        
 				String res; 
 			        Cdn.AbrirLectura(path);
@@ -513,7 +513,9 @@ public class ControladorNave{
 			            while (sc.hasNext()) {
 			                    String id = s;
 			                    String origen = sc.next();
+			                    if(!cp.ExistePlaneta(origen)) throw new Exception("No existe el planeta " + origen + ".");
 			                    String destino = sc.next();
+			                    if(!cp.ExistePlaneta(destino)) throw new Exception("No existe el planeta " + destino + ".");
 			                    s = sc.next();
 			                    int tipo = Integer.parseInt(s);
 			                    s = sc.next();
@@ -602,6 +604,7 @@ public class ControladorNave{
                                 TipoNave4.Desdefinir();
                                 TipoNave5.Desdefinir();
                             }
+                            
 			    public void BorraNavesDestinoOrigen(String id) throws Exception{
 			    	for(Nave n: listaNaves.MostrarElementos()){
 			    		if(n.consultar_destino().compareTo(id) == 0 || n.consultar_origen().compareTo(id) == 0) EliminarNave(n.consultar_id());
