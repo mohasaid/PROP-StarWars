@@ -626,7 +626,6 @@ public class VistaPlaneta extends PrimerNivel {
                     Errores.setText(e.getMessage());
                 }
                 actualiza();
-                Errores.setText("Se ha cargado el archivo " + path);
             }
             };
             worker.start(); 
