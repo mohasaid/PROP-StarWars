@@ -67,12 +67,14 @@ public class ControladorMFP {
             s.EliminarCaminos();
             s.EliminarCuellos();
 
+            //s = new Salida();
+
             alg.Ejecutar(r, s);
             
             r = new BFS();
 
             if(fc instanceof FuncionPrecio || fc instanceof FuncionDistancia) r = new Dijkstra(); // en caso de coste hacer que el recorrido sea un DIJKSTRA
-            
+
             ArrayList<String> pla = cp.consultarPlanetas();
 
             Grafo g_res = alg.consultaResidual();
@@ -84,15 +86,15 @@ public class ControladorMFP {
             int tam = g_res.sizeGrafo();
             
             if(alg instanceof FordFulkerson) transformaSalida(pla,tam);
-
+            if(alg instanceof PushRelabel) SalidaParcialPushRelabel(pla, tam);
+            
             String way = "";
             String parcial = "";
-            
             for(int in = 0; in < paor.size(); ++in) {
                 String orig = paor.get(in).consultarSegundo().consultarPrimero();
                 String dest = paor.get(in).consultarSegundo().consultarSegundo();
                 int naves = paor.get(in).consultarPrimero();
-                int a[] = s.Caminos(g_res,naves, orig, dest,r, pla);
+                int a[] = s.Caminos(g_res,naves, orig, dest, (fc instanceof FuncionPrecio), r, pla);
                 while(a[tam] != 0 && paor.get(in).consultarPrimero() > 0) { // mientras haya naves disponibles y capacidad
                     int num = paor.get(in).consultarPrimero();
                     int n_final = num;
@@ -118,10 +120,10 @@ public class ControladorMFP {
                     parcial = "";
                     way = "";
                     int naus = paor.get(in).consultarPrimero();
-                    a = s.Caminos(g_res, naus, orig, dest, r, pla);
+                    a = s.Caminos(g_res, naus, orig, dest, (fc instanceof FuncionPrecio), r, pla);
                 }
             }
-            
+
             boolean alguno = false;
             for(int j = 0; j < paor.size(); ++j) {
                 if(paor.get(j).consultarPrimero() > 0) {
@@ -177,6 +179,7 @@ public class ControladorMFP {
 	 * @param pl
 	 * @return
 	 */
+        
 	public String toPlanetes(String res, ArrayList<String> pl)
 	{
             String planetes = "";
@@ -242,7 +245,26 @@ public class ControladorMFP {
             planetes += tmp.pop();
             return planetes;
         }
-        
+        public void SalidaParcialPushRelabel(ArrayList<String> pla, int tam) {
+            ArrayList<String> t = s.ConsultarCambios();
+            ArrayList<String> f = new ArrayList<String>();
+            for(int i = 0; i < t.size(); ++i) {
+                String temp = t.get(i);
+                temp.replaceAll(Integer.toString(tam-1), "Destino Fantasma");
+                temp.replaceAll(Integer.toString(tam-2), "Origen Fantasma");
+                
+                 for(int j = 0; j < tam-2; ++j) {
+                    temp.replaceAll(Integer.toString(j), pla.get(j));
+                }
+                 String temp1 = "Iteracion " + i + ":\n" + temp;
+                f.add(temp1);
+            }
+            s.EliminarCambios();
+            for(int h = 0; h < f.size(); ++h) {
+                String New = f.get(h);
+                s.AnadirCambio(New);
+            }
+        }
         public void transformaSalida(ArrayList<String> pl, int tam)
         {
             ArrayList<String> t = s.ConsultarCambios();
