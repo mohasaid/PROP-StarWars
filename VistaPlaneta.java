@@ -275,6 +275,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield8 = new JTextField();
         textfield8.setBounds(130, 115, 120, 30); //Esperando
+        textfield8.setDisabledTextColor(SystemColor.desktop);
         Crear.add(textfield8);
         textfield8.setColumns(10);  //??????
         textfield8.setEnabled(false);
@@ -284,6 +285,7 @@ public class VistaPlaneta extends PrimerNivel {
         Crear.add(label2);
         
         textfield9 = new JTextField();
+        textfield9.setDisabledTextColor(SystemColor.desktop);
         textfield9.setBounds(130, 165, 120, 30); //Esperar
         Crear.add(textfield9);
         textfield9.setColumns(10);
@@ -295,6 +297,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield10 = new JTextField();
         textfield10.setBounds(130, 215, 120, 30); //Esperar
+        textfield10.setDisabledTextColor(SystemColor.desktop);
         Crear.add(textfield10);
         textfield10.setColumns(10);
         textfield10.setEnabled(false);
@@ -305,6 +308,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield11 = new JTextField();
         textfield11.setBounds(130, 265, 120, 30); //Esperar
+        textfield11.setDisabledTextColor(SystemColor.desktop);
         Crear.add(textfield11);
         textfield11.setColumns(10);
         textfield11.setEnabled(false);
@@ -414,6 +418,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield17= new JTextField();
         textfield17.setBounds(130, 115, 120, 30); //Esperando
+        textfield17.setDisabledTextColor(SystemColor.desktop);
         Modificar.add(textfield17);
         textfield17.setColumns(10);  //??????
         textfield17.setEnabled(false);
@@ -424,6 +429,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield18 = new JTextField();
         textfield18.setBounds(130, 165, 120, 30); //Esperar
+        textfield18.setDisabledTextColor(SystemColor.desktop);
         Modificar.add(textfield18);
         textfield18.setColumns(10);
         textfield18.setEnabled(false);
@@ -434,6 +440,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield19 = new JTextField();
         textfield19.setBounds(130, 215, 120, 30); //Esperar
+        textfield19.setDisabledTextColor(SystemColor.desktop);
         Modificar.add(textfield19);
         textfield19.setColumns(10);
         textfield19.setEnabled(false);
@@ -444,6 +451,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield20 = new JTextField();
         textfield20.setBounds(130, 265, 120, 30); //Esperar
+        textfield20.setDisabledTextColor(SystemColor.desktop);
         Modificar.add(textfield20);
         textfield20.setColumns(10);
         textfield20.setEnabled(false);
@@ -454,6 +462,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield5 = new JTextField();
         textfield5.setBounds(480, 165, 120, 30); //Esperar
+        textfield5.setDisabledTextColor(SystemColor.desktop);
         Modificar.add(textfield5);
         textfield5.setColumns(10);
         
@@ -464,6 +473,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield6 = new JTextField();
         textfield6.setBounds(480, 215, 120, 30); //Esperar
+        textfield6.setDisabledTextColor(SystemColor.desktop);
         Modificar.add(textfield6);
         textfield6.setColumns(10);
                 
@@ -473,6 +483,7 @@ public class VistaPlaneta extends PrimerNivel {
         
         textfield7 = new JTextField();
         textfield7.setBounds(480, 265, 120, 30); //Esperar
+        textfield7.setDisabledTextColor(SystemColor.desktop);
         Modificar.add(textfield7);
         textfield7.setColumns(10);
         
@@ -519,6 +530,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield1 = new JTextField();
         textfield1.setColumns(10);
         textfield1.setBounds(380, 115, 120, 30);
+        textfield1.setDisabledTextColor(SystemColor.desktop);
         textfield1.setEditable(false);
         Consultar.add(textfield1);
         
@@ -529,6 +541,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield2 = new JTextField();
         textfield2.setColumns(10);
         textfield2.setBounds(380, 165, 120, 30);
+        textfield2.setDisabledTextColor(SystemColor.desktop);
         textfield2.setEditable(false);
         Consultar.add(textfield2);
         
@@ -539,6 +552,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield3 = new JTextField();
         textfield3.setColumns(10);
         textfield3.setBounds(380, 215, 120, 30);
+        textfield3.setDisabledTextColor(SystemColor.desktop);
         Consultar.add(textfield3);
         textfield3.setEditable(false);
         
@@ -549,6 +563,7 @@ public class VistaPlaneta extends PrimerNivel {
         textfield4 = new JTextField();
         textfield4.setColumns(10);
         textfield4.setBounds(380, 265, 120, 30);
+        textfield4.setDisabledTextColor(SystemColor.desktop);
         Consultar.add(textfield4);
         textfield4.setEditable(false);
         
