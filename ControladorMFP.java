@@ -67,14 +67,12 @@ public class ControladorMFP {
             s.EliminarCaminos();
             s.EliminarCuellos();
 
-            //s = new Salida();
-
             alg.Ejecutar(r, s);
             
             r = new BFS();
 
             if(fc instanceof FuncionPrecio || fc instanceof FuncionDistancia) r = new Dijkstra(); // en caso de coste hacer que el recorrido sea un DIJKSTRA
-
+            
             ArrayList<String> pla = cp.consultarPlanetas();
 
             Grafo g_res = alg.consultaResidual();
@@ -87,14 +85,15 @@ public class ControladorMFP {
             
             if(alg instanceof FordFulkerson) transformaSalida(pla,tam);
             if(alg instanceof PushRelabel) SalidaParcialPushRelabel(pla, tam);
-            
+
             String way = "";
             String parcial = "";
+            
             for(int in = 0; in < paor.size(); ++in) {
                 String orig = paor.get(in).consultarSegundo().consultarPrimero();
                 String dest = paor.get(in).consultarSegundo().consultarSegundo();
                 int naves = paor.get(in).consultarPrimero();
-                int a[] = s.Caminos(g_res,naves, orig, dest, (fc instanceof FuncionPrecio), r, pla);
+                int a[] = s.Caminos(g_res,naves, orig, dest,r, pla);
                 while(a[tam] != 0 && paor.get(in).consultarPrimero() > 0) { // mientras haya naves disponibles y capacidad
                     int num = paor.get(in).consultarPrimero();
                     int n_final = num;
@@ -120,10 +119,10 @@ public class ControladorMFP {
                     parcial = "";
                     way = "";
                     int naus = paor.get(in).consultarPrimero();
-                    a = s.Caminos(g_res, naus, orig, dest, (fc instanceof FuncionPrecio), r, pla);
+                    a = s.Caminos(g_res, naus, orig, dest, r, pla);
                 }
             }
-
+            
             boolean alguno = false;
             for(int j = 0; j < paor.size(); ++j) {
                 if(paor.get(j).consultarPrimero() > 0) {
@@ -179,92 +178,93 @@ public class ControladorMFP {
 	 * @param pl
 	 * @return
 	 */
-        
 	public String toPlanetes(String res, ArrayList<String> pl)
 	{
-            String planetes = "";
-            Scanner sca = new Scanner(res);
-            sca.useDelimiter("<=");
-            String a;
-            int pos;
-            Stack<String> tmp = new Stack<String>();
-            while(sca.hasNext()) {
-                pos = Integer.parseInt(sca.next());
-                a = pl.get(pos);
-                tmp.add(a);
-            }
-            sca.close();
-            while(tmp.size() > 1) {
-                planetes += tmp.pop() + " => ";
-            }
-            planetes += tmp.pop();
-            return planetes;
+        String planetes = "";
+        Scanner sca = new Scanner(res);
+        sca.useDelimiter("<=");
+        String a;
+        int pos;
+        Stack<String> tmp = new Stack<String>();
+        while(sca.hasNext()) {
+            pos = Integer.parseInt(sca.next());
+            a = pl.get(pos);
+            tmp.add(a);
+        }
+        sca.close();
+        while(tmp.size() > 1) {
+            planetes += tmp.pop() + " => ";
+        }
+        planetes += tmp.pop();
+        return planetes;
 	}
 	
 	//Funciones de coste
 	public void SeleccionarFC(int x, ControladorGalaxia cg, ControladorRuta cr, ControladorPlaneta cp, ControladorNave cn) throws Exception
 	{
-            if(x==1) fc = new FuncionFlujo();
-            if(x==2) fc = new FuncionDistancia();
-            if(x==3) fc = new FuncionPrecio();
-            FuncionElegida = true;
-            e = cg.transformaGrafo(cr,cp,cn,fc);
+        if(x==1) fc = new FuncionFlujo();
+        if(x==2) fc = new FuncionDistancia();
+        if(x==3) fc = new FuncionPrecio();
+        FuncionElegida = true;
+        e = cg.transformaGrafo(cr,cp,cn,fc);
 	}
 	
 //OPERACIONES SALIDA
 	public void Inicializar1()
 	{
-            itF = (s.ConsultarCaminos()).iterator();
-            itCB = (s.ConsultarCuellos()).iterator();
+        itF = (s.ConsultarCaminos()).iterator();
+        itCB = (s.ConsultarCuellos()).iterator();
 	}
 	
 	public void Inicializar2()
 	{
-            itC = (s.ConsultarCambios()).iterator();
+        itC = (s.ConsultarCambios()).iterator();
 	}
 	
-        public String aPlanetas(String res, ArrayList<String> pl, int tam)
-        {
-            String planetes = "";
-            Scanner sca1 = new Scanner(res);
-            sca1.useDelimiter("<=");
-            String a;
-            int pos;
-            Stack<String> tmp = new Stack<String>();
-            while(sca1.hasNext()) {
-                pos = Integer.parseInt(sca1.next());
-                if(pos == (tam-2)) a = "Origen Fantasma";
-                else if(pos == (tam-1)) a = "Destino Fantasma";
-                else a = pl.get(pos);
-                tmp.add(a);
-            }
-            sca1.close();
-            while(tmp.size() > 1) {
-                planetes += tmp.pop() + " => ";
-            }
-            planetes += tmp.pop();
-            return planetes;
+    public String aPlanetas(String res, ArrayList<String> pl, int tam)
+    {
+        String planetes = "";
+        Scanner sca1 = new Scanner(res);
+        sca1.useDelimiter("<=");
+        String a;
+        int pos;
+        Stack<String> tmp = new Stack<String>();
+        while(sca1.hasNext()) {
+            pos = Integer.parseInt(sca1.next());
+            if(pos == (tam-2)) a = "Origen Fantasma";
+            else if(pos == (tam-1)) a = "Destino Fantasma";
+            else a = pl.get(pos);
+            tmp.add(a);
         }
-        public void SalidaParcialPushRelabel(ArrayList<String> pla, int tam) {
-            ArrayList<String> t = s.ConsultarCambios();
-            ArrayList<String> f = new ArrayList<String>();
-            for(int i = 0; i < t.size(); ++i) {
-                String temp = t.get(i);
-                temp.replaceAll(Integer.toString(tam-1), "Destino Fantasma");
-                temp.replaceAll(Integer.toString(tam-2), "Origen Fantasma");
-                
-                 for(int j = 0; j < tam-2; ++j) {
-                    temp.replaceAll(Integer.toString(j), pla.get(j));
-                }
-                 String temp1 = "Iteracion " + i + ":\n" + temp;
-                f.add(temp1);
-            }
-            s.EliminarCambios();
-            for(int h = 0; h < f.size(); ++h) {
-                String New = f.get(h);
-                s.AnadirCambio(New);
-            }
+        sca1.close();
+        while(tmp.size() > 1) {
+            planetes += tmp.pop() + " => ";
         }
+        planetes += tmp.pop();
+        return planetes;
+    }
+    
+    public void SalidaParcialPushRelabel(ArrayList<String> pla, int tam) 
+    {
+        ArrayList<String> t = s.ConsultarCambios();
+        ArrayList<String> f = new ArrayList<String>();
+        for(int i = 0; i < t.size(); ++i) {
+            String temp = t.get(i);
+            temp = temp.replaceAll(String.valueOf(tam-1), "Destino Fantasma");
+            temp = temp.replaceAll(String.valueOf(tam-2), "Origen Fantasma");
+            for(int j = 0; j < tam-2; ++j) {
+                temp = temp.replaceAll(String.valueOf(j), pla.get(j));
+            }
+            String temp1 = "Iteracion " + i + ":\n" + temp;
+            f.add(temp1);
+        }
+        s.EliminarCambios();
+        for(int h = 0; h < f.size(); ++h) {
+            String New = f.get(h);
+            s.AnadirCambio(New);
+        }
+    }
+        
         public void transformaSalida(ArrayList<String> pl, int tam)
         {
             ArrayList<String> t = s.ConsultarCambios();
