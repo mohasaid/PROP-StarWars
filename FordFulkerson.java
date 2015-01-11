@@ -99,25 +99,25 @@ public class FordFulkerson extends MFP {
 		int max_flow = 0;
 		String camino = ""; // Contiene el camino en orden inverso
 		while(r.Recorrido(g_residual,origen,destino,path)) {
-                    int pathflow = arist;
-                    camino += destino;
-                    for(v = destino; v != origen; v = path[v]) {
-                        u = path[v];
-                        camino += "<=" + u;
-                        pathflow = Math.min(pathflow, g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
-                    }
-                    for(v = destino; v != origen; v = path[v]) {
-                        u = path[v];
-                        int tmp = g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
-                        tmp = tmp - pathflow;
-                        g_residual.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(tmp);
-                        int tmp1 = g_residual.consultaPairUn(v, u).consultarPrimero().ConsultarCapacidad();
-                        tmp1 = tmp1 + pathflow;
-                        g_residual.consultaPairUn(v, u).consultarPrimero().ModificarCapacidad(tmp1);
-                    }
-                    if(pathflow != arist) max_flow = max_flow + pathflow;
-                    s.AnadirCambio(camino);
-                    camino = "";
+	        int pathflow = arist;
+	        camino += destino;
+	        for(v = destino; v != origen; v = path[v]) {
+	            u = path[v];
+	            camino += "<=" + u;
+	            pathflow = Math.min(pathflow, g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad());
+	        }
+	        for(v = destino; v != origen; v = path[v]) {
+	            u = path[v];
+	            int tmp = g_residual.consultaPairUn(u, v).consultarPrimero().ConsultarCapacidad();
+	            tmp = tmp - pathflow;
+	            g_residual.consultaPairUn(u, v).consultarPrimero().ModificarCapacidad(tmp);
+	            int tmp1 = g_residual.consultaPairUn(v, u).consultarPrimero().ConsultarCapacidad();
+	            tmp1 = tmp1 + pathflow;
+	            g_residual.consultaPairUn(v, u).consultarPrimero().ModificarCapacidad(tmp1);
+	        }
+	        if(pathflow != arist) max_flow = max_flow + pathflow;
+	        s.AnadirCambio(camino);
+	        camino = "";
 		}
 		s.AnadirMax_flow(max_flow);
 		
