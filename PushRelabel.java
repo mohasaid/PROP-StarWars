@@ -102,8 +102,13 @@ public class PushRelabel extends MFP {
 		}
 	}
 	
-	public void Ejecutar(Recorrido r, Salida s) {
+	public void Ejecutar(Recorrido r, Salida s) 
+	{
 		long tiempo = System.currentTimeMillis();
+		
+		String t = "-- PUSH RELABEL --";    
+		s.AnadirAlgoritmo(t);
+		
 		int size = G.sizeGrafo();
 		int origen = size-2;
 		int destino = size-1;
@@ -123,9 +128,8 @@ public class PushRelabel extends MFP {
 				}
 			}
 		    while (!LNP.isEmpty()) {
-		    	
 		        	int i = LNP.poll();
-		        	camino += " ---   Tratamos " + i + "   ---\n";
+		        	camino += " --- Tratamos " + i + " ---\n";
 			        pushed = false;
 			        for (int j = 0; j < g_residual.sizeGrafo(i) && exceso[i] != 0; ++j) {
 			        	v = g_residual.consultarSeg(i, j);
@@ -140,7 +144,7 @@ public class PushRelabel extends MFP {
 			        	}
 			        	if (!pushed) {
 				        	Relabel(altura,i,relabelcamino);
-                                                if(relabelcamino) camino += " Relabel de " + v +"\n";
+                            if(relabelcamino) camino += " Relabel de " + v +"\n";
 				        	LNP.add(i);
 				        	
 				        }
@@ -149,6 +153,7 @@ public class PushRelabel extends MFP {
 			        s.AnadirCambio(camino);
 			        camino = "";
 		      	}
+		    
 		s.AnadirMax_flow(exceso[destino]);
 		long tiempo1 = System.currentTimeMillis() - tiempo;
 		s.AnadirTiempo(tiempo1);
