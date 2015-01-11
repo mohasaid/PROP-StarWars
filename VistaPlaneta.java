@@ -621,11 +621,12 @@ public class VistaPlaneta extends PrimerNivel {
                     Errores.setText("Cargando planetas...");
                     CVP.CargarPlanetas(path);
                     Errores.setText("Se ha cargado el archivo " + path); 
-                     }
+                 }
                 catch(Exception e){
                     Errores.setText(e.getMessage());
                 }
                 actualiza();
+                Errores.setText("Se ha cargado el archivo " + path);
             }
             };
             worker.start(); 
