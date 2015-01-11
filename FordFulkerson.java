@@ -16,78 +16,77 @@ public class FordFulkerson extends MFP {
 	public void g_residual(int size) {
 	    ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
 	    for(int i = 0; i < size; ++i) {
-	            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
-	            ar.add(ad);
+            ArrayList<Pair<Arco,Integer> > ad = new ArrayList<Pair<Arco,Integer> >();
+            ar.add(ad);
 	    }
 	    g_residual = new Grafo(ar);
 	    int v;
 	    boolean insert = false;
 	    for(int i = 0; i < G.sizeGrafo(); ++i) {
-	            for (int j = 0; j < G.sizeGrafo(i); ++j) {
-	                    v = G.consultarSeg(i, j);
-	                    Arco a = new Arco();
-	                    a.ModificarCoste(G.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
-	                    a.ModificarCapacidad(G.consultaPairUn(i, v).consultarPrimero().ConsultarCapacidad());
-	                    Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
-	                    if (g_residual.consultarCosteDestinos(i).isEmpty()) g_residual.consultarCosteDestinos(i).add(p);
-	                    else {
-	                            for(int h = 0; h < g_residual.consultarCosteDestinos(i).size() && !insert; ++h) {
-	                                    if (g_residual.consultarCosteDestinos(i).get(h).consultarPrimero().ConsultarCoste() >= a.ConsultarCoste()) {
-	                                            g_residual.consultarCosteDestinos(i).add(h, p);
-	                                            insert = true;
-	                                    }
-	                            }
-	                            if(!insert) g_residual.consultarCosteDestinos(i).add(p);
-	                            insert = false;
-	                    }
-	            }
+            for (int j = 0; j < G.sizeGrafo(i); ++j) {
+                v = G.consultarSeg(i, j);
+                Arco a = new Arco();
+                a.ModificarCoste(G.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
+                a.ModificarCapacidad(G.consultaPairUn(i, v).consultarPrimero().ConsultarCapacidad());
+                Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
+                if (g_residual.consultarCosteDestinos(i).isEmpty()) g_residual.consultarCosteDestinos(i).add(p);
+                else {
+	                for(int h = 0; h < g_residual.consultarCosteDestinos(i).size() && !insert; ++h) {
+                        if (g_residual.consultarCosteDestinos(i).get(h).consultarPrimero().ConsultarCoste() >= a.ConsultarCoste()) {
+                            g_residual.consultarCosteDestinos(i).add(h, p);
+                            insert = true;
+                        }
+	                }
+	                if(!insert) g_residual.consultarCosteDestinos(i).add(p);
+	                insert = false;
+                }
+            }
 	    }
 	    for(int i = 0; i < G.sizeGrafo(); ++i) {
-	            for (int j = 0; j < G.sizeGrafo(i); ++j) {
-	                    v = G.consultarSeg(i, j);
-	                    if(!g_residual.ExisteV(v, i)) {
-	                            Arco a = new Arco();
-	                            Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,i);
-	                            g_residual.consultarCosteDestinos(v).add(p);
-	                    }
-	            }
+            for (int j = 0; j < G.sizeGrafo(i); ++j) {
+                v = G.consultarSeg(i, j);
+                if(!g_residual.ExisteV(v, i)) {
+                    Arco a = new Arco();
+                    Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,i);
+                    g_residual.consultarCosteDestinos(v).add(p);
+                }
+            }
 	    }
 	}
 	
 	public void updateGraph(int size) // quito las retroactivas pero no los virtuales
 	{
-            ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
+        ArrayList<ArrayList<Pair<Arco,Integer> > > ar = new ArrayList<ArrayList<Pair<Arco,Integer> > > ();
 	    for(int i = 0; i < size; ++i) {
-	            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
-	            ar.add(ad);
+            ArrayList<Pair<Arco,Integer> >  ad = new ArrayList<Pair<Arco,Integer> >();
+            ar.add(ad);
 	    }
-            Grafo parcial = new Grafo(ar);
-            int v;
-            for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
-                for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
-                    v = g_residual.consultarSeg(i, j);
-                    if(G.ExisteV(i, v)) {
-                        Arco a = new Arco();
-                        a.ModificarCoste(g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
-                        a.ModificarCapacidad(g_residual.consultaPairUn(v, i).consultarPrimero().ConsultarCapacidad());
-                        Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
-                        parcial.consultarCosteDestinos(i).add(p);
-                    }
-                }
-            }
-            g_residual = parcial;
+        Grafo parcial = new Grafo(ar);
+        int v;
+        for(int i = 0; i < g_residual.sizeGrafo(); ++i) {
+	        for(int j = 0; j < g_residual.sizeGrafo(i); ++j) {
+	            v = g_residual.consultarSeg(i, j);
+	            if(G.ExisteV(i, v)) {
+	            	Arco a = new Arco();
+	                a.ModificarCoste(g_residual.consultaPairUn(i, v).consultarPrimero().ConsultarCoste());
+	                a.ModificarCapacidad(g_residual.consultaPairUn(v, i).consultarPrimero().ConsultarCapacidad());
+	                Pair<Arco,Integer> p = new Pair<Arco,Integer>(a,v);
+	                parcial.consultarCosteDestinos(i).add(p);
+	            }
+	        }
+        }
+        g_residual = parcial;
 	}
 	
 	public void Ejecutar(Recorrido r, Salida s)
 	{
-                String t = "";
-                if(r instanceof BFS) t = "-- FORD FULKERSON + BFS --";    
-                if(r instanceof Dijkstra) t = "-- FORD FULKERSON + DIJKSTRA --";
-                s.AnadirAlgoritmo(t);
-                
-		// CONSULTAR TIEMPO
 		long timeMillis = System.currentTimeMillis();
 		
+        String t = "";
+        if(r instanceof BFS) t = "-- FORD FULKERSON + BFS --";    
+        if(r instanceof Dijkstra) t = "-- FORD FULKERSON + DIJKSTRA --";
+        s.AnadirAlgoritmo(t);
+                
 		int size = G.sizeGrafo();
 		
 		int origen = size-2; // nodo origen
