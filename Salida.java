@@ -96,7 +96,7 @@ public class Salida {
 	//Pre:cierto
 	//Post: devuelve el numero de elementos en Cambios
 	public int sizeCambios(){
-            return Cambios.size();
+            return Cambios.size() + 1;
 	}
 	//MODIFICADORAS
 	public void AnadirCuello(int idr){
