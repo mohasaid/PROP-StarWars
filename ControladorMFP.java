@@ -53,10 +53,10 @@ public class ControladorMFP {
             }
 	}
         
-        public Grafo consultarGrafoResidual()
-        {
-            return alg.g_residual;
-        }
+    public Grafo consultarGrafoResidual()
+    {
+        return alg.g_residual;
+    }
 	
 	public void Executa(ControladorNave cn, ControladorRuta cr, ControladorPlaneta cp) throws Exception 
 	{   
@@ -88,12 +88,13 @@ public class ControladorMFP {
 
             String way = "";
             String parcial = "";
+            int a[] = new int[tam+1];
             
             for(int in = 0; in < paor.size(); ++in) {
                 String orig = paor.get(in).consultarSegundo().consultarPrimero();
                 String dest = paor.get(in).consultarSegundo().consultarSegundo();
                 int naves = paor.get(in).consultarPrimero();
-                int a[] = s.Caminos(g_res,naves, orig, dest,r, pla);
+                a = s.Caminos(g_res,naves, orig, dest,r, pla);
                 while(a[tam] != 0 && paor.get(in).consultarPrimero() > 0) { // mientras haya naves disponibles y capacidad
                     int num = paor.get(in).consultarPrimero();
                     int n_final = num;
@@ -265,22 +266,22 @@ public class ControladorMFP {
         }
     }
         
-        public void transformaSalida(ArrayList<String> pl, int tam)
-        {
-            ArrayList<String> t = s.ConsultarCambios();
-            ArrayList<String> f = new ArrayList<String>();
-            for(int i = 0; i < t.size(); ++i) {
-                String tmp = t.get(i);
-                String tmp1 = aPlanetas(tmp,pl,tam);
-                String al = "Iteracion " + i + ":\n" + tmp1;
-                f.add(al);
-            }
-            s.EliminarCambios();
-            for(int j = 0; j < f.size(); ++j) {
-                String b = f.get(j);
-                s.AnadirCambio(b);
-            }
+    public void transformaSalida(ArrayList<String> pl, int tam)
+    {
+        ArrayList<String> t = s.ConsultarCambios();
+        ArrayList<String> f = new ArrayList<String>();
+        for(int i = 0; i < t.size(); ++i) {
+            String tmp = t.get(i);
+            String tmp1 = aPlanetas(tmp,pl,tam);
+            String al = "Iteracion " + i + ":\n" + tmp1;
+            f.add(al);
         }
+        s.EliminarCambios();
+        for(int j = 0; j < f.size(); ++j) {
+            String b = f.get(j);
+            s.AnadirCambio(b);
+        }
+    }
 	//Pre:cierto
 	//Post: devuelve el numero de elementos que conforman la salida incluyendo numero de rutas, numero de cuellos de botella y el coste
 	//Pre:cierto
