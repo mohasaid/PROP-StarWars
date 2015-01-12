@@ -1,5 +1,3 @@
-package prop;
-
 import java.util.*;
 
 public class ControladorMFP {
@@ -91,12 +89,15 @@ public class ControladorMFP {
             String way = "";
             String parcial = "";
             //int a[] = new int[tam+1];
+            boolean hay_final = false;
+            boolean ha [] = new boolean[1];
             
             for(int in = 0; in < paor.size(); ++in) {
                 String orig = paor.get(in).consultarSegundo().consultarPrimero();
                 String dest = paor.get(in).consultarSegundo().consultarSegundo();
                 int naves = paor.get(in).consultarPrimero();
-                int a[] = s.Caminos(g_res,naves, orig, dest,r, pla);
+                int a[] = s.Caminos(g_res,naves, orig, dest,r, pla, ha);
+                if(ha[0]) hay_final = true;
                 while(a[tam] != 0 && paor.get(in).consultarPrimero() > 0) { // mientras haya naves disponibles y capacidad
                     int num = paor.get(in).consultarPrimero();
                     int n_final = num;
@@ -122,7 +123,8 @@ public class ControladorMFP {
                     parcial = "";
                     way = "";
                     int naus = paor.get(in).consultarPrimero();
-                    a = s.Caminos(g_res, naus, orig, dest, r, pla);
+                    a = s.Caminos(g_res, naus, orig, dest, r, pla, ha);
+                    if(ha[0]) hay_final = true;
                 }
             }
             
@@ -134,7 +136,7 @@ public class ControladorMFP {
                 }
             }	
             // calcular los cuellos de botella si queda alguna nave
-            if(alguno) {
+            if(alguno && hay_final) {
                 int V = g_res.sizeGrafo();
                 int origen = V-2;
 
@@ -217,8 +219,8 @@ public class ControladorMFP {
 //OPERACIONES SALIDA
 	public void Inicializar1()
 	{
-        itF = (s.ConsultarCaminos()).iterator();
-        itCB = (s.ConsultarCuellos()).iterator();
+            itF = (s.ConsultarCaminos()).iterator();
+            itCB = (s.ConsultarCuellos()).iterator();
 	}
 	
 	public void Inicializar2()
@@ -291,7 +293,7 @@ public class ControladorMFP {
 	//Pre:cierto
 	//Post: devuelve un string que contiene: flujos de cada ruta, los cuellos de botella y el coste
 	public String ConsultarSalida(int i)
-	{
+	{            
             String res = "";
             int j=0;
             if(i==0){
