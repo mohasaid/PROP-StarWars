@@ -69,9 +69,8 @@ public class ControladorMFP {
 
             alg.Ejecutar(r, s);
             
-            r = new BFS();
-
             if(fc instanceof FuncionPrecio || fc instanceof FuncionDistancia) r = new Dijkstra(); // en caso de coste hacer que el recorrido sea un DIJKSTRA
+            else r = new BFS();
             
             ArrayList<String> pla = cp.consultarPlanetas();
 
