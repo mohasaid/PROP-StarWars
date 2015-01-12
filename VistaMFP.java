@@ -2,7 +2,9 @@
  *
  * @author Moha
  */
-import edu.uci.ics.jung.algorithms.layout.KKLayout;
+import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
+import edu.uci.ics.jung.visualization.renderers.Renderer.VertexLabel.Position;
+import edu.uci.ics.jung.algorithms.layout.CircleLayout;
 import edu.uci.ics.jung.algorithms.layout.Layout;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.BasicVisualizationServer;
@@ -235,7 +237,7 @@ public class VistaMFP extends PrimerNivel {
 	                dg = new DibujoGrafo(residual);
 	
 	                Graph<String, String> g = dg.consultaGrafo();
-	                Layout<String, String> layout = new KKLayout(g);
+                        Layout<String, String> layout = new CircleLayout(g);
 	                layout.setSize(new Dimension(700,360)); 
 	
 	                BasicVisualizationServer<String,String> vv = new BasicVisualizationServer<String,String>(layout);
@@ -250,15 +252,7 @@ public class VistaMFP extends PrimerNivel {
 	                        }
 	                });
 	                
-	                /*vv.getRenderContext().setEdgeLabelTransformer
-	                (
-	                    new Transformer<String, String>() {
-	                        @Override
-	                        public String transform(String nom) {
-	                            return nom;
-	                        }
-	                });*/
-	                                
+         
 	                vv.getRenderContext().setVertexFillPaintTransformer
 	                (
 	                    new Transformer<String,Paint>() {
@@ -270,8 +264,9 @@ public class VistaMFP extends PrimerNivel {
 	                    }
 	                );
 	                
-	                //vv.getRenderContext().setLabelOffset(20);
-	                
+                        vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
+                        vv.getRenderer().getVertexLabelRenderer().setPosition(Position.CNTR);
+                        
 	                vv.getRenderContext().setVertexFontTransformer
 	                (
 	                    new Transformer<String,Font>() {
