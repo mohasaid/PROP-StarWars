@@ -1,3 +1,5 @@
+package prop;
+
 import java.util.*;
 
 public class ControladorMFP {
@@ -85,16 +87,16 @@ public class ControladorMFP {
             
             if(alg instanceof FordFulkerson) transformaSalida(pla,tam);
             if(alg instanceof PushRelabel) SalidaParcialPushRelabel(pla, tam);
-
+            
             String way = "";
             String parcial = "";
-            int a[] = new int[tam+1];
+            //int a[] = new int[tam+1];
             
             for(int in = 0; in < paor.size(); ++in) {
                 String orig = paor.get(in).consultarSegundo().consultarPrimero();
                 String dest = paor.get(in).consultarSegundo().consultarSegundo();
                 int naves = paor.get(in).consultarPrimero();
-                a = s.Caminos(g_res,naves, orig, dest,r, pla);
+                int a[] = s.Caminos(g_res,naves, orig, dest,r, pla);
                 while(a[tam] != 0 && paor.get(in).consultarPrimero() > 0) { // mientras haya naves disponibles y capacidad
                     int num = paor.get(in).consultarPrimero();
                     int n_final = num;
@@ -142,7 +144,7 @@ public class ControladorMFP {
 
                 Queue<Integer> q1 = new LinkedList<Integer>();
                 q1.add(origen);
-
+                
                 while(!q1.isEmpty()) {
                     int actual = q1.poll();
                     int size = g_res.sizeGrafo(actual);
@@ -156,17 +158,19 @@ public class ControladorMFP {
                         else if(cap == 0 && !visitados[adj]) {
                             visitados[adj] = true;
                             q1.add(adj);
-                            String pa = pla.get(actual);
-                            String pb = pla.get(adj);
-                            int idr = 0;
-                            boolean trobat = false;
-                            for(int k = 0; k < con.size() && !trobat; ++k) {
-                                if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
-                                    trobat = true;
-                                    idr = con.get(k).consultar_id();
+                            if((actual != V-2) && (actual != V-1) && (adj != V-2) && (adj != V-1)) {
+                                String pa = pla.get(actual);
+                                String pb = pla.get(adj);
+                                int idr = 0;
+                                boolean trobat = false;
+                                for(int k = 0; k < con.size() && !trobat; ++k) {
+                                    if((con.get(k).consultar_planetaA().compareTo(pa) == 0) && (con.get(k).consultar_planetaB().compareTo(pb) == 0)) {
+                                        trobat = true;
+                                        idr = con.get(k).consultar_id();
+                                    }
                                 }
+                                if(trobat) s.AnadirCuello(idr);
                             }
-                            if(trobat) s.AnadirCuello(idr);
                         }
                     }
                 }
@@ -298,8 +302,8 @@ public class ControladorMFP {
             while(itF.hasNext() && j<100){
                 String aux = itF.next();
                 res += aux+"\n";
-                if(!itF.hasNext() && itCB.hasNext()) res += "Cuellos de botella en las rutas:\n";
             }
+            res += "Cuellos de botella en las rutas:\n";
             while(itCB.hasNext() && j<100){
                 res += itCB.next()+"\n";
                 ++j;
