@@ -13,7 +13,7 @@ public class ControladorVistaGalaxia {
 	ControladorVistaGalaxia()
 	{
             cGalaxia = new ControladorGalaxia();
-            vg = new VistaGalaxia(this); // paso el actual controladorvistagalaxia
+            vg = new VistaGalaxia(this);
 	}
         
         public ControladorGalaxia consultarControladorGalaxia()
