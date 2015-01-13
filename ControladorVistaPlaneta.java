@@ -132,12 +132,6 @@ class ControladorVistaPlaneta {
     
     public void CargarPlanetas(String path) throws Exception {
         cp.CargarPlanetas(path, cg);
-        /*ArrayList<String> sa = cp.consultarPlanetas();
-        for(String pl : sa) {
-            int x = cp.consultar_X(pl);
-            int y = cp.consultar_Y(pl);
-            vg.pintaPlaneta(x, y);
-        }*/
         String s = cp.Consultar_listaPlanetas();
         Scanner sca = new Scanner(s);
         sca.useDelimiter("-");
