@@ -131,11 +131,45 @@ public class VistaMFP extends PrimerNivel {
         Ejecutar.setBounds(250, 360, 200, 50);
         Crear.add(Ejecutar);
         
+        Consultar = new JPanel();
+        Consultar.setBackground(SystemColor.activeCaption);
+        Central.addTab("Salida",Consultar);
+        Consultar.setLayout(null);
+        Consultar.setBounds(0, 0, 700, 500);
+        
+        STotal = new JRadioButton("Salida Total");
+        STotal.setSelected(false);
+        STotal.setOpaque(false);
+        STotal.setBounds(100, 25, 120, 20);
+        Consultar.add(STotal);
+        
+        SParcial = new JRadioButton("Salida Parcial");
+        SParcial.setSelected(false);
+        SParcial.setOpaque(false);
+        SParcial.setBounds(230, 25, 120, 20);
+        Consultar.add(SParcial);
+        ButtonGroup gb = new ButtonGroup();
+        gb.add(STotal);
+        gb.add(SParcial);
+                
+        Mostrar = new JButton("Mostrar");
+        Mostrar.setBounds(250, 360, 200, 50);
+        Consultar.add(Mostrar);
+       
+        final JTextArea TA = new JTextArea(); 
+        TA.setEnabled(true);
+        TA.setEditable(false);
+        TA.setBounds(50, 50, 600, 370);
+        JScrollPane Sal = new JScrollPane(TA);
+        Sal.setBounds(50, 50, 600, 300);
+        Consultar.add(Sal);
+        
         Ejecutar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
             Thread worker = new Thread(){
             public void run(){  
                 try{
+                    TA.setText("");
                      if(FCF.isSelected()) {
                         cvMFP.SeleccionarFuncionCoste(1);
                     }
@@ -169,39 +203,6 @@ public class VistaMFP extends PrimerNivel {
             worker.start(); 
             } 
         });
-        
-        Consultar = new JPanel();
-        Consultar.setBackground(SystemColor.activeCaption);
-        Central.addTab("Salida",Consultar);
-        Consultar.setLayout(null);
-        Consultar.setBounds(0, 0, 700, 500);
-        
-        STotal = new JRadioButton("Salida Total");
-        STotal.setSelected(false);
-        STotal.setOpaque(false);
-        STotal.setBounds(100, 25, 120, 20);
-        Consultar.add(STotal);
-        
-        SParcial = new JRadioButton("Salida Parcial");
-        SParcial.setSelected(false);
-        SParcial.setOpaque(false);
-        SParcial.setBounds(230, 25, 120, 20);
-        Consultar.add(SParcial);
-        ButtonGroup gb = new ButtonGroup();
-        gb.add(STotal);
-        gb.add(SParcial);
-                
-        Mostrar = new JButton("Mostrar");
-        Mostrar.setBounds(250, 360, 200, 50);
-        Consultar.add(Mostrar);
-       
-        final JTextArea TA = new JTextArea(); 
-        TA.setEnabled(true);
-        TA.setEditable(false);
-        TA.setBounds(50, 50, 600, 370);
-        JScrollPane Sal = new JScrollPane(TA);
-        Sal.setBounds(50, 50, 600, 300);
-        Consultar.add(Sal);
         
         Mostrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent a) {
