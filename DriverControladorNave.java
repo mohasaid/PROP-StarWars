@@ -1,7 +1,5 @@
 import java.util.*;
  
- 
- 
 public class DriverControladorNave{
     public void Executa(Scanner sc, ControladorNave cn, ControladorPlaneta cp) {
         int n;
@@ -12,7 +10,7 @@ public class DriverControladorNave{
                 +"-----------------------------------------------------------------------------------\n"
                 +"-                                                                                 -\n"
                 +"-   1   TestCrearNave(int idTipo, int idDestino, int idOrigen)                    -\n"
-                +"-   2   TestCrearNaveAuto(int numNaves)                                           -\n"
+                +"-   2   TestCrearNaveAuto()                                                       -\n"
                 +"-   3   TestCrearTipo(int idtipo, int consumo)                                    -\n"
                 +"-   4   TestCrearTipoAuto()                                                       -\n"
                 +"-   5   TestConsultarNaves()                                                      -\n"
@@ -57,7 +55,7 @@ public class DriverControladorNave{
             case 18: TestModificaConsumo(sc,cn);break;
             case 19: TestEliminarNave(sc,cn);break;
             case 20: TestGuardarNaves(sc,cn);break;
-            case 21: TestCargarNaves(sc,cn);break;
+            case 21: TestCargarNaves(sc,cn,cp);break;
             case 22: TestEliminarNaves(cn);break;
             default: System.out.println("Opcion incorrecta");
             }
@@ -71,7 +69,15 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador del tipo de nave debe ser un entero\n");
                     }
                     int tipoID = sc.nextInt();
+                    while(!sc.hasNextInt()){
+                        String s = sc.nextLine();
+                        throw new Exception("Error: El identificador del planeta destino debe ser un entero\n");
+                    }
                     String destID = sc.next();
+                    while(!sc.hasNextInt()){
+                        String s = sc.nextLine();
+                        throw new Exception("Error: El identificador del planeta origen debe ser un entero\n");
+                    }
                     String origID = sc.next();
                     
                     if(!cp.ExistePlaneta(destID)){
@@ -101,7 +107,7 @@ public class DriverControladorNave{
                     System.out.print(e);
                 }
             }
-             
+            
             public static void TestCrearTipo(Scanner sc, ControladorNave cn){
                 try{
                     while(!sc.hasNextInt()){
@@ -140,7 +146,7 @@ public class DriverControladorNave{
                     String orig = cn.ConsultarPlanetaOrigen(id);
                     int tipo = cn.ConsultarTipo(id);
                     int cons = cn.ConsultarConsumo(id);
-                    System.out.println("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", origen: " + orig + ", destino: " + dest);
+                    System.out.print("id: " + id + ", tipo: " + tipo + ", consumo:  "+ cons +", origen: " + orig + ", destino: " + dest + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -166,7 +172,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    System.out.println(cn.ConsultarPlanetaDestino(id));
+                    System.out.print(cn.ConsultarPlanetaDestino(id) + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -179,7 +185,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
-                    System.out.println(cn.ConsultarPlanetaOrigen(id));
+                    System.out.print(cn.ConsultarPlanetaOrigen(id) + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -193,7 +199,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idnave = sc.nextInt();
-                    System.out.println(cn.ConsultarTipo(idnave));
+                    System.out.print(cn.ConsultarTipo(idnave));
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -207,7 +213,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idnave = sc.nextInt();
-                    System.out.println(cn.ConsultarConsumo(idnave));
+                    System.out.print(cn.ConsultarConsumo(idnave) + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -220,7 +226,7 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int idtipo = sc.nextInt();
-                    System.out.println(cn.ConsultarConsumoTipo(idtipo));
+                    System.out.print(cn.ConsultarConsumoTipo(idtipo) + "\n");
                 }
                 catch (Exception e){
                     System.out.print(e);
@@ -252,6 +258,10 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
+                    while(!sc.hasNextInt()){
+                        String s = sc.nextLine();
+                        throw new Exception("Error: El nuevo identificador debe ser un entero\n");
+                    }
                     String destID = sc.next();
                     cn.ModificaDestino(id, destID);
                 }
@@ -266,6 +276,10 @@ public class DriverControladorNave{
                         throw new Exception("Error: El identificador debe ser un entero\n");
                     }
                     int id = sc.nextInt();
+                    while(!sc.hasNextInt()){
+                        String s = sc.nextLine();
+                        throw new Exception("Error: El nuevo identificador debe ser un entero\n");
+                    }
                     String origID = sc.next();
                     cn.ModificaDestino(id, origID);
                 }
@@ -348,10 +362,10 @@ public class DriverControladorNave{
                        System.out.print(e);
                    }
             }
-            public static void TestCargarNaves(Scanner sc, ControladorNave cn){
+            public static void TestCargarNaves(Scanner sc, ControladorNave cn, ControladorPlaneta cp){
             	try{
             		String s = sc.next();
-            		cn.CargarNaves(s);
+            		cn.CargarNaves(s, cp);
             	}
             	catch(Exception e){
             		System.out.print(e);
